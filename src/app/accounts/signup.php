@@ -1,16 +1,12 @@
 <?php
-//ログイン画面のPHP
+//サインアップのPHP(未機能)
+
 //ファイルの読み込み
 require_once "db_connect.php";
 require_once "functions.php";
-//セッション開始
-session_start();
 
-// セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
+//セッションの開始
+session_start();
 
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
@@ -18,16 +14,14 @@ $datas = [
     'password'  => '',
     'confirm_password'  => ''
 ];
-$login_err = "";
 
 //GET通信だった場合はセッション変数にトークンを追加
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
     setToken();
 }
-
-//POST通信だった場合はログイン処理を開始
+//POST通信だった場合はDBへの新規登録処理を開始
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    ////CSRF対策
+    //CSRF対策
     checkToken();
 
     // POSTされてきたデータを変数に格納
@@ -38,32 +32,50 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // バリデーション
-    $errors = validation($datas,false);
-    if(empty($errors)){
-        //ユーザーネームから該当するユーザー情報を取得
-        $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
+    $errors = validation($datas);
+
+    //データベースの中に同一ユーザー名が存在していないか確認
+    if(empty($errors['username'])){
+        $sql = "SELECT id FROM users WHERE username = :username";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->execute();
-
-        //ユーザー情報があれば変数に格納
         if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            //パスワードがあっているか確認
-            // if (password_verify($datas['password'],$row['password'])) { //パスワードチェックがあるとDB手打ち時にログインできなかったため、暫定コメント化
-                //セッションIDをふりなおす
-                session_regenerate_id(true);
-                //セッション変数にログイン情報を格納
-                $_SESSION["loggedin"] = true;
-                $_SESSION["user_id"] = $row['user_id'];
-                $_SESSION["username"] =  $row['username'];
-                //ウェルカムページへリダイレクト
-                header("location:welcome.php");
-                exit();
-            // } else {
-            //     $login_err = 'Invalid username or password.';
-            // }
-        }else {
-            $login_err = 'Invalid username or password.';
+            $errors['username'] = 'This userusername is already taken.';
+        }
+    }
+    //エラーがなかったらDBへの新規登録を実行
+    if(empty($errors)){
+        $params = [
+            'id' =>null,
+            'username'=>$datas['username'],
+            'password'=>password_hash($datas['password'], PASSWORD_DEFAULT),
+        ];
+
+        $count = 0;
+        $columns = '';
+        $values = '';
+        foreach (array_keys($params) as $key) {
+            if($count > 0){
+                $columns .= ',';
+                $values .= ',';
+            }
+            $columns .= $key;
+            $values .= ':'.$key;
+            $count++;
+        }
+
+        $pdo->beginTransaction();//トランザクション処理
+        try {
+            $sql = 'insert into users ('.$columns .')values('.$values.')';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $pdo->commit();
+            header("location: login.php");
+            exit;
+        } catch (PDOException $e) {
+            echo 'ERROR: Could not register.';
+            $pdo->rollBack();
         }
     }
 }
@@ -73,7 +85,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign Up</title>
+    <!-- bootstrap読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{
@@ -88,15 +101,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
-
-        <?php 
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
-        ?>
-
+        <h2>Sign Up</h2>
+        <p>Please fill this form to create an account.</p>
         <form action="<?php echo $_SERVER ['SCRIPT_NAME']; ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
@@ -109,11 +115,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </div>
             <div class="form-group">
-                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control <?php echo (!empty(h($errors['confirm_password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['confirm_password']); ?>">
+                <span class="invalid-feedback"><?php echo h($errors['confirm_password']); ?></span>
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a></p>
+            <div class="form-group">
+                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-    </div>
+    </div>    
 </body>
 </html>
