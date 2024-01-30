@@ -1,0 +1,76 @@
+@use "../global" as g;
+@use "../foundation/mixin" as m;
+
+.p-section {
+  &__mission {
+    margin: 4rem 0 0;
+
+    .mission {
+      @include m.base;
+
+      &-box {
+        cursor: pointer;
+      }
+
+      .complete {
+        background-color: lightgray;
+        cursor: default;
+      }
+
+      &-box:last-child:hover,
+      .complete:last-child {
+        border-radius: 0 0 4rem 4rem;
+      }
+
+      @media screen and (min-width: 750px) {
+        &-add,
+        &-box:not(:last-child),
+        &-box {
+          padding: 3px 25rem;
+        }
+      }
+
+      // &-box:not(:last-child):hover,
+      &-box:not(.complete):hover {
+        background-color: orangered;
+      }
+
+      &-box__overview {
+        justify-content: space-between;
+        // input {
+        // }
+        p {
+          font-size: 2rem;
+        }
+      }
+
+      &-add {
+        display: block;
+        padding: 3px 20rem;
+        text-align: center;
+        font-size: 2rem;
+
+        input[type=submit] {
+          font-size: 2rem;
+        }
+
+        &__overview {
+          // gap: 0rem;
+          padding: 3px;
+          justify-content: space-between;
+
+          input[type=number],
+          input[type=text] {
+            font-size: 2rem;
+            width: 75%;
+            background-color: #fff;
+          }
+        }
+      }
+    }
+
+    &.hide {
+      display: none;
+    }
+  }
+}
