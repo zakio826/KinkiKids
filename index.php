@@ -1,2 +1,2 @@
 <?php 
-header("Location: ./KinkiKids");
+header("Location: ./src/app/");
