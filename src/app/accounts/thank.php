@@ -13,7 +13,7 @@
         <h1>会員登録が完了しました。</h1>
         <p>下のボタンよりログインページに移動してください。</p>
         <br><br>
-        <a href="login.php"><button class="btn">ログインページに移動する</button></a>
+        <a href="./login.php"><button class="btn">ログインページに移動する</button></a>
     </div>
 </body>
 </html>

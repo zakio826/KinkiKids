@@ -1,6 +1,6 @@
 <?php
-    require("./db_connect.php");
-    require("./check_class.php");
+    require("../../../config/db_connect.php");
+    require("../../../lib/check_class.php");
     session_start();
     // データベース接続を行う
     $db = new connect();
@@ -59,7 +59,7 @@
             </div> -->
             
             <br>
-            <a href="entry.php" class="back-btn">変更する</a>
+            <a href="./entry.php" class="back-btn">変更する</a>
             <button type="submit" class="btn next-btn">登録する</button>
             <div class="clear"></div>
         </form>

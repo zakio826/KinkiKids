@@ -2,8 +2,8 @@
 //サインアップのPHP(未機能)
 
 //ファイルの読み込み
-require_once "db_connect.php";
-require_once "functions.php";
+require_once("../../../config/db_connect.php");
+require_once("../../../lib/functions.php");
 
 //セッションの開始
 session_start();
@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
             $pdo->commit();
-            header("location: login.php");
+            header("Location: ./login.php");
             exit;
         } catch (PDOException $e) {
             echo 'ERROR: Could not register.';
@@ -123,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Submit">
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <p>Already have an account? <a href="./login.php">Login here</a>.</p>
         </form>
     </div>    
 </body>

@@ -1,14 +1,14 @@
 <?php
 //ログイン画面のPHP
 //ファイルの読み込み
-require_once "db_connect.php";
-require_once "functions.php";
+require_once("../../../config/db_connect.php");
+require_once("../../../lib/functions.php");
 //セッション開始
 session_start();
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
+    header("Location: ./welcome.php");
     exit;
 }
 
@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["user_id"] = $row['user_id'];
                 $_SESSION["username"] =  $row['username'];
                 //ウェルカムページへリダイレクト
-                header("location:welcome.php");
+                header("Location: ./welcome.php");
                 exit();
             // } else {
             //     $login_err = 'Invalid username or password.';
@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a></p>
+            <p>Don't have an account? <a href="./signup.php">Sign up now</a></p>
         </form>
     </div>
 </body>
