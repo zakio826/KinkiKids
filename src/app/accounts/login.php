@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $errors = validation($datas,false);
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
-        $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
+        $sql = "SELECT user_id,username,password,first_login FROM user WHERE username = :username";
         $stmt = $db->prepare($sql);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->execute();
@@ -59,8 +59,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["loggedin"] = true;
                 $_SESSION["user_id"] = $row['user_id'];
                 $_SESSION["username"] =  $row['username'];
-                //ウェルカムページへリダイレクト
-                header("Location: ./welcome.php");
+                //初回ログイン時の処理
+                if (empty($row['first_login'])) {
+                    $sql = "UPDATE user SET first_login = 1 WHERE user_id = " . $row['user_id'];
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute();
+                    //ウェルカムページへリダイレクト
+                    header("Location: ./welcome.php");
+                } else {
+                    //トップページへリダイレクト
+                    header("Location: ../chat/testpoint.php");
+                }
                 exit();
             // } else {
             //     $login_err = 'Invalid username or password.';
