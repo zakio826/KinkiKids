@@ -12,6 +12,9 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
 
+// データベース接続を行う
+$db = new connect();
+
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
     'username'  => '',
@@ -42,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
         $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $db->prepare($sql);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->execute();
 
