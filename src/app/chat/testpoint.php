@@ -2,8 +2,8 @@
 <?php 
 // test
 session_start();
-require("./db_connect.php");
-require("./testpoint_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/testpoint_class.php");
 
 
 // データベース接続を行う
