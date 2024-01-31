@@ -1,10 +1,12 @@
 <?php
-//ログイン画面のPHP
 //ファイルの読み込み
 require_once "db_connect.php";
-require_once "functions.php";
+require_once "function.php";
 //セッション開始
 session_start();
+
+$db = new connect();
+$pdo = $db;
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -43,13 +45,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //ユーザーネームから該当するユーザー情報を取得
         $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
+        // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
+        $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
         $stmt->execute();
 
         //ユーザー情報があれば変数に格納
         if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             //パスワードがあっているか確認
-            // if (password_verify($datas['password'],$row['password'])) { //パスワードチェックがあるとDB手打ち時にログインできなかったため、暫定コメント化
+            if (password_verify($datas['password'],$row['password'])) {
                 //セッションIDをふりなおす
                 session_regenerate_id(true);
                 //セッション変数にログイン情報を格納
@@ -59,9 +62,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 //ウェルカムページへリダイレクト
                 header("location:welcome.php");
                 exit();
-            // } else {
-            //     $login_err = 'Invalid username or password.';
-            // }
+            } else {
+                $login_err = 'Invalid username or password.';
+            }
         }else {
             $login_err = 'Invalid username or password.';
         }
