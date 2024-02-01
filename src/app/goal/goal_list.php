@@ -46,7 +46,7 @@ $goals = $goal->getUserGoals($user_id);
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="index.php" class="btn btn-primary">インデックス</a>
+            <a href="../index.php" class="btn btn-primary">インデックス</a>
         </p>
     </div>
 </body>
