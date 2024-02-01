@@ -42,8 +42,9 @@ unset($_SESSION['join']);
 
 
         <p class="mt-3">
-            <a href="index.php" class="btn btn-primary">戻る</a>
+            <a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a>
         </p>
+
     </div>
 </body>
 </html>
