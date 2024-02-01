@@ -1,3 +1,18 @@
+<?php
+$url_path = explode("/", $_SERVER["REQUEST_URI"]);
+
+$absolute_path = "../";
+for ($i = 3; $i < count($url_path); $i++) {
+    $absolute_path .= "../";
+}
+
+// if ($_SERVER["REQUEST_URI"] === "/src/app/index.php") {
+//     $static_path = "../../static/";
+// } else {
+//     $static_path = "../../../static/";
+// }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -21,8 +36,12 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" href="../../../static/assets/favicon.ico">
+        <!-- カスタムスタイルシート -->
+        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.min.css">
+
+        <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
         <title>金記キッズ｜<?php echo $page_title; ?></title>
     </head>
 
-    <body>
+    <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
+        <!-- <p><?php echo count($url_path); ?></p> -->
