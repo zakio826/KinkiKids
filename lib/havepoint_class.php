@@ -11,9 +11,9 @@ class havepoint{
     public function display_point(){
         //$_SESSION["id"] = 10;
         // $this->db が null でないことを確認
-        $_SESSION["id"] = 6;
-        echo "<p>ID=".$_SESSION["id"]."</p>";
-        echo "<br>";
+        // $_SESSION["id"] = 6;
+        // echo "<p>ID=".$_SESSION["id"]."</p>";
+        // echo "<br>";
 
         if ($this->db !== null) { 
             if(isset($_SESSION["id"])){
