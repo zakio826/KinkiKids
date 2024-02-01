@@ -1,7 +1,7 @@
 <?php
 
-require("./db_connect.php");
-require("./goal_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/goal_class.php");
 session_start();
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){

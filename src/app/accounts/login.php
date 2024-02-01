@@ -1,7 +1,7 @@
 <?php
 //ファイルの読み込み
-require_once "db_connect.php";
-require_once "function.php";
+require("../../../config/db_connect.php");
+require("../../../lib/functions.php");
 //セッション開始
 session_start();
 

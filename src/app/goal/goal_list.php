@@ -1,8 +1,8 @@
 <?php
 // goal_list.php
 
-require("./db_connect.php");
-require("./goal_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/goal_class.php");
 session_start();
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -46,7 +46,7 @@ $goals = $goal->getUserGoals($user_id);
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="index.php" class="btn btn-primary">インデックス</a>
+            <a href="../index.php" class="btn btn-primary">インデックス</a>
         </p>
     </div>
 </body>
