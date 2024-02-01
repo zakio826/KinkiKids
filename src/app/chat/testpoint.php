@@ -2,8 +2,8 @@
 <?php 
 // test
 session_start();
-require("../../../config/db_connect.php");
-require("../../../lib/testpoint_class.php");
+require("./config/db_connect.php");
+require("./lib/testpoint_class.php");
 
 
 // データベース接続を行う
@@ -12,14 +12,13 @@ $db = new connect();
 // entryクラスのインスタンスを作成
 $testpoint = new testpoint($db);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>テストポイント</title>
-</head>
-<body>
+
+<?php
+$page_title = "テストポイント";
+require_once($include_path . "header.php");
+?>
+
+<main>
     <p>★LINEテスト★</p>
     <?php $testpoint->role_select(); ?>
 
@@ -29,5 +28,6 @@ $testpoint = new testpoint($db);
     <p>★持ちポイント★</p>
     <p>まだ</p>
     <!-- <?php $testpoint->role_select(); ?> -->
-</body>
-</html>
+</main>
+
+<?php require_once($include_path . "footer.php"); ?>

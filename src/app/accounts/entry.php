@@ -11,14 +11,13 @@ $db = new connect();
 // entryクラスのインスタンスを作成
 $entry = new entry($db);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>アカウント作成</title>
-</head>
-<body>
+
+<?php
+$page_title = "アカウント作成";
+require_once($include_path . "header.php");
+?>
+
+<main>
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント作成</h1>
@@ -29,7 +28,7 @@ $entry = new entry($db);
                 <label for="username">ユーザー名</label>
                 <input id="username" type="text" name="username">
             </div>
- 
+
             <div class="control">
                 <label for="password">パスワード</label>
                 <input id="password" type="password" name="password">
@@ -85,5 +84,6 @@ $entry = new entry($db);
             </div>
         </form>
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once($include_path . "footer.php"); ?>

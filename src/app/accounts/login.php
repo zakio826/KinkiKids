@@ -81,24 +81,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{
-            font: 14px sans-serif;
-        }
-        .wrapper{
-            width: 400px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body>
+<?php
+$page_title = "ログイン";
+require_once($include_path . "header.php");
+?>
+
+<main>
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
@@ -127,5 +115,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Don't have an account? <a href="./signup.php">Sign up now</a></p>
         </form>
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once($include_path . "footer.php"); ?>
