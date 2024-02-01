@@ -67,7 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     //ウェルカムページへリダイレクト
                     header("Location: ./welcome.php");
                 } else {
-                    //トップページへリダイレクト
+                    //ホームページへリダイレクト
                     header("Location: ./chat/testpoint.php");
                 }
                 exit();
@@ -112,7 +112,7 @@ require_once($include_path . "header.php");
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="./signup.php">Sign up now</a></p>
+            <p>Don't have an account? <a href="./entry.php">Sign up now</a></p>
         </form>
     </div>
 </main>
