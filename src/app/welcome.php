@@ -4,7 +4,7 @@
 session_start();
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("Location: ./login.php");
     exit;
 }
 ?>
@@ -25,7 +25,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
     <h1 class="my-5">Hi,<b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+        <a href="./logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
     </p>
     <a href="../index.php">ホーム</a>
     <a href="../point/help_add.php">お手伝い</a>
