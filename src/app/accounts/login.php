@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a></p>
+            <p>Don't have an account? <a href="entry.php">Sign up now</a></p>
         </form>
     </div>
 </body>

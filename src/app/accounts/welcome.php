@@ -27,5 +27,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <p>
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
     </p>
+    <a href="../index.php">ホーム</a>
+    <a href="../point/help_add.php">お手伝い</a>
+    <a href="../goal/goal.php">目標</a>
 </body>
 </html>

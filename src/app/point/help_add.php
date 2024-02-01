@@ -1,7 +1,7 @@
 <?php
 session_start();
-require("./db_connect.php");
-require("./help_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/help_class.php");
 
 $db = new connect();
 $help = new help($db);
@@ -49,7 +49,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="welcome.php" class="btn btn-primary">ホーム</a>
+            <a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a>
         </p>
     </div>
 </body>
