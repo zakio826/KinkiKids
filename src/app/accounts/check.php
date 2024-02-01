@@ -1,22 +1,18 @@
 <?php
-    require("./db_connect.php");
-    require("./check_class.php");
+    require("./config/db_connect.php");
+    require("./lib/check_class.php");
     session_start();
     // データベース接続を行う
     $db = new connect();
-    checkUser($db,$_SESSION['join'])
+    checkUser($db, $_SESSION['join']);
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>確認画面</title>
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <link href="https://unpkg.com/sanitize.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+
+<?php
+$page_title = "確認画面";
+require_once($include_path . "header.php");
+?>
+
+<main>
     <div class="content">
         <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
@@ -59,10 +55,11 @@
             </div> -->
             
             <br>
-            <a href="entry.php" class="back-btn">変更する</a>
+            <a href="./entry.php" class="back-btn">変更する</a>
             <button type="submit" class="btn next-btn">登録する</button>
             <div class="clear"></div>
         </form>
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once($include_path . "footer.php"); ?>

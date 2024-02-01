@@ -2,8 +2,8 @@
 //サインアップのPHP(未機能)
 
 //ファイルの読み込み
-require_once "db_connect.php";
-require_once "functions.php";
+require_once("./config/db_connect.php");
+require_once("./lib/functions.php");
 
 //セッションの開始
 session_start();
@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
             $pdo->commit();
-            header("location: login.php");
+            header("Location: ./login.php");
             exit;
         } catch (PDOException $e) {
             echo 'ERROR: Could not register.';
@@ -81,25 +81,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <!-- bootstrap読み込み -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{
-            font: 14px sans-serif;
-        }
-        .wrapper{
-            width: 400px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body>
+<?php
+$page_title = "サインアップ";
+require_once($include_path . "header.php");
+?>
+
+<main>
     <div class="wrapper">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
@@ -123,8 +110,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Submit">
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <p>Already have an account? <a href="./login.php">Login here</a>.</p>
         </form>
     </div>    
-</body>
-</html>
+</main>
+
+<?php require_once($include_path . "footer.php"); ?>
