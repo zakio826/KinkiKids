@@ -101,7 +101,7 @@ require_once("../include/header.php");
         }        
         ?>
 
-        <form action="<?php echo $_SERVER["PATH_INFO"]; ?>" method="post">
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
