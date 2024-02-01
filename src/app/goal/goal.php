@@ -1,4 +1,4 @@
-<!-- ユーザー登録ページ -->
+<!-- 目標登録ページ -->
 <?php 
 // test
 require("../../../config/db_connect.php");

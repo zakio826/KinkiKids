@@ -1,6 +1,6 @@
 <?php
 // test
-class testpoint{
+class havepoint{
     private $error; // エラー情報を保持するプロパティ
     private $db; // データベース接続を保持するプロパティ
 
@@ -8,40 +8,34 @@ class testpoint{
         $this->db = $db;
         $this->error = []; // 初期化
     }
-    public function role_select(){
+    public function display_point(){
         //$_SESSION["id"] = 10;
         // $this->db が null でないことを確認
+        $_SESSION["id"] = 6;
+        echo "<p>ID=".$_SESSION["id"]."</p>";
+        echo "<br>";
+
         if ($this->db !== null) { 
             if(isset($_SESSION["id"])){
-                $sql = "SELECT sender_id,receiver_id,messagetext,sent_time FROM line_message WHERE receiver_id = ";
+                $sql = "SELECT have_points FROM child_data WHERE user_id = ";
                 $id = $_SESSION["id"];
                 $sql = $sql.$id;
                 $stmt = $this->db->query($sql);
                 $f = true;
                 foreach($stmt as $record){
                     $f = false;
-                    echo "メッセージ:";
-                    echo $record[2];
-                    echo "<br>";
-                    echo "送信日:";
-                    echo $record[3];
+                    echo "現在のポイント:";
+                    echo $record[0];
                     echo "<br><br>";
                 }
                 if ($f){
-                    echo "<p>メッセージはありません</p>";
+                    echo "<p>子供でログインせい</p>";
                 }
             }else{
-                echo "ログインせい";
+                echo "<p>ログインせい</p>";
             }
         }else{
             echo "<p>エラー</p>";
-        }
-    }
-    public function sessiontest(){
-        if(isset($_SESSION["user_id"])){
-            echo "ログインしております";
-        }else{
-            echo "ログインしてや";
         }
     }
 }
