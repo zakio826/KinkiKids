@@ -38,6 +38,11 @@ class testpoint{
         }
     }
     public function sessiontest(){
+        // echo "role_id=".$_SESSION["role_id"]."<br>";
+        // echo "select=".$_SESSION["select"]."<br>";
+        // echo "admin_flag=".$_SESSION["admin_flag"]."<br>";
+        // $c = floor($_SESSION["role_id"]/ 10);
+        // echo "kore".$c;
         if(isset($_SESSION["user_id"])){
             echo "ログインしております";
         }else{

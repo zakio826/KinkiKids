@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $errors = validation($datas,false);
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
-        $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
+        $sql = "SELECT user_id,username,password,role_id,admin_flag FROM user WHERE username = :username";
         $stmt = $pdo->prepare($sql);
         // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
@@ -59,6 +59,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["loggedin"] = true;
                 $_SESSION["user_id"] = $row['user_id'];
                 $_SESSION["username"] =  $row['username'];
+                $_SESSION["role_id"] =  $row['role_id'];
+                $_SESSION["admin_flag"] =  $row['admin_flag'];
+                if (floor($row['role_id'] / 10 ) == 2){
+                    $_SESSION["select"] = 'adult';
+                }else{
+                    $_SESSION["select"] = 'child';
+                }
+                
                 //ウェルカムページへリダイレクト
                 header("location:welcome.php");
                 exit();
