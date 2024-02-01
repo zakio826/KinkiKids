@@ -2,8 +2,8 @@
 //サインアップのPHP(未機能)
 
 //ファイルの読み込み
-require_once "db_connect.php";
-require_once "functions.php";
+require("../../../config/db_connect.php");
+require("../../../lib/functions.php");
 
 //セッションの開始
 session_start();
