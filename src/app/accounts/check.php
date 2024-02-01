@@ -1,6 +1,6 @@
 <?php
-    require("../../../config/db_connect.php");
-    require("../../../lib/check_class.php");
+    require("./config/db_connect.php");
+    require("./lib/check_class.php");
     session_start();
     // データベース接続を行う
     $db = new connect();

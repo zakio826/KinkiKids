@@ -1,8 +1,8 @@
 <?php
 //ログイン画面のPHP
 //ファイルの読み込み
-require_once("../../../config/db_connect.php");
-require_once("../../../lib/functions.php");
+require_once("./config/db_connect.php");
+require_once("./lib/functions.php");
 //セッション開始
 session_start();
 
@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     header("Location: ./welcome.php");
                 } else {
                     //トップページへリダイレクト
-                    header("Location: ../chat/testpoint.php");
+                    header("Location: ./chat/testpoint.php");
                 }
                 exit();
             // } else {

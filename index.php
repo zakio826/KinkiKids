@@ -1,2 +1,4 @@
 <?php 
-header("Location: ./src/app/");
+
+// header("Location: ./src/app/");
+require_once("./config/routes.php");
