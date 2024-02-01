@@ -2,8 +2,8 @@
 <?php 
 // test
 session_start();
-require("./config/db_connect.php");
-require("./lib/testpoint_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/testpoint_class.php");
 
 
 // データベース接続を行う
@@ -15,7 +15,7 @@ $testpoint = new testpoint($db);
 
 <?php
 $page_title = "テストポイント";
-require_once($include_path . "header.php");
+require_once("../include/header.php");
 ?>
 
 <main>
@@ -30,4 +30,4 @@ require_once($include_path . "header.php");
     <!-- <?php $testpoint->role_select(); ?> -->
 </main>
 
-<?php require_once($include_path . "footer.php"); ?>
+<?php require_once("../include/footer.php"); ?>

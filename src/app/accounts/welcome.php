@@ -9,20 +9,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ 
-            font: 14px sans-serif;
-            text-align: center; 
-        }
-    </style>
-</head>
-<body>
+<?php
+$page_title = "Welcome";
+require_once("../include/header.php");
+?>
+
+<main>
     <h1 class="my-5">Hi,<b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>
         <a href="./logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
@@ -30,5 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <a href="../index.php">ホーム</a>
     <a href="../point/help_add.php">お手伝い</a>
     <a href="../goal/goal.php">目標</a>
-</body>
-</html>
+</main>
+
+<?php require_once("../include/footer.php"); ?>
+

@@ -2,8 +2,8 @@
 //サインアップのPHP(未機能)
 
 //ファイルの読み込み
-require_once("./config/db_connect.php");
-require_once("./lib/functions.php");
+require_once("../../../config/db_connect.php");
+require_once("../../../lib/functions.php");
 
 //セッションの開始
 session_start();
@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <?php
 $page_title = "サインアップ";
-require_once($include_path . "header.php");
+require_once("../include/header.php");
 ?>
 
 <main>
@@ -115,4 +115,4 @@ require_once($include_path . "header.php");
     </div>    
 </main>
 
-<?php require_once($include_path . "footer.php"); ?>
+<?php require_once("../include/footer.php"); ?>

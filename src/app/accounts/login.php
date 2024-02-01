@@ -1,7 +1,7 @@
 <?php
 //ファイルの読み込み
-require_once("./config/db_connect.php");
-require_once("./lib/functions.php");
+require_once("../../../config/db_connect.php");
+require_once("../../../lib/functions.php");
 //セッション開始
 session_start();
 
@@ -10,7 +10,7 @@ $pdo = $db;
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("Location: ./welcome.php");
+    header("Location: ../welcome.php");
     exit;
 }
 
@@ -71,7 +71,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     header("Location: ./welcome.php");
                 } else {
                     //ホームページへリダイレクト
-                    header("Location: ./chat/testpoint.php");
+                    header("Location: ./welcome.php");
+                    // header("Location: ../chat/testpoint.php");
                 }
                 exit();
             } else {
@@ -86,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <?php
 $page_title = "ログイン";
-require_once($include_path . "header.php");
+require_once("../include/header.php");
 ?>
 
 <main>
@@ -120,4 +121,4 @@ require_once($include_path . "header.php");
     </div>
 </main>
 
-<?php require_once($include_path . "footer.php"); ?>
+<?php require_once("../include/footer.php"); ?>

@@ -6,7 +6,7 @@ require("../../../lib/goal_class.php");
 session_start();
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("Location: ../accounts/login.php");
     exit;
 }
 
@@ -20,14 +20,12 @@ $user_id = $_SESSION["user_id"];
 $goals = $goal->getUserGoals($user_id);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>目標一覧</title>
-</head>
-<body>
+<?php
+$page_title = "目標一覧";
+require_once("../include/header.php");
+?>
+
+<main>
     <div class="content">
         <h1>登録した目標一覧</h1>
 
@@ -49,5 +47,7 @@ $goals = $goal->getUserGoals($user_id);
             <a href="../index.php" class="btn btn-primary">インデックス</a>
         </p>
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once("../include/footer.php"); ?>
+

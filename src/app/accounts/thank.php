@@ -1,6 +1,6 @@
 <?php
 $page_title = "会員登録完了";
-require_once($include_path . "header.php");
+require_once("../include/header.php");
 ?>
 
 <main>
@@ -12,4 +12,4 @@ require_once($include_path . "header.php");
     </div>
 </main>
 
-<?php require_once($include_path . "footer.php"); ?>
+<?php require_once("../include/footer.php"); ?>

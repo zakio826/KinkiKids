@@ -1,8 +1,8 @@
 <!-- ユーザー登録ページ -->
 <?php 
 // test
-require("./config/db_connect.php");
-require("./lib/entry_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/entry_class.php");
 session_start();
 
 // データベース接続を行う
@@ -14,7 +14,7 @@ $entry = new entry($db);
 
 <?php
 $page_title = "アカウント作成";
-require_once($include_path . "header.php");
+require_once("../include/header.php");
 ?>
 
 <main>
@@ -86,4 +86,4 @@ require_once($include_path . "header.php");
     </div>
 </main>
 
-<?php require_once($include_path . "footer.php"); ?>
+<?php require_once("../include/footer.php"); ?>
