@@ -36,7 +36,7 @@ class goal{
 
                 $this->saveGoalToDatabase();
 
-                header('Location: goal_check.php');
+                header('Location: ./goal_check.php');
                 exit();
             }
         }
