@@ -36,6 +36,7 @@ require_once("../include/header.php");
         <p class="mt-3">
             <a href="../index.php" class="btn btn-primary">戻る</a>
         </p>
+
     </div>
 </main>
 

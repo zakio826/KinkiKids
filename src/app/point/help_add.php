@@ -31,7 +31,7 @@ require_once("../include/header.php");
     </form>
 
     <div class="content">
-        <h1>登録した目標一覧</h1>
+        <h1>お手伝い一覧</h1>
 
         <?php if (empty($helps)): ?>
             <p>登録した目標はありません。</p>
