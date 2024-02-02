@@ -1,3 +1,8 @@
+
+<?php
+$page_title = "ポイント表示";
+require_once("../include/header.php");
+?>
 <?php 
 require("../../../lib/havepoint_class.php");
 
@@ -6,11 +11,6 @@ require("../../../lib/havepoint_class.php");
 $havepoint = new havepoint($db);
 ?>
 
-
-<?php
-$page_title = "ポイント表示";
-require_once("../include/header.php");
-?>
 
 <main>
     <p>★手持ちポイント★</p>

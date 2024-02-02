@@ -1,12 +1,13 @@
 <!-- 目標登録ページ -->
-<?php 
-require("../../../lib/goal_class.php");
-$goal = new goal($db);
-?>
 
 <?php
 $page_title = "目標設定";
 require_once("../include/header.php");
+?>
+
+<?php 
+require("../../../lib/goal_class.php");
+$goal = new goal($db);
 ?>
 
 <!-- CSSファイルのリンクを追加 -->

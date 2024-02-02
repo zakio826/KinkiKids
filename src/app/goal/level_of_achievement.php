@@ -1,5 +1,11 @@
 <!-- goal_check.php -->
 
+
+<?php
+$page_title = "目標達成度";
+require_once("../include/header.php");
+?>
+
 <?php
 require("../../../lib/level_of_achievement_class.php");
 $level_of_achievement_class = new level_of_achievement_class($db);
@@ -11,12 +17,6 @@ $requiredpoint = $level_of_achievement_class->getRequired_point();
 $onerequiredpoint = $level_of_achievement_class->getOnerequired_point();
 unset($_SESSION['join']);
 ?>
-
-<?php
-$page_title = "目標達成度";
-require_once("../include/header.php");
-?>
-
 <main>
     <div class="container">
     <h1>達成度の状況</h1>

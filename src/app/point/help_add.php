@@ -1,3 +1,8 @@
+
+<?php
+$page_title = "お手伝い登録";
+require_once("../include/header.php");
+?>
 <?php
 require("../../../lib/help_class.php");
 $help = new help($db);
@@ -6,11 +11,6 @@ $user_id = $_SESSION["user_id"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($user_id);
-?>
-
-<?php
-$page_title = "お手伝い登録";
-require_once("../include/header.php");
 ?>
 
 <main>

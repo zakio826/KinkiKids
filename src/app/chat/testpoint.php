@@ -1,15 +1,14 @@
 <!-- ユーザー登録ページ -->
-<?php 
-require("../../../lib/testpoint_class.php");
-
-
-// entryクラスのインスタンスを作成
-$testpoint = new testpoint($db);
-?>
 
 <?php
 $page_title = "テストポイント";
 require_once("../include/header.php");
+?>
+
+<?php 
+require("../../../lib/testpoint_class.php");
+// entryクラスのインスタンスを作成
+$testpoint = new testpoint($db);
 ?>
 
 <main>

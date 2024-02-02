@@ -1,4 +1,9 @@
 <?php
+$page_title = "目標";
+require_once("../include/header.php");
+?>
+
+<?php
 require("../../../lib/goal_class.php");
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -17,13 +22,6 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
 
 unset($_SESSION['join']);
 ?>
-
-<?php
-$page_title = "目標";
-require_once("../include/header.php");
-?>
-
-<link rel="stylesheet" type="text/css" href="../../../static/css/goal_check.css">
 
 <main>
     <div class="container">

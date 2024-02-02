@@ -1,3 +1,10 @@
+
+<?php
+$page_title = "目標一覧";
+require_once("../include/header.php");
+?>
+
+
 <?php
 // goal_list.php
 
@@ -11,13 +18,6 @@ $user_id = $_SESSION["user_id"];
 $goals = $goal->getUserGoals($user_id);
 ?>
 
-<?php
-$page_title = "目標一覧";
-require_once("../include/header.php");
-?>
-
-<!-- Include the list.css file -->
-<link rel="stylesheet" type="text/css" href="../../../list.css">
 
 <main>
     <div class="content">
