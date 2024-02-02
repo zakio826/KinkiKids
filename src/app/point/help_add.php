@@ -8,7 +8,7 @@ $help = new help($db);
 
 $user_id = $_SESSION["user_id"];
 
-$select = $_SESSION["select"];
+//$select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($user_id);
