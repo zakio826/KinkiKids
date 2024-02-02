@@ -1,27 +1,15 @@
+<!-- トップページ画面 -->
+
+<!-- ヘッダー -->
 <?php
-// ホームページ画面PHP
-
-session_start();
-// セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ./accounts/login.php");
-    exit;
-}
-
-require("../../config/db_connect.php");
-require("../../lib/testpoint_class.php");
-$db = new connect();
-$testpoint = new testpoint($db);
-
-$stmt = $db->prepare("SELECT * FROM user WHERE user_id = :user_id");
-$stmt->bindParam(':user_id', $_SESSION["user_id"]);
-$stmt->execute();
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$page_title = "トップページ";
+require_once("./include/header.php");
 ?>
 
 <?php
-$page_title = "ホームページ";
-require_once("./include/header.php");
+// ライブラリのクラスを生成
+require("../../lib/testpoint_class.php");
+$testpoint = new testpoint($db);
 ?>
 
 <style>
@@ -35,28 +23,9 @@ require_once("./include/header.php");
 
 <main>
     <!-- ナビゲーションバー -->
-    <nav class="position-absolute w-100" style="height: 4rem; background-color: lemonchiffon;">
-        <div class="container h-100 px-4">
-            <div class="row align-items-center justify-content-between h-100">
-                <div class="col">
-                    <?php if ($users[0]["role_id"] > 30) : ?>
-                        <h3 class="d-inline">
-                            おなまえ：<span class="px-2"><?php echo $users[0]["last_name"]." ".$users[0]["first_name"]; ?></span>さん
-                        </h3>
-                    <?php else : ?>
-                        <h3 class="row row-cols-3 justify-content-start">
-                            <span class="col-auto">ユーザー名：</span>
-                            <span class="col-auto"><?php echo $users[0]["last_name"]." ".$users[0]["first_name"]; ?></span>
-                            <span class="col-auto">さん</span>
-                        </h3>
-                    <?php endif; ?>
-                </div>
-                <div class="col-auto"><img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40" data-tab="3"></div>
-            </div>
-        </div>
-    </nav>
+    <?php include("./include/nav_bar.php") ?>
 
-    <!-- ホーム画面 -->
+    <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
@@ -83,9 +52,9 @@ require_once("./include/header.php");
 
                 <div class="col- col-md-2">
                     <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
-                        <div class="col-5 col-md py-4 action-btn">
+                        <a class="col-5 col-md py-4 action-btn" href="./record/calendar.php">
                             <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Calendar.png" data-tab="5">
-                        </div>
+                        </a>
                         <div class="col-5 col-md py-4 action-btn">
                             <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Cog.png" data-tab="1">
                         </div>
@@ -97,4 +66,5 @@ require_once("./include/header.php");
     </section>
 </main>
 
+<!-- フッター -->
 <?php require_once("./include/footer.php"); ?>

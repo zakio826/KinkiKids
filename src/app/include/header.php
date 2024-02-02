@@ -1,16 +1,27 @@
 <?php
+// セッション開始
+session_start();
+
+// セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("Location: ./accounts/login.php");
+    exit;
+}
+
+// データベース接続
+require("../../config/db_connect.php");
+$db = new connect();
+?>
+
+<?php
+// 動的にルートディレクトリまで繋げるパスを生成する
 $url_path = explode("/", $_SERVER["REQUEST_URI"]);
 
 $absolute_path = "../";
 for ($i = 3; $i < count($url_path); $i++) {
     $absolute_path .= "../";
 }
-
-// if ($_SERVER["REQUEST_URI"] === "/src/app/index.php") {
-//     $static_path = "../../static/";
-// } else {
-//     $static_path = "../../../static/";
-// }
+// $absolute_pathの後に絶対パスを記述する
 ?>
 
 <!DOCTYPE html>
@@ -54,12 +65,6 @@ for ($i = 3; $i < count($url_path); $i++) {
             max-height: 100%;
             height: 100%;
         }
-        main {
-            position: relative;
-            max-height: 100%;
-            padding-bottom: 4rem;
-        }
     </style>
 
     <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
-        <!-- <p><?php echo count($url_path); ?></p> -->
