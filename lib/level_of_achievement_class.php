@@ -14,9 +14,13 @@ class level_of_achievement_class{
         $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $result['have_points'];
+        if(count($result) != 0){
+            return $result[0]['have_points'];
+        } else {
+            return 0;
+        }
     }
     public function getSavings(){
         $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
@@ -78,8 +82,13 @@ class level_of_achievement_class{
         $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $have_points = $result['have_points'];
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            $have_points = $result[0]['have_points'];
+        } else {
+            $have_points = 0;
+        }
+
 
         $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -116,8 +125,12 @@ class level_of_achievement_class{
         $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $have_points = $result['have_points'];
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            $have_points = $result[0]['have_points'];
+        } else {
+            $have_points = 0;
+        }
 
         $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
