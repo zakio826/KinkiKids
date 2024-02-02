@@ -9,16 +9,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-// if (!isset($_SESSION['join'])) {
-//     header('Location: ./goal.php');
-//     exit();
-// }
+if (!isset($_SESSION['join'])) { //
+    header('Location: ./goal.php');
+    exit();
+}
 
 $targetAmount = $_SESSION['join']['target_amount'];
 $goalDetail = $_SESSION['join']['goal_detail'];
 $goalDeadline = $_SESSION['join']['goal_deadline'];
 
-// unset($_SESSION['join']);
+unset($_SESSION['join']);　//
 ?>
 
 <?php
