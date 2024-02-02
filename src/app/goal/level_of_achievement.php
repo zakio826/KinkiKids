@@ -32,13 +32,17 @@ $have_money = $have_points+$savings;
     <p>ポイント:</strong> <?php echo htmlspecialchars($have_points); ?> ポイント</p>
     <p>貯金:</strong> <?php echo htmlspecialchars($savings); ?> 円</p>
     <hr>
-    <?php for($i=0;$i<count($level_of_achievement_class->getGoal());$i++){ ?>
-        <p>いつまで:<?php echo htmlspecialchars($level_of_achievement_class->getGoal_deadline($i)); ?> </p>
-        <p>内容:<?php echo htmlspecialchars($level_of_achievement_class->getGoal_detail($i)); ?> </p>
-        <p>目標金額:<?php echo htmlspecialchars($level_of_achievement_class->getTarget_amount($i)); ?> 円</p>
-        <p>必要ポイント:<?php echo htmlspecialchars($level_of_achievement_class->getRequired_point($i)); ?> ポイント</p>
-        <p>1日の必要ポイント:<?php echo htmlspecialchars($level_of_achievement_class->getOnerequired_point($i)); ?> ポイント</p>
-        <hr>
+    <?php if(count($level_of_achievement_class->getGoal()) != 0){ ?>
+        <?php for($i=0;$i<count($level_of_achievement_class->getGoal());$i++){ ?>
+            <p>いつまで:<?php echo htmlspecialchars($level_of_achievement_class->getGoal_deadline($i)); ?> </p>
+            <p>内容:<?php echo htmlspecialchars($level_of_achievement_class->getGoal_detail($i)); ?> </p>
+            <p>目標金額:<?php echo htmlspecialchars($level_of_achievement_class->getTarget_amount($i)); ?> 円</p>
+            <p>必要ポイント:<?php echo htmlspecialchars($level_of_achievement_class->getRequired_point($i)); ?> ポイント</p>
+            <p>1日の必要ポイント:<?php echo htmlspecialchars($level_of_achievement_class->getOnerequired_point($i)); ?> ポイント</p>
+            <hr>
+        <?php } ?>
+    <?php } else { ?>
+        <p>目標を設定してください</p>
     <?php } ?>
 
 
