@@ -64,9 +64,9 @@ class help
         $stmt->execute($params);
     }
 
-    public function display_help($user_id) {
-        $stmt = $this->db->prepare("SELECT * FROM help WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
+    public function display_help($family_id) {
+        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
