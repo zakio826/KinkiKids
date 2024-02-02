@@ -84,11 +84,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
+<body>
+
 <main>
+
     <div class="frame">
+    
         <div class="wrapper">
         <!-- <img src="../../../static/assets/login_hiyoko2.png" height="100"> -->
-        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100">
+        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100" class="login_hiyoko">
             <h1>ログイン</h1>
             <p>ログイン情報を入力してください</p>
 
@@ -98,18 +102,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }        
             ?>
             <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
-                <div class="form-group">
+                <div class="form-group_login">
                     <label>ユーザー名:</label>
                     <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                     <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
                 </div>    
-                <div class="form-group">
+                <div class="form-group_login">
                     <label>パスワード:</label>
                     <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                     <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
                 </div>
                 <br>
-                <div class="form-group-login">
+                <div class="form-group_login-login">
                     <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                     <input type="submit" class="btn btn-primary" value="ログイン">
                 </div>
