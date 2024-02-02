@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
 /* 全体の部分 */
-body {
-    background-image: url('../assets/back_image.png');  /* 背景画像を設定 */
-    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
-}
+/* body {
+    background-image: url('../assets/back_image.png'); 
+    font-family: 'Zen Maru Gothic', sans-serif;
+} */
 
 /* ログイン画面中の枠組み */
 .frame {
@@ -33,10 +33,10 @@ body {
 }
 
 /* 「ログイン」「アカウント作成」の文字 */
-h1 {
-    font-size: 50px; /*フォントのサイズを指定 */
-    font-weight: bold;  /* 太文字に設定 */
-}
+/* h1 {
+    font-size: 50px;
+    font-weight: bold; 
+} */
 
 /* 入力フォームの編集 */
 .form-group{
@@ -45,9 +45,9 @@ h1 {
 }
 
 /* ログイン画面のひよこ画像 */
-img {
-    margin-top: -150px; /*ひよこ画像位置を枠からはみ出させる */
-}
+/* img {
+    margin-top: -150px;
+} */
 
 /* ログイン画面のボタン */
 .btn {
