@@ -15,9 +15,11 @@ $db = new connect();
 require("../../lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 
-
-
-
+require("../../lib/index_child_class.php");
+$index_child_class = new index_child_class($db);
+$have_points = $index_child_class->getHave_points();
+$savings = $index_child_class->getSavings();
+$have_money = $have_points+$savings;
 ?>
 
 <style>
@@ -45,10 +47,12 @@ $testpoint = new testpoint($db);
                     <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
                         <div class="col-5 col-md py-4 action-btn">
                             <!-- <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/mission.png"> -->
-                            <p>$have_points</p>
+                            <p><strong>現在のお金（ポイント＋貯金）:</strong> <?php echo htmlspecialchars($have_money); ?> 円</p>
+                            <p>ポイント:<strong> <?php echo htmlspecialchars($have_points); ?></strong> ポイント</p>
+                            <p>貯金:<strong> <?php echo htmlspecialchars($savings); ?></strong> 円</p>
+
                         </div>
                         <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Coin.png">
                         </div>
                     </div>
                 </div>
@@ -61,9 +65,20 @@ $testpoint = new testpoint($db);
 
                 <div class="col- col-md-2">
                     <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
-                        <a class="col-5 col-md py-4 action-btn" href="./record/calendar.php">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Calendar.png" data-tab="5">
-                        </a>
+                        <div class="col-5 col-md py-4 action-btn">
+                        <?php if(count($index_child_class->getGoal()) != 0){ ?>
+                            <?php for($i=0;$i<count($index_child_class->getGoal());$i++){ ?>
+                                <p>いつまで:<strong><?php echo htmlspecialchars($index_child_class->getGoal_deadline($i)); ?></strong> </p>
+                                <p>内容:<strong><?php echo htmlspecialchars($index_child_class->getGoal_detail($i)); ?></strong> </p>
+                                <p>目標金額:<strong><?php echo htmlspecialchars($index_child_class->getTarget_amount($i)); ?></strong> 円</p>
+                                <p>お小遣いが1ヶ月に1回もらえるのをふまえると合計であと<strong><?php echo htmlspecialchars($index_child_class->getRequired_point($i)); ?></strong> ポイント必要です</p>
+                                <p>期限までに目標金額を達成するには１日あたりあと<strong><?php echo htmlspecialchars($index_child_class->getOnerequired_point($i)); ?></strong> ポイント必要です</p>
+                                <hr>
+                            <?php } ?>
+                        <?php } else { ?>
+                                <p>目標を設定してください</p>
+                        <?php } ?>
+                        </div>
                         <div class="col-5 col-md py-4 action-btn">
                             <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Cog.png" data-tab="1">
                         </div>
