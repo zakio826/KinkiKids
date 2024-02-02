@@ -37,11 +37,26 @@ for ($i = 3; $i < count($url_path); $i++) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 
         <!-- カスタムスタイルシート -->
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.min.css">
+        <!-- <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css"> -->
 
+        <!-- アプリアイコン -->
         <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
+        <!-- アプリタイトル（$page_titleにページ名を代入してからこのファイルを参照する） -->
         <title>金記キッズ｜<?php echo $page_title; ?></title>
     </head>
+
+    <style>
+        html, body {
+            position: relative;
+            max-height: 100%;
+            height: 100%;
+        }
+        main {
+            position: relative;
+            max-height: 100%;
+            padding-bottom: 4rem;
+        }
+    </style>
 
     <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
         <!-- <p><?php echo count($url_path); ?></p> -->
