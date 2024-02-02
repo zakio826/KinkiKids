@@ -10,31 +10,35 @@ class help
         $this->error = []; // 初期化
 
         if (!empty($_POST)) {
-            /* 入力情報に空白がないか検知 */
-            if ($_POST['help_name'] === "") {
-                $error['help_name'] = "blank";
-            }
-            if ($_POST['help_detail'] === "") {
-                $error['help_detail'] = "blank";
-            }
-            if ($_POST['get_point'] === "") {
-                $error['get_point'] = "blank";
-            }
-            
-            // エラーがなければ次のページへ
-            if (!isset($error)) {
-                $_SESSION['join'] = $_POST;
+                if (isset($_POST["delete_help_id"])){
+                    $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
+                }else{
+                /* 入力情報に空白がないか検知 */
+                if ($_POST['help_name'] === "") {
+                    $error['help_name'] = "blank";
+                }
+                if ($_POST['help_detail'] === "") {
+                    $error['help_detail'] = "blank";
+                }
+                if ($_POST['get_point'] === "") {
+                    $error['get_point'] = "blank";
+                }
+                
+                // エラーがなければ次のページへ
+                if (!isset($error)) {
+                    $_SESSION['join'] = $_POST;
 
-                $user_id = $_SESSION["user_id"];
+                    $user_id = $_SESSION["user_id"];
 
-                $family_id = $this->getFamilyId($user_id);
+                    $family_id = $this->getFamilyId($user_id);
 
-                $_SESSION['join']['user_id'] = $user_id;
-                $_SESSION['join']['family_id'] = $family_id;
+                    $_SESSION['join']['user_id'] = $user_id;
+                    $_SESSION['join']['family_id'] = $family_id;
 
-                $this->saveHelpToDatabase();
-                header('Location: ./help_add.php');
-                exit();
+                    $this->saveHelpToDatabase();
+                    header('Location: ./help_add.php');
+                    exit();
+                }
             }
         }
     }
@@ -71,6 +75,13 @@ class help
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
+    }
+
+    private function DeleteHelpToDatabase($help_id) {
+        $stmt = $this->db->prepare("DELETE FROM help WHERE help_id = :help_id");
+        $stmt->bindParam(':help_id', $help_id);
+        $stmt->execute();
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
