@@ -103,8 +103,8 @@ require_once("../include/header.php");
 
 <main>
     <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
+        <h2>ログイン</h2>
+        <p>ユーザー名、パスワードを入力しログインしてください</p>
 
         <?php 
         if(!empty($login_err)){
@@ -114,12 +114,12 @@ require_once("../include/header.php");
 
         <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
             <div class="form-group">
-                <label>Username</label>
+                <label>ユーザー名</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
             </div>    
             <div class="form-group">
-                <label>Password</label>
+                <label>パスワード</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </div>
@@ -127,7 +127,7 @@ require_once("../include/header.php");
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="./entry.php">Sign up now</a></p>
+            <p>アカウントをお持ちでない方 <a href="./entry.php">サインアップ</a></p>
         </form>
     </div>
 </main>
