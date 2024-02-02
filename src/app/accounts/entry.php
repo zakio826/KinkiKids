@@ -1,20 +1,15 @@
 <!-- ユーザー登録ページ -->
-<?php 
-// test
-require("../../../config/db_connect.php");
-require("../../../lib/entry_class.php");
-session_start();
 
-// データベース接続を行う
-$db = new connect();
-
-// entryクラスのインスタンスを作成
-$entry = new entry($db);
-?>
-
+<!-- ヘッダー -->
 <?php
 $page_title = "アカウント作成";
 require_once("../include/header.php");
+?>
+
+<?php 
+// entryクラスのインスタンスを作成
+require($absolute_path."lib/entry_class.php");
+$entry = new entry($db);
 ?>
 
 <main>
@@ -86,4 +81,5 @@ require_once("../include/header.php");
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
