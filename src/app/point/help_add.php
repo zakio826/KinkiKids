@@ -6,12 +6,15 @@ require("../../../lib/help_class.php");
 $db = new connect();
 $help = new help($db);
 
-$user_id = $_SESSION["user_id"];
+$_SESSION["family_id"]= 5;
 
+$user_id = $_SESSION["user_id"];
+$family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
-$helps = $help->display_help($user_id);
+$helps = $help->display_help($family_id);
+
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
