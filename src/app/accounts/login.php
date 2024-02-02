@@ -92,9 +92,6 @@ require_once("../include/header.php");
 ?>
 
 <main>
-    <div class="container">
-        <img src="../../../static/assets/gaminghiyoko.png" alt="">
-    </div>
     <div class="frame">
         <div class="wrapper">
             <h1>ログイン</h1>
