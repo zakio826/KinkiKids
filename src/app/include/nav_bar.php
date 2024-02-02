@@ -1,6 +1,6 @@
 <?php
 // ユーザ名を取得
-$stmt = $db->prepare("SELECT first_name,last_name FROM user WHERE user_id = :user_id");
+$stmt = $db->prepare("SELECT first_name,last_name,role_id FROM user WHERE user_id = :user_id");
 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
 $stmt->execute();
 $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
