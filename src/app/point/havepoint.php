@@ -19,7 +19,7 @@ require_once("../include/header.php");
 ?>
 
 <main>
-    <p>★手持ちポイント★</p>
+    <p>★手持ちポイントde-su★</p>
     <?php $havepoint->display_point(); ?>
 
 </main>
