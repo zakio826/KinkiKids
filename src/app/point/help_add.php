@@ -8,21 +8,30 @@ require("../../../lib/help_class.php");
 $help = new help($db);
 
 $user_id = $_SESSION["user_id"];
+$family_id = $_SESSION["family_id"];
+$select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
-$helps = $help->display_help($user_id);
+$helps = $help->display_help($family_id);
 ?>
 
 <main>
-    <form action="" method="post" >
-        <p>お手伝い名</p>
-        <input type="text" name="help_name"><br>
-        <p>お手伝い詳細</p>
-        <input type="text" name="help_detail"><br>
-        <p>獲得ポイント</p>
-        <input type="number" name="get_point"><br>
-        <button type="submit">登録</button>
-    </form>
+    <?php if ($select === 'adult'): ?>
+        <!-- 大人の場合のフォーム -->
+        <form action="" method="post">
+            お手伝い名<input type="text" name="help_name"><br>
+            お手伝い詳細<input type="text" name="help_detail"><br>
+            獲得ポイント<input type="number" name="get_point"><br>
+            <button type="submit">登録</button>
+        </form>
+    <?php elseif ($select === 'child'): ?>
+        <!-- 子供の場合のフォーム -->
+        <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
+        <p>子供向けのフォームやメッセージを表示</p>
+    <?php else: ?>
+        <!-- 予期せぬケースに備えてデフォルトの表示 -->
+        <p>選択されたユーザータイプに対応するフォームがありません。</p>
+    <?php endif; ?>
 
     <div class="content">
         <h2>登録した目標一覧</h2>

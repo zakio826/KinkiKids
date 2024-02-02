@@ -17,15 +17,16 @@ $testpoint = new testpoint($db);
         background-color: lemonchiffon;
         border-radius: 2rem;
         box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
+        /* height: 30%; */
     }
 </style>
 
-<!-- ナビゲーションバー -->
-<?php include_once("./include/nav_bar.php") ?>
-
 <main>
+    <!-- ナビゲーションバー -->
+    <?php include_once("./include/nav_bar.php") ?>
+
     <!-- ロゴ -->
-    <header class="position-relative h-25">
+    <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
     

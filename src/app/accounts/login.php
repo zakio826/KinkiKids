@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $errors = validation($datas,false);
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
-        $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
+        $sql = "SELECT user_id,username,password,role_id,admin_flag,family_id FROM user WHERE username = :username";
         $stmt = $db->prepare($sql);
         // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
@@ -61,6 +61,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["loggedin"] = true;
                 $_SESSION["user_id"] = $row['user_id'];
                 $_SESSION["username"] =  $row['username'];
+                $_SESSION["family_id"] =  $row['family_id'];
+                $_SESSION["role_id"] =  $row['role_id'];
+                $_SESSION["admin_flag"] =  $row['admin_flag'];
+                if (floor($row['role_id'] / 10 ) == 2){
+                    $_SESSION["select"] = 'adult';
+                }else{
+                    $_SESSION["select"] = 'child';
+                }
+                
+                //ウェルカムページへリダイレクト
+                header("location:welcome.php");
                 //初回ログイン時の処理
                 if (empty($row['first_login'])) {
                     $sql = "UPDATE user SET first_login = 1 WHERE user_id = " . $row['user_id'];
@@ -75,48 +86,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'Invalid username or password.';
+                $login_err = 'ユーザー名かパスワードが無効です。';
             }
         }else {
-            $login_err = 'Invalid username or password.';
+            $login_err = 'ユーザー名かパスワードが無効です。';
         }
     }
 }
 ?>
 
 <main>
-    <div class="frame">
-        <div class="wrapper">
-        <!-- <img src="../../../static/assets/login_hiyoko2.png" height="100"> -->
-        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100">
-            <h1>ログイン</h1>
-            <p>ログイン情報を入力してください</p>
+    <div class="wrapper">
+        <h2>ログイン</h2>
+        <p>ユーザー名、パスワードを入力しログインしてください</p>
 
-            <?php 
-            if(!empty($login_err)){
-                echo '<div class="alert alert-danger">' . $login_err . '</div>';
-            }        
-            ?>
-            <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
-                <div class="form-group">
-                    <label>ユーザー名:</label>
-                    <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
-                    <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
-                </div>    
-                <div class="form-group">
-                    <label>パスワード:</label>
-                    <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
-                    <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
-                </div>
-                <br>
-                <div class="form-group-login">
-                    <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-                    <input type="submit" class="btn btn-primary" value="ログイン">
-                </div>
-                <br>
-                <p>アカウントがない場合 <a href="./entry.php">ここからサインアップしてください</a></p>
-            </form>
-        </div>
+        <?php 
+        if(!empty($login_err)){
+            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+        }        
+        ?>
+
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
+            <div class="form-group">
+                <label>ユーザー名</label>
+                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['username']); ?>">
+                <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
+            </div>    
+            <div class="form-group">
+                <label>パスワード</label>
+                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+                <input type="submit" class="btn btn-primary" value="Login">
+            </div>
+            <p>アカウントをお持ちでない方 <a href="./entry.php">サインアップ</a></p>
+        </form>
     </div>
 </main>
 
