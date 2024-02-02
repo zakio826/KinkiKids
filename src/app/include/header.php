@@ -24,6 +24,7 @@ for ($i = 3; $i < count($url_path); $i++) {
         <link href="//fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.5/remodal.min.css">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.5/remodal-default-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../static/css/login.css">
 
         <link rel="preconnect" href="//fonts.googleapis.com">
         <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
@@ -37,8 +38,8 @@ for ($i = 3; $i < count($url_path); $i++) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 
         <!-- カスタムスタイルシート -->
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.min.css">
-
+        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css">
+        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/login.css">
         <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
         <title>金記キッズ｜<?php echo $page_title; ?></title>
     </head>
