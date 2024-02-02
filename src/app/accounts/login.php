@@ -12,7 +12,7 @@ require_once("../../../lib/functions.php");
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("Location: ./welcome.php");
+    header("Location: ../welcome.php");
     exit;
 }
 
@@ -67,10 +67,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
                     //ウェルカムページへリダイレクト
-                    header("Location: ./welcome.php");
+                    header("Location: ../welcome.php");
                 } else {
                     //ホームページへリダイレクト
-                    header("Location: ./welcome.php");
+                    header("Location: ../welcome.php");
                     // header("Location: ../chat/testpoint.php");
                 }
                 exit();

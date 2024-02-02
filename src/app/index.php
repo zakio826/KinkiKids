@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "トップページ";
-require_once("./include/header.php");
+include("./include/header.php");
 ?>
 
 <?php
@@ -23,7 +23,7 @@ $testpoint = new testpoint($db);
 
 <main>
     <!-- ナビゲーションバー -->
-    <?php include("./include/nav_bar.php") ?>
+    <?php include_once("./include/nav_bar.php") ?>
 
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
@@ -67,4 +67,4 @@ $testpoint = new testpoint($db);
 </main>
 
 <!-- フッター -->
-<?php require_once("./include/footer.php"); ?>
+<?php include_once("./include/footer.php"); ?>

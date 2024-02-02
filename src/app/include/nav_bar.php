@@ -6,15 +6,6 @@ $stmt->execute();
 $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<style>
-    /* ナビゲーションバーの高さ分だけmainをずらす */
-    main {
-        position: relative;
-        max-height: 100%;
-        padding-bottom: 4rem;
-    }
-</style>
-
 <nav class="position-absolute w-100" style="height: 4rem; background-color: lemonchiffon;">
     <div class="container h-100 px-4">
         <div class="row align-items-center justify-content-between h-100">

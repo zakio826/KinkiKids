@@ -1,9 +1,13 @@
 <?php
 // 動的にルートディレクトリまで繋げるパスを生成する
 $url_path = explode("/", $_SERVER["REQUEST_URI"]);
-
 $absolute_path = "../";
+
+$accounts_page = false;
 for ($i = 3; $i < count($url_path); $i++) {
+    if ($url_path[$i] === "accounts") {
+        $accounts_page = true;
+    }
     $absolute_path .= "../";
 }
 // $absolute_pathの後に絶対パスを記述する
@@ -12,10 +16,15 @@ for ($i = 3; $i < count($url_path); $i++) {
 <?php
 // セッション開始
 session_start();
-// セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ".$absolute_path."src/app/accounts/login.php"); exit;
+if (!$accounts_page) {
+    // セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("Location: ".$absolute_path."src/app/accounts/login.php"); exit;
+    }
 }
+?>
+
+<?php
 // データベース接続
 require($absolute_path."config/db_connect.php");
 $db = new connect();
@@ -62,6 +71,15 @@ $db = new connect();
             max-height: 100%;
             height: 100%;
         }
+
+        <?php if (!$accounts_page) : ?>
+            /* ナビゲーションバーの高さ分だけmainをずらす */
+            main {
+                position: relative;
+                max-height: 100%;
+                padding-bottom: 4rem;
+            }
+        <?php endif ?>
     </style>
 
     <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
