@@ -33,7 +33,7 @@ class help
                 $_SESSION['join']['family_id'] = $family_id;
 
                 $this->saveHelpToDatabase();
-                header('Location: help_add.php');
+                header('Location: ./help_add.php');
                 exit();
             }
         }
