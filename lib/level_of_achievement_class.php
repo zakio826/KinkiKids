@@ -64,12 +64,6 @@ class level_of_achievement_class{
         return $result[$i]['goal_detail'];
     }
     public function getRequired_point($i){
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        if(count($result) > 0)
         $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
@@ -108,7 +102,13 @@ class level_of_achievement_class{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $allowance_amount = $result['allowance_amount'];
 
-        return $target_amount - $have_points - $savings - $allowance_amount * $diff->m;
+        $answer = $target_amount - $have_points - $savings - $allowance_amount * $diff->m;
+
+        if ($answer >= 0){
+            return $answer;
+        } else {
+            return 0;
+        }
     }
     public function getOnerequired_point($i){
         $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
@@ -150,7 +150,13 @@ class level_of_achievement_class{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $allowance_amount = $result['allowance_amount'];
 
-        return ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+        $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+        
+        if ($answer >= 0){
+            return $answer;
+        } else {
+            return 0;
+        }
     }
 }
 
