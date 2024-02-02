@@ -17,17 +17,25 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container h-100 px-4">
         <div class="row align-items-center justify-content-between h-100">
             <div class="col">
-                <?php if ($usernames[0]["role_id"] > 30) : ?>
-                    <h3 class="d-inline">
-                        おなまえ：<span class="px-2"><?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?></span>さん
-                    </h3>
-                <?php else : ?>
-                    <h3 class="row row-cols-3 justify-content-start">
+                <h3 class="row row-cols-2 g-0 justify-content-start">
+                    <?php if ($usernames[0]["role_id"] > 30) : ?>
+                        <span class="col-auto">おなまえ：</span>
+                        <span class="col-auto">
+                            <span class="mx-2">
+                                <?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?>
+                            </span>
+                            <span class="">さん</span>
+                        </span>
+                    <?php else : ?>
                         <span class="col-auto">ユーザー名：</span>
-                        <span class="col-auto"><?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?></span>
-                        <span class="col-auto">さん</span>
-                    </h3>
-                <?php endif; ?>
+                        <span class="col-auto">
+                            <span class="mx-2">
+                                <?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?>
+                            </span>
+                            <span class="">さん</span>
+                        </span>
+                    <?php endif; ?>
+                </h3>
             </div>
             <div class="col-auto"><img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40" data-tab="3"></div>
         </div>
