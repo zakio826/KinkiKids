@@ -1,7 +1,7 @@
 /* list.css */
 
 /* Reset some default styles for better consistency */
-body, h1, h2, ul, li {
+main {
     margin: 0;
     padding: 0;
 }
