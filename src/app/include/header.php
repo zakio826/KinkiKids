@@ -1,19 +1,4 @@
 <?php
-// セッション開始
-session_start();
-
-// セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ./accounts/login.php");
-    exit;
-}
-
-// データベース接続
-require("../../config/db_connect.php");
-$db = new connect();
-?>
-
-<?php
 // 動的にルートディレクトリまで繋げるパスを生成する
 $url_path = explode("/", $_SERVER["REQUEST_URI"]);
 
@@ -22,6 +7,18 @@ for ($i = 3; $i < count($url_path); $i++) {
     $absolute_path .= "../";
 }
 // $absolute_pathの後に絶対パスを記述する
+?>
+
+<?php
+// セッション開始
+session_start();
+// セッション変数 $_SESSION["loggedin"]を確認。未ログインだったらログインページへリダイレクト
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("Location: ".$absolute_path."src/app/accounts/login.php"); exit;
+}
+// データベース接続
+require($absolute_path."config/db_connect.php");
+$db = new connect();
 ?>
 
 <!DOCTYPE html>
