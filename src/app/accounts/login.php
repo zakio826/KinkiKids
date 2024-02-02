@@ -87,10 +87,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'Invalid username or password.';
+                $login_err = 'ユーザー名かパスワードが無効です。';
             }
         }else {
-            $login_err = 'Invalid username or password.';
+            $login_err = 'ユーザー名かパスワードが無効です。';
         }
     }
 }
@@ -115,12 +115,12 @@ require_once("../include/header.php");
         <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
             <div class="form-group">
                 <label>ユーザー名</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
+                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
             </div>    
             <div class="form-group">
                 <label>パスワード</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </div>
             <div class="form-group">
