@@ -71,15 +71,11 @@ $db = new connect();
             max-height: 100%;
             height: 100%;
         }
-
-        <?php if (!$accounts_page) : ?>
-            /* ナビゲーションバーの高さ分だけmainをずらす */
-            main {
-                position: relative;
-                max-height: 100%;
-                padding-bottom: 4rem;
-            }
-        <?php endif ?>
+        main {
+            position: relative;
+            max-height: 100%;
+            padding-bottom: 4rem;
+        }
     </style>
 
     <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">

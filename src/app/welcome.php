@@ -6,6 +6,9 @@ $page_title = "Welcome";
 require_once("./include/header.php");
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("./include/nav_bar.php") ?>
+
 <main>
     <h1 class="my-5">Hi,<b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>

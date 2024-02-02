@@ -21,12 +21,12 @@ $testpoint = new testpoint($db);
     }
 </style>
 
-<main>
-    <!-- ナビゲーションバー -->
-    <?php include_once("./include/nav_bar.php") ?>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/nav_bar.php") ?>
 
+<main>
     <!-- ロゴ -->
-    <header class="position-relative h-25" style="padding-top: 4rem;">
+    <header class="position-relative h-25">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
     

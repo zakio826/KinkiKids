@@ -8,7 +8,7 @@ require_once("../include/header.php");
 
 <?php
 //ファイルの読み込み
-require_once("../../../lib/functions.php");
+require_once($absolute_path."lib/functions.php");
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){

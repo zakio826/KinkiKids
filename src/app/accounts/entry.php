@@ -8,7 +8,7 @@ require_once("../include/header.php");
 
 <?php 
 // entryクラスのインスタンスを作成
-require("../../../lib/entry_class.php");
+require($absolute_path."lib/entry_class.php");
 $entry = new entry($db);
 ?>
 

@@ -7,7 +7,7 @@ require_once("../include/header.php");
 ?>
 
 <?php
-require("../../../lib/check_class.php");
+require($absolute_path."lib/check_class.php");
 checkUser($db, $_SESSION['join']);
 ?>
 
