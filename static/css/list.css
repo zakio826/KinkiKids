@@ -1,0 +1,67 @@
+/* list.css */
+
+/* Reset some default styles for better consistency */
+body, h1, h2, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a basic font style */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the content container */
+.content {
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Style for the list of goals */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for each goal item */
+li {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+/* Media query for small screens (e.g., smartphones) */
+@media screen and (max-width: 767px) {
+    /* Adjust styles for smaller screens */
+    li {
+        padding: 5px;
+    }
+}
+
+/* Style for the button */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Additional styles for better button appearance */
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.btn-primary {
+    background-color: #3498db;
+}
+
+/* Media query for small screens (e.g., smartphones) */
+@media screen and (max-width: 767px) {
+    /* Adjust styles for smaller screens */
+    .btn {
+        padding: 8px 16px;
+    }
+}
