@@ -24,6 +24,7 @@ for ($i = 3; $i < count($url_path); $i++) {
         <link href="//fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.5/remodal.min.css">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.5/remodal-default-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../static/css/login.css">
 
         <link rel="preconnect" href="//fonts.googleapis.com">
         <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
@@ -38,9 +39,11 @@ for ($i = 3; $i < count($url_path); $i++) {
 
         <!-- カスタムスタイルシート -->
         <!-- <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css"> -->
+        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/login.css">
 
         <!-- アプリアイコン -->
         <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
+        
         <!-- アプリタイトル（$page_titleにページ名を代入してからこのファイルを参照する） -->
         <title>金記キッズ｜<?php echo $page_title; ?></title>
     </head>

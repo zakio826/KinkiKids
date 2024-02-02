@@ -84,41 +84,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/login.css">
+</head>
 
+<body>
 <?php
 $page_title = "ログイン";
 require_once("../include/header.php");
 ?>
 
 <main>
-    <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
+    <div class="frame">
+        <div class="wrapper">
+            <h1>ログイン</h1>
+            <p>ログイン情報を入力してください</p>
 
-        <?php 
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
-        ?>
+            <?php 
+            if(!empty($login_err)){
+                echo '<div class="alert alert-danger">' . $login_err . '</div>';
+            }        
+            ?>
 
-        <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="./entry.php">Sign up now</a></p>
-        </form>
+            <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
+                <div class="form-group">
+                    <label>ユーザー名</label>
+                    <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
+                    <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
+                </div>    
+                <div class="form-group">
+                    <label>パスワード</label>
+                    <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                    <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+                    <input type="submit" class="btn btn-primary" value="ログイン">
+                </div>
+                <br>
+                <p>アカウントがない場合 <a href="./entry.php">ここからサインアップしてください</a></p>
+            </form>
+        </div>
     </div>
+    
 </main>
 
 <?php require_once("../include/footer.php"); ?>
+
+</body>
+</html>

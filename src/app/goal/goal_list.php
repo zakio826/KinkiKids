@@ -25,6 +25,9 @@ $page_title = "目標一覧";
 require_once("../include/header.php");
 ?>
 
+<!-- Include the list.css file -->
+<link rel="stylesheet" type="text/css" href="../../../list.css">
+
 <main>
     <div class="content">
         <h1>登録した目標一覧</h1>
