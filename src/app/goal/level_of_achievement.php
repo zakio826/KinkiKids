@@ -35,7 +35,7 @@ unset($_SESSION['join']);
         <p>内訳</h3>
         <p>ポイント:</strong> <?php echo htmlspecialchars($have_points); ?> ポイント</p>
         <p>貯金:</strong> <?php echo htmlspecialchars($savings); ?> 円</p>
-
+        <hr>
         <p>目標金額:</strong> <?php echo htmlspecialchars($target_amount); ?> 円</p>
         <p>必要ポイント:</strong> <?php echo htmlspecialchars($requiredpoint); ?> 円</p>
         <p>1日の必要ポイント:</strong> <?php echo htmlspecialchars($onerequiredpoint); ?> 円</p>
