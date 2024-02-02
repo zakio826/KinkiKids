@@ -6,7 +6,7 @@ require("../../../lib/goal_class.php");
 session_start();
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("Location: ../accounts/login.php");
     exit;
 }
 
@@ -15,14 +15,14 @@ $db = new connect();
 $goal = new goal($db);
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>目標設定</title>
-</head>
-<body>
+
+
+<?php
+$page_title = "目標設定";
+require_once("../include/header.php");
+?>
+
+<main>
     <div class="content">
         <form action="" method="POST">
             <h1>目標設定</h1>
@@ -50,5 +50,6 @@ $goal = new goal($db);
             </div>
         </form>
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once("../include/footer.php"); ?>

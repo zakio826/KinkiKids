@@ -11,16 +11,17 @@ $db = new connect();
 // entryクラスのインスタンスを作成
 $havepoint = new havepoint($db);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>ポイント表示</title>
-</head>
-<body>
-    <p>★手持ちポイント★</p>
+
+
+<?php
+$page_title = "ポイント表示";
+require_once("../include/header.php");
+?>
+
+<main>
+    <p>★手持ちポイントde-su★</p>
     <?php $havepoint->display_point(); ?>
 
-</body>
-</html>
+</main>
+
+<?php require_once("../include/footer.php"); ?>

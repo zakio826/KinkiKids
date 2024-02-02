@@ -53,7 +53,7 @@ class entry{
             /* エラーがなければ次のページへ */
             if (!isset($error)) {
                 $_SESSION['join'] = $_POST;   // フォームの内容をセッションで保存
-                header('Location: check.php');   // check.phpへ移動
+                header('Location: ./check.php');   // check.phpへ移動
                 exit();
             }
         }
