@@ -23,6 +23,7 @@ require_once("../include/header.php");
     <a href="../point/help_add.php">お手伝い</a>
     <a href="../goal/goal.php">目標</a>
     <a href="../goal/level_of_achievement.php">お金とポイントの状況</a>
+
 </main>
 
 <?php require_once("../include/footer.php"); ?>
