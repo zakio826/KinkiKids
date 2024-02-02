@@ -15,20 +15,12 @@ $onerequiredpoint = $level_of_achievement_class->getOnerequired_point();
 unset($_SESSION['join']);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>目標達成度</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ 
-            font: 14px sans-serif;
-            text-align: center; 
-        }
-    </style>
-</head>
-<body>
+<?php
+$page_title = "目標達成度";
+require_once("../include/header.php");
+?>
+
+<main>
     <div class="container">
     <h1>達成度の状況</h1>
         <p><strong>現在のお金（ポイント＋貯金）:</strong> <?php echo htmlspecialchars($have_money); ?> 円</p>
@@ -42,8 +34,10 @@ unset($_SESSION['join']);
 
 
         <p class="mt-3">
-            <a href="index.php" class="btn btn-primary">戻る</a>
+            <a href="../index.php" class="btn btn-primary">戻る</a>
         </p>
+
     </div>
-</body>
-</html>
+</main>
+
+<?php require_once("../include/footer.php"); ?>
