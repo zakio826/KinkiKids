@@ -7,9 +7,17 @@ include("./include/header.php");
 ?>
 
 <?php
+require("../../config/db_connect.php");
+session_start();
+$db = new connect();
+
 // testpointクラスのインスタンスを作成
 require("../../lib/testpoint_class.php");
 $testpoint = new testpoint($db);
+
+
+
+
 ?>
 
 <style>
@@ -36,7 +44,8 @@ $testpoint = new testpoint($db);
                 <div class="col col-md-2">
                     <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
                         <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/mission.png">
+                            <!-- <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/mission.png"> -->
+                            <p>$have_points</p>
                         </div>
                         <div class="col-5 col-md py-4 action-btn">
                             <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Coin.png">
