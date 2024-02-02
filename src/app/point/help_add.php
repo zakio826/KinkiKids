@@ -7,11 +7,12 @@ $db = new connect();
 $help = new help($db);
 
 $user_id = $_SESSION["user_id"];
-
-//$select = $_SESSION["select"];
+$family_id = $_SESSION["family_id"];
+$select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
-$helps = $help->display_help($user_id);
+$helps = $help->display_help($family_id);
+
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -57,6 +58,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?> 円<br>
                     <strong>お手伝い詳細</strong> <?php echo $help['help_detail']; ?><br>
                     <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
+                    <form action="" method="post">
+                        <input type="hidden" name="delete_help_id" value="<?php echo $help['help_id']; ?>">
+                        <button type="submit" name="delete_help">削除</button>
+                    </form>
                 </li>
             <?php endforeach; ?>
         </ul>

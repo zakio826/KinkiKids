@@ -16,9 +16,9 @@ class havepoint{
         // echo "<br>";
 
         if ($this->db !== null) { 
-            if(isset($_SESSION["id"])){
+            if(isset($_SESSION["user_id"])){
                 $sql = "SELECT have_points FROM child_data WHERE user_id = ";
-                $id = $_SESSION["id"];
+                $id = $_SESSION["user_id"];
                 $sql = $sql.$id;
                 $stmt = $this->db->query($sql);
                 $f = true;
