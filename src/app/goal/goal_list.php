@@ -26,7 +26,7 @@ require_once("../include/header.php");
 ?>
 
 <!-- Include the list.css file -->
-<link rel="stylesheet" type="text/css" href="list.css">
+<link rel="stylesheet" type="text/css" href="../../../list.css">
 
 <main>
     <div class="content">
