@@ -1,15 +1,14 @@
+<!-- サインアップ入力情報確認画面 -->
+
+<!-- ヘッダー -->
 <?php
-    require("../../../config/db_connect.php");
-    require("../../../lib/check_class.php");
-    session_start();
-    // データベース接続を行う
-    $db = new connect();
-    checkUser($db, $_SESSION['join']);
+$page_title = "入力情報確認";
+require_once("../include/header.php");
 ?>
 
 <?php
-$page_title = "確認画面";
-require_once("../include/header.php");
+require("../../../lib/check_class.php");
+checkUser($db, $_SESSION['join']);
 ?>
 
 <main>
@@ -49,11 +48,6 @@ require_once("../include/header.php");
                 <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['savings'], ENT_QUOTES); ?></span></p>
             </div>
 
-            <!-- <div class="control">
-                <p>初回ログイン日</p>
-                <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['first_login'], ENT_QUOTES); ?></span></p>
-            </div> -->
-            
             <br>
             <a href="./entry.php" class="back-btn">変更する</a>
             <button type="submit" class="btn next-btn">登録する</button>
@@ -62,4 +56,5 @@ require_once("../include/header.php");
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

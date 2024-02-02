@@ -1,20 +1,15 @@
-<?php
-//ログイン後の画面PHP
+<!-- ウェルカム画面 -->
 
-session_start();
-// セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ./login.php");
-    exit;
-}
-?>
-
+<!-- ヘッダー -->
 <?php
 $page_title = "Welcome";
 require_once("../include/header.php");
 ?>
 
 <main>
+    <!-- ナビゲーションバー -->
+    <?php include("./include/nav_bar.php") ?>
+    
     <h1 class="my-5">Hi,<b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>
         <a href="./logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
@@ -24,5 +19,6 @@ require_once("../include/header.php");
     <a href="../goal/goal.php">目標</a>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
 

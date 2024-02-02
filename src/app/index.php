@@ -7,7 +7,7 @@ require_once("./include/header.php");
 ?>
 
 <?php
-// ライブラリのクラスを生成
+// testpointクラスのインスタンスを作成
 require("../../lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 ?>

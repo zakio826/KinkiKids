@@ -1,21 +1,20 @@
+<!-- ログイン画面 -->
+
+<!-- ヘッダー -->
+<?php
+$page_title = "ログイン";
+require_once("../include/header.php");
+?>
+
 <?php
 //ファイルの読み込み
-require_once("../../../config/db_connect.php");
 require_once("../../../lib/functions.php");
-//セッション開始
-session_start();
-
-$db = new connect();
-$pdo = $db;
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("Location: ../welcome.php");
+    header("Location: ./welcome.php");
     exit;
 }
-
-// データベース接続を行う
-$db = new connect();
 
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
@@ -47,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
         $sql = "SELECT user_id,username,password FROM user WHERE username = :username";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $db->prepare($sql);
         // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
         $stmt->execute();
@@ -84,18 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../../static/css/login.css">
-</head>
-
-<body>
-<?php
-$page_title = "ログイン";
-require_once("../include/header.php");
-?>
 
 <main>
     <div class="frame">
@@ -130,10 +117,7 @@ require_once("../include/header.php");
             </form>
         </div>
     </div>
-    
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
-
-</body>
-</html>
