@@ -12,9 +12,9 @@ class testpoint{
         //$_SESSION["id"] = 10;
         // $this->db が null でないことを確認
         if ($this->db !== null) { 
-            if(isset($_SESSION["id"])){
+            if(isset($_SESSION["user_id"])){
                 $sql = "SELECT sender_id,receiver_id,messagetext,sent_time FROM line_message WHERE receiver_id = ";
-                $id = $_SESSION["id"];
+                $id = $_SESSION["user_id"];
                 $sql = $sql.$id;
                 $stmt = $this->db->query($sql);
                 $f = true;
