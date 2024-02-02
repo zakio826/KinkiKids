@@ -23,15 +23,18 @@ require_once("../include/header.php");
 ?>
 
 <main>
-    <form action="" method="post">
-        お手伝い名<input type="text" name="help_name"><br>
-        お手伝い詳細<input type="text" name="help_detail"><br>
-        獲得ポイント<input type="number" name="get_point"><br>
+    <form action="" method="post" >
+        <p>お手伝い名</p>
+        <input type="text" name="help_name"><br>
+        <p>お手伝い詳細</p>
+        <input type="text" name="help_detail"><br>
+        <p>獲得ポイント</p>
+        <input type="number" name="get_point"><br>
         <button type="submit">登録</button>
     </form>
 
     <div class="content">
-        <h1>登録した目標一覧</h1>
+        <h2>登録した目標一覧</h2>
 
         <?php if (empty($helps)): ?>
             <p>登録した目標はありません。</p>
@@ -47,7 +50,7 @@ require_once("../include/header.php");
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a>
+            <a href="../accounts/welcome.php" class="btn btn-primary">もどる</a>
         </p>
     </div>
 </main>
