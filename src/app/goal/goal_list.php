@@ -1,16 +1,7 @@
 <?php
 // goal_list.php
 
-require("../../../config/db_connect.php");
 require("../../../lib/goal_class.php");
-session_start();
-
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ../accounts/login.php");
-    exit;
-}
-
-$db = new connect();
 $goal = new goal($db);
 
 // ユーザーのIDを取得

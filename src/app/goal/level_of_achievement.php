@@ -1,10 +1,7 @@
 <!-- goal_check.php -->
 
 <?php
-require("../../../config/db_connect.php");
 require("../../../lib/level_of_achievement_class.php");
-session_start();
-$db = new connect();
 $level_of_achievement_class = new level_of_achievement_class($db);
 $have_points = $level_of_achievement_class->getHave_points();
 $savings = $level_of_achievement_class->getSavings();

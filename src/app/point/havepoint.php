@@ -1,12 +1,6 @@
 <?php 
-// test
-session_start();
-require("../../../config/db_connect.php");
 require("../../../lib/havepoint_class.php");
 
-
-// データベース接続を行う
-$db = new connect();
 
 // entryクラスのインスタンスを作成
 $havepoint = new havepoint($db);

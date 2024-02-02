@@ -1,8 +1,5 @@
 <?php
-
-require("../../../config/db_connect.php");
 require("../../../lib/goal_class.php");
-session_start();
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("Location: ../accounts/login.php");
@@ -18,7 +15,7 @@ $targetAmount = $_SESSION['join']['target_amount'];
 $goalDetail = $_SESSION['join']['goal_detail'];
 $goalDeadline = $_SESSION['join']['goal_deadline'];
 
-unset($_SESSION['join']);　//
+unset($_SESSION['join']);
 ?>
 
 <?php

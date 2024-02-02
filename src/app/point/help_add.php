@@ -1,20 +1,11 @@
 <?php
-session_start();
-require("../../../config/db_connect.php");
 require("../../../lib/help_class.php");
-
-$db = new connect();
 $help = new help($db);
 
 $user_id = $_SESSION["user_id"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($user_id);
-
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ../accounts/login.php");
-    exit;
-}
 ?>
 
 <?php
