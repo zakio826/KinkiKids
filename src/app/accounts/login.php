@@ -92,8 +92,12 @@ require_once("../include/header.php");
 ?>
 
 <main>
+
     <div class="frame">
+    
         <div class="wrapper">
+        <!-- <img src="../../../static/assets/login_hiyoko2.png" height="100"> -->
+        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100">
             <h1>ログイン</h1>
             <p>ログイン情報を入力してください</p>
 

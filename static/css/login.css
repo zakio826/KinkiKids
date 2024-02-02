@@ -6,7 +6,7 @@ body {
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
-/* 中の枠組み */
+/* ログイン画面中の枠組み */
 .frame {
     display: flex;
     justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
@@ -14,15 +14,25 @@ body {
     height: 100vh; /* ビューポートの高さいっぱいに表示 */
 }
 
-/* ログイン画面項目の枠組み */
+/* アカウント作成画面中の枠組み */
+.frame2 {
+    display: flex;
+    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
+    align-items: center; /* 上下中央に配置する */
+    margin: 30px;
+    padding-bottom: 100px;
+}
+
+/* ログイン画面とアカウント作成画面の項目の枠組み */
 .wrapper {
     text-align: center; /* テキストを中央寄せ */
     background-color: #fff491; /*背景色の指定 */
     padding: 50px; /* 長方形の中の余白を設定 */
     border-radius: 30px; /* 角を丸めることで長方形にする */
+    z-index: 1; /* 角を丸めることで長方形にする */
 }
 
-/* 「ログイン」の文字 */
+/* 「ログイン」「アカウント作成」の文字 */
 h1 {
     font-size: 50px; /*フォントのサイズを指定 */
     font-weight: bold;  /* 太文字に設定 */
@@ -34,3 +44,24 @@ h1 {
     text-align: left;   /* このdivに入っている文字のみを左詰めに */
 }
 
+/* ログイン画面のひよこ画像 */
+img {
+    margin-top: -150px; /*ひよこ画像位置を枠からはみ出させる */
+}
+
+/* ログイン画面のボタン */
+.btn {
+    background-color: #0d6efd; /*ボタン色 */
+    border-bottom: 3px solid blue; /*ボタンの下に線（立体のように見せる） */
+}
+
+/* アカウント作成画面の確認ボタン */
+.btn_margintop {
+    margin-top: 10px; /*上の間隔を少しあける */
+}
+
+/* アカウント作成画面の入力欄 */
+.form-control {
+    margin-bottom: 10px; /*下の間隔を少しあける */
+    text-align: center; /*文字を中央ぞろえ */
+}
