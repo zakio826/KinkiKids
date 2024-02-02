@@ -1,7 +1,29 @@
 /* list.css */
 
 /* Reset some default styles for better consistency */
-main {
+/* list.css */
+
+/* Add a class for center-aligning content within the main tag */
+
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Optional: Center vertically on the entire viewport height */
+}
+
+/* Other existing styles remain unchanged */
+
+/* Style for the content container */
+.content {
+    max-width: 600px; /* Set a max-width for better readability */
+    margin: 0 auto; /* Center-align the content */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+body, h1, h2, ul, li {
     margin: 0;
     padding: 0;
 }
