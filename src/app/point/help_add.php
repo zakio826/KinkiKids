@@ -62,7 +62,7 @@ $helps = $help->display_help($family_id);
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="../accounts/welcome.php" class="btn btn-primary">もどる</a>
+            <a href="../welcome.php" class="btn btn-primary">もどる</a>
         </p>
     </div>
 </main>
