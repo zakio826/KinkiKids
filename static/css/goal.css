@@ -24,17 +24,28 @@ main {
     margin: 0 auto;
 }
 
+.content-header {
+    background-color: #FFC83A;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 form {
     display: flex;
     flex-direction: column;
 }
 
-h1 {
+/* h1 {
     text-align: center;
     color: #FFC83A;
     font-weight: bold;
     font-size: 30px;
-}
+} */
 
 p {
     margin-bottom: 20px;
