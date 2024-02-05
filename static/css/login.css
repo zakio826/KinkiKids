@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
-/* ログイン画面中の枠組み */
+/* 全体の部分 */
+body {
+    background-image: url('../assets/back_image.png');  /* 背景画像を設定 */
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+}
+
+/* 画面中の枠組み */
 .frame {
     display: flex;
     justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
@@ -8,17 +14,16 @@
     height: 100vh; /* ビューポートの高さいっぱいに表示 */
 }
 
-/* アカウント作成画面中の枠組み */
-.frame2 {
-    display: flex;
-    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
-    align-items: center; /* 上下中央に配置する */
-    margin: 30px;
-    padding-bottom: 100px;
-}
+
+/* ------------------------------------------------- */
+/*  ログイン画面
+    アカウント作成画面
+    入力情報の確認画面
+    共通 */
+/* ------------------------------------------------- */
 
 /* ログイン画面とアカウント作成画面の項目の枠組み */
-.wrapper {
+.wrapper1 {
     text-align: center; /* テキストを中央寄せ */
     background-color: #fff491; /*背景色の指定 */
     padding: 50px; /* 長方形の中の余白を設定 */
@@ -26,6 +31,29 @@
     z-index: 1; /* 表示優先度を変更してフッターと被らないようにしてる */
 }
 
+/* 「ログイン」「アカウント作成」の文字 */
+h1 {
+    font-size: 50px; /*フォントのサイズを指定 */
+    font-weight: bold;  /* 太文字に設定 */
+}
+
+
+/* ------------------------------------------------- */
+/* ログイン画面 */
+/* ------------------------------------------------- */
+
+/* ログイン画面中の枠組み */
+.frame_login {
+    display: flex;
+    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
+    /* justify-content: space-around; */
+    /* align-items: flex-start; */
+    align-items: center; /* 上下中央に配置する */
+    height: 100vh; /* ビューポートの高さいっぱいに表示 */
+    height: 100vh;
+    margin-top: 30px;
+    padding-top: 100px;
+}
 
 /* ログイン画面入力フォームの編集 */
 .form-group_login{
@@ -33,16 +61,35 @@
     text-align: center;   /* このdivに入っている文字のみを左詰めに */
 }
 
+/* ログイン画面のひよこ画像 */
+.login_hiyoko {
+    margin-top: -230px; /*ひよこ画像位置を枠からはみ出させる */
+}
+
+/* ログイン画面のボタン */
+.btn {
+    background-color: #0d6efd; /*ボタン色 */
+    border-bottom: 3px solid blue; /*ボタンの下に線（立体のように見せる） */
+}
+
+
+/* ------------------------------------------------- */
+/* アカウント作成画面 */
+/* ------------------------------------------------- */
+
+/* アカウント作成画面中の枠組み */
+.frame_entry {
+    display: flex;
+    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
+    align-items: center; /* 上下中央に配置する */
+    margin: 30px;
+    padding-bottom: 100px;
+}
+
 /* アカウント作成画面入力フォームの編集 */
 .form-group_entry{
     font-size: 20px; /*フォントのサイズを指定 */
     text-align: center;   /* このdivに入っている文字のみを左詰めに */
-}
-
-
-/* ログイン画面のひよこ画像 */
-.login_hiyoko {
-    margin-top: -230px; /*ひよこ画像位置を枠からはみ出させる */
 }
 
 /* アカウント作成画面の確認ボタン */
@@ -70,3 +117,29 @@
     border-radius: var(--bs-border-radius);
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+
+/* ------------------------------------------------- */
+/* 入力情報の確認画面 */
+/* ------------------------------------------------- */
+/* 入力情報の確認画面中の枠組み */
+.frame_check {
+    display: flex;
+    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
+    align-items: center; /* 上下中央に配置する */
+    margin: 30px;
+    padding-bottom: 100px;
+}
+
+/* 入力情報の確認画面中の入力情報の枠組み */
+.control_check {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* 入力情報の確認画面中の入力情報の文字間隔 */
+.moji-check {
+    margin-bottom: 0px;
+}
+
+

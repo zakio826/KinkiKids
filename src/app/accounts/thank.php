@@ -9,10 +9,14 @@ require_once("../include/header.php");
 
 <main>
     <div class="content">
-        <h1>ユーザー登録が完了しました。</h1>
-        <p>下のボタンよりログインページに移動してください。</p>
-        <br><br>
-        <a href="./login.php"><button class="btn">ログインページに移動する</button></a>
+        <div class="frame_check">
+                <div class="wrapper1">
+            <h1>ユーザー登録が完了しました。</h1>
+            <p>下のボタンよりログインページに移動してください。</p>
+            <br><br>
+            <a href="./login.php"><button class="btn btn-primary">ログインページに移動する</button></a>
+            </div>
+        </div>
     </div>
 </main>
 
