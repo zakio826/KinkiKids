@@ -63,15 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php $entry->birthday_error(); ?>
                 </div>
 
-                <!-- DBの負担を減らすためプルダウンは手入力 -->
-                <div class="form-group_entry">
-                    <label for="gender_id">性別</label>
-                    <select name="gender_id" id="gender_id" class="form-control_entry">
-                        <option value="1">女性</option>
-                        <option value="2">男性</option>
-                        <option value="3">その他</option>
-                    </select>
-                </div>
+                        <!-- DBの負担を減らすためプルダウンは手入力 -->
+                        <div class="form-group_entry">
+                            <label for="gender_id">性別</label>
+                            <select name="gender_id" id="gender_id" class="form-control_entry">
+                                <option value="1">女性</option>
+                                <option value="2">男性</option>
+                                <option value="3">その他</option>
+                            </select>
+                        </div>
 
                 <div class="form-group_entry">
                     <label for="role_id">役割</label>
@@ -88,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+</div>
+
 </main>
 
 <!-- フッター -->
