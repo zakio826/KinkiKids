@@ -1,15 +1,45 @@
 <?php
 // test
-class level_of_achievement_class{
+class index_child_class{
     private $error; // エラー情報を保持するプロパティ
     private $db; // データベース接続を保持するプロパティ
-
+    
     function __construct($db){
         $this->db = $db;
         $this->error = []; // 初期化
     }
+    
+    public function getHelp($i){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $family_id = $result['family_id'];
 
+        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $help_name = $result[$i]['help_name'];
+    
+        return $help_name;
+    }
+    public function getHelpCount(){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $family_id = $result['family_id'];
 
+        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $help_count = count($result);
+    
+        return $help_count;
+    }
+    
     public function getHave_points(){
         $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -31,28 +61,16 @@ class level_of_achievement_class{
         return $result['savings'];
 
     }
-    public function getGoal(){
+    public function getGoalCount(){
         $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $result;
-    }
-    public function getTarget_amount($i){
-        $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
+        return count($result);
     }
     public function getTarget_amount($i){
         $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        return $result[$i]['target_amount'];
-    }
-    public function getGoal_deadline($i){
-        $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

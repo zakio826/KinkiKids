@@ -1,7 +1,7 @@
 <!-- ユーザー登録ページ -->
 <?php 
 // test
-require_once("../../../config/db_connect.php");
+require("../../../config/db_connect.php");
 require("../../../lib/family_add_class.php");
 session_start();
 
@@ -10,69 +10,106 @@ $db = new connect();
 
 // family_addクラスのインスタンスを作成
 $family_add = new family_add($db);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $family_add->__construct($db);
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>アカウント作成</title>
+    <title>アカウント追加</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function(){
             $("#addUser").click(function(){
                 // 新しいユーザー情報の入力フォームを追加
                 var newUserForm = $("#userForm").clone();
+                newUserForm.find('input').val('');  // フォーム内の値をクリア
+                newUserForm.append('<button type="button" class="removeUser">マイナス</button>');  // 削除ボタンを追加
                 $("#userFormsContainer").append(newUserForm);
             });
+
+            // フォームを削除
+            $(document).on('click', '.removeUser', function(){
+                $(this).parent().remove();
+            });
         });
+        
     </script>
 </head>
 <body>
     <div class="content">
         <form action="" method="POST">
-            <h1>アカウント作成</h1>
+            <h1>アカウント追加</h1>
             <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
             <br>
  
             <div id="userFormsContainer">
                 <div id="userForm" class="control">
                     <!-- ユーザー情報の入力フォーム -->
-                    <label for="username">ユーザー名</label>
-                    <input type="text" name="username[]">
+                    <div class="control">
+                        <label for="username">ユーザー名</label>
+                        <input type="text" name="username[]">
+                        <?php $family_add->username_error(); ?>
+                    </div>
                     
-                    <label for="password">パスワード</label>
-                    <input type="password" name="password[]">
+                    <div class="control">
+                        <label for="password">パスワード</label>
+                        <input type="password" name="password[]">
+                        <?php $family_add->password_error(); ?>
+                    </div>
 
-                    <label for="last_name">名字</label>
-                    <input type="text" name="last_name[]">
+                    <div class="control">
+                        <label for="last_name">名字</label>
+                        <input type="text" name="last_name[]">
+                        <?php $family_add->firstname_error(); ?>
+                    </div>
 
-                    <label for="first_name">名前</label>
-                    <input type="text" name="first_name[]">
+                    <div class="control">
+                        <label for="first_name">名前</label>
+                        <input type="text" name="first_name[]">
+                        <?php $family_add->lastname_error(); ?>
+                    </div>
 
-                    <label for="birthday">誕生日</label>
-                    <input type="date" name="birthday[]">
+                    <div class="control">
+                        <label for="birthday">誕生日</label>
+                        <input type="date" name="birthday[]">
+                        <?php $family_add->birthday_error(); ?>
+                    </div>
 
-                    <label for="gender_id">性別</label>
-                    <select name="gender_id[]">
-                        <option value="1">女性</option>
-                        <option value="2">男性</option>
-                        <option value="3">その他</option>
-                    </select>
+                    <div class="control">
+                        <label for="gender_id">性別</label>
+                        <select name="gender_id[]">
+                            <option value="1">女性</option>
+                            <option value="2">男性</option>
+                            <option value="3">その他</option>
+                        </select>
+                    </div>
 
-                    <label for="role_id">役割</label>
-                    <select name="role_id[]">
-                        <?php $family_add->role_select(); ?>
-                    </select>
+                    <div class="control">
+                        <label for="role_id">役割</label>
+                        <select name="role_id[]">
+                            <?php $family_add->role_select(); ?>
+                        </select>
+                    </div>
 
-                    <label for="admin_flag">管理者</label>
-                    <input type="checkbox" name="admin_flag[]" value="1">
+                    <div class="control">
+                        <label for="admin_flag">管理者</label>
+                        <input type="checkbox" name="admin_flag[]" value="1">
+                    </div>
 
-                    <label for="savings">貯蓄</label>
-                    <input type="text" name="savings[]">
+                    <div class="control">
+                        <label for="savings">貯蓄</label>
+                        <input type="text" name="savings[]">
+                    </div>
 
-                    <label for="family_name">家族名</label>
-                    <input type="text" name="family_name[]">
+                    <!-- 削除ボタン -->
+                    <div class="control">
+                        <button type="button" class="removeUser" style="display:none;">マイナス</button>
+                    </div>
                 </div>
             </div>
 
