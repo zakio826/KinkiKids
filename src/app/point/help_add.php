@@ -1,10 +1,11 @@
 
 <?php
 $page_title = "お手伝い登録";
+$stylesheet_name = "help_add.css";
 require_once("../include/header.php");
 ?>
 <?php
-require("../../../lib/help_class.php");
+require($absolute_path."lib/help_class.php");
 $help = new help($db);
 
 $user_id = $_SESSION["user_id"];

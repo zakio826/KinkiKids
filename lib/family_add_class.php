@@ -103,7 +103,7 @@ class family_add {
                 }
 
                 unset($_SESSION['join']);
-                header('Location: thank.php');
+                header('Location: ./thank.php');
                 exit();
             }
         }

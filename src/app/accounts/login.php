@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ログイン";
+$stylesheet_name = "login.css";
 require_once("../include/header.php");
 ?>
 
@@ -95,12 +96,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-<body>
-
 <main>
-
     <div class="frame">
-    
         <div class="wrapper">
         <!-- <img src="../../../static/assets/login_hiyoko2.png" height="100"> -->
         <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100" class="login_hiyoko">

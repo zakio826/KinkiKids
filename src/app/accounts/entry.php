@@ -7,7 +7,7 @@ require_once("../include/header.php");
 ?>
 
 <?php 
-require("../../../lib/entry_class.php");
+require($absolute_path."lib/entry_class.php");
 // entryクラスのインスタンスを作成
 $entry = new entry($db);
 
@@ -70,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
 
-<<<<<<< HEAD
                 <div class="form-group_entry">
                     <label for="savings">貯蓄</label>
                     <input id="savings" type="int" name="savings" class="form-control_entry">
@@ -88,23 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div> 
     </div>
-=======
-            <div class="control">
-                <label for="savings">貯蓄</label>
-                <input id="savings" type="int" name="savings">
-            </div>
-            
-            <!-- 「FIXME」管理ユーザーがログインしている場合は表示しないようにする -->
-            <div class="control">
-                <label for="family_name">家族名</label>
-                <input id="family_name" type="text" name="family_name">
-            </div>
- 
-            <div class="control">
-                <button type="submit" class="btn">確認する</button>
-            </div>
-        </form>
->>>>>>> c85f5e987d8ec62d602843e69c89ad6e0f95273f
     </div>
 </main>
 

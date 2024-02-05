@@ -1,34 +1,28 @@
 <!-- ユーザー登録ページ -->
-<?php 
-// test
-require_once("../../../config/db_connect.php");
-require("../../../lib/family_add_class.php");
-session_start();
 
-// データベース接続を行う
-$db = new connect();
+<!-- ヘッダー -->
+<?php
+$page_title = "アカウント作成";
+require_once("../include/header.php");
+?>
 
+<?php
 // family_addクラスのインスタンスを作成
+require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>アカウント作成</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#addUser").click(function(){
-                // 新しいユーザー情報の入力フォームを追加
-                var newUserForm = $("#userForm").clone();
-                $("#userFormsContainer").append(newUserForm);
-            });
-        });
-    </script>
-</head>
-<body>
+
+<script>
+$(document).ready(function(){
+    $("#addUser").click(function(){
+        // 新しいユーザー情報の入力フォームを追加
+        var newUserForm = $("#userForm").clone();
+        $("#userFormsContainer").append(newUserForm);
+    });
+});
+</script>
+
+<main>
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント作成</h1>
@@ -83,5 +77,5 @@ $family_add = new family_add($db);
             </div>
         </form>
     </div>
-</body>
+</main>
 </html>
