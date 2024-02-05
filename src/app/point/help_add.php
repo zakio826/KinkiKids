@@ -34,18 +34,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <!-- 子供の場合のフォーム -->
         <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
         <p>子供向けのフォームやメッセージを表示</p>
-    <?php else: ?>
-        <!-- 予期せぬケースに備えてデフォルトの表示 -->
-        <p>選択されたユーザータイプに対応するフォームがありません。</p>
-        <ul>
-            <?php foreach ($helps as $help): ?>
-                <li>
-                    <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?><br>
-                    <strong>お手伝い詳細</strong> <?php echo $help['help_detail']; ?><br>
-                    <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
-                </li>
-            <?php endforeach; ?>
-        </ul>
     <?php endif; ?>
 
     <div class="content">
@@ -62,7 +50,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
                     </li>
                         <?php if ($select === 'adult'): ?>
-                        <form action="help_edit.php" method="post">
+                        <form action="help_edit.php" method="get">
                             <input type="hidden" name="edit_help_id" value="<?php echo $help['help_id']; ?>">
                             <button type="submit">編集</button>
                         </form>
