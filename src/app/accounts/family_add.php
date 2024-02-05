@@ -13,13 +13,17 @@ $family_add = new family_add($db);
 ?>
 
 <script>
-$(document).ready(function(){
-    $("#addUser").click(function(){
-        // 新しいユーザー情報の入力フォームを追加
-        var newUserForm = $("#userForm").clone();
-        $("#userFormsContainer").append(newUserForm);
+    // ドキュメントが読み込まれたら実行
+    document.addEventListener('DOMContentLoaded', function () {
+        // ユーザー追加ボタンがクリックされた時の処理を設定
+        document.getElementById('addUser').addEventListener('click', function () {
+            // 新しいユーザー情報の入力フォームを複製
+            var newUserForm = document.getElementById('userForm').cloneNode(true);
+            
+            // 複製したフォームを追加
+            document.getElementById('userFormsContainer').appendChild(newUserForm);
+        });
     });
-});
 </script>
 
 <main>
