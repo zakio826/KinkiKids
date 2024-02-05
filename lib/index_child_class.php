@@ -69,123 +69,168 @@ class index_child_class{
 
         return count($result);
     }
-    public function getTarget_amount($i){
-        $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result[$i]['target_amount'];
-    }
-    public function getGoal_deadline($i){
-        $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result[$i]['goal_deadline'];
-    }
-    public function getGoal_detail($i){
-        $stmt = $this->db->prepare("SELECT goal_detail FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result[$i]['goal_detail'];
-    }
-    public function getRequired_point($i){
-        $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $date01 = new DateTime('now');
-        $date02 = new DateTime($result[$i]['goal_deadline']);
-        $diff = date_diff($date01, $date02);
-
-        $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $target_amount = $result[$i]['target_amount'];
-
-        $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(count($result) != 0){
-            $have_points = $result[0]['have_points'];
-        } else {
-            $have_points = 0;
-        }
-
-
-        $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $savings = $result['savings'];
-
-        $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $allowance_amount = $result['allowance_amount'];
-
-        $answer = $target_amount - $have_points - $savings - $allowance_amount * $diff->m;
-
-        if ($answer >= 0){
-            return $answer;
-        } else {
-            return 0;
-        }
-    }
-    public function getOnerequired_point($i){
-        $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $date01 = new DateTime('now');
-        $date02 = new DateTime($result[$i]['goal_deadline']);
-        $diff = date_diff($date01, $date02);
-
-        $diff2 = $date01->diff($date02);
-
-        $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $target_amount = $result[$i]['target_amount'];
-
-        $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(count($result) != 0){
-            $have_points = $result[0]['have_points'];
-        } else {
-            $have_points = 0;
-        }
-
-        $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $savings = $result['savings'];
-
-        $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $allowance_amount = $result['allowance_amount'];
-
-        $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+    public function getTarget_amount(){
         
-        if ($answer >= 0){
-            return $answer;
-        } else {
-            return 0;
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($result as $deadline){
+            $date01 = new DateTime('now');
+            $date02 = new DateTime($deadline['goal_deadline']);
+            if($date01 <= $date02){
+                return $deadline['target_amount'];
+            }
+        }
+    }
+    public function getGoal_deadline(){
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $deadline){
+            $date01 = new DateTime('now');
+            $date02 = new DateTime($deadline['goal_deadline']);
+            if($date01 <= $date02){
+                return $deadline['goal_deadline'];
+            }
+        }
+    }
+    public function getGoal_detail(){
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $deadline){
+            $date01 = new DateTime('now');
+            $date02 = new DateTime($deadline['goal_deadline']);
+            if($date01 <= $date02){
+                return $deadline['goal_detail'];
+            }
+        }
+    }
+    public function getRequired_point(){
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $deadline){
+            $date01 = new DateTime('now');
+            $date02 = new DateTime($deadline['goal_deadline']);
+            if($date01 <= $date02){
+
+                
+                $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $date01 = new DateTime('now');
+                $date02 = new DateTime($deadline['goal_deadline']);
+                $diff = date_diff($date01, $date02);
+                
+                $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $target_amount = $deadline['target_amount'];
+                
+                $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $have_points = $result[0]['have_points'];
+                } else {
+                    $have_points = 0;
+                }
+        
+        
+                $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $savings = $result['savings'];
+                
+                $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $allowance_amount = $result['allowance_amount'];
+                
+                $answer = $target_amount - $have_points - $savings - $allowance_amount * $diff->m;
+                
+                if ($answer >= 0){
+                    return $answer;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+    public function getOnerequired_point(){
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $deadline){
+            $date01 = new DateTime('now');
+            $date02 = new DateTime($deadline['goal_deadline']);
+            if($date01 <= $date02){
+
+                
+                $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $date01 = new DateTime('now');
+                $date02 = new DateTime($deadline['goal_deadline']);
+                $diff = date_diff($date01, $date02);
+                
+                $diff2 = $date01->diff($date02);
+                
+                $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $target_amount = $result[0]['target_amount'];
+                
+                $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $have_points = $result[0]['have_points'];
+                } else {
+                    $have_points = 0;
+                }
+                
+                $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $savings = $result['savings'];
+                
+                $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
+                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $allowance_amount = $result['allowance_amount'];
+                
+                $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                
+                if ($answer >= 0){
+                    return $answer;
+                } else {
+                    return 0;
+                }
+            }
         }
     }
 }
