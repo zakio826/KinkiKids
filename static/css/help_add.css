@@ -1,42 +1,42 @@
 
     /* ボタンの基本的なスタイル */
-    /* button {
+    button {
         padding: 10px 70px;
-        background-color: #6784EC;
-        color: white;
-        border: none;
-        border-radius: 5px;
+        background-color: #6784EC; /* ボタンの背景色 */
+        color: white; /* テキストの色 */
+        border: none; /* ボーダーをなしに設定 */
+        border-radius: 5px; /* ボタンの角を丸くする */
         margin: 15px ;
         
-    } */
+    }
 
     /* ボタンにホバーエフェクトを追加 */
-    /* button:hover {
-        background-color: #3d62eb;
-    } */
+    button:hover {
+        background-color: #3d62eb; /* ホバー時の背景色 */
+    }
 
-    /* main{
+    main{
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-        color: #7f98f1;
+        color: #7f98f1; /* テキストの色を指定 */
         
         border-radius: 5px;
-        font-size: 20px;
-        font-weight: bold;
-    } */
+        font-size: 20px; /* フォントサイズを16pxに変更 */
+        font-weight: bold; /* フォントを太字に変更 */
+    }
 
     
 
     
    
     /* フォーム内のテキストのスタイル */
-/* form p {
+form p {
     font-weight: bold;
-    text-align: left;
+    text-align: left; /* テキストを左寄せにする */
     -webkit-text-stroke: 1px rgb(40, 155, 248);
-} */
+}
 
