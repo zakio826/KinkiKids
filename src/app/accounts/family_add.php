@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // 新しいユーザー情報の入力フォームを追加
                 var newUserForm = $("#userForm").clone();
                 newUserForm.find('input').val('');  // フォーム内の値をクリア
+                newUserForm.find('input[type="checkbox"]').prop('checked', false);
                 newUserForm.append('<button type="button" class="removeUser">マイナス</button>');  // 削除ボタンを追加
                 $("#userFormsContainer").append(newUserForm);
             });
@@ -93,17 +94,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="control">
                         <label for="role_id">役割</label>
                         <select name="role_id[]">
+                            <?php $family_add->role_select(); ?>
                         </select>
                     </div>
 
                     <div class="control">
                         <label for="admin_flag">管理者</label>
                         <input type="checkbox" name="admin_flag[]" value="1">
-                    </div>
-
-                    <div class="control">
-                        <label for="savings">貯蓄</label>
-                        <input type="text" name="savings[]">
                     </div>
 
                     <!-- 削除ボタン -->

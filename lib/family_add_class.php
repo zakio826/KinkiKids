@@ -18,7 +18,6 @@ class family_add {
             $gender_ids = $_POST['gender_id'];
             $role_ids = $_POST['role_id'];
             $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array();
-            $savings = $_POST['savings'];
 
             // 登録する家族のfamily_idを取得
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
@@ -47,9 +46,6 @@ class family_add {
                 if ($role_ids[$i] === "") {
                     $error['role_id'][$i] = "blank";
                 }
-                if ($role_ids[$i] === "") {
-                    $error['savings'][$i] = "blank";
-                }
 
                 // usernameの重複を検知
                 $user = $this->db->prepare('SELECT COUNT(*) as cnt FROM user WHERE username=?');
@@ -69,10 +65,11 @@ class family_add {
                 for ($i = 0; $i < count($usernames); $i++) {
                     
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
+                    $firstlogin = date('Y-m-d');
 
                     $statement = $this->db->prepare(
                         "INSERT INTO user 
-                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
+                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
 
@@ -85,8 +82,8 @@ class family_add {
                         $gender_ids[$i],
                         $role_ids[$i],
                         isset($admin_flags[$i]) ? $admin_flags[$i] : 0,
-                        $savings[$i],
-                        $family_id
+                        $family_id,
+                        $firstlogin
                     ));
                 }
 

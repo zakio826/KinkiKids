@@ -30,11 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php $entry->username_error(); ?>
             </div>
 
-                <div class="form-group">
-                    <label for="password">パスワード</label>
-                    <input id="password" type="password" name="password" class="form-control">
-                    <?php $entry->password_error(); ?>
-                </div>
+            <div class="form-group">
+                <label for="password">パスワード</label>
+                <input id="password" type="password" name="password" class="form-control">
+                <?php $entry->password_error(); ?>
+            </div>
+
+            <div class="control">
+                <label for="family_name">家族名</label>
+                <input id="family_name" type="text" name="family_name">
+                <?php $entry->familyname_error(); ?>
+            </div>
 
             <div class="control">
                 <label for="last_name">名字</label>
@@ -71,18 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php $entry->role_select(); ?>
                     </select>
                 </div>
-
-            <div class="control">
-                <label for="savings">貯蓄</label>
-                <input id="savings" type="int" name="savings">
-            </div>
             
             <!-- 「FIXME」管理ユーザーがログインしている場合は表示しないようにする -->
-            <div class="control">
-                <label for="family_name">家族名</label>
-                <input id="family_name" type="text" name="family_name">
-                <?php $entry->familyname_error(); ?>
-            </div>
+            
  
             <div class="control">
                 <button type="submit" class="btn">確認する</button>
