@@ -99,9 +99,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <main>
-    <div class="frame">
-        <div class="wrapper">
-        <!-- <img src="../../../static/assets/login_hiyoko2.png" height="100"> -->
+    <div class="frame_login">
+        <div class="wrapper1">
         <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100" class="login_hiyoko">
             <h1>ログイン</h1>
             <p>ログイン情報を入力してください</p>
@@ -128,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="submit" class="btn btn-primary" value="ログイン">
                 </div>
                 <br>
-                <p>アカウントがない場合 <a href="./entry.php">ここからサインアップしてください</a></p>
+                <p>アカウントがない場合 <br><a href="./entry.php">ここからサインアップしてください</a></p>
             </form>
         </div>
     </div>

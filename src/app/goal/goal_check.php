@@ -1,5 +1,6 @@
 <?php
 $page_title = "目標";
+$stylesheet_name = "goal_check.css";
 require_once("../include/header.php");
 ?>
 
@@ -11,16 +12,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-if (!isset($_SESSION['join'])) { //
-    header('Location: ./goal.php');
-    exit();
-}
+// if (!isset($_SESSION['join'])) { //
+//     header('Location: ./goal.php');
+//     exit();
+// }
 
 $targetAmount = $_SESSION['join']['target_amount'];
 $goalDetail = $_SESSION['join']['goal_detail'];
 $goalDeadline = $_SESSION['join']['goal_deadline'];
 
-unset($_SESSION['join']);
+// unset($_SESSION['join']);
 ?>
 
 <main>
@@ -31,7 +32,7 @@ unset($_SESSION['join']);
             <p><?php echo htmlspecialchars($targetAmount); ?> 円</p>
         </div>
         <div class="mt-1">
-            <strong>ないよう　</strong>
+            <strong>しょうさい　</strong>
             <p><?php echo htmlspecialchars($goalDetail); ?></p>
         </div>
         <div class="mt-1">
