@@ -86,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'ユーザー名かパスワードが無効です。';
+                $login_err = 'ユーザー名かパスワードが無効です。。';
             }
         }else {
             $login_err = 'ユーザー名かパスワードが無効です。';
