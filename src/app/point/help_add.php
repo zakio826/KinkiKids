@@ -17,6 +17,9 @@ $helps = $help->display_help($family_id);
 ?>
 
 <main>
+    <div class="title">
+        <h1>おてつだい</h1>
+    </div>
     <div class ="content">
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
