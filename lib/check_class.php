@@ -30,8 +30,8 @@ function checkUser($db, $joinData) {
 
         $statement = $db->prepare(
             "INSERT INTO user 
-            (username, password, first_name, last_name, birthday, gender_id, role_id, savings, family_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
         $statement->execute(array(
@@ -42,6 +42,7 @@ function checkUser($db, $joinData) {
             $joinData['birthday'],
             $joinData['gender_id'],
             $joinData['role_id'],
+            1,
             $joinData['savings'],
             $family_id
         ));
