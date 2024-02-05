@@ -22,24 +22,24 @@ $goals = $goal->getUserGoals($user_id);
 
 <main>
     <div class="content">
-        <h1>登録した目標一覧</h1>
+        <h1>もくひょういちらん</h1>
 
         <?php if (empty($goals)): ?>
-            <p>登録した目標はありません。</p>
+            <p>もくひょうがないよ！</p>
         <?php else: ?>
             <ul>
                 <?php foreach ($goals as $goal): ?>
                     <li>
-                        <strong>目標金額:</strong> <?php echo $goal['target_amount']; ?> 円<br>
-                        <strong>目標詳細:</strong> <?php echo $goal['goal_detail']; ?><br>
-                        <strong>期限:</strong> <?php echo $goal['goal_deadline']; ?><br>
-                        <strong>作成日時:</strong> <?php echo $goal['goal_created_date']; ?>
+                        <strong>きんがく:</strong> <?php echo $goal['target_amount']; ?> 円<br>
+                        <strong>しょうさい:</strong> <?php echo $goal['goal_detail']; ?><br>
+                        <strong>きげん:</strong> <?php echo $goal['goal_deadline']; ?><br>
+                        <strong>さくせいび:</strong> <?php echo $goal['goal_created_date']; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
         <p class="mt-3">
-            <a href="../index.php" class="btn btn-primary">インデックス</a>
+            <a href="../index.php" class="btn btn-primary">もどる</a>
         </p>
     </div>
 </main>
