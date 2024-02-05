@@ -56,10 +56,7 @@ $db = new connect();
 
         <!-- カスタムスタイルシート -->
         <!-- <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css"> -->
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/login.css">
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/help_add.css">
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/goal_check.css">
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/list.css">
+        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/<?php echo $style_name; ?>">
 
         <!-- アプリアイコン -->
         <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
