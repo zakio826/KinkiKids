@@ -40,7 +40,19 @@ class level_of_achievement_class{
         return $result;
     }
     public function getTarget_amount($i){
+        $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public function getTarget_amount($i){
         $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        return $result[$i]['target_amount'];
+    }
+    public function getGoal_deadline($i){
+        $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
