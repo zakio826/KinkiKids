@@ -7,9 +7,6 @@ include("../include/header.php");
 ?>
 
 <?php
-require("../../../config/db_connect.php");
-session_start();
-$db = new connect();
 
 // testpointクラスのインスタンスを作成
 require("../../../lib/testpoint_class.php");
