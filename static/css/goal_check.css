@@ -15,7 +15,7 @@ main {
     height: 100vh;
 }
 
-.container {
+.container-- {
     background-color: #fff7ab;
     padding: 20px;
     border-radius: 30px;

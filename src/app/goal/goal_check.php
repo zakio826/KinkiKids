@@ -28,7 +28,7 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
-    <div class="container">
+    <div class="container--">
         <h1>もくひょうかくにん</h1>
         <div class="mt-1">
             <strong>きんがく　</strong>
