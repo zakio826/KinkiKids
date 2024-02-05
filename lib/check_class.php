@@ -17,16 +17,19 @@ function checkUser($db, $joinData) {
         $statement = $db->prepare("INSERT INTO family SET family_name=?");
         $statement->execute(array($joinData['family_name']));
 
-        $statement = $db->prepare('SELECT * FROM family WHERE family_name=?');
+        // 最新のfamily_idを取得
+        $statement = $db->prepare('SELECT family_id FROM family WHERE family_name=? ORDER BY family_id DESC LIMIT 1');
         $statement->execute(array($joinData['family_name']));
         $record = $statement->fetch(PDO::FETCH_ASSOC);
 
         if ($record !== false) {
-            end($record);
             $family_id = $record['family_id'];
+
+            // userテーブルに家族を挿入
+            $statement = $db->prepare("INSERT INTO user SET family_id=?");
+            $statement->execute(array($family_id));
         } else {
-            $family_id = null;
-            error_log('Fetch failed in check.php');
+            error_log('Failed to get family_id in check.php');
         }
 
         $statement = $db->prepare(
