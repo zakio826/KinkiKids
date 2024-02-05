@@ -6,10 +6,10 @@ class family_add {
 
     function __construct($db) {
         $this->db = $db;
-        $this->error = []; // 初期化
+        $this->error = [];
 
         if (!empty($_POST)) {
-            // フォームから送信された各種情報を取得
+            
             $usernames = $_POST['username'];
             $passwords = $_POST['password'];
             $first_names = $_POST['first_name'];
@@ -67,10 +67,9 @@ class family_add {
 
                 // フォームから送信された各ユーザー情報をループ処理
                 for ($i = 0; $i < count($usernames); $i++) {
-                    // パスワードを暗号化
+                    
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
 
-                    // ユーザーを挿入
                     $statement = $this->db->prepare(
                         "INSERT INTO user 
                         (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
@@ -106,6 +105,61 @@ class family_add {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result['family_id'];
+    }
+
+    public function username_error() {
+        //ユーザー名が入力されてなければエラーを表示
+        if (!empty($this->error['username'])) {
+            switch ($this->error['username']) {
+                case 'blank':
+                    echo '＊ユーザー名を入力してください';
+                    break;
+            }
+        }
+    }
+
+    public function password_error() {
+        //パスワードが入力されてなければエラーを表示
+        if (!empty($this->error['password'])) {
+            switch ($this->error['password']) {
+                case 'blank':
+                    echo '＊パスワードを入力してください';
+                    break;
+            }
+        }
+    }
+
+    public function firstname_error() {
+        //苗字が入力されてなければエラーを表示
+        if (!empty($this->error['first_name'])) {
+            switch ($this->error['first_name']) {
+                case 'blank':
+                    echo '＊苗字を入力してください';
+                    break;
+            }
+        }
+    }
+
+    public function lastname_error() {
+        //名前が入力されてなければエラーを表示
+        if (!empty($this->error['last_name'])) {
+            switch ($this->error['last_name']) {
+                case 'blank':
+                    echo '＊名前を入力してください';
+                    break;
+            }
+        }
+    }
+
+    public function birthday_error() {
+        //誕生日が入力されてなければエラーを表示
+        if (!empty($this->error['birthday'])) {
+            switch ($this->error['birthday']) {
+                case 'blank':
+                    echo '＊誕生日を入力してください';
+                    break;
+            }
+        }
     }
 
     public function role_select(){
