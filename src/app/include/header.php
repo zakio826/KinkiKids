@@ -4,7 +4,7 @@ $url_path = explode("/", $_SERVER["REQUEST_URI"]);
 // $absolute_path = "../";
 $absolute_path = "";
 $accounts_page = false;
-for ($i = 4; $i < count($url_path); $i++) {
+for ($i = 3; $i < count($url_path); $i++) {
     if ($url_path[$i] === "accounts") {
         $accounts_page = true;
     }
