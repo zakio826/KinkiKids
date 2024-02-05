@@ -63,12 +63,13 @@ class entry {
     }
 
     public function username_error() {
-        //ユーザー名が入力されてなければエラーを表示
         if (!empty($this->error['username'])) {
             switch ($this->error['username']) {
+                //ユーザー名が入力されてなければエラーを表示
                 case 'blank':
                     echo '＊ユーザー名を入力してください。';
                     break;
+                //ユーザー名が重複していたらエラーを表示
                 case 'duplicate':
                     echo '*そのユーザー名は既に使われています。';
                     break;
@@ -77,12 +78,13 @@ class entry {
     }
 
     public function password_error() {
-        //パスワードが入力されてなければエラーを表示
         if (!empty($this->error['password'])) {
             switch ($this->error['password']) {
+                //パスワードが入力されてなければエラーを表示
                 case 'blank':
                     echo '*パスワードを入力してください。';
                     break;
+                //パスワードが半角英数字８文字以上でなければエラーを表示
                 case 'char_limit':
                     echo '*パスワードは半角英数字８文字以上で入力してください。';
                     break;
