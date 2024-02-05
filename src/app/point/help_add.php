@@ -63,6 +63,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                             <input type="hidden" name="delete_help_id" value="<?php echo $help['help_id']; ?>">
                             <button type="submit">削除</button>
                         </form>
+                        <form action="" method="post">
+                            <input type="hidden" name="" value="<?php echo $help['']; ?>">
+                            <button type="submit">編集</button>
+                        </form>
                     <?php endif; ?>
                 </li>
             <?php endforeach; ?>
