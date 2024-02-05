@@ -1,9 +1,8 @@
 <?php 
 
-
 //ファイルの読み込み
-require("../../../config/db_connect.php");
-require("../../../lib/functions.php");
+require($absolute_path."config/db_connect.php");
+require($absolute_path."lib/functions.php");
 
 //セッションの開始
 session_start();//クラスを使用して接続するように変更

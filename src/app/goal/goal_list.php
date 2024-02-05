@@ -1,14 +1,13 @@
-
 <?php
 $page_title = "目標一覧";
+$stylesheet_name = "goal_list.css";
 require_once("../include/header.php");
 ?>
-
 
 <?php
 // goal_list.php
 
-require("../../../lib/goal_class.php");
+require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 
 // ユーザーのIDを取得
@@ -18,6 +17,8 @@ $user_id = $_SESSION["user_id"];
 $goals = $goal->getUserGoals($user_id);
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">

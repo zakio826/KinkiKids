@@ -7,12 +7,12 @@ require_once("../include/header.php");
 ?>
 
 <?php 
-require("../../../lib/goal_class.php");
+require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 ?>
 
-<!-- CSSファイルのリンクを追加 -->
-<link rel="stylesheet" type="text/css" href="../../../static/css/goal.css">
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
@@ -21,7 +21,7 @@ $goal = new goal($db);
             <br>
 
             <div class="control-1">
-                <label for="target_amount">もくひょう</label>
+                <label for="target_amount">きんがく</label>
                 <input id="target_amount" type="int" name="target_amount"  placeholder="5,000">
                 <b>円</b>
             </div>

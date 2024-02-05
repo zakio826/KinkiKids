@@ -46,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $errors = validation($datas,false);
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
-        $sql = "SELECT user_id,username,password,role_id,admin_flag,family_id FROM user WHERE username = :username";
+        $sql = "SELECT user_id,username,password,role_id,admin_flag,first_login,family_id FROM user WHERE username = :username";
         $stmt = $db->prepare($sql);
         // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
@@ -71,19 +71,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $_SESSION["select"] = 'child';
                 }
                 
-                //ウェルカムページへリダイレクト
-                header("location:welcome.php");
                 //初回ログイン時の処理
-                if (empty($row['first_login'])) {
-                    $sql = "UPDATE user SET first_login = 1 WHERE user_id = " . $row['user_id'];
+                if (isset($row['first_login'])) {
+                    $date = new DateTime("now");
+                    $today = $date->format("Y-m-d");
+
+                    $sql = "UPDATE user SET first_login = TO_DATE('".$today."','YYYY-MM-DD') WHERE user_id = ".$row['user_id'];
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
+                    
                     //ウェルカムページへリダイレクト
                     header("Location: ../welcome.php");
                 } else {
-                    //ホームページへリダイレクト
+                    //トップページへリダイレクト
+                    // header("Location: ..index.php");
                     header("Location: ../welcome.php");
-                    // header("Location: ../chat/testpoint.php");
                 }
                 exit();
             } else {
