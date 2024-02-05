@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "アカウント作成";
+$stylesheet_name = "login.css";
 require_once("../include/header.php");
 ?>
 
@@ -19,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main>
     <div class="content">
-    <div class="frame2">
-        <div class="wrapper">
+    <div class="frame_entry">
+        <div class="wrapper1">
             <form action="" method="POST">
                 <h1>アカウント作成</h1>
                 <p>当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
