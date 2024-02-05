@@ -85,6 +85,7 @@ $last_day = $date->modify('last day of')->format("d");
                 </div> -->
             </div>
 
+            <!-- 月間収支表示 -->
             <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-around mt-3">
                 <h4 class="col-8 col-md-3 row row-cols-auto gy-3 justify-content-around my-3 pb-3 money-grid">
                     <span class="col">つかったお金</span>
@@ -99,9 +100,20 @@ $last_day = $date->modify('last day of')->format("d");
                     <span class="col">10000円</span>
                 </h4>
             </div>
+
+            <!-- グラフ表示 -->
+            <div class="row mt-5 money-grid">
+                <div class="position-relative d-block p-5">
+                    <!-- チャートの表示エリア -->
+                    <canvas class="w-100 h-100" id="myChart"></canvas>
+                </div>
+            </div>
         </div>
     </section>
 </main>
+
+<!-- JavaScript -->
+<script src="<?php echo $absolute_path; ?>static/js/record_chart.js"></script>
 
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
