@@ -17,7 +17,7 @@ $helps = $help->display_help($family_id);
 
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../accounts/login.php", true , 301);
     exit;
 }
 ?>
