@@ -66,15 +66,14 @@ $db = new connect();
     </head>
 
     <style>
-        html, body {
+        html {
             position: relative;
-            max-height: 100%;
-            height: 100%;
+            min-height: 100vh;
         }
         main {
             position: relative;
-            max-height: 100%;
-            padding-bottom: 4rem;
+            min-height: calc(100vh - 4rem);
+            margin-bottom: 4rem;
         }
     </style>
 
