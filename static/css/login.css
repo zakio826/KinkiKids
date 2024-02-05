@@ -25,7 +25,7 @@ body {
 /* ログイン画面とアカウント作成画面の項目の枠組み */
 .wrapper1 {
     text-align: center; /* テキストを中央寄せ */
-    background-color: #fff491; /*背景色の指定 */
+    background-color: #fff7ab; /*背景色の指定 */
     padding: 50px; /* 長方形の中の余白を設定 */
     border-radius: 30px; /* 角を丸めることで長方形にする */
     z-index: 1; /* 表示優先度を変更してフッターと被らないようにしてる */
@@ -35,6 +35,18 @@ body {
 h1 {
     font-size: 50px; /*フォントのサイズを指定 */
     font-weight: bold;  /* 太文字に設定 */
+}
+
+/* ボタン */
+.btn {
+    background-color: #525ED2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 
@@ -64,12 +76,6 @@ h1 {
 /* ログイン画面のひよこ画像 */
 .login_hiyoko {
     margin-top: -230px; /*ひよこ画像位置を枠からはみ出させる */
-}
-
-/* ログイン画面のボタン */
-.btn {
-    background-color: #0d6efd; /*ボタン色 */
-    border-bottom: 3px solid blue; /*ボタンの下に線（立体のように見せる） */
 }
 
 
@@ -140,6 +146,18 @@ h1 {
 /* 入力情報の確認画面中の入力情報の文字間隔 */
 .moji-check {
     margin-bottom: 0px;
+    font-weight: 500; /* 太字 */
 }
 
-
+/* 入力情報の確認画面中の変更ボタン */
+.back-btn {
+    background-color: #ce3f3f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}

@@ -18,13 +18,23 @@ body {
 /* ユーザー登録完了画面項目の枠組み */
 .wrapper1 {
     text-align: center; /* テキストを中央寄せ */
-    background-color: #fff491; /*背景色の指定 */
+    background-color: #fff7ab; /*背景色の指定 */
     padding: 50px; /* 長方形の中の余白を設定 */
     border-radius: 30px; /* 角を丸めることで長方形にする */
     z-index: 1; /* 表示優先度を変更してフッターと被らないようにしてる */
 }
 
 .btn {
-    background-color: #0d6efd; /*ボタン色 */
-    border-bottom: 3px solid blue; /*ボタンの下に線（立体のように見せる） */
+    background-color: #525ED2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.registration_completedC {
+    margin-bottom: 10px;
 }
