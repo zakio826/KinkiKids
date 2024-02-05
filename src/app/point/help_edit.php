@@ -13,8 +13,8 @@
         <h1>編集画面</h1>
     </div>
     <form action="" method="POST">
-        <input type="text" class="input-area" name="title" placeholder="Title"> ddd<br>
-        <input type="text" class="input-area" name="content" placeholder="Content"> <br>
+        <input type="text" class="input-area" name="title" placeholder="Title"><br>
+        <input type="text" class="input-area" name="content" placeholder="Content"><br>
         <input type="submit" class="input-area submit" name="submit" value="更新">
     </form>
 </body>
