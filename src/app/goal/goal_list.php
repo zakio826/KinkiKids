@@ -1,16 +1,14 @@
+
+<?php
+$page_title = "目標一覧";
+require_once("../include/header.php");
+?>
+
+
 <?php
 // goal_list.php
 
-require("../../../config/db_connect.php");
 require("../../../lib/goal_class.php");
-session_start();
-
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: ../accounts/login.php");
-    exit;
-}
-
-$db = new connect();
 $goal = new goal($db);
 
 // ユーザーのIDを取得
@@ -20,10 +18,6 @@ $user_id = $_SESSION["user_id"];
 $goals = $goal->getUserGoals($user_id);
 ?>
 
-<?php
-$page_title = "目標一覧";
-require_once("../include/header.php");
-?>
 
 <main>
     <div class="content">

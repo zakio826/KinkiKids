@@ -1,21 +1,20 @@
+<!-- ログイン画面 -->
+
+<!-- ヘッダー -->
+<?php
+$page_title = "ログイン";
+require_once("../include/header.php");
+?>
+
 <?php
 //ファイルの読み込み
-require_once("../../../config/db_connect.php");
-require_once("../../../lib/functions.php");
-//セッション開始
-session_start();
-
-$db = new connect();
-$pdo = $db;
+require_once($absolute_path."lib/functions.php");
 
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("Location: ./welcome.php");
+    header("Location: ../welcome.php");
     exit;
 }
-
-// データベース接続を行う
-$db = new connect();
 
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
@@ -47,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($errors)){
         //ユーザーネームから該当するユーザー情報を取得
         $sql = "SELECT user_id,username,password,role_id,admin_flag,family_id FROM user WHERE username = :username";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $db->prepare($sql);
         // $stmt->bindValue('username',$datas['username'],PDO::PARAM_INT);
         $stmt->bindValue('username',$datas['username'],PDO::PARAM_STR);
         $stmt->execute();
@@ -79,26 +78,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
                     //ウェルカムページへリダイレクト
-                    header("Location: ./welcome.php");
+                    header("Location: ../welcome.php");
                 } else {
                     //ホームページへリダイレクト
-                    header("Location: ./welcome.php");
+                    header("Location: ../welcome.php");
                     // header("Location: ../chat/testpoint.php");
                 }
                 exit();
             } else {
-                $login_err = 'Invalid username or password.';
+                $login_err = 'ユーザー名かパスワードが無効です。';
             }
         }else {
-            $login_err = 'Invalid username or password.';
+            $login_err = 'ユーザー名かパスワードが無効です。';
         }
     }
 }
-?>
-
-<?php
-$page_title = "ログイン";
-require_once("../include/header.php");
 ?>
 
 <main>
@@ -115,12 +109,12 @@ require_once("../include/header.php");
         <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
             <div class="form-group">
                 <label>ユーザー名</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
+                <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
             </div>    
             <div class="form-group">
                 <label>パスワード</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'が正しくありません。' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </div>
             <div class="form-group">
@@ -132,4 +126,5 @@ require_once("../include/header.php");
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
