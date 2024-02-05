@@ -36,6 +36,7 @@ $helps = $help->display_help($family_id);
         <?php endif; ?>
     </div>
    
+    <br>
 
     <div class="content">
         <h2>登録した目標一覧</h2>
