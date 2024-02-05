@@ -13,6 +13,12 @@ $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($family_id);
+
+
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../accounts/login.php", true , 301);
+    exit;
+}
 ?>
 
 <main>
