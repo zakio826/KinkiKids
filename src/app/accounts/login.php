@@ -74,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 header("location:welcome.php");
                 //初回ログイン時の処理
                 if (empty($row['first_login'])) {
-                    $sql = "UPDATE user SET first_login = 1 WHERE user_id = " . $row['user_id'];
+                    $sql = "UPDATE user SET first_login = CURRENT_DATE WHERE user_id = " . $row['user_id'];
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
                     //ウェルカムページへリダイレクト
@@ -86,10 +86,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'ユーザー名かパスワードが無効です。。';
+                $login_err = 'パスワードが無効です。';
             }
         }else {
-            $login_err = 'ユーザー名かパスワードが無効です。';
+            $login_err = '存在しないユーザー名です。';
         }
     }
 }

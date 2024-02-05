@@ -5,6 +5,12 @@ require("../../../config/db_connect.php");
 require("../../../lib/family_add_class.php");
 session_start();
 
+// admin_flagが1でない場合はリダイレクト
+if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+    header("Location: ../index.php");
+    exit;
+}
+
 // データベース接続を行う
 $db = new connect();
 
@@ -28,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // 新しいユーザー情報の入力フォームを追加
                 var newUserForm = $("#userForm").clone();
                 newUserForm.find('input').val('');  // フォーム内の値をクリア
+                newUserForm.find('input[type="checkbox"]').prop('checked', false);
                 newUserForm.append('<button type="button" class="removeUser">マイナス</button>');  // 削除ボタンを追加
                 $("#userFormsContainer").append(newUserForm);
             });
@@ -53,31 +60,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="control">
                         <label for="username">ユーザー名</label>
                         <input type="text" name="username[]">
-                        <?php $family_add->username_error(); ?>
                     </div>
                     
                     <div class="control">
                         <label for="password">パスワード</label>
                         <input type="password" name="password[]">
-                        <?php $family_add->password_error(); ?>
                     </div>
 
                     <div class="control">
                         <label for="last_name">名字</label>
                         <input type="text" name="last_name[]">
-                        <?php $family_add->firstname_error(); ?>
                     </div>
 
                     <div class="control">
                         <label for="first_name">名前</label>
                         <input type="text" name="first_name[]">
-                        <?php $family_add->lastname_error(); ?>
                     </div>
 
                     <div class="control">
                         <label for="birthday">誕生日</label>
                         <input type="date" name="birthday[]">
-                        <?php $family_add->birthday_error(); ?>
                     </div>
 
                     <div class="control">
@@ -99,11 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="control">
                         <label for="admin_flag">管理者</label>
                         <input type="checkbox" name="admin_flag[]" value="1">
-                    </div>
-
-                    <div class="control">
-                        <label for="savings">貯蓄</label>
-                        <input type="text" name="savings[]">
                     </div>
 
                     <!-- 削除ボタン -->
