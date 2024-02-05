@@ -1,18 +1,21 @@
 <!-- goal_check.php -->
 
-
 <?php
 $page_title = "目標達成度";
+$stylesheet_name = "goal_check";
 require_once("../include/header.php");
 ?>
 
 <?php
-require("../../../lib/level_of_achievement_class.php");
+require($absolute_path."lib/level_of_achievement_class.php");
 $level_of_achievement_class = new level_of_achievement_class($db);
 $have_points = $level_of_achievement_class->getHave_points();
 $savings = $level_of_achievement_class->getSavings();
 $have_money = $have_points+$savings;
 ?>
+
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="container">

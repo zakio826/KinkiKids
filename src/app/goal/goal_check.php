@@ -5,7 +5,7 @@ require_once("../include/header.php");
 ?>
 
 <?php
-require("../../../lib/goal_class.php");
+require($absolute_path."lib/goal_class.php");
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("Location: ../accounts/login.php");
@@ -23,6 +23,9 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
 
 // unset($_SESSION['join']);
 ?>
+
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="container">
