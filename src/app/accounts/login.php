@@ -125,6 +125,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>
 </main>
-
+<!-- aaaa -->
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
