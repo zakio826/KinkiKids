@@ -11,9 +11,6 @@ require("../../../lib/goal_class.php");
 $goal = new goal($db);
 ?>
 
-<!-- CSSファイルのリンクを追加 -->
-<link rel="stylesheet" type="text/css" href="../../../static/css/goal.css">
-
 <main>
     <div class="content">
         <form action="" method="POST">
