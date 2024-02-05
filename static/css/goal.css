@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
 
-/* body {
+body {
     font-family: 'Zen Maru Gothic', sans-serif;
     background-color: #f5f5f5;
     background-image: url(../assets/back_image.png);
@@ -13,7 +13,7 @@ main {
     justify-content: center;
     align-items: center;
     height: 100vh;
-} */
+}
 
 .content {
     background-color: #fff7ab;
@@ -23,7 +23,7 @@ main {
     width: 350px;
 }
 
-/* form {
+form {
     display: flex;
     flex-direction: column;
 }
@@ -43,7 +43,7 @@ p {
 
 b {
     font-size: 25px;
-} */
+}
 
 .control,.control1 {
     margin-bottom: 15px;
@@ -56,7 +56,7 @@ b {
     text-align: center;
 }
 
-/* label {
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: 800;
@@ -74,7 +74,7 @@ input {
     margin: 0 auto;
     background-color: #fff;
     font-size: 20px;
-} */
+}
 
 .control1 {
     text-align: center;
@@ -92,7 +92,7 @@ input {
 }
 
 /* 日付入力フォームのスタイル */
-/* #goal_deadline {
+#goal_deadline {
     width: 80%; 
     padding: 8px;
     box-sizing: border-box;
@@ -114,4 +114,4 @@ input[type="text"] {
 #target_amount {
     width: calc(85% - 40px);
     padding-right: 20px;
-} */
+}
