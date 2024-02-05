@@ -45,11 +45,11 @@ b {
     font-size: 25px;
 }
 
-.control,.control1 {
+.control-1,.control-2 {
     margin-bottom: 15px;
 }
 
-.control {
+.control-1 {
     color: #000000;
     font-weight: bold;
     width: 300px;
@@ -76,7 +76,7 @@ input {
     font-size: 20px;
 }
 
-.control1 {
+.control-2 {
     text-align: center;
 }
 
