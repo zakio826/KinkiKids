@@ -1,8 +1,8 @@
 <!-- ユーザー登録ページ -->
 <?php 
 // test
-require("./db_connect.php");
-require("./family_add_class.php");
+require("../../../config/db_connect.php");
+require("../../../lib/family_add_class.php");
 session_start();
 
 // データベース接続を行う

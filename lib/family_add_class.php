@@ -92,7 +92,7 @@ class family_add {
                 }
 
                 unset($_SESSION['join']);   // セッションを破棄
-                header('Location: index.php');   // thank.phpへ移動
+                header('Location: ../index.php');   // thank.phpへ移動
                 exit();
             }
         }
