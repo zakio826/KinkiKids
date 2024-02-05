@@ -1,12 +1,14 @@
+<!-- サインアップのPHP(未機能) -->
+
+<!-- ヘッダー -->
 <?php
-//サインアップのPHP(未機能)
+$page_title = "サインアップ";
+require_once("../include/header.php");
+?>
 
+<?php
 //ファイルの読み込み
-require_once("../../../config/db_connect.php");
-require_once("../../../lib/functions.php");
-
-//セッションの開始
-session_start();
+require_once($absolute_path."lib/functions.php");
 
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
@@ -79,11 +81,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 }
-?>
-
-<?php
-$page_title = "サインアップ";
-require_once("../include/header.php");
 ?>
 
 <main>

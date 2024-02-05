@@ -7,7 +7,7 @@ require_once("../include/header.php");
 ?>
 
 <?php 
-require("../../../lib/goal_class.php");
+require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 ?>
 

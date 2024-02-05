@@ -1,9 +1,9 @@
-
 <?php
 $page_title = "お手伝い登録";
 $stylesheet_name = "help_add.css";
 require_once("../include/header.php");
 ?>
+
 <?php
 require($absolute_path."lib/help_class.php");
 $help = new help($db);
@@ -16,7 +16,13 @@ $select = $_SESSION["select"];
 $helps = $help->display_help($family_id);
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
+    <div class="title">
+        <h1>おてつだい</h1>
+    </div>
     <div class ="content">
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
