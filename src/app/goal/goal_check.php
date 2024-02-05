@@ -1,5 +1,6 @@
 <?php
 $page_title = "目標";
+$stylesheet_name = "goal_check.css";
 require_once("../include/header.php");
 ?>
 

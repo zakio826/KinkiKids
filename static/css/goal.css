@@ -40,12 +40,12 @@ form {
     flex-direction: column;
 }
 
-/* h1 {
+h1 {
     text-align: center;
     color: #FFC83A;
     font-weight: bold;
     font-size: 30px;
-} */
+}
 
 p {
     margin-bottom: 20px;
