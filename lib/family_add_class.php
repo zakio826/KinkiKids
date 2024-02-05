@@ -107,60 +107,6 @@ class family_add {
         return $result['family_id'];
     }
 
-    public function username_error() {
-        //ユーザー名が入力されてなければエラーを表示
-        if (!empty($this->error['username'])) {
-            switch ($this->error['username']) {
-                case 'blank':
-                    echo '＊ユーザー名を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function password_error() {
-        //パスワードが入力されてなければエラーを表示
-        if (!empty($this->error['password'])) {
-            switch ($this->error['password']) {
-                case 'blank':
-                    echo '＊パスワードを入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function firstname_error() {
-        //苗字が入力されてなければエラーを表示
-        if (!empty($this->error['first_name'])) {
-            switch ($this->error['first_name']) {
-                case 'blank':
-                    echo '＊苗字を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function lastname_error() {
-        //名前が入力されてなければエラーを表示
-        if (!empty($this->error['last_name'])) {
-            switch ($this->error['last_name']) {
-                case 'blank':
-                    echo '＊名前を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function birthday_error() {
-        //誕生日が入力されてなければエラーを表示
-        if (!empty($this->error['birthday'])) {
-            switch ($this->error['birthday']) {
-                case 'blank':
-                    echo '＊誕生日を入力してください';
-                    break;
-            }
-        }
-    }
 
     public function role_select(){
         // $this->db が null でないことを確認
