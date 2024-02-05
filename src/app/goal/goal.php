@@ -11,9 +11,6 @@ require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 ?>
 
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
-
 <main>
     <div class="content">
         <form action="" method="POST">
