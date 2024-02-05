@@ -161,3 +161,8 @@ h1 {
     font-weight: bold;
     text-decoration: none;
 }
+
+.scrollable-container {
+    max-height: 400px; /* 任意の高さを指定 */
+    overflow-y: auto;
+  }
