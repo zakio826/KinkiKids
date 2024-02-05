@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ユーザー登録完了";
+$stylesheet_name = "thank.css";
 require_once("../include/header.php");
 ?>
 
