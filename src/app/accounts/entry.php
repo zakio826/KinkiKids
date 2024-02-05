@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main>
     <div class="content">
-        <form action="" method="POST">
+        <form action="entry.php" method="POST">
             <h1>アカウント作成</h1>
             <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
             <br>
@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="control">
                 <label for="username">ユーザー名</label>
                 <input id="username" type="text" name="username">
+                <?php $entry->username_error(); ?>
             </div>
 
                 <div class="form-group">
@@ -38,16 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="control">
                 <label for="last_name">名字</label>
                 <input id="last_name" type="text" name="last_name">
+                <?php $entry->firstname_error(); ?>
             </div>
 
             <div class="control">
                 <label for="first_name">名前</label>
                 <input id="first_name" type="text" name="first_name">
+                <?php $entry->lastname_error(); ?>
             </div>
 
             <div class="control">
                 <label for="birthday">誕生日</label>
                 <input id="birthday" type="date" name="birthday">
+                <?php $entry->birthday_error(); ?>
             </div>
 
                 <!-- DBの負担を減らすためプルダウンは手入力 -->
@@ -77,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="control">
                 <label for="family_name">家族名</label>
                 <input id="family_name" type="text" name="family_name">
+                <?php $entry->familyname_error(); ?>
             </div>
  
             <div class="control">
