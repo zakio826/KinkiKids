@@ -1,8 +1,8 @@
 <!-- ユーザー登録ページ -->
 <?php 
 // test
-require_once("../../../config/db_connect.php");
-require("../../../lib/family_add_class.php");
+require("./db_connect.php");
+require("./family_add_class.php");
 session_start();
 
 // データベース接続を行う
@@ -71,8 +71,6 @@ $family_add = new family_add($db);
                     <label for="savings">貯蓄</label>
                     <input type="text" name="savings[]">
 
-                    <label for="family_name">家族名</label>
-                    <input type="text" name="family_name[]">
                 </div>
             </div>
 

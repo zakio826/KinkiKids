@@ -11,6 +11,7 @@ function checkUser($db, $joinData) {
     if (!empty($_POST['check'])) {
         // パスワードを暗号化
         $hash = password_hash($joinData['password'], PASSWORD_BCRYPT);
+        $admin_flag = True;
 
         // 家族を挿入
         $statement = $db->prepare("INSERT INTO family SET family_name=?");
@@ -30,8 +31,8 @@ function checkUser($db, $joinData) {
 
         $statement = $db->prepare(
             "INSERT INTO user 
-            (username, password, first_name, last_name, birthday, gender_id, role_id, savings, family_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            (username, password, first_name, last_name, birthday, gender_id, role_id, savings, family_id, admin_flag)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
         $statement->execute(array(
@@ -43,7 +44,8 @@ function checkUser($db, $joinData) {
             $joinData['gender_id'],
             $joinData['role_id'],
             $joinData['savings'],
-            $family_id
+            $family_id,
+            $admin_flag
         ));
         unset($_SESSION['join']);   // セッションを破棄
         header('Location: ./thank.php');   // thank.phpへ移動
