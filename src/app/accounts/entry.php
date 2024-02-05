@@ -1,13 +1,13 @@
 <!-- ユーザー登録ページ -->
+
+<!-- ヘッダー -->
+<?php
+$page_title = "アカウント作成";
+require_once("../include/header.php");
+?>
+
 <?php 
-// test
-require("../../../config/db_connect.php");
 require("../../../lib/entry_class.php");
-session_start();
-
-// データベース接続を行う
-$db = new connect();
-
 // entryクラスのインスタンスを作成
 $entry = new entry($db);
 
@@ -15,11 +15,6 @@ $entry = new entry($db);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entry->__construct($db);
 }
-?>
-
-<?php
-$page_title = "アカウント作成";
-require_once("../include/header.php");
 ?>
 
 <main>
@@ -35,14 +30,20 @@ require_once("../include/header.php");
                 <?php $entry->username_error(); ?>
             </div>
 
-            <div class="control">
+            <div class="form-group">
                 <label for="password">パスワード</label>
-                <input id="password" type="password" name="password">
+                <input id="password" type="password" name="password" class="form-control">
                 <?php $entry->password_error(); ?>
             </div>
 
             <div class="control">
-                <label for="last_name">苗字</label>
+                <label for="family_name">家族名</label>
+                <input id="family_name" type="text" name="family_name">
+                <?php $entry->familyname_error(); ?>
+            </div>
+
+            <div class="control">
+                <label for="last_name">名字</label>
                 <input id="last_name" type="text" name="last_name">
                 <?php $entry->firstname_error(); ?>
             </div>
@@ -59,35 +60,26 @@ require_once("../include/header.php");
                 <?php $entry->birthday_error(); ?>
             </div>
 
-            <!-- DBの負担を減らすためプルダウンは手入力 -->
-            <div class="control">
-                <label for="gender_id">性別</label>
-                <select name="gender_id" id="gender_id">
-                    <option value="1">女性</option>
-                    <option value="2">男性</option>
-                    <option value="3">その他</option>
-                </select>
-            </div>
+                <!-- DBの負担を減らすためプルダウンは手入力 -->
+                <div class="form-group">
+                    <label for="gender_id">性別</label>
+                    <select name="gender_id" id="gender_id" class="form-control">
+                        <option value="1">女性</option>
+                        <option value="2">男性</option>
+                        <option value="3">その他</option>
+                    </select>
+                </div>
 
-            <div class="control">
-                <label for="role_id">役割</label>
-                <select name="role_id" id="role_id">
-                <!-- 「FIXME」ログインされていない場合は管理者の役割しか選べないように修正する -->
-                <?php $entry->role_select(); ?>
-                </select>
-            </div>
-
-            <div class="control">
-                <label for="savings">貯蓄</label>
-                <input id="savings" type="int" name="savings">
-            </div>
+                <div class="form-group">
+                    <label for="role_id">役割</label>
+                    <select name="role_id" id="role_id" class="form-control">
+                    <!-- 「FIXME」ログインされていない場合は管理者の役割しか選べないように修正する -->
+                    <?php $entry->role_select(); ?>
+                    </select>
+                </div>
             
             <!-- 「FIXME」管理ユーザーがログインしている場合は表示しないようにする -->
-            <div class="control">
-                <label for="family_name">家族名</label>
-                <input id="family_name" type="text" name="family_name">
-                <?php $entry->familyname_error(); ?>
-            </div>
+            
  
             <div class="control">
                 <button type="submit" class="btn">確認する</button>
@@ -96,4 +88,5 @@ require_once("../include/header.php");
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
