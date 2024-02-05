@@ -1,5 +1,6 @@
 <?php
 $page_title = "目標";
+$stylesheet_name = "goal_check.css";
 require_once("../include/header.php");
 ?>
 
@@ -31,7 +32,7 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
             <p><?php echo htmlspecialchars($targetAmount); ?> 円</p>
         </div>
         <div class="mt-1">
-            <strong>ないよう　</strong>
+            <strong>しょうさい　</strong>
             <p><?php echo htmlspecialchars($goalDetail); ?></p>
         </div>
         <div class="mt-1">
