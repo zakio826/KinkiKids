@@ -9,6 +9,11 @@ class entry {
         $this->error = []; // 初期化
 
         if (!empty($_POST)) {
+            //パスワードが半角英数字８文字以上で入力さているか判定
+            if(!preg_match('/\A[a-z\d]{8,100}+\z/i',$_POST['password'])){
+                $this->error['password'] = 'char_limit';
+
+            }
             /* 入力情報に空白がないか検知 */
 
             if (empty($_POST['username'])) {
@@ -36,6 +41,8 @@ class entry {
                 $this->error['family_name'] = 'blank';
             }
 
+
+
             /* usernameの重複を検知 */
             if (empty($this->error['username'])) {
                 $user = $this->db->prepare('SELECT COUNT(*) as cnt FROM user WHERE username=?');
@@ -60,7 +67,10 @@ class entry {
         if (!empty($this->error['username'])) {
             switch ($this->error['username']) {
                 case 'blank':
-                    echo '＊ユーザー名を入力してください';
+                    echo '＊ユーザー名を入力してください。';
+                    break;
+                case 'duplicate':
+                    echo '*そのユーザー名は既に使われています。';
                     break;
             }
         }
@@ -71,7 +81,10 @@ class entry {
         if (!empty($this->error['password'])) {
             switch ($this->error['password']) {
                 case 'blank':
-                    echo '＊パスワードを入力してください';
+                    echo '*パスワードを入力してください。';
+                    break;
+                case 'char_limit':
+                    echo '*パスワードは半角英数字８文字以上で入力してください。';
                     break;
             }
         }
@@ -82,7 +95,7 @@ class entry {
         if (!empty($this->error['first_name'])) {
             switch ($this->error['first_name']) {
                 case 'blank':
-                    echo '＊苗字を入力してください';
+                    echo '＊苗字を入力してください。';
                     break;
             }
         }
@@ -93,7 +106,7 @@ class entry {
         if (!empty($this->error['last_name'])) {
             switch ($this->error['last_name']) {
                 case 'blank':
-                    echo '＊名前を入力してください';
+                    echo '＊名前を入力してください。';
                     break;
             }
         }
@@ -104,7 +117,7 @@ class entry {
         if (!empty($this->error['birthday'])) {
             switch ($this->error['birthday']) {
                 case 'blank':
-                    echo '＊誕生日を入力してください';
+                    echo '＊誕生日を入力してください。';
                     break;
             }
         }
@@ -115,7 +128,7 @@ class entry {
         if (!empty($this->error['family_name'])) {
             switch ($this->error['family_name']) {
                 case 'blank':
-                    echo '＊家族名を入力してください';
+                    echo '＊家族名を入力してください。';
                     break;
             }
         }
