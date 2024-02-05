@@ -36,6 +36,8 @@ form p {
     font-weight: bold;
     text-align: left; /* テキストを左寄せにする */
     -webkit-text-stroke: 1px rgb(40, 155, 248);
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+
 }
 
 /* 黄色の枠部分 */
@@ -51,4 +53,5 @@ form p {
 .title h1{
     font-weight: bold;
     color: rgb(255, 136, 136);
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
