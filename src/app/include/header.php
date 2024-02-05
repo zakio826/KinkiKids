@@ -56,7 +56,9 @@ $db = new connect();
 
         <!-- カスタムスタイルシート -->
         <!-- <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css"> -->
-        <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/<?php echo $stylesheet_name; ?>">
+        <?php if (isset($stylesheet_name)) : ?>
+            <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/<?php echo $stylesheet_name; ?>">
+        <?php endif; ?>
 
         <!-- アプリアイコン -->
         <link rel="shortcut icon" href="<?php echo $absolute_path; ?>static/assets/favicon.ico">
