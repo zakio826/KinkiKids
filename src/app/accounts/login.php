@@ -14,9 +14,6 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
 
-// データベース接続を行う
-$db = new connect();
-
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
     'username'  => '',
