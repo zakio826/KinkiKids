@@ -9,6 +9,18 @@ class index_child_class{
         $this->error = []; // 初期化
     }
     
+    public function getMessageCount(){
+        $stmt = $this->db->prepare("SELECT * FROM line_message");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return count($result);
+    }
+    public function getMessage($i){
+        $stmt = $this->db->prepare("SELECT * FROM line_message");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[$i]['messagetext'];
+    }
     public function getHelp($i){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);

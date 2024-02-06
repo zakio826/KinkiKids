@@ -19,6 +19,7 @@ $savings = $index_child_class->getSavings();
 $have_money = $have_points+$savings;
 $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
+$message_count = $index_child_class->getMessageCount();
 ?>
 
 <style>
@@ -190,7 +191,14 @@ $help_count = $index_child_class->getHelpCount();
         </div>
         <hr>
         <p>メッセージ</p>
-        
+        <?php if($message_count != 0){ ?>
+            <?php for($i=0;$i<$message_count;$i++){ ?>
+                <p>・<?php echo htmlspecialchars($index_child_class->getMessage($i)); ?> </p>
+                <hr>
+            <?php } ?>
+        <?php } else { ?>
+                <p>メッセージがありません</p>
+        <?php } ?>
     </section>
 </main>
 
