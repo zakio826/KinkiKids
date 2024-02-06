@@ -188,6 +188,9 @@ $help_count = $index_child_class->getHelpCount();
                 </label>
             </div>
         </div>
+        <hr>
+        <p>メッセージ</p>
+        
     </section>
 </main>
 
