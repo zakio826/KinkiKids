@@ -9,46 +9,46 @@
             $this->db = $db;
             $this->error = []; // 初期化
 
-        if (!empty($_POST)) {
+            if (!empty($_POST)) {
                 if (isset($_POST["delete_help_id"])){
                     $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
                 }elseif(isset($_POST["consent_help_id"])){
                     $this->consentHelpToDatabase($_POST["consent_help_id"]);
                 }else{
-                /* 入力情報に空白がないか検知 */
-                if ($_POST['help_name'] === "") {
-                    $error['help_name'] = "blank";
-                }
-                if ($_POST['get_point'] === "") {
-                    $error['get_point'] = "blank";
-                }
-                if (isset($_POST['help_person'])){
-                    $person = $_POST['help_person'];
-                }else{
-                    $error['get_person'] = "blank";
-                }if (isset($_POST['help_person'])){
-                    $person = $_POST['help_person'];
-                }else{
-                    $error['get_person'] = "blank";
-                }
-                
-                
-                //エラーがなければ次のページへ
-                if (!isset($error)) {
-                    $_SESSION['join'] = $_POST;
-
-                        $user_id = $_SESSION["user_id"];
-
-                        $family_id = $this->getFamilyId($user_id);
-
-                        $_SESSION['join']['user_id'] = $user_id;
-                        $_SESSION['join']['family_id'] = $family_id;
-
-                        $this->saveHelpToDatabase();
-                    $this->saveHelppersonToDatabase($person);
-                        header('Location: ./help_add.php');
-                        exit();
+                    /* 入力情報に空白がないか検知 */
+                    if ($_POST['help_name'] === "") {
+                        $error['help_name'] = "blank";
                     }
+                    if ($_POST['get_point'] === "") {
+                        $error['get_point'] = "blank";
+                    }
+                    if (isset($_POST['help_person'])){
+                        $person = $_POST['help_person'];
+                    }else{
+                        $error['get_person'] = "blank";
+                    }if (isset($_POST['help_person'])){
+                        $person = $_POST['help_person'];
+                    }else{
+                        $error['get_person'] = "blank";
+                    }
+                
+                
+                    //エラーがなければ次のページへ
+                    if (!isset($error)) {
+                        $_SESSION['join'] = $_POST;
+
+                            $user_id = $_SESSION["user_id"];
+
+                            $family_id = $this->getFamilyId($user_id);
+
+                            $_SESSION['join']['user_id'] = $user_id;
+                            $_SESSION['join']['family_id'] = $family_id;
+
+                            $this->saveHelpToDatabase();
+                        $this->saveHelppersonToDatabase($person);
+                            header('Location: ./help_add.php');
+                            exit();
+                        }
                 }
             }
         }
@@ -149,33 +149,67 @@
         
     }
 
-        public function getHelpInfo($help_id)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
-        $stmt->bindParam(':help_id', $help_id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    private function consentHelpToDatabase($help_id) {
+        if(isset($_SESSION["user_id"])){
+            $user_id = $_SESSION["user_id"];
+            $dtime = date("Y-m-d H:i:s");
+            $stmt = $this->db->prepare("INSERT INTO help_log (user_id,help_id,help_day,consent_flag) values(:user_id, :help_id, :dtime, 1)");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->bindParam(':dtime', $dtime);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo "<p>承認待ち</p>";//TODO 承認待ちの処理
+        }else{
+            //TODO ログインしていない
+        }
+        
     }
 
-    public function updateHelp($data)
-{
-    $help_id = $data['help_id'];
-    $help_name = $data['help_name'];
-    $help_detail = $data['help_detail'];
-    $get_point = $data['get_point'];
+    public function child_select() {
+        if(isset($_SESSION["family_id"])){
+            $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
+            $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $sql = "UPDATE help SET help_name = :help_name, help_detail = :help_detail, get_point = :get_point WHERE help_id = :help_id";
+            foreach ($result as $person){
+                if (floor($person['role_id'] / 10 ) == 3){
+                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
+                    echo $person['first_name']."　";
+                }
+            }
+        }else{
+            //TODO ログインしていない
+        }
+        
+    }
 
-    $params = array(
-        ':help_id' => $help_id,
-        ':help_name' => $help_name,
-        ':help_detail' => $help_detail,
-        ':get_point' => $get_point
-    );
+        public function getHelpInfo($help_id){
+            $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute($params);
-}
+        public function updateHelp($data){
 
+            $help_id = $data['help_id'];
+            $help_name = $data['help_name'];
+            $help_detail = $data['help_detail'];
+            $get_point = $data['get_point'];
+
+            $sql = "INSERT INTO help (user_id, help_name, help_detail, get_point) VALUES (:user_id, :help_name, :help_detail, :get_point)";
+
+            $params = array(
+                ':help_id' => $help_id,
+                ':help_name' => $help_name,
+                ':help_detail' => $help_detail,
+                ':get_point' => $get_point
+            );
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+        }
     }
 ?>
