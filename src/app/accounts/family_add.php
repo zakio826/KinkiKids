@@ -10,67 +10,75 @@ require_once("../include/header.php");
 // family_addクラスのインスタンスを作成
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $family_add->__construct($db);
+}
 ?>
 
-<script>
-    // ドキュメントが読み込まれたら実行
-    document.addEventListener('DOMContentLoaded', function () {
-        // ユーザー追加ボタンがクリックされた時の処理を設定
-        document.getElementById('addUser').addEventListener('click', function () {
-            // 新しいユーザー情報の入力フォームを複製
-            var newUserForm = document.getElementById('userForm').cloneNode(true);
-            
-            // 複製したフォームを追加
-            document.getElementById('userFormsContainer').appendChild(newUserForm);
-        });
-    });
-</script>
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>アカウント作成</h1>
+            <h1>アカウント追加</h1>
             <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
             <br>
  
             <div id="userFormsContainer">
                 <div id="userForm" class="control">
                     <!-- ユーザー情報の入力フォーム -->
-                    <label for="username">ユーザー名</label>
-                    <input type="text" name="username[]">
+                    <div class="control">
+                        <label for="username">ユーザー名</label>
+                        <input type="text" name="username[]">
+                    </div>
                     
-                    <label for="password">パスワード</label>
-                    <input type="password" name="password[]">
+                    <div class="control">
+                        <label for="password">パスワード</label>
+                        <input type="password" name="password[]">
+                    </div>
 
-                    <label for="last_name">名字</label>
-                    <input type="text" name="last_name[]">
+                    <div class="control">
+                        <label for="last_name">名字</label>
+                        <input type="text" name="last_name[]">
+                    </div>
 
-                    <label for="first_name">名前</label>
-                    <input type="text" name="first_name[]">
+                    <div class="control">
+                        <label for="first_name">名前</label>
+                        <input type="text" name="first_name[]">
+                    </div>
 
-                    <label for="birthday">誕生日</label>
-                    <input type="date" name="birthday[]">
+                    <div class="control">
+                        <label for="birthday">誕生日</label>
+                        <input type="date" name="birthday[]">
+                    </div>
 
-                    <label for="gender_id">性別</label>
-                    <select name="gender_id[]">
-                        <option value="1">女性</option>
-                        <option value="2">男性</option>
-                        <option value="3">その他</option>
-                    </select>
+                    <div class="control">
+                        <label for="gender_id">性別</label>
+                        <select name="gender_id[]">
+                            <option value="1">女性</option>
+                            <option value="2">男性</option>
+                            <option value="3">その他</option>
+                        </select>
+                    </div>
 
-                    <label for="role_id">役割</label>
-                    <select name="role_id[]">
-                        <?php $family_add->role_select(); ?>
-                    </select>
+                    <div class="control">
+                        <label for="role_id">役割</label>
+                        <select name="role_id[]">
+                            <?php $family_add->role_select(); ?>
+                        </select>
+                    </div>
 
-                    <label for="admin_flag">管理者</label>
-                    <input type="checkbox" name="admin_flag[]" value="1">
+                    <div class="control">
+                        <label for="admin_flag">管理者</label>
+                        <input type="checkbox" name="admin_flag[]" value="1">
+                    </div>
 
-                    <label for="savings">貯蓄</label>
-                    <input type="text" name="savings[]">
-
-                    <label for="family_name">家族名</label>
-                    <input type="text" name="family_name[]">
+                    <!-- 削除ボタン -->
+                    <div class="control">
+                        <button type="button" id="removeUser" style="display:none;">マイナス</button>
+                    </div>
                 </div>
             </div>
 
@@ -82,4 +90,43 @@ $family_add = new family_add($db);
         </form>
     </div>
 </main>
-</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ユーザー追加ボタンのクリックイベント
+        document.getElementById('addUser').addEventListener('click', function() {
+            // 新しいユーザー情報の入力フォームを追加
+            var userForm = document.getElementById('userForm');
+            var newUserForm = userForm.cloneNode(true);
+            var inputs = newUserForm.querySelectorAll('input');
+            
+            // フォーム内の値をクリア
+            inputs.forEach(function(input) {
+                input.value = '';
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                }
+            });
+
+            // 削除ボタンを追加
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'removeUser';
+            removeButton.textContent = 'マイナス';
+            newUserForm.appendChild(removeButton);
+
+            // ユーザーフォームをコンテナに追加
+            document.getElementById('userFormsContainer').appendChild(newUserForm);
+        });
+
+        // フォーム削除ボタンのクリックイベント（動的に追加された要素にも対応）
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('removeUser')) {
+                event.target.parentNode.remove();
+            }
+        });
+    });
+</script>
+
+<!-- フッター -->
+<?php require_once("../include/footer.php"); ?>

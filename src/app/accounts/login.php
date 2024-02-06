@@ -89,10 +89,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'ユーザー名かパスワードが無効です。';
+                $login_err = 'パスワードが無効です。';
             }
         }else {
-            $login_err = 'ユーザー名かパスワードが無効です。';
+            $login_err = '存在しないユーザー名です。';
         }
     }
 }
@@ -132,6 +132,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </div>
 </main>
-
+<!-- aaaa -->
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

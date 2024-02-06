@@ -11,26 +11,32 @@ function checkUser($db, $joinData) {
     if (!empty($_POST['check'])) {
         // パスワードを暗号化
         $hash = password_hash($joinData['password'], PASSWORD_BCRYPT);
+        $admin_flag = True;
 
         // 家族を挿入
         $statement = $db->prepare("INSERT INTO family SET family_name=?");
         $statement->execute(array($joinData['family_name']));
 
-        $statement = $db->prepare('SELECT * FROM family WHERE family_name=?');
+        // 最新のfamily_idを取得
+        $statement = $db->prepare('SELECT family_id FROM family WHERE family_name=? ORDER BY family_id DESC LIMIT 1');
         $statement->execute(array($joinData['family_name']));
         $record = $statement->fetch(PDO::FETCH_ASSOC);
 
         if ($record !== false) {
-            end($record);
             $family_id = $record['family_id'];
+
+            // userテーブルに家族を挿入
+            $statement = $db->prepare("INSERT INTO user SET family_id=?");
+            $statement->execute(array($family_id));
         } else {
-            $family_id = null;
-            error_log('Fetch failed in check.php');
+            error_log('Failed to get family_id in check.php');
         }
+        
+        $firstlogin = date('Y-m-d');
 
         $statement = $db->prepare(
             "INSERT INTO user 
-            (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
+            (username, password, first_name, last_name, birthday, gender_id, role_id, family_id, admin_flag, first_login)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
@@ -42,9 +48,9 @@ function checkUser($db, $joinData) {
             $joinData['birthday'],
             $joinData['gender_id'],
             $joinData['role_id'],
-            1,
-            $joinData['savings'],
-            $family_id
+            $family_id,
+            $admin_flag,
+            $firstlogin
         ));
         unset($_SESSION['join']);   // セッションを破棄
         header('Location: ./thank.php');   // thank.phpへ移動

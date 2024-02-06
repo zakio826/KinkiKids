@@ -31,33 +31,31 @@ checkUser($db, $_SESSION['join']);
                     <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['username'], ENT_QUOTES); ?></span></p>
                 </div>
 
-                <div class="control_check">
-                    <p class="moji-check">名字</p>
-                    <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['last_name'], ENT_QUOTES); ?></span></p>
-                </div>
+            <div class="control">
+                <p>家族名</p>
+                <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['family_name'], ENT_QUOTES); ?></span></p>
+            </div>
+
+            <div class="control">
+                <p>名字</p>
+                <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['last_name'], ENT_QUOTES); ?></span></p>
+            </div>
 
                 <div class="control_check">
                     <p class="moji-check">名前</p>
                     <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['first_name'], ENT_QUOTES); ?></span></p>
                 </div>
 
-                <div class="control_check">
-                    <p class="moji-check">生年月日</p>
-                    <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['birthday'], ENT_QUOTES); ?></span></p>
-                </div>
-
-                <div class="control_check">
-                    <p class="moji-check">手持ち金額</p>
-                    <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['savings'], ENT_QUOTES); ?></span></p>
-                </div>
-
-                <br>
-                <a href="./entry.php" class="back-btn">変更する</a><br><br>
-                <button type="submit" class="btn btn-primary">登録する</button>
-                <div class="clear"></div>
-            </form>
+            <div class="control">
+                <p>生年月日</p>
+                <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['birthday'], ENT_QUOTES); ?></span></p>
             </div>
-        </div>
+            
+            <br>
+            <a href="./entry.php" class="back-btn">変更する</a>
+            <button type="submit" class="btn next-btn">登録する</button>
+            <div class="clear"></div>
+        </form>
     </div>
 </main>
 
