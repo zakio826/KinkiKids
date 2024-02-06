@@ -18,7 +18,6 @@ class family_add {
             $gender_ids = $_POST['gender_id'];
             $role_ids = $_POST['role_id'];
             $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array();
-            $savings = $_POST['savings'];
 
             // 登録する家族のfamily_idを取得
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
@@ -47,9 +46,6 @@ class family_add {
                 if ($role_ids[$i] === "") {
                     $error['role_id'][$i] = "blank";
                 }
-                if ($role_ids[$i] === "") {
-                    $error['savings'][$i] = "blank";
-                }
 
                 // usernameの重複を検知
                 $user = $this->db->prepare('SELECT COUNT(*) as cnt FROM user WHERE username=?');
@@ -69,10 +65,11 @@ class family_add {
                 for ($i = 0; $i < count($usernames); $i++) {
                     
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
+                    $firstlogin = date('Y-m-d');
 
                     $statement = $this->db->prepare(
                         "INSERT INTO user 
-                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
+                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
 
@@ -85,8 +82,8 @@ class family_add {
                         $gender_ids[$i],
                         $role_ids[$i],
                         isset($admin_flags[$i]) ? $admin_flags[$i] : 0,
-                        $savings[$i],
-                        $family_id
+                        $family_id,
+                        $firstlogin
                     ));
                 }
 
@@ -107,60 +104,6 @@ class family_add {
         return $result['family_id'];
     }
 
-    public function username_error() {
-        //ユーザー名が入力されてなければエラーを表示
-        if (!empty($this->error['username'])) {
-            switch ($this->error['username']) {
-                case 'blank':
-                    echo '＊ユーザー名を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function password_error() {
-        //パスワードが入力されてなければエラーを表示
-        if (!empty($this->error['password'])) {
-            switch ($this->error['password']) {
-                case 'blank':
-                    echo '＊パスワードを入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function firstname_error() {
-        //苗字が入力されてなければエラーを表示
-        if (!empty($this->error['first_name'])) {
-            switch ($this->error['first_name']) {
-                case 'blank':
-                    echo '＊苗字を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function lastname_error() {
-        //名前が入力されてなければエラーを表示
-        if (!empty($this->error['last_name'])) {
-            switch ($this->error['last_name']) {
-                case 'blank':
-                    echo '＊名前を入力してください';
-                    break;
-            }
-        }
-    }
-
-    public function birthday_error() {
-        //誕生日が入力されてなければエラーを表示
-        if (!empty($this->error['birthday'])) {
-            switch ($this->error['birthday']) {
-                case 'blank':
-                    echo '＊誕生日を入力してください';
-                    break;
-            }
-        }
-    }
 
     public function role_select(){
         // $this->db が null でないことを確認
