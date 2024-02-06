@@ -11,11 +11,6 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
-if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
-    header("Location: ../index.php");
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $family_add->__construct($db);
 }
@@ -70,9 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="control">
                         <label for="role_id">役割</label>
-                        <select name="role_id[]">
+                        <select name="role_id[]" class="roleSelect" onchange="toggleSavingsField(this)">
                             <?php $family_add->role_select(); ?>
                         </select>
+                    </div>
+
+                    <!-- 貯蓄フィールド -->
+                    <div class="control" style="display: none;">
+                        <label for="savings">貯蓄</label>
+                        <input type="int" name="savings[]" value="0">
                     </div>
 
                     <div class="control">
@@ -111,7 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (input.type === 'checkbox') {
                     input.checked = false;
                 }
+                if (input.type === 'int') {
+                    input.value = '0';
+                }
             });
+
+            var savingsField = newUserForm.querySelector('.savingsField input');
+            if (savingsField) {
+                savingsField.value = '0';
+            }
 
             // 削除ボタンを追加
             var removeButton = document.createElement('button');
@@ -122,6 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // ユーザーフォームをコンテナに追加
             document.getElementById('userFormsContainer').appendChild(newUserForm);
+
+            toggleSavingsField(newUserForm.querySelector('.roleSelect'));
         });
 
         // フォーム削除ボタンのクリックイベント（動的に追加された要素にも対応）
@@ -131,6 +142,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     });
+    
+    function toggleSavingsField(roleSelect) {
+        var savingsField = roleSelect.parentNode.nextElementSibling;
+        
+
+        // 「FIXME」に対応する役割IDの配列
+        var allowedRoleIds = [31, 32, 33, 34];
+
+        // 選択された役割IDを取得
+        var selectedRoleId = parseInt(roleSelect.value);
+
+        // 選択された役割が許可された役割IDに含まれているか判定
+        if (allowedRoleIds.includes(selectedRoleId)) {
+            savingsField.style.display = "block";
+        } else {
+            savingsField.style.display = "none";
+        }
+    }
+
+
 </script>
 
 <!-- フッター -->
