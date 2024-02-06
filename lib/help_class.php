@@ -149,39 +149,53 @@
         
     }
 
-        public function getHelpInfo($help_id){
-            $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }
+    public function getHelpInfo($help_id){
+        $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
+        $stmt->bindParam(':help_id', $help_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-        public function updateHelp($data){
-            $help_id = $data['help_id'];
-            $help_name = $data['help_name'];
-            $help_detail = $data['help_detail'];
-            $get_point = $data['get_point'];
+    public function updateHelp($data){
+        $help_id = $data['help_id'];
+        $help_name = $data['help_name'];
+        $help_detail = $data['help_detail'];
+        $get_point = $data['get_point'];
 
-            $user_id = (int)$_SESSION['user_id'];
-            $family_id = (int)$_SESSION['family_id'];
-
-            $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':family_id', $family_id);
-            $stmt->bindParam(':help_name', $help_name);
-            $stmt->bindParam(':help_detail', $help_detail);
-            $stmt->bindParam(':get_point', $get_point);
-            $stmt->execute();
-            $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            
-
-            
-            $stmt2 = $this->db->prepare("UPDATE help SET stop_flag = 0 WHERE help_id = :help_id");
-            $stmt2->bindParam(':help_id', $help_id);
+        $user_id = (int)$_SESSION['user_id'];
+        $family_id = (int)$_SESSION['family_id'];
+        $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':help_name', $help_name);
+        $stmt->bindParam(':help_detail', $help_detail);
+        $stmt->bindParam(':get_point', $get_point);
+        $stmt->execute();
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        
+        $stmt2 = $this->db->prepare("UPDATE help SET stop_flag = 0 WHERE help_id = :help_id");
+        $stmt2->bindParam(':help_id', $help_id);
+        $stmt2->execute();
+        $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function person_select($help_id){
+        $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+        $stmt->bindParam(':help_id', $help_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $first_flag = 0;
+        foreach ($result as $person){
+            if ($first_flag != 0){
+                echo ",";
+            }
+            $first_flag++;
+            $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+            $stmt2->bindParam(':user_id', $person['user_id']);
             $stmt2->execute();
-            $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
+            $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+            echo $result2[0]['first_name'];
         }
     }
+}
 ?>
