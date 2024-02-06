@@ -62,7 +62,7 @@ h1 {
     /* align-items: flex-start; */
     align-items: center; /* 上下中央に配置する */
     height: 100vh;
-    margin-top: 30px;
+    margin: 30px;
     padding-top: 100px;
 }
 
@@ -74,7 +74,8 @@ h1 {
 
 /* ログイン画面のひよこ画像 */
 .login_hiyoko {
-    margin-top: -230px; /*ひよこ画像位置を枠からはみ出させる */
+    margin-top: -200px; /*ひよこ画像位置を枠からはみ出させる */
+    height: 70px;
 }
 
 
