@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <main>
     <div class="frame_login">
         <div class="wrapper1">
-        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100" class="login_hiyoko">
+        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" class="login_hiyoko">
             <h1>ログイン</h1>
             <p>ログイン情報を入力してください</p>
 
@@ -110,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo '<div class="alert alert-danger">' . $login_err . '</div>';
             }        
             ?>
-            <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
                 <div class="form-group_login">
                     <label>ユーザー名:</label>
                     <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
