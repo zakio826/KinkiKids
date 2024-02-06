@@ -193,7 +193,10 @@ $message_count = $index_child_class->getMessageCount();
         <p>メッセージ</p>
         <?php if($message_count != 0){ ?>
             <?php for($i=0;$i<$message_count;$i++){ ?>
-                <p>・<?php echo htmlspecialchars($index_child_class->getMessage($i)); ?> </p>
+                <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                ➡
+                <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
                 <hr>
             <?php } ?>
         <?php } else { ?>

@@ -10,16 +10,34 @@ class index_child_class{
     }
     
     public function getMessageCount(){
-        $stmt = $this->db->prepare("SELECT * FROM line_message");
+        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return count($result);
     }
     public function getMessage($i){
-        $stmt = $this->db->prepare("SELECT * FROM line_message");
+        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result[$i]['messagetext'];
+        $message = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $message[$i]['sender_id']);
+        $stmt->execute();
+        $sender = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $message[$i]['receiver_id']);
+        $stmt->execute();
+        $receiver = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        return array(
+            'messagetext' => $message[$i]['messagetext'],
+            'sender' => $sender['first_name'],
+            'receiver' => $receiver['first_name'],
+            );
     }
     public function getHelp($i){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
