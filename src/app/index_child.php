@@ -101,10 +101,19 @@ $message_count = $index_child_class->getMessageCount();
 <?php include_once("./include/footer.php"); ?>
 
 <script>
-    const select = document.getElementById('user_select');
+    let select = document.getElementById('user_select');
+    let message = [];
+    let count = <?php echo $message_count; ?>;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user_select').value;
-        document.getElementById('order-string').innerHTML = selected_value;
+        <?php for($i=0;$i<$message_count;$i++){ ?>
+            if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
+                message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
+            }
+        <?php } ?>
+        document.getElementById('order-string').innerHTML = message;
+
+        
     });
     // return selected_value
 </script>
