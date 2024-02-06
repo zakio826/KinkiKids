@@ -9,6 +9,27 @@ class index_child_class{
         $this->error = []; // 初期化
     }
     
+    public function getFamilyUser(){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $family_id = $result['family_id'];
+
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $record){
+            echo '<option value="';
+            echo $record['user_id'];
+            echo '">';
+            echo $record['first_name'];
+            echo "</option>";
+        }
+    }
+
     public function getMessageCount(){
         $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
