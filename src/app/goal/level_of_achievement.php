@@ -28,23 +28,20 @@ $have_money = $have_points+$savings;
 
         <hr>
 
-        <?php if(count($level_of_achievement_class->getGoal()) != 0){ ?>
-            <?php for($i=0;$i<count($level_of_achievement_class->getGoal());$i++){ ?>
+        <?php if (count($level_of_achievement_class->getGoal()) != 0) : ?>
+            <?php for ($i = 0; $i < count($level_of_achievement_class->getGoal()); $i++) : ?>
                 <p>いつまで:<strong><?php echo htmlspecialchars($level_of_achievement_class->getGoal_deadline($i)); ?></strong> </p>
                 <p>内容:<strong><?php echo htmlspecialchars($level_of_achievement_class->getGoal_detail($i)); ?></strong> </p>
                 <p>目標金額:<strong><?php echo htmlspecialchars($level_of_achievement_class->getTarget_amount($i)); ?></strong> 円</p>
                 <p>お小遣いが1ヶ月に1回もらえるのをふまえると合計であと<strong><?php echo htmlspecialchars($level_of_achievement_class->getRequired_point($i)); ?></strong> ポイント必要です</p>
                 <p>期限までに目標金額を達成するには１日あたりあと<strong><?php echo htmlspecialchars($level_of_achievement_class->getOnerequired_point($i)); ?></strong> ポイント必要です</p>
                 <hr>
-            <?php } ?>
-        <?php } else { ?>
+            <?php endfor; ?>
+        <?php else : ?>
             <p>目標を設定してください</p>
-        <?php } ?>
+        <?php endif; ?>
 
-
-        <p class="mt-3">
-            <a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a>
-        </p>
+        <p class="mt-3"><a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a></p>
     </div>
 </main>
 

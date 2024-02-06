@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "カレンダー";
+$stylesheet_name = "calendar.css";
 include("../include/header.php");
 ?>
 
@@ -27,17 +28,6 @@ $first_week = date("w", strtotime("first day of", $this_date));
 $last_day   = date("d", strtotime("last day of", $this_date));
 ?>
 
-<style>
-    thead, tbody, tr, th, td {
-        border-collapse: collapse;
-        border: 2.5px solid #333;
-    }
-    .money-grid {
-        background-color: white;
-        border-radius: 1rem;
-        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-    }
-</style>
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>

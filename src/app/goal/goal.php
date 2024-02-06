@@ -18,6 +18,7 @@ $goal = new goal($db);
     <div class="content">
         <form action="" method="POST">
             <h1>もくひょうせってい</h1>
+
             <br>
 
             <div class="control-1">
@@ -37,6 +38,7 @@ $goal = new goal($db);
             </div>
  
             <br>
+
             <div class="control-2">
                 <button type="submit" class="btn">とうろくする</button>
             </div>
@@ -44,4 +46,5 @@ $goal = new goal($db);
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

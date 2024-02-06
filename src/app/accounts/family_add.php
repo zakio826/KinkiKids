@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント追加</h1>
-            <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
+            <p>当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
+            
             <br>
  
             <div id="userFormsContainer">
@@ -96,42 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // ユーザー追加ボタンのクリックイベント
-        document.getElementById('addUser').addEventListener('click', function() {
-            // 新しいユーザー情報の入力フォームを追加
-            var userForm = document.getElementById('userForm');
-            var newUserForm = userForm.cloneNode(true);
-            var inputs = newUserForm.querySelectorAll('input');
-            
-            // フォーム内の値をクリア
-            inputs.forEach(function(input) {
-                input.value = '';
-                if (input.type === 'checkbox') {
-                    input.checked = false;
-                }
-            });
-
-            // 削除ボタンを追加
-            var removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'removeUser';
-            removeButton.textContent = 'マイナス';
-            newUserForm.appendChild(removeButton);
-
-            // ユーザーフォームをコンテナに追加
-            document.getElementById('userFormsContainer').appendChild(newUserForm);
-        });
-
-        // フォーム削除ボタンのクリックイベント（動的に追加された要素にも対応）
-        document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('removeUser')) {
-                event.target.parentNode.remove();
-            }
-        });
-    });
-</script>
+<!-- JavaScript -->
+<script src="<?php echo $absolute_path; ?>static/js/family_add.js"></script>
 
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
