@@ -11,6 +11,11 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
+if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+    header("Location: ../index.php");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $family_add->__construct($db);
 }
