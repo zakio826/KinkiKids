@@ -45,7 +45,7 @@
                             $_SESSION['join']['family_id'] = $family_id;
 
                             $this->saveHelpToDatabase();
-                        $this->saveHelppersonToDatabase($person);
+                            $this->saveHelppersonToDatabase($person);
                             header('Location: ./help_add.php');
                             exit();
                         }
@@ -112,42 +112,6 @@
             $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo "<p>削除しました</p>";
         }
-
-    private function consentHelpToDatabase($help_id) {
-        if(isset($_SESSION["user_id"])){
-            $user_id = $_SESSION["user_id"];
-            $dtime = date("Y-m-d H:i:s");
-            $stmt = $this->db->prepare("INSERT INTO help_log (user_id,help_id,help_day,consent_flag) values(:user_id, :help_id, :dtime, 1)");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->bindParam(':dtime', $dtime);
-            $stmt->execute();
-            $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo "<p>承認待ち</p>";//TODO 承認待ちの処理
-        }else{
-            //TODO ログインしていない
-        }
-        
-    }
-
-    public function child_select() {
-        if(isset($_SESSION["family_id"])){
-            $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
-            $stmt->bindParam(':family_id', $_SESSION["family_id"]);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($result as $person){
-                if (floor($person['role_id'] / 10 ) == 3){
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
-                    echo $person['first_name']."　";
-                }
-            }
-        }else{
-            //TODO ログインしていない
-        }
-        
-    }
 
     private function consentHelpToDatabase($help_id) {
         if(isset($_SESSION["user_id"])){
