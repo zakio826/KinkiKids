@@ -26,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>アカウント作成</h1>
                 <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
                 <br>
+
+                <div class="control">
+                    <label for="family_name">家族名</label>
+                    <input id="family_name" type="text" name="family_name">
+                    <?php $entry->familyname_error(); ?>
+                </div>
     
                 <div class="control">
                     <label for="username">ユーザー名</label>
@@ -37,12 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="password">パスワード</label>
                     <input id="password" type="password" name="password" class="form-control">
                     <?php $entry->password_error(); ?>
-                </div>
-
-                <div class="control">
-                    <label for="family_name">家族名</label>
-                    <input id="family_name" type="text" name="family_name">
-                    <?php $entry->familyname_error(); ?>
                 </div>
 
                 <div class="control">
