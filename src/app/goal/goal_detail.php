@@ -40,6 +40,7 @@ $help_count = $index_child_class->getHelpCount();
     </header>
     
     <section class="position-relative h-75">
+        <p>目標詳細</p>
         <p>もくひょう:<?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?></p>
         <p>いつまで:<?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> </p>
         <p>目標金額:<?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円</p>
