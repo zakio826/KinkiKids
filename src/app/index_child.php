@@ -104,16 +104,14 @@ $message_count = $index_child_class->getMessageCount();
     let select = document.getElementById('user_select');
     let message = [];
     let count = <?php echo $message_count; ?>;
+    let selected_value = document.getElementById('user_select').value;
+    <?php for($i=0;$i<$message_count;$i++){ ?>
+        if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
+            message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
+        }
+    <?php } ?>
     select.addEventListener('change', (e) => {
-        let selected_value = document.getElementById('user_select').value;
-        <?php for($i=0;$i<$message_count;$i++){ ?>
-            if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
-                message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
-            }
-        <?php } ?>
-        document.getElementById('order-string').innerHTML = message;
-
-        
+        document.getElementById('order-string').innerHTML = message[0];
     });
     // return selected_value
 </script>
