@@ -53,7 +53,7 @@ class index_child_class{
         }
     }
     public function getSavings(){
-        $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT savings FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -122,21 +122,11 @@ class index_child_class{
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
             if($date01 <= $date02){
-
-                
-                $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
                 $diff = date_diff($date01, $date02);
                 
-                $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $target_amount = $deadline['target_amount'];
                 
                 $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
@@ -150,11 +140,17 @@ class index_child_class{
                 }
         
         
-                $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
+
+                $stmt = $this->db->prepare("SELECT savings FROM child_data WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
                 $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $savings = $result['savings'];
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $savings = $result[0]['savings'];
+                } else {
+                    $savings = 0;
+                }
+
                 
                 $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -184,22 +180,13 @@ class index_child_class{
             if($date01 <= $date02){
 
                 
-                $stmt = $this->db->prepare("SELECT goal_deadline FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
                 $diff = date_diff($date01, $date02);
                 
                 $diff2 = $date01->diff($date02);
                 
-                $stmt = $this->db->prepare("SELECT target_amount FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-                $stmt->bindParam(':user_id', $_SESSION["user_id"]);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $target_amount = $result[0]['target_amount'];
+                $target_amount = $deadline['target_amount'];
                 
                 $stmt = $this->db->prepare("SELECT have_points FROM child_data WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -211,11 +198,15 @@ class index_child_class{
                     $have_points = 0;
                 }
                 
-                $stmt = $this->db->prepare("SELECT savings FROM user WHERE user_id = :user_id");
+                $stmt = $this->db->prepare("SELECT savings FROM child_data WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
                 $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $savings = $result['savings'];
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $savings = $result[0]['savings'];
+                } else {
+                    $savings = 0;
+                }
                 
                 $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);

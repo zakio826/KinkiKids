@@ -1,53 +1,30 @@
 <!-- ユーザー登録ページ -->
-<?php 
-// test
-require("../../../config/db_connect.php");
-require("../../../lib/family_add_class.php");
-session_start();
 
-// admin_flagが1でない場合はリダイレクト
+<!-- ヘッダー -->
+<?php
+$page_title = "アカウント作成";
+require_once("../include/header.php");
+?>
+
+<?php
+// family_addクラスのインスタンスを作成
+require($absolute_path."lib/family_add_class.php");
+$family_add = new family_add($db);
+
 if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
     header("Location: ../index.php");
     exit;
 }
 
-// データベース接続を行う
-$db = new connect();
-
-// family_addクラスのインスタンスを作成
-$family_add = new family_add($db);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $family_add->__construct($db);
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <title>アカウント追加</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#addUser").click(function(){
-                // 新しいユーザー情報の入力フォームを追加
-                var newUserForm = $("#userForm").clone();
-                newUserForm.find('input').val('');  // フォーム内の値をクリア
-                newUserForm.find('input[type="checkbox"]').prop('checked', false);
-                newUserForm.append('<button type="button" class="removeUser">マイナス</button>');  // 削除ボタンを追加
-                $("#userFormsContainer").append(newUserForm);
-            });
 
-            // フォームを削除
-            $(document).on('click', '.removeUser', function(){
-                $(this).parent().remove();
-            });
-        });
-        
-    </script>
-</head>
-<body>
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
+<main>
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント追加</h1>
@@ -105,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <!-- 削除ボタン -->
                     <div class="control">
-                        <button type="button" class="removeUser" style="display:none;">マイナス</button>
+                        <button type="button" id="removeUser" style="display:none;">マイナス</button>
                     </div>
                 </div>
             </div>
@@ -117,5 +94,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </div>
-</body>
-</html>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ユーザー追加ボタンのクリックイベント
+        document.getElementById('addUser').addEventListener('click', function() {
+            // 新しいユーザー情報の入力フォームを追加
+            var userForm = document.getElementById('userForm');
+            var newUserForm = userForm.cloneNode(true);
+            var inputs = newUserForm.querySelectorAll('input');
+            
+            // フォーム内の値をクリア
+            inputs.forEach(function(input) {
+                input.value = '';
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                }
+            });
+
+            // 削除ボタンを追加
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'removeUser';
+            removeButton.textContent = 'マイナス';
+            newUserForm.appendChild(removeButton);
+
+            // ユーザーフォームをコンテナに追加
+            document.getElementById('userFormsContainer').appendChild(newUserForm);
+        });
+
+        // フォーム削除ボタンのクリックイベント（動的に追加された要素にも対応）
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('removeUser')) {
+                event.target.parentNode.remove();
+            }
+        });
+    });
+</script>
+
+<!-- フッター -->
+<?php require_once("../include/footer.php"); ?>
