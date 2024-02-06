@@ -97,7 +97,7 @@
     }
 
         public function display_help($family_id) {
-            $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
+            $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1");
             $stmt->bindParam(':family_id', $family_id);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -157,23 +157,31 @@
         }
 
         public function updateHelp($data){
-
             $help_id = $data['help_id'];
             $help_name = $data['help_name'];
             $help_detail = $data['help_detail'];
             $get_point = $data['get_point'];
 
-            $sql = "INSERT INTO help (user_id, help_name, help_detail, get_point) VALUES (:user_id, :help_name, :help_detail, :get_point)";
+            $user_id = (int)$_SESSION['user_id'];
+            $family_id = (int)$_SESSION['family_id'];
 
-            $params = array(
-                ':help_id' => $help_id,
-                ':help_name' => $help_name,
-                ':help_detail' => $help_detail,
-                ':get_point' => $get_point
-            );
+            $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':family_id', $family_id);
+            $stmt->bindParam(':help_name', $help_name);
+            $stmt->bindParam(':help_detail', $help_detail);
+            $stmt->bindParam(':get_point', $get_point);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute($params);
+            
+
+            
+            $stmt2 = $this->db->prepare("UPDATE help SET stop_flag = 0 WHERE help_id = :help_id");
+            $stmt2->bindParam(':help_id', $help_id);
+            $stmt2->execute();
+            $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
         }
     }
 ?>
