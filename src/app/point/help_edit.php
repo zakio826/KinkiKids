@@ -5,17 +5,6 @@ require_once("../include/header.php");
 <?php // DB接続設定ファイルを読み込む
 require_once("../../../lib/help_class.php");
 
-try {
-    $db = new PDO("mysql:host=localhost;dbname=kinkikids", "root", "");
-    // エラーモードを例外モードに設定
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    // エラー処理など
-    echo "データベース接続エラー: " . $e->getMessage();
-    exit;
-}
-
-
 // Helpクラスのインスタンス化
 $help = new Help($db);
 
@@ -33,7 +22,7 @@ if (isset($_GET['edit_help_id'])) {
 if (!empty($_POST)) {
     // フォームからの入力を受け取り、データベースを更新
     $help->updateHelp($_POST);
-    header('Location: help_edit_process.php'); // 編集後にお手伝い一覧ページにリダイレクト
+    header('Location: help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
     exit();
 }
 

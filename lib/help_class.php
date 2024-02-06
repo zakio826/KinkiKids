@@ -85,33 +85,31 @@
             echo "<p>削除しました</p>";
         }
 
-        public function getHelpInfo($help_id)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
-        $stmt->bindParam(':help_id', $help_id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+        public function getHelpInfo($help_id){
+            $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
 
-    public function updateHelp($data)
-{
-    $help_id = $data['help_id'];
-    $help_name = $data['help_name'];
-    $help_detail = $data['help_detail'];
-    $get_point = $data['get_point'];
+        public function updateHelp($data){
 
-    $sql = "UPDATE help SET help_name = :help_name, help_detail = :help_detail, get_point = :get_point WHERE help_id = :help_id";
+            $help_id = $data['help_id'];
+            $help_name = $data['help_name'];
+            $help_detail = $data['help_detail'];
+            $get_point = $data['get_point'];
 
-    $params = array(
-        ':help_id' => $help_id,
-        ':help_name' => $help_name,
-        ':help_detail' => $help_detail,
-        ':get_point' => $get_point
-    );
+            $sql = "INSERT INTO help (user_id, help_name, help_detail, get_point) VALUES (:user_id, :help_name, :help_detail, :get_point)";
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute($params);
-}
+            $params = array(
+                ':help_id' => $help_id,
+                ':help_name' => $help_name,
+                ':help_detail' => $help_detail,
+                ':get_point' => $get_point
+            );
 
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+        }
     }
 ?>
