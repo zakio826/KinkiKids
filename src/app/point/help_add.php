@@ -28,6 +28,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             お手伝い名<input type="text" name="help_name"><br>
             お手伝い詳細<input type="text" name="help_detail"><br>
             獲得ポイント<input type="number" name="get_point"><br>
+            担当者　
+            <?php $help->child_select(); ?><br>
             <button type="submit">登録</button>
         </form>
     <?php elseif ($select === 'child'): ?>
@@ -70,7 +72,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                             <input type="hidden" name="edit_help_id" value="<?php echo $help['help_id']; ?>">
                             <button type="submit">編集</button>
                         </form>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($select === 'child'): ?>
+                        <form action="" method="post">
+                            <input type="hidden" name="consent_help_id" value="<?php echo $help['help_id']; ?>">
+                            <button type="submit">やりました！</button>
+                        </form>
+                        <?php endif; ?>
                 
                 <?php endforeach; ?>
             </ul>
