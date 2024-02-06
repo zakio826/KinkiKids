@@ -33,7 +33,7 @@ if (isset($_GET['edit_help_id'])) {
 if (!empty($_POST)) {
     // フォームからの入力を受け取り、データベースを更新
     $help->updateHelp($_POST);
-    header('Location: help_edit_process.php'); // 編集後にお手伝い一覧ページにリダイレクト
+    header('Location: help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
     exit();
 }
 
