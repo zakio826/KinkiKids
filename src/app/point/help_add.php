@@ -1,10 +1,11 @@
-
 <?php
 $page_title = "お手伝い登録";
+$stylesheet_name = "help_add.css";
 require_once("../include/header.php");
 ?>
+
 <?php
-require("../../../lib/help_class.php");
+require($absolute_path."lib/help_class.php");
 $help = new help($db);
 
 $user_id = $_SESSION["user_id"];
@@ -21,20 +22,34 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
-    <?php if ($select === 'adult'): ?>
-        <!-- 大人の場合のフォーム -->
-        <form action="" method="post">
-            お手伝い名<input type="text" name="help_name"><br>
-            お手伝い詳細<input type="text" name="help_detail"><br>
-            獲得ポイント<input type="number" name="get_point"><br>
-            <button type="submit">登録</button>
-        </form>
-    <?php elseif ($select === 'child'): ?>
-        <!-- 子供の場合のフォーム -->
-        <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
-        <p>子供向けのフォームやメッセージを表示</p>
-    <?php endif; ?>
+    <div class="title">
+        <h1>おてつだい</h1>
+    </div>
+    <br>
+    <div class ="content">
+        <?php if ($select === 'adult'): ?>
+            <!-- 大人の場合のフォーム -->
+            <form action="" method="post">
+                お手伝い名<input type="text" name="help_name"><br>
+                お手伝い詳細<input type="text" name="help_detail"><br>
+                獲得ポイント<input type="number" name="get_point"><br>
+                <button type="submit">登録</button>
+            </form>
+        <?php elseif ($select === 'child'): ?>
+            <!-- 子供の場合のフォーム -->
+            <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
+            <p>子供向けのフォームやメッセージを表示</p>
+        <?php else: ?>
+            <!-- 予期せぬケースに備えてデフォルトの表示 -->
+            <p>選択されたユーザータイプに対応するフォームがありません。</p>
+        <?php endif; ?>
+    </div>
+   
+    <br>
 
     <div class="content">
         <h2>お手伝い一覧</h2>

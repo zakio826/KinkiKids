@@ -1,4 +1,4 @@
-<!-- トップページ画面 -->
+<!-- トップページ画面親用　テスト作成中 -->
 
 <!-- ヘッダー -->
 <?php
@@ -8,7 +8,7 @@ include("./include/header.php");
 
 <?php
 // testpointクラスのインスタンスを作成
-require("../../lib/testpoint_class.php");
+require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 ?>
 

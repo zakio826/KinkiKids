@@ -1,37 +1,41 @@
 <?php
 $page_title = "目標";
+$stylesheet_name = "goal_check.css";
 require_once("../include/header.php");
 ?>
 
 <?php
-require("../../../lib/goal_class.php");
+require($absolute_path."lib/goal_class.php");
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("Location: ../accounts/login.php");
     exit;
 }
 
-if (!isset($_SESSION['join'])) { //
-    header('Location: ./goal.php');
-    exit();
-}
+// if (!isset($_SESSION['join'])) { //
+//     header('Location: ./goal.php');
+//     exit();
+// }
 
 $targetAmount = $_SESSION['join']['target_amount'];
 $goalDetail = $_SESSION['join']['goal_detail'];
 $goalDeadline = $_SESSION['join']['goal_deadline'];
 
-unset($_SESSION['join']);
+// unset($_SESSION['join']);
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
-    <div class="container">
+    <div class="container--">
         <h1>もくひょうかくにん</h1>
         <div class="mt-1">
             <strong>きんがく　</strong>
             <p><?php echo htmlspecialchars($targetAmount); ?> 円</p>
         </div>
         <div class="mt-1">
-            <strong>ないよう　</strong>
+            <strong>しょうさい　</strong>
             <p><?php echo htmlspecialchars($goalDetail); ?></p>
         </div>
         <div class="mt-1">

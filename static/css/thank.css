@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+
+/* 全体の部分 */
+body {
+    background-image: url('../assets/back_image.png');  /* 背景画像を設定 */
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+}
+
+/* ユーザー登録完了画面中の枠組み */
+.frame_check {
+    display: flex;
+    justify-content: center; /* 左右の余白を均等にすることで中央寄せ */
+    align-items: center; /* 上下中央に配置する */
+    margin: 30px;
+    padding-bottom: 100px;
+}
+
+/* ユーザー登録完了画面項目の枠組み */
+.wrapper1 {
+    text-align: center; /* テキストを中央寄せ */
+    background-color: #fff7ab; /*背景色の指定 */
+    padding: 50px; /* 長方形の中の余白を設定 */
+    border-radius: 30px; /* 角を丸めることで長方形にする */
+    z-index: 1; /* 表示優先度を変更してフッターと被らないようにしてる */
+}
+
+.btn {
+    background-color: #525ED2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.registration_completedC {
+    margin-bottom: 10px;
+}
