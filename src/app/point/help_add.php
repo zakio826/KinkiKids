@@ -14,16 +14,22 @@ $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($family_id);
+$options = $help->narrow_down();
 
+if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
+    $selectedUserId = $_POST["narrow"];
+    $helps = $help->getHelpsByUserId($selectedUserId);
+} else {
+    // $_POST["narrow"] に何もない場合は全てのお手伝い項目を表示する
+    $family_id = $_SESSION["family_id"];
+    $helps = $help->display_help($family_id);
+}
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../accounts/login.php", true , 301);
     exit;
 }
 ?>
-
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="title">
@@ -52,6 +58,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </div>
    
     <br>
+    <div class = "content">
+        <form action="" method="post">
+            <select name="narrow">
+                <?php foreach ($options as $user): ?>
+                    <option value="<?php echo $user['user_id']; ?>"><?php echo $user['first_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit">絞り込む</button>
+        </form>
+    </div>
+    <br>
 
     <div class="content">
         <h2>お手伝い一覧</h2>
@@ -60,7 +77,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <ul>
-                <?php foreach ($helps as $help_data): ?>
+            <?php foreach ($helps as $help_data): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                         <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>

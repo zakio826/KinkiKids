@@ -14,7 +14,7 @@
                     $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
                 }elseif(isset($_POST["consent_help_id"])){
                     $this->consentHelpToDatabase($_POST["consent_help_id"]);
-                }else{
+                }elseif(!isset($_POST["narrow"])){
                     /* 入力情報に空白がないか検知 */
                     if ($_POST['help_name'] === "") {
                         $error['help_name'] = "blank";
@@ -146,7 +146,6 @@
             }else{
                 //TODO ログインしていない
             }
-            
         }
 
         public function getHelpInfo($help_id){
@@ -195,6 +194,41 @@
                 $stmt2->execute();
                 $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 echo $result2[0]['first_name'];
+            }
+        }
+
+        public function narrow_down() {
+            $users = array(); // ユーザーリストの初期化
+        
+            if(isset($_SESSION["family_id"])){
+                $stmt = $this->db->prepare("SELECT user_id, first_name, role_id FROM user WHERE family_id = :family_id");
+                $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                foreach ($result as $person){
+                    if (floor($person['role_id'] / 10 ) == 3){
+                        $users[] = $person; // ユーザーリストにユーザーを追加
+                    }
+                }
+            }else{
+                // ログインしていない場合の処理
+            }
+            return $users; // ユーザーリストを返す
+        }
+
+        public function getHelpsByUserId($userId) {
+            try {
+                $query = "SELECT * FROM help_person 
+                          INNER JOIN help ON help_person.help_id = help.help_id 
+                          WHERE help_person.user_id = :userId AND help.stop_flag = 1";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return false;
             }
         }
     }
