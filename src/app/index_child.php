@@ -34,7 +34,7 @@ $message_count = $index_child_class->getMessageCount();
     </header>
     
     <section class="position-relative h-75">
-        <?php if($goal_count != 0) : ?>
+        <?php if ($goal_count != 0) : ?>
             <a href="./goal/goal_detail.php">もくひょう<br>
                 <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                 <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
@@ -65,8 +65,8 @@ $message_count = $index_child_class->getMessageCount();
                     <div class="modal-2__content">
                         <p>みっしょん</p>
 
-                        <?php if($help_count != 0) : ?>
-                            <?php for($i=0;$i<$help_count;$i++) : ?>
+                        <?php if ($help_count != 0) : ?>
+                            <?php for ($i = 0; $i < $help_count; $i++) : ?>
                                 <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
                                 <hr>
                             <?php endfor; ?>
@@ -90,8 +90,8 @@ $message_count = $index_child_class->getMessageCount();
 
         <p id="order-string"></p><br>
 
-        <?php if($message_count != 0) : ?>
-            <?php for($i=0;$i<$message_count;$i++) : ?>
+        <?php if ($message_count != 0) : ?>
+            <?php for ($i = 0; $i < $message_count; $i++) : ?>
                 <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
                 ➡
                 <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
