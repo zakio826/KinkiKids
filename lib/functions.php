@@ -20,6 +20,21 @@ function checkToken(){
     }
 }
 
+function sql_check($stmt, $db){
+    //SQLが正しくない場合はエラーを表示
+    if (!$stmt) :
+      die($db->error);
+    endif;
+    
+    //正しければSQL実行
+    $success = $stmt->execute();
+    
+    //実行されなかったらエラー表示
+    if (!$success) :
+      die($db->error);
+    endif;
+  }
+
 //POSTされた値のバリデーション
 function validation($datas,$confirm = true)
 {
