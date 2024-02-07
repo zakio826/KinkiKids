@@ -77,24 +77,24 @@
             $stmt = $this->db->prepare($sql);
             $stmt->execute($params);
         }
-    private function saveHelppersonToDatabase($persons) {
-        //$help_id = 5;
-        $stmt2 = $this->db->prepare("SELECT help_id FROM help ORDER BY help_id DESC LIMIT 1");
-        $stmt2->execute();
-        $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $help_id = (int)$result2[0]["help_id"];
+        private function saveHelppersonToDatabase($persons) {
+            //$help_id = 5;
+            $stmt2 = $this->db->prepare("SELECT help_id FROM help ORDER BY help_id DESC LIMIT 1");
+            $stmt2->execute();
+            $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+            $help_id = (int)$result2[0]["help_id"];
 
-        foreach ($persons as $person) {
-            echo $person;
+            foreach ($persons as $person) {
+                echo $person;
 
-            $stmt = $this->db->prepare("INSERT INTO help_person (help_id,user_id) VALUES (:help_id, :user_id)");
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->bindParam(':user_id', $person);
-            $stmt->execute();
-            $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $stmt = $this->db->prepare("INSERT INTO help_person (help_id,user_id) VALUES (:help_id, :user_id)");
+                $stmt->bindParam(':help_id', $help_id);
+                $stmt->bindParam(':user_id', $person);
+                $stmt->execute();
+                $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            
         }
-        
-    }
 
         public function display_help($family_id) {
             $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1");
@@ -113,41 +113,41 @@
             echo "<p>削除しました</p>";
         }
 
-    private function consentHelpToDatabase($help_id) {
-        if(isset($_SESSION["user_id"])){
-            $user_id = $_SESSION["user_id"];
-            $dtime = date("Y-m-d H:i:s");
-            $stmt = $this->db->prepare("INSERT INTO help_log (user_id,help_id,help_day,consent_flag) values(:user_id, :help_id, :dtime, 1)");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->bindParam(':dtime', $dtime);
-            $stmt->execute();
-            $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo "<p>承認待ち</p>";//TODO 承認待ちの処理
-        }else{
-            //TODO ログインしていない
-        }
-        
-    }
-
-    public function child_select() {
-        if(isset($_SESSION["family_id"])){
-            $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
-            $stmt->bindParam(':family_id', $_SESSION["family_id"]);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($result as $person){
-                if (floor($person['role_id'] / 10 ) == 3){
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
-                    echo $person['first_name']."　";
-                }
+        private function consentHelpToDatabase($help_id) {
+            if(isset($_SESSION["user_id"])){
+                $user_id = $_SESSION["user_id"];
+                $dtime = date("Y-m-d H:i:s");
+                $stmt = $this->db->prepare("INSERT INTO help_log (user_id,help_id,help_day,consent_flag) values(:user_id, :help_id, :dtime, 1)");
+                $stmt->bindParam(':user_id', $user_id);
+                $stmt->bindParam(':help_id', $help_id);
+                $stmt->bindParam(':dtime', $dtime);
+                $stmt->execute();
+                $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "<p>承認待ち</p>";//TODO 承認待ちの処理
+            }else{
+                //TODO ログインしていない
             }
-        }else{
-            //TODO ログインしていない
+            
         }
-        
-    }
+
+        public function child_select() {
+            if(isset($_SESSION["family_id"])){
+                $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
+                $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($result as $person){
+                    if (floor($person['role_id'] / 10 ) == 3){
+                        echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
+                        echo $person['first_name']."　";
+                    }
+                }
+            }else{
+                //TODO ログインしていない
+            }
+            
+        }
 
         public function getHelpInfo($help_id){
             $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
@@ -164,7 +164,6 @@
 
             $user_id = (int)$_SESSION['user_id'];
             $family_id = (int)$_SESSION['family_id'];
-
             $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':family_id', $family_id);
@@ -173,15 +172,30 @@
             $stmt->bindParam(':get_point', $get_point);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
-
             
-
             
             $stmt2 = $this->db->prepare("UPDATE help SET stop_flag = 0 WHERE help_id = :help_id");
             $stmt2->bindParam(':help_id', $help_id);
             $stmt2->execute();
             $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
+        }
+        public function person_select($help_id){
+            $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $first_flag = 0;
+            foreach ($result as $person){
+                if ($first_flag != 0){
+                    echo ",";
+                }
+                $first_flag++;
+                $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+                $stmt2->bindParam(':user_id', $person['user_id']);
+                $stmt2->execute();
+                $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                echo $result2[0]['first_name'];
+            }
         }
     }
 ?>

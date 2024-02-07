@@ -71,9 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="control">
                         <label for="role_id">役割</label>
-                        <select name="role_id[]">
+                        <select name="role_id[]" class="roleSelect" onchange="toggleSavingsField(this)">
                             <?php $family_add->role_select(); ?>
                         </select>
+                    </div>
+
+                    <div class="control" style="display: none;">
+                        <label for="savings">貯蓄</label>
+                        <input class="savings-input" type="int" name="savings[]" value="0">
+                        <br>
+                        <label for="allowances">お小遣い金額</label>
+                        <input class="allowance-input" type="int" name="allowances[]" value="0">
+                        <label for="payments">受取日</label>
+                        <input class="payment-input" type="int" name="payments[]" value="0">
                     </div>
 
                     <div class="control">

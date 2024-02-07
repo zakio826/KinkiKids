@@ -56,28 +56,32 @@ $helps = $help->display_help($family_id);
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <ul>
-                <?php foreach ($helps as $help): ?>
+                <?php foreach ($helps as $help_data): ?>
                     <li>
-                        <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?><br>
-                        <strong>お手伝い詳細</strong> <?php echo $help['help_detail']; ?><br>
-                        <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
+                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>
+                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                        <strong>担当者</strong>
+                        <?php
+                            $help->person_select($help_data['help_id']);
+                        ?><br>
                     </li>
                     
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
-                            <input type="hidden" name="edit_help_id" value="<?php echo $help['help_id']; ?>">
+                            <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">編集</button>
                         </form>
                         
                         <form action="" method="post">
-                            <input type="hidden" name="delete_help_id" value="<?php echo $help['help_id']; ?>">
+                            <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">削除</button>
                         </form>
                     <?php endif; ?>
 
                     <?php if ($select === 'child'): ?>
                         <form action="" method="post">
-                            <input type="hidden" name="consent_help_id" value="<?php echo $help['help_id']; ?>">
+                            <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">やりました！</button>
                         </form>
                     <?php endif; ?>

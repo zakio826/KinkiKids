@@ -50,8 +50,11 @@ $message_count = $index_child_class->getMessageCount();
         てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
 
         <p>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん</p>
-        <p>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント</p>
-        
+        <?php if($goal_count != 0) : ?>
+            <p>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント</p>
+        <?php else : ?>
+            <p>目標がないので設定してください</p>
+        <?php endif; ?>
         <hr>
 
         <div class="modal-2__wrap"> 
@@ -106,11 +109,17 @@ $message_count = $index_child_class->getMessageCount();
 </main>
 
 <script>
-    const select = document.getElementById('user_select');
-
+    let select = document.getElementById('user_select');
+    let message = [];
+    let count = <?php echo $message_count; ?>;
+    let selected_value = document.getElementById('user_select').value;
+    <?php for($i=0;$i<$message_count;$i++){ ?>
+        if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
+            message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
+        }
+    <?php } ?>
     select.addEventListener('change', (e) => {
-        let selected_value = document.getElementById('user_select').value;
-        document.getElementById('order-string').innerHTML = selected_value;
+        document.getElementById('order-string').innerHTML = message[0];
     });
 
     // return selected_value
