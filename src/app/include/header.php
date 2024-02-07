@@ -80,6 +80,9 @@ $db = new connect();
             min-height: calc(100vh - 4rem);
             margin-bottom: 4rem;
         }
+        body {
+            background: url('<?php echo $absolute_path; ?>static/assets/<?php echo $$_SESSION["select"]; ?>_back_image.png');
+        }
     </style>
 
-    <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
+    <body>
