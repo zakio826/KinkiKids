@@ -119,7 +119,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
-
+        <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
         <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p>
     </div>
 </main>
