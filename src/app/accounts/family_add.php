@@ -91,10 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="checkbox" name="admin_flag[]" value="1">
                     </div>
 
-                    <!-- 削除ボタン -->
-                    <div class="control">
-                        <button type="button" id="removeUser" style="display:none;">マイナス</button>
-                    </div>
                 </div>
             </div>
 
