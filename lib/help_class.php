@@ -1,5 +1,5 @@
 <?php
-
+    date_default_timezone_set('Asia/Tokyo');
     class help
     {
         private $db;
@@ -195,6 +195,36 @@
                 $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 echo $result2[0]['first_name'];
             }
+        }
+        public function consent_button($help_id) {
+            $stmt = $this->db->prepare("SELECT consent_flag FROM help_log WHERE help_id = :help_id ORDER BY help_log_id DESC LIMIT 1");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (isset($result[0])){
+                if($result[0]['consent_flag'] == 1){
+                    echo "承認待ち";
+                }else{
+                    echo "<button type='submit'>やりました！</button>";
+                } 
+            }else{
+                echo "<button type='submit'>やりました！</button>";
+            }   
+        }
+        public function consent_button($help_id) {
+            $stmt = $this->db->prepare("SELECT consent_flag FROM help_log WHERE help_id = :help_id ORDER BY help_log_id DESC LIMIT 1");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (isset($result[0])){
+                if($result[0]['consent_flag'] == 1){
+                    echo "承認待ち";
+                }else{
+                    echo "<button type='submit'>やりました！</button>";
+                } 
+            }else{
+                echo "<button type='submit'>やりました！</button>";
+            }   
         }
 
         public function narrow_down() {

@@ -1,0 +1,9 @@
+thead, tbody, tr, th, td {
+    border-collapse: collapse;
+    border: 2.5px solid #333;
+}
+.money-grid {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
+}

@@ -16,8 +16,9 @@ class index_child_class{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $family_id = $result['family_id'];
 
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE family_id = :family_id");
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE family_id = :family_id AND NOT user_id = :user_id");
         $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -55,8 +56,10 @@ class index_child_class{
 
 
         return array(
+            'session_user' => $_SESSION["user_id"],
             'messagetext' => $message[$i]['messagetext'],
             'sender' => $sender['first_name'],
+            'sender_id' => $sender['user_id'],
             'receiver' => $receiver['first_name'],
             'receiver_id' => $receiver['user_id'],
             );
@@ -105,12 +108,17 @@ class index_child_class{
         }
     }
     public function getSavings(){
-        $stmt = $this->db->prepare("SELECT savings FROM child_data WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT * FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($result)!=0){
+            return $result[0]['savings'];
+        } else {
+            return 0;
+        }
         
-        return $result['savings'];
 
     }
     public function getGoalCount(){
