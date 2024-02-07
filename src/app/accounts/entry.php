@@ -83,11 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php $entry->role_select(); ?>
                             </select>
                         </div>
-
-                        <div class="form-group_entry">
-                            <label for="savings">貯蓄</label>
-                            <input id="savings" type="int" name="savings" class="form-control_entry">
-                        </div>
                         
                         <div class="form-group_entry">
                             <button type="submit" class="btn btn-primary btn_margintop">確認する</button>
