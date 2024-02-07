@@ -35,6 +35,7 @@ function sql_check($stmt, $db){
     endif;
   }
 
+  
 //POSTされた値のバリデーション
 function validation($datas,$confirm = true)
 {
