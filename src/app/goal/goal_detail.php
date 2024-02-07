@@ -52,7 +52,7 @@ $help_count = $index_child_class->getHelpCount();
             <p>目標を設定してください</p>
         <?php endif; ?>
     </section>
-    <a href="../index_child.php">トップページに戻る</a>
+    <a href="../">トップページに戻る</a>
 </main>
 
 <!-- フッター -->
