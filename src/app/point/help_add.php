@@ -37,7 +37,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 お手伝い名<input type="text" name="help_name"><br>
                 お手伝い詳細<input type="text" name="help_detail"><br>
                 獲得ポイント<input type="number" name="get_point"><br>
-            担当者　
+                担当者　
             <?php $help->child_select(); ?><br>
                 <button type="submit">登録</button>
             </form>
@@ -63,7 +63,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <?php foreach ($helps as $help_data): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>
+                        <?php 
+                        if(!($help_data['help_detail'] == "")){
+                            echo "<strong>お手伝い詳細:</strong>";
+                            echo $help_data['help_detail']; 
+                            echo '<br>';
+                        }
+                        ?>
                         <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                         <strong>担当者</strong>
                         <?php
@@ -83,7 +89,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <?php if ($select === 'child'): ?>
                         <form action="" method="post">
                             <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
-                            <button type="submit">やりました！</button>
+                            <?php
+                            $help->consent_button($help_data['help_id']);
+                            ?>
                         </form>
                         <?php endif; ?>
                 <?php endforeach; ?>
