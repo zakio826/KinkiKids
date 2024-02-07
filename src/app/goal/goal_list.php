@@ -38,11 +38,11 @@ $goals = $goal->getUserGoals($user_id);
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
-        <p class="mt-3">
-            <a href="../index.php" class="btn btn-primary">もどる</a>
-        </p>
+
+        <p class="mt-3"><a href="../index.php" class="btn btn-primary">もどる</a></p>
     </div>
 </main>
 
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
 

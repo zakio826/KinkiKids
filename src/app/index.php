@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "トップページ";
+$stylesheet_name = "index.css";
 include("./include/header.php");
 ?>
 
@@ -12,13 +13,6 @@ require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 ?>
 
-<style>
-    .action-btn {
-        background-color: lemonchiffon;
-        border-radius: 2rem;
-        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-    }
-</style>
 
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>
