@@ -3,31 +3,31 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "カレンダー";
+$stylesheet_name = "calendar.css";
 include("../include/header.php");
 ?>
 
 <?php
 $date_now = new DateTime("now");
-$year = $date_now->format("Y");
-$month = $date_now->format("m");
-$today = $date_now->format("d");
+$month_now = true;
 
-$date = new DateTime($year . $month);
-$first_week = $date->modify('first day of')->format("w");
-$last_day = $date->modify('last day of')->format("d");
+if (isset($_POST["month_transfer"])) {
+    $this_date = strtotime($_POST["month_transfer"]);
+    if ($date_now->format("Y-m") !== $_POST["month_transfer"]) {
+        $month_now = false;
+    }
+} else {
+    $this_date = strtotime($date_now->format("Y-m"));
+}
+
+$last_ym = date("Y-m", strtotime("-1 month", $this_date)); //前月取得
+$next_ym = date("Y-m", strtotime("+1 month", $this_date)); //次月取得
+
+$today = intval($date_now->format("d"));
+$first_week = date("w", strtotime("first day of", $this_date));
+$last_day   = date("d", strtotime("last day of", $this_date));
 ?>
 
-<style>
-    thead, tbody, tr, th, td {
-        border-collapse: collapse;
-        border: 2.5px solid #333;
-    }
-    .money-grid {
-        background-color: white;
-        border-radius: 1rem;
-        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-    }
-</style>
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
@@ -40,18 +40,23 @@ $last_day = $date->modify('last day of')->format("d");
                     <table class="w-75 mx-auto" style="caption-side: top;">
 
                         <!-- 月の変更 -->
-                        <caption class="text-center">
-                            <h5 class="my-0">
-                                <span class="me-1"><?php echo $year; ?></span>年
-                            </h5>
-                            <h1 class="pt-0" style="color: black;">
-                                <span>＜</span>
-                                <span><?php echo $date_now->format("n"); ?></span>月
-                                <span>＞</span>
-                            </h1>
+                        <caption class="mx-sm-5 text-center">
+                            <h5 class="mb-1"><?php echo date("Y", $this_date); ?>年</h5>
+
+                            <form class="h1 row g-0 justify-content-around pt-0" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST" style="color: black;">
+                                <label class="col-auto" for="last">＜
+                                    <input class="d-none" type="submit" id="last" name="month_transfer" value="<?php echo $last_ym; ?>">
+                                </label>
+
+                                <span class="col-4"><?php echo date("n", $this_date); ?>月</span>
+                                
+                                <label class="col-auto" for="next">＞
+                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>">
+                                </label>
+                            </form>
                         </caption>
                         
-                        <!-- カレンダー -->
+                        <!-- カレンダー（曜日） -->
                         <thead class="text-center" style="background-color: white;">
                             <tr class="text-center">
                                 <th><font color="red">日</font></th>
@@ -59,21 +64,21 @@ $last_day = $date->modify('last day of')->format("d");
                                 <th><font color="blue">土</font></th>
                             </tr>
                         </thead>
+                        
+                        <!-- カレンダー（日付） -->
                         <tbody class="w-100" style="background-color: white;">
-                            <?php for ($i = 0; $i < 29; $i+=7) : ?>
+                            <?php for ($i = 0; $i < 5; $i++) : ?>
                                 <tr>
                                     <?php for ($j = 1; $j <= 7; $j++) : ?>
-                                        <td>
-                                            <?php
-                                            $day = $i + $j - $first_week;
-                                            if ($day > 0 and $day <= $last_day) {
-                                                echo $day;
-                                            } else {
-                                                echo "&nbsp;";
-                                            }
-                                            ?>
-                                            <br>
-                                            &nbsp;
+                                        <?php $day = $i * 7 + $j - $first_week; ?>
+                                        <td class="px-1" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?>>
+                                            <?php if ($day > 0 and $day <= $last_day) : ?>
+                                                <?php echo $day; ?><br>
+                                                &nbsp;
+                                            <?php else : ?>
+                                                &nbsp;<br>
+                                                &nbsp;
+                                            <?php endif; ?>
                                         </td>
                                     <?php endfor; ?>
                                 </tr>
@@ -81,8 +86,6 @@ $last_day = $date->modify('last day of')->format("d");
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="position-relative px-4">
-                </div> -->
             </div>
 
             <!-- 月間収支表示 -->
@@ -105,7 +108,7 @@ $last_day = $date->modify('last day of')->format("d");
             <div class="row mt-5 money-grid">
                 <div class="position-relative d-block p-5">
                     <!-- チャートの表示エリア -->
-                    <canvas class="w-100 h-100" id="myChart"></canvas>
+                    <canvas class="w-100 h-100" id="chart"></canvas>
                 </div>
             </div>
         </div>

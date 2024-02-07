@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント追加</h1>
-            <p>当サービスをご利用するために、次のフォームに必要事項をご記入ください。</p>
+            <p>当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
+            
             <br>
  
             <div id="userFormsContainer">
@@ -75,10 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </select>
                     </div>
 
-                    <!-- 貯蓄フィールド -->
                     <div class="control" style="display: none;">
                         <label for="savings">貯蓄</label>
                         <input class="savings-input" type="int" name="savings[]" value="0">
+                        <br>
+                        <label for="allowances">お小遣い金額</label>
+                        <input class="allowance-input" type="int" name="allowances[]" value="0">
+                        <label for="payments">受取日</label>
+                        <input class="payment-input" type="int" name="payments[]" value="0">
                     </div>
 
                     <div class="control">
@@ -102,67 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // ユーザー追加ボタンのクリックイベント
-        document.getElementById('addUser').addEventListener('click', function() {
-            // 新しいユーザー情報の入力フォームを追加
-            var userForm = document.getElementById('userForm');
-            var newUserForm = userForm.cloneNode(true);
-            var inputs = newUserForm.querySelectorAll('input');
-            
-            // フォーム内の値をクリア
-            inputs.forEach(function(input) {
-            if (input.classList.contains('savings-input')) {
-            } else {
-                input.value = '';
-            }
-            if (input.type === 'checkbox') {
-                input.checked = false;
-            }
-        });
-
-            // 削除ボタンを追加
-            var removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'removeUser';
-            removeButton.textContent = 'マイナス';
-            newUserForm.appendChild(removeButton);
-
-            // ユーザーフォームをコンテナに追加
-            document.getElementById('userFormsContainer').appendChild(newUserForm);
-
-            toggleSavingsField(newUserForm.querySelector('.roleSelect'));
-        });
-
-        // フォーム削除ボタンのクリックイベント（動的に追加された要素にも対応）
-        document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('removeUser')) {
-                event.target.parentNode.remove();
-            }
-        });
-    });
-    
-    function toggleSavingsField(roleSelect) {
-        var savingsField = roleSelect.parentNode.nextElementSibling;
-        
-
-        // 「FIXME」に対応する役割IDの配列
-        var allowedRoleIds = [31, 32, 33, 34];
-
-        // 選択された役割IDを取得
-        var selectedRoleId = parseInt(roleSelect.value);
-
-        // 選択された役割が許可された役割IDに含まれているか判定
-        if (allowedRoleIds.includes(selectedRoleId)) {
-            savingsField.style.display = "block";
-        } else {
-            savingsField.style.display = "none";
-        }
-    }
-
-
-</script>
+<!-- JavaScript -->
+<script src="<?php echo $absolute_path; ?>static/js/family_add.js"></script>
 
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

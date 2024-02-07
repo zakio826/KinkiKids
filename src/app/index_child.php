@@ -97,17 +97,17 @@ $message_count = $index_child_class->getMessageCount();
         let count = <?php echo $message_count; ?>;
         select.addEventListener('change', (e) => {
             let selected_value = document.getElementById('user_select').value;
-        let message = [];
-        <?php for($i=0;$i<$message_count;$i++){ ?>
-        
-            if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) || (selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>)){
-                message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
-            }
+            let message = [];
+            <?php for($i=0;$i<$message_count;$i++){ ?>
+            
+                if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) || (selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>)){
+                    message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
+                }
 
-        <?php } ?>
-        let str = message.join('<br>');
-        document.getElementById('order-string').innerHTML = str;
-    });
+            <?php } ?>
+            let str = message.join('<br>');
+            document.getElementById('order-string').innerHTML = str;
+        });
     </script>
 
     <script src="<?php echo $absolute_path; ?>static/js/index_child.js"></script>
