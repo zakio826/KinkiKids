@@ -49,17 +49,27 @@ $message_count = $index_child_class->getMessageCount();
         </div>
         <hr>
         <div class="index_child_mokuhyoucss3">
-        <div class="index_child_mokuhyoucss4">
-            ちょきん: <?php echo htmlspecialchars($savings); ?> えん　　
-            てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
-
-            <br>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん
+            <div class="index_child_mokuhyoucss4">
+            <p>
+                ちょきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
+                てもち: <span><?php echo htmlspecialchars($have_points); ?></span> ポイント
+            </p>
+            <p class="index_child_moji">
+                <br>ごうけい: <span><?php echo htmlspecialchars($have_money); ?></span> えん
+            </p>
             <?php if($goal_count != 0) : ?>
-                <br>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント
+                <p>
+                    <br>きょうかせぐポイント: 
+                    <span>
+                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                    </span> ポイント
+                </p>
             <?php else : ?>
-                <br>目標がないので設定してください
+                <p>
+                    <br>目標がないので設定してください
+                </p>
             <?php endif; ?>
-        </div>
+            </div>
         </div>
         <hr>
 
@@ -72,7 +82,9 @@ $message_count = $index_child_class->getMessageCount();
                 <div class="modal-2__content-wrap">
                     <label for="modal-2__close" class="modal-2__close-label">×</label>
                     <div class="modal-2__content">
-                        <p>みっしょん</p>
+                        <span>
+                            <p>みっしょん</p>
+                        </span>
 
                         <?php if ($help_count != 0) : ?>
                             <?php for ($i = 0; $i < $help_count; $i++) : ?>
@@ -90,27 +102,30 @@ $message_count = $index_child_class->getMessageCount();
         </div>
 
         <hr>
+        <div class="index_child_mokuhyoucss5">
+            <div class="index_child_mokuhyoucss6">
+            <p>メッセージ</p>
+            <select id="user_select">
+                <option value=""></option>
+                <?php $index_child_class->getFamilyUser(); ?>
+            </select>
 
-        <p>メッセージ</p>
-        <select id="user_select">
-            <option value=""></option>
-            <?php $index_child_class->getFamilyUser(); ?>
-        </select>
+            <p id="order-string"></p><br>
 
-        <p id="order-string"></p><br>
-
-        <?php if ($message_count != 0) : ?>
-            <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                ➡
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                
-                <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
-                <hr>
-            <?php endfor; ?>
-        <?php else : ?>
-            <p>メッセージがありません</p>
-        <?php endif; ?>
+            <?php if ($message_count != 0) : ?>
+                <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                    ➡
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                    
+                    <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
+                    <hr>
+                <?php endfor; ?>
+            <?php else : ?>
+                <p>メッセージがありません</p>
+            <?php endif; ?>
+            </div>
+        </div>
     </section>
 </main>
 
