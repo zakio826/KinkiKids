@@ -1,8 +1,8 @@
-<!-- トップページ画面子用　テスト作成中 -->
+<!-- トップページ画面子用 -->
 
 <!-- ヘッダー -->
 <?php
-$page_title = "トップページ";
+$page_title = "子供用トップページ";
 $stylesheet_name = "index_child.css";
 include("./include/header.php");
 ?>
@@ -67,50 +67,36 @@ $message_count = $index_child_class->getMessageCount();
             <input type="radio" id="modal-2__open" class="modal-2__open-input" name="modal-2__trigger"/>
             <label for="modal-2__open" class="modal-2__open-label">きょうのおてつだいをひょうじ</label>
             <input type="radio" id="modal-2__close" name="modal-2__trigger"/>
-
             <div class="modal-2">
                 <div class="modal-2__content-wrap">
                     <label for="modal-2__close" class="modal-2__close-label">×</label>
                     <div class="modal-2__content">
-                        <p>みっしょん</p>
-
-                        <?php if ($help_count != 0) : ?>
-                            <?php for ($i = 0; $i < $help_count; $i++) : ?>
-                                <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
-                                <hr>
-                            <?php endfor; ?>
-                        <?php else : ?>
+                    <p>みっしょん</p>
+                    <?php if($help_count != 0){ ?>
+                        <?php for($i=0;$i<$help_count;$i++){ ?>
+                            <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
+                            <hr>
+                        <?php } ?>
+                    <?php } else { ?>
                             <p>お手伝いを設定してください</p>
-                        <?php endif; ?>
+                    <?php } ?>
+
                     </div>
                 </div>
-
-                <label for="modal-2__close"><div class="modal-2__background"></div></label>
+                <label for="modal-2__close">
+                    <div class="modal-2__background"></div>
+                </label>
             </div>
         </div>
-
         <hr>
-
         <p>メッセージ</p>
         <select id="user_select">
             <option value=""></option>
             <?php $index_child_class->getFamilyUser(); ?>
         </select>
+        <p id="order-string"></p>
+        <br>
 
-        <p id="order-string"></p><br>
-
-        <?php if ($message_count != 0) : ?>
-            <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                ➡
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                
-                <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
-                <hr>
-            <?php endfor; ?>
-        <?php else : ?>
-            <p>メッセージがありません</p>
-        <?php endif; ?>
     </section>
     <!-- ナビゲーションバー -->
     <?php include_once("./include/bottom_nav.php") ?>
@@ -118,20 +104,26 @@ $message_count = $index_child_class->getMessageCount();
 
 <script>
     let select = document.getElementById('user_select');
-    let message = [];
     let count = <?php echo $message_count; ?>;
-    let selected_value = document.getElementById('user_select').value;
-    <?php for($i=0;$i<$message_count;$i++){ ?>
-        if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
-            message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
-        }
-    <?php } ?>
     select.addEventListener('change', (e) => {
-        document.getElementById('order-string').innerHTML = message[0];
-    });
+        let selected_value = document.getElementById('user_select').value;
+        let message = [];
+        <?php for($i=0;$i<$message_count;$i++){ ?>
+        
+            if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) || (selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>)){
+                if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>)){
+                    message.push('自分：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
+                }else{
+                    message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>'+'：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
+                }
+            }
 
-    // return selected_value
+        <?php } ?>
+        let str = message.join('<br>');
+        document.getElementById('order-string').innerHTML = str;
+    });
 </script>
+
 
 <!-- フッター -->
 <?php include_once("./include/footer.php"); ?>
