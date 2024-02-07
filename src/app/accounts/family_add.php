@@ -11,6 +11,11 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
+if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+    header("Location: ../index.php");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $family_add->__construct($db);
 }
@@ -73,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <!-- 貯蓄フィールド -->
                     <div class="control" style="display: none;">
                         <label for="savings">貯蓄</label>
-                        <input type="int" name="savings[]" value="0">
+                        <input class="savings-input" type="int" name="savings[]" value="0">
                     </div>
 
                     <div class="control">
@@ -108,19 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // フォーム内の値をクリア
             inputs.forEach(function(input) {
+            if (input.classList.contains('savings-input')) {
+            } else {
                 input.value = '';
-                if (input.type === 'checkbox') {
-                    input.checked = false;
-                }
-                if (input.type === 'int') {
-                    input.value = '0';
-                }
-            });
-
-            var savingsField = newUserForm.querySelector('.savingsField input');
-            if (savingsField) {
-                savingsField.value = '0';
             }
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            }
+        });
 
             // 削除ボタンを追加
             var removeButton = document.createElement('button');
