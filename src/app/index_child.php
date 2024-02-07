@@ -106,6 +106,8 @@ $message_count = $index_child_class->getMessageCount();
             <p>メッセージがありません</p>
         <?php endif; ?>
     </section>
+    <!-- ナビゲーションバー -->
+    <?php include_once("./include/bottom_nav.php") ?>
 </main>
 
 <script>
