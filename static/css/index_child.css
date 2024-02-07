@@ -8,8 +8,7 @@ box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
 display: none;
 }
 
-.modal-2__open-label,
-.modal-2__close-label {
+.modal-2__open-label, .modal-2__close-label {
     cursor: pointer;
 }
 .modal-2__open-label {

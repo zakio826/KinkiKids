@@ -19,6 +19,8 @@ class family_add {
             $role_ids = $_POST['role_id'];
             $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array();
             $savings = $_POST['savings'];
+            $allowances = $_POST['allowances'];
+            $payments = $_POST['payments'];
 
             // 登録する家族のfamily_idを取得
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
@@ -49,6 +51,12 @@ class family_add {
                 }
                 if ($savings[$i] === "") {
                     $error['savings'][$i] = "blank";
+                }
+                if ($allowances[$i] === "") {
+                    $error['allowances'][$i] = "blank";
+                }
+                if ($payments[$i] === "") {
+                    $error['payments'][$i] = "blank";
                 }
 
                 // usernameの重複を検知
@@ -93,25 +101,40 @@ class family_add {
                     $savedUserId = $this->getUserIdByUsername($usernames[$i]);
 
                     $allowedRoleIds = [31, 32, 33, 34];
-                    if (in_array($role_ids[$i], $allowedRoleIds)) {                        
+                    if (in_array($role_ids[$i], $allowedRoleIds)) {
+                        $allowanceStatement = $this->db->prepare(
+                            "INSERT INTO allowance (user_id, family_id, allowance_amount, payment_day)
+                            VALUES (?, ?, ?, ?)"
+                        );
+                        
                         $childStatement = $this->db->prepare(
                             "INSERT INTO child_data (user_id, have_points, max_lending, allowance_id, savings)
                             VALUES (?, ?, ?, ?, ?)"
                         );
+                        
+                        $allowanceStatement->execute(array(
+                            $savedUserId, // 保存されたユーザーのID
+                            $family_id,
+                            $allowances[$i],
+                            $payments[$i]
+                        ));
+                        
+                        $savedAllowanceId = $this->getAllowanceIdByUserId($savedUserId);
 
                         // 初期値として0をセット（必要に応じて変更）
                         $childStatement->execute(array(
                             $savedUserId, // 保存されたユーザーのID
                             0, // have_points
                             0, // max_lending
-                            // $this->getAllowanceIdByUserId($savedUserId), // allowance_id（例として1をセット）
-                            1,
+                            $savedAllowanceId,
                             $savings[$i]
                         ));
                     }
                 }
 
                 unset($_SESSION['join']);   // セッションを破棄
+                $_SESSION['family_success'] = true;
+                $_SESSION['family_count'] = count($usernames);
                 header('Location: ../index.php');   // thank.phpへ移動
                 exit();
             }
