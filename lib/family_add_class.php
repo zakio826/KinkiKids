@@ -49,14 +49,14 @@ class family_add {
                 if ($role_ids[$i] === "") {
                     $error['role_id'][$i] = "blank";
                 }
-                if ($savings[$i] === "") {
-                    $error['savings'][$i] = "blank";
+                if (!is_numeric($savings[$i]) || $savings[$i] < 0 || $savings[$i] > 9999999999) {
+                    $error['savings'][$i] = "invalid";
                 }
-                if ($allowances[$i] === "") {
-                    $error['allowances'][$i] = "blank";
+                if (!is_numeric($allowances[$i]) || $allowances[$i] < 0 || $allowances[$i] > 9999999999) {
+                    $error['allowances'][$i] = "invalid";
                 }
-                if ($payments[$i] === "") {
-                    $error['payments'][$i] = "blank";
+                if (!is_numeric($payments[$i]) || $payments[$i] < 0 || $payments[$i] > 31) {
+                    $error['payments'][$i] = "invalid";
                 }
 
                 // usernameの重複を検知
@@ -67,7 +67,7 @@ class family_add {
                     $error['username'][$i] = 'duplicate';
                 }
             }
-
+            
             // エラーがなければ次のページへ
             if (!isset($error)) {
 
