@@ -30,6 +30,7 @@ $helps = $consent->display_consent_help($user_id);
     <section>
     <div class="title">
         <h1>おてつだい承認</h1>
+        <h1>まだ承認ボタン押さないで！！！</h1>
     </div>
     <br>
     <div class ="content">
