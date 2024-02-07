@@ -41,12 +41,10 @@ $help_count = $index_child_class->getHelpCount();
     
     <section class="position-relative h-75">
         <p>目標詳細</p>
-
-        <p>もくひょう:<?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?></p>
-        <p>いつまで:<?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> </p>
-        <p>目標金額:<?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円</p>
-
         <?php if ($goal_count != 0) : ?>
+            <p>もくひょう:<?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?></p>
+            <p>いつまで:<?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> </p>
+            <p>目標金額:<?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円</p>
             <p>お小遣いが1ヶ月に1回もらえるのをふまえると合計であと<?php echo htmlspecialchars($index_child_class->getRequired_point()); ?> ポイント必要です</p>
             <p>期限までに目標金額を達成するには１日あたりあと<?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント必要です</p>
             <hr>
@@ -54,6 +52,7 @@ $help_count = $index_child_class->getHelpCount();
             <p>目標を設定してください</p>
         <?php endif; ?>
     </section>
+    <a href="../index_child.php">トップページに戻る</a>
 </main>
 
 <!-- フッター -->
