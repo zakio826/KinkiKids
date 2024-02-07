@@ -75,10 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </select>
                     </div>
 
-                    <!-- 貯蓄フィールド -->
                     <div class="control" style="display: none;">
                         <label for="savings">貯蓄</label>
                         <input class="savings-input" type="int" name="savings[]" value="0">
+                        <br>
+                        <label for="allowances">お小遣い金額</label>
+                        <input class="allowance-input" type="int" name="allowances[]" value="0">
+                        <label for="payments">受取日</label>
+                        <input class="payment-input" type="int" name="payments[]" value="0">
                     </div>
 
                     <div class="control">
@@ -113,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // フォーム内の値をクリア
             inputs.forEach(function(input) {
-            if (input.classList.contains('savings-input')) {
+                if (input.classList.contains('savings-input') || input.classList.contains('allowance-input') || input.classList.contains('payment-input')) {
+                    input.value = '0';
             } else {
                 input.value = '';
             }
