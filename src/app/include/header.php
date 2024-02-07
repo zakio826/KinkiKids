@@ -80,8 +80,14 @@ $db = new connect();
             min-height: calc(100vh - 4rem);
             margin-bottom: 4rem;
         }
+
+        <?php if ($accounts_page) : $select = "child"; ?>
+        <?php else : $select = $_SESSION["select"]; ?>
+        <?php endif; ?>
+
         body {
-            background: url('<?php echo $absolute_path; ?>static/assets/<?php echo $$_SESSION["select"]; ?>_back_image.png');
+            background: url('<?php echo $absolute_path . "static/assets/" . $select . "_back_image.png"; ?>');
+            /* background: url('<?php echo $absolute_path; ?>static/assets/child_back_image.png'); */
         }
     </style>
 
