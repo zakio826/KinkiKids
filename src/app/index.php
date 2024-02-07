@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "トップページ";
+$stylesheet_name = "index.css";
 include("./include/header.php");
 ?>
 
@@ -10,15 +11,16 @@ include("./include/header.php");
 // testpointクラスのインスタンスを作成
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
+
+//family_addでユーザー追加の遷移であれば完了の通知出す
+if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
+    echo '<script>alert("' . $_SESSION['family_count'] . '人の登録が完了しました。");</script>';
+    unset($_SESSION['family_success'], $_SESSION['family_count']);
+}
+
 ?>
 
-<style>
-    .action-btn {
-        background-color: lemonchiffon;
-        border-radius: 2rem;
-        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-    }
-</style>
+
 
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>

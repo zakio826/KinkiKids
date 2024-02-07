@@ -1,8 +1,9 @@
-<!-- トップページ画面子用　テスト作成中 -->
+<!-- トップページ画面子用 -->
 
 <!-- ヘッダー -->
 <?php
-$page_title = "トップページ";
+$page_title = "子供用トップページ";
+$stylesheet_name = "index_child.css";
 include("./include/header.php");
 ?>
 
@@ -12,7 +13,7 @@ include("./include/header.php");
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 
-require("../../lib/index_child_class.php");
+require($absolute_path."lib/index_child_class.php");
 $index_child_class = new index_child_class($db);
 $have_points = $index_child_class->getHave_points();
 $savings = $index_child_class->getSavings();
@@ -23,10 +24,10 @@ $message_count = $index_child_class->getMessageCount();
 ?>
 
 
-<main>
-    <!-- ナビゲーションバー -->
-    <?php include_once("./include/nav_bar.php") ?>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/nav_bar.php") ?>
 
+<main>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
@@ -47,7 +48,11 @@ $message_count = $index_child_class->getMessageCount();
         ちょきん: <?php echo htmlspecialchars($savings); ?> えん　　
         てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
         <p>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん</p>
-        <p>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント</p>
+        <?php if($goal_count != 0) : ?>
+            <p>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント</p>
+        <?php else : ?>
+            <p>目標がないので設定してください</p>
+        <?php endif; ?>
         <hr>
 
         <div class="modal-2__wrap"> 
@@ -84,149 +89,31 @@ $message_count = $index_child_class->getMessageCount();
         <p id="order-string"></p>
         <br>
 
-        <?php if($message_count != 0){ ?>
-            <?php for($i=0;$i<$message_count;$i++){ ?>
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                ➡
-                <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
-                <hr>
-            <?php } ?>
-        <?php } else { ?>
-            <p>メッセージがありません</p>
-        <?php } ?>
     </section>
 </main>
-<!-- フッター -->
-<?php include_once("./include/footer.php"); ?>
 
 <script>
     let select = document.getElementById('user_select');
-    let message = [];
     let count = <?php echo $message_count; ?>;
-    let selected_value = document.getElementById('user_select').value;
-    <?php for($i=0;$i<$message_count;$i++){ ?>
-        if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
-            message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
-        }
-    <?php } ?>
     select.addEventListener('change', (e) => {
-        document.getElementById('order-string').innerHTML = message[0];
-    });
-    // return selected_value
-</script>
+        let selected_value = document.getElementById('user_select').value;
+        let message = [];
+        <?php for($i=0;$i<$message_count;$i++){ ?>
         
-<style>
-    .action-btn {
-    background-color: lemonchiffon;
-    border-radius: 2rem;
-    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-    /* height: 30%; */
-    }
-    .modal-2__wrap input {
-    display: none;
-    }
+            if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) || (selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>)){
+                if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>)){
+                    message.push('自分：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
+                }else{
+                    message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>'+'：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
+                }
+            }
 
-    .modal-2__open-label,
-    .modal-2__close-label {
-        cursor: pointer;
-    }
-    .modal-2__open-label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 250px;
-        margin:0 auto;
-        padding: .8em 2em;
-        border: none;
-        border-radius: 5px;
-        background-color: #2589d0;
-        color: #ffffff;
-        font-weight: 600;
-        font-size: 1em;
-    }
-    .modal-2__open-label:hover {
-        background-color: #fff;
-        color: #2589d0;
-        outline: 1px solid #2589d0;
-    }
-    .modal-2 {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        display: none;
-    }
-    .modal-2__open-input:checked + label + input + .modal-2 {
-        display: block;
-        animation: modal-2-animation .6s;
-    }
-    .modal-2__content-wrap {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 650px;
-        background-color: #fefefe;
-        z-index: 2;
-        border-radius: 5px;
-    }
-    .modal-2__close-label {
-        background-color: #777;
-        color: #fff;
-        border: 2px solid #fff;
-        border-radius: 20px;
-        width: 36px;
-        height: 36px;
-        line-height: 1.6;
-        text-align: center;
-        display: table-cell;
-        position: fixed;
-        top: -15px;
-        right: -2%;
-        z-index: 99999;
-        font-size: 1.3em;
-    }
-    .modal-2__content {
-        max-height: 50vh;
-        overflow-y: auto;
-        padding: 39px 45px 40px;
-    }
-    .modal-2__background {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .45);
-        z-index: 1;
-    }
-    @keyframes modal-2-animation {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-    @media only screen and (max-width: 520px) {
-        .modal-2__open-label {
-            max-width: 90%;
-            padding: .94em 2.1em .94em 2.6em;
-        }
-        .modal-2__close-label {
-            top: -17px;
-            right: -4%;
-        }
-        .modal-2__content-wrap {
-            width: 90vw;
-        }
-        .modal-2__content {
-            padding: 33px 21px 35px;
-            max-width: 100%;
-        }
-    }
-</style>
+        <?php } ?>
+        let str = message.join('<br>');
+        document.getElementById('order-string').innerHTML = str;
+    });
+</script>
+
+
+<!-- フッター -->
+<?php include_once("./include/footer.php"); ?>
