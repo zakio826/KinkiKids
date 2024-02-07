@@ -34,27 +34,33 @@ $message_count = $index_child_class->getMessageCount();
     </header>
     
     <section class="position-relative h-75">
-        <?php if ($goal_count != 0) : ?>
-            <a href="./goal/goal_detail.php">もくひょう<br>
-                <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
-                <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
-                <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
-            </a>
-        <?php else : ?>
-            <p>目標がないので設定してください</p>
-        <?php endif; ?>
-
+        <div class="index_child_mokuhyoucss">
+            <div class="index_child_mokuhyoucss2">
+            <?php if ($goal_count != 0) : ?>
+                <a href="./goal/goal_detail.php">もくひょう<br>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                </a>
+            <?php else : ?>
+                <p>目標がないので設定してください</p>
+            <?php endif; ?>
+            </div>
+        </div>
         <hr>
-        
-        ちょきん: <?php echo htmlspecialchars($savings); ?> えん　　
-        てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
+        <div class="index_child_mokuhyoucss3">
+        <div class="index_child_mokuhyoucss4">
+            ちょきん: <?php echo htmlspecialchars($savings); ?> えん　　
+            てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
 
-        <p>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん</p>
-        <?php if($goal_count != 0) : ?>
-            <p>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント</p>
-        <?php else : ?>
-            <p>目標がないので設定してください</p>
-        <?php endif; ?>
+            <br>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん
+            <?php if($goal_count != 0) : ?>
+                <br>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント
+            <?php else : ?>
+                <br>目標がないので設定してください
+            <?php endif; ?>
+        </div>
+        </div>
         <hr>
 
         <div class="modal-2__wrap"> 
