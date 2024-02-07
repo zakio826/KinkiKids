@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var removeButton = document.createElement('button');
         removeButton.type = 'button';
         removeButton.className = 'removeUser';
-        removeButton.textContent = 'マイナス';
+        removeButton.textContent = '－';
         newUserForm.appendChild(removeButton);
 
         // ユーザーフォームをコンテナに追加
