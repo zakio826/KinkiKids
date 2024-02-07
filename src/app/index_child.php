@@ -3,6 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "トップページ";
+$stylesheet_name = "index_child.css";
 include("./include/header.php");
 ?>
 
