@@ -23,8 +23,6 @@ main{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #7f98f1; /*テキストの色を指定 */
-    
     border-radius: 5px;
     font-size: 20px; /* フォントサイズを16pxに変更 */
     font-weight: bold; /* フォントを太字に変更 */
@@ -32,17 +30,18 @@ main{
 }
 
     /* フォーム内のテキストのスタイル */
-form p {
+/* form p {
     font-weight: bold;
-    text-align: left; /* テキストを左寄せにする */
+    text-align: left; テキストを左寄せにする
     -webkit-text-stroke: 1px rgb(40, 155, 248);
-    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; 白で縁取り
 
-}
+} */
 
 label {
     display: block;
     margin-bottom: 5px;
+    color: #7f98f1; /*テキストの色を指定 */
 }
 
 input {
@@ -95,3 +94,6 @@ input {
     width: 120px;
 }
 
+.content h1 {
+    font-weight: bold;
+}

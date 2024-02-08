@@ -30,7 +30,8 @@ $helps = $help->display_help($family_id);
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">
-                担当者　<?php $help->child_select(); ?><br>
+                <p class="choice">子供の選択</p>
+                <?php $help->child_select(); ?><br>
                 <label for="help_name">お手伝い名</label>
                 <input type="text" name="help_name"><br>
                 <label for="get_point">獲得ポイント</label>
@@ -51,18 +52,19 @@ $helps = $help->display_help($family_id);
     <br>
 
     <div class="content">
-        <h2>お手伝い一覧</h2>
+        <h1>お手伝い一覧</h1>
 
         <?php if (empty($helps)): ?>
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <?php foreach ($helps as $help_data): ?>
-                    <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                    <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                    <strong>担当者</strong>
-                    <?php
-                        $help->person_select($help_data['help_id']);
-                    ?><br>
+                <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                <strong>担当者</strong>
+                <?php
+                    $help->person_select($help_data['help_id']);
+                ?>
+                <br>
                 <div class="btn-group">
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
