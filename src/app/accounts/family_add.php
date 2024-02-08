@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input class="payment-input" type="int" name="payments[]" value="0">
                         </div>
 
+<<<<<<< HEAD
                         <div class="control">
                             <label for="admin_flag">管理者</label>
                             <input type="checkbox" name="admin_flag[]" value="1">
@@ -97,6 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <button type="button" id="removeUser" style="display:none;">－</button>
                         </div> -->
                     </div>
+=======
+                    <div class="control">
+                        <label for="admin_flag">管理者</label>
+                        <input type="checkbox" name="admin_flag[]">
+                    </div>
+
+>>>>>>> dedd06537749cc87e20c6d28b7ba3cfe03fda172
                 </div>
 
                 <div class="btn-p">

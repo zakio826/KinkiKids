@@ -14,10 +14,22 @@ $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($family_id);
-?>
+$options = $help->narrow_down();
 
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
+if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
+    $selectedUserId = $_POST["narrow"];
+    $helps = $help->getHelpsByUserId($selectedUserId);
+} else {
+    // $_POST["narrow"] に何もない場合は全てのお手伝い項目を表示する
+    $family_id = $_SESSION["family_id"];
+    $helps = $help->display_help($family_id);
+}
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../accounts/login.php", true , 301);
+    exit;
+}
+?>
 
 <main>
     <div class="title">
@@ -48,6 +60,17 @@ $helps = $help->display_help($family_id);
     </div>
    
     <br>
+    <div class = "content">
+        <form action="" method="post">
+            <select name="narrow">
+                <?php foreach ($options as $user): ?>
+                    <option value="<?php echo $user['user_id']; ?>"><?php echo $user['first_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit">絞り込む</button>
+        </form>
+    </div>
+    <br>
 
     <div class="content">
         <h2>お手伝い一覧</h2>
@@ -56,7 +79,7 @@ $helps = $help->display_help($family_id);
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <ul>
-                <?php foreach ($helps as $help_data): ?>
+            <?php foreach ($helps as $help_data): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                         <?php 
@@ -96,7 +119,7 @@ $helps = $help->display_help($family_id);
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
-
+        <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
         <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p>
     </div>
 </main>

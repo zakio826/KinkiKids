@@ -37,7 +37,7 @@ $message_count = $index_child_class->getMessageCount();
         <div class="index_child_mokuhyoucss">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
-                <a href="./goal/goal_detail.php">もくひょう<br>
+                <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                     <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
@@ -63,39 +63,38 @@ $message_count = $index_child_class->getMessageCount();
         </div>
         <hr>
 
-        <div class="modal-2__wrap"> 
-            <input type="radio" id="modal-2__open" class="modal-2__open-input" name="modal-2__trigger"/>
-            <label for="modal-2__open" class="modal-2__open-label">きょうのおてつだいをひょうじ</label>
-            <input type="radio" id="modal-2__close" name="modal-2__trigger"/>
-            <div class="modal-2">
-                <div class="modal-2__content-wrap">
-                    <label for="modal-2__close" class="modal-2__close-label">×</label>
-                    <div class="modal-2__content">
-                    <p>みっしょん</p>
-                    <?php if($help_count != 0){ ?>
-                        <?php for($i=0;$i<$help_count;$i++){ ?>
-                            <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
-                            <hr>
-                        <?php } ?>
-                    <?php } else { ?>
-                            <p>お手伝いを設定してください</p>
-                    <?php } ?>
+        <p>きょうのおてつだい</p>
+        <?php if($help_count != 0){ ?>
+            <?php for($i=0;$i<$help_count;$i++){ ?>
+                <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
+            <?php } ?>
+        <?php } else { ?>
+                <p>お手伝いを設定してください</p>
+        <?php } ?>
 
-                    </div>
-                </div>
-                <label for="modal-2__close">
-                    <div class="modal-2__background"></div>
-                </label>
-            </div>
-        </div>
         <hr>
+
         <p>メッセージ</p>
+        <?php for($i=0;$i<$message_count;$i++){ ?>
+            <?php
+                echo htmlspecialchars(
+                    $index_child_class->getMessage($i)['sender'].
+                    '➡'.
+                    $index_child_class->getMessage($i)['receiver'].
+                    '：'.
+                    $index_child_class->getMessage($i)['messagetext']
+                );
+                echo '<br>';
+            ?>
+        <?php } ?>
+        <p>メッセージの絞り込みをする</p>
         <select id="user_select">
             <option value=""></option>
             <?php $index_child_class->getFamilyUser(); ?>
         </select>
         <p id="order-string"></p>
-        <br>
+
+
 
     </section>
     <!-- ナビゲーションバー -->

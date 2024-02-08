@@ -60,7 +60,7 @@ include("../include/header.php");
               sql_check($stmt_incomecat, $db);
               $stmt_incomecat->bind_result($id, $name);
               while ($stmt_incomecat->fetch()) :
-              ?>
+            ?>
                 <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
             <?php endwhile; ?>
           </select>

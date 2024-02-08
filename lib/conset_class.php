@@ -29,4 +29,23 @@
 
             return $rtn;
         }
+
+        public function person_select($help_id){
+            $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $first_flag = 0;
+            foreach ($result as $person){
+                if ($first_flag != 0){
+                    echo ",";
+                }
+                $first_flag++;
+                $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+                $stmt2->bindParam(':user_id', $person['user_id']);
+                $stmt2->execute();
+                $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                echo $result2[0]['first_name'];
+            }
+        }
     }
