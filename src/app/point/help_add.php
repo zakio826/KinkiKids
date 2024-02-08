@@ -43,7 +43,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">
                 お手伝い名<input type="text" name="help_name"><br>
-                お手伝い詳細<input type="text" name="help_detail"><br>
                 獲得ポイント<input type="number" name="get_point"><br>
                 担当者　<?php $help->child_select(); ?><br>
 
@@ -85,13 +84,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <?php if ($select === 'adult'): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <?php 
-                        if(!($help_data['help_detail'] == "")){
-                            echo "<strong>お手伝い詳細:</strong>";
-                            echo $help_data['help_detail']; 
-                            echo '<br>';
-                        }
-                        ?>
                         <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                         <strong>担当者</strong>
                         <?php
