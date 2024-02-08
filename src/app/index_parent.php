@@ -7,13 +7,6 @@ $stylesheet_name = "index_parent.css";
 include("./include/header.php");
 ?>
 
-<script>
-    let select = document.getElementById('user_select');
-    let count = <?php echo $message_count; ?>;
-    select.addEventListener('change', (e) => {
-        let selected_value = document.getElementById('user_select').value;
-    });
-</script>
 
 
 <?php
@@ -48,7 +41,19 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         </select>
 
     </section>
+    <!-- ナビゲーションバー -->
+    <?php include_once("./include/bottom_nav.php") ?>
+
 </main>
+
+<script>
+    let select = document.getElementById('user_select');
+    let count = <?php echo $message_count; ?>;
+    select.addEventListener('change', (e) => {
+        let selected_value = document.getElementById('user_select').value;
+    });
+</script>
+
 
 <!-- フッター -->
 <?php include_once("./include/footer.php"); ?>
