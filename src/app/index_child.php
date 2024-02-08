@@ -77,6 +77,7 @@ $message_count = $index_child_class->getMessageCount();
                             <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
                             <hr>
                         <?php } ?>
+                        <a href="./point/help_add.php">おてつだい画面へ</a>
                     <?php } else { ?>
                             <p>お手伝いを設定してください</p>
                     <?php } ?>
