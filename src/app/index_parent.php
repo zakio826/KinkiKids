@@ -49,6 +49,8 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
         <select id="user_select">
             <option value=""></option>
