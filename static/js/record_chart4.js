@@ -29,24 +29,25 @@ let in_exChartData = {
             borderWidth: 1,
             xAxisID: "x-in_ex",
         },
-        {
-            type: 'bar',
-            label: '月間収支',
-            data: ['200','-300','300','400','100'],
-            backgroundColor : "rgba(75, 192, 192, 0.3)",
-            borderColor : "rgba(75, 192, 192, 0.8)",
-            borderWidth: 1,
-            xAxisID: "x-in_ex-bar",
-            // id: "y-in_ex-bar",
-        },
+        // {
+        //     type: 'bar',
+        //     label: '月間収支',
+        //     data: ['200','-300','300','400','100'],
+        //     backgroundColor : "rgba(75, 192, 192, 0.3)",
+        //     borderColor : "rgba(75, 192, 192, 0.8)",
+        //     borderWidth: 1,
+        //     xAxisID: "x-in_ex-bar",
+        //     // id: "y-in_ex-bar",
+        // },
         {
             type: 'line',
             label: '月間収支',
             data: ['200','-300','300','400','100'],
-            backgroundColor : "rgba(75, 192, 192, 0.8)",
+            backgroundColor : "rgba(75, 192, 192, 0.5)",
             borderColor : "rgba(75, 192, 192, 0.8)",
             pointBackgroundColor : "rgba(75, 192, 192, 0.8)",
-            fill: false,
+            fill: true,
+            // steppe: true, // enable stepped line
             // xAxisID: "x-in_ex-bar",
             // id: "y-in_ex-bar",
             xAxisID: "x-in_ex-line",
@@ -103,11 +104,11 @@ let in_exChartOption = {
             display: false,
             // type: "linear",
         },
-        "x-in_ex-bar": {
-            // stacked: false,
-            // stacked: false,
-            display: false,
-        },
+        // "x-in_ex-bar": {
+        //     // stacked: false,
+        //     // stacked: false,
+        //     display: false,
+        // },
         "x-in_ex-line": {
             // stacked: false,
             // stacked: false,
@@ -122,6 +123,12 @@ let in_exChartOption = {
         //     },
         // },
     },
+    // plugins: {
+    //   title: {
+    //     display: true,
+    //     text: (ctx) => 'Step ' + ctx.chart.data.datasets[2].stepped + ' Interpolation',
+    //   }
+    // }
     // legend:{
     //   display: true,
     //   labels: {

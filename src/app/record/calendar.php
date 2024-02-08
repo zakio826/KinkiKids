@@ -208,12 +208,12 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
 
 
 <script>
-    // const income_data = JSON.parse('<?php echo $income_data_json; ?>');
-    // const expense_data = JSON.parse('<?php echo $expense_data_json; ?>');
+    // const income_data = JSON.parse('<?php //echo $income_data_json; ?>');
+    // const expense_data = JSON.parse('<?php //echo $expense_data_json; ?>');
 </script>
 
 <!-- JavaScript -->
-<script src="<?php echo $absolute_path; ?>static/js/record_chart4.js"></script>
+<script src="<?php echo $absolute_path; ?>static/js/record_chart5.js"></script>
 
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
