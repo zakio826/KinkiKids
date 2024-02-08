@@ -33,8 +33,6 @@ $helps = $help->display_help($family_id);
                 担当者　<?php $help->child_select(); ?><br>
                 <label for="help_name">お手伝い名</label>
                 <input type="text" name="help_name"><br>
-                <label for="help_detail">お手伝い詳細</label>
-                <input type="text" name="help_detail"><br>
                 <label for="get_point">獲得ポイント</label>
                 <input type="number" name="get_point"><br>
 
@@ -60,7 +58,6 @@ $helps = $help->display_help($family_id);
         <?php else: ?>
             <?php foreach ($helps as $help_data): ?>
                     <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                    <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>
                     <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                     <strong>担当者</strong>
                     <?php
