@@ -34,8 +34,6 @@ class setting_norma {
                 $_SESSION['join']['user_id'] = $user_id;
                 $_SESSION['join']['family_id'] = $family_id;
                 $_SESSION['join']['point_norma_created_date'] = $point_norma_created_date;
-                // $this->saveNormaToDatabase();
-
                 header('Location: ./norma_check.php');
                 exit();
             }
@@ -51,22 +49,6 @@ class setting_norma {
 
         return $result['family_id'];
     }
-
-    // private function saveNormaToDatabase() {
-    //     $sql = "INSERT INTO point_norma (user_id, family_id, norma_amount, point_norma_deadline, point_norma_created_date) VALUES (:user_id, :family_id, :norma_amount, :point_norma_deadline, :point_norma_created_date)";
-    
-    //     $params = array(
-    //         ':user_id' => $_SESSION['join']['user_id'],
-    //         ':family_id' => $_SESSION['join']['family_id'],
-    //         ':norma_amount' => $_SESSION['join']['norma_amount'],
-    //         ':point_norma_deadline' => $_SESSION['join']['point_norma_deadline'],
-    //         ':point_norma_created_date' => $_SESSION['join']['point_norma_created_date']
-    //     );
-    
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->execute($params);
-    // }
-
     public function norma_error() {
         if (!empty($this->error['norma_amount'])) {
             switch ($this->error['norma_amount']) {
