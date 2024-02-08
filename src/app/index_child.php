@@ -36,54 +36,54 @@ $message_count = $index_child_class->getMessageCount();
     <section class="position-relative h-75">
         <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
-            <?php if ($goal_count != 0) : ?>
-                <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
-                    <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
-                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
-                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
-                <span>
-                </a>
-            <?php else : ?>
-                <span><p>目標がないので設定してください</p></span>
-            <?php endif; ?>
+                <?php if ($goal_count != 0) : ?>
+                    <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
+                        <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                        <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                        <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                    </a>
+                <?php else : ?>
+                    <p>目標がないので設定してください</p>
+                <?php endif; ?>
             </div>
         </div>
+
         <hr class="index_child_hr">
+
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
-            <p>
-                しょじきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
-                てもち: <span><?php echo htmlspecialchars($have_points); ?></span> ポイント
-            </p>
+                <p class="row">
+                    <span class="col-6">
+                        しょじきん:<span class="px-2"><?php echo htmlspecialchars($savings); ?></span>えん
+                    </span>
+                    <span class="col-6">
+                        てもち:<span class="px-2"><?php echo htmlspecialchars($have_points); ?></span>ポイント
+                    </span>
+                </p>
 
-            <?php if($goal_count != 0) : ?>
-                <p>
-                    <br>きょうかせぐポイント: 
-                    <span>
-                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
-                    </span> ポイント
-                </p>
-            <?php else : ?>
-                <p class="index_child_moji">
-                    <br>目標がないので設定してください
-                </p>
-            <?php endif; ?>
+                <?php if($goal_count != 0) : ?>
+                    <p>きょうかせぐポイント:<span class="px-2"><?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?></span>ポイント</p>
+                <?php else : ?>
+                    <p class="index_child_moji">目標がないので設定してください</p>
+                <?php endif; ?>
+            </div>
         </div>
-        </div>
+
         <hr>
 
-        <nav>
+        <div>
             <ul>
                 <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
                 <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
             </ul>
-        </nav>
+        </div>
 
         <hr>
 
         <p>メッセージ</p>
-        <?php for($i=0;$i<$message_count;$i++){ ?>
-            <?php
+        <div>
+            <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                <?php
                 echo htmlspecialchars(
                     $index_child_class->getMessage($i)['sender'].
                     '➡'.
@@ -91,75 +91,88 @@ $message_count = $index_child_class->getMessageCount();
                     '：'.
                     $index_child_class->getMessage($i)['messagetext']
                 );
-                echo '<br>';
-            ?>
-        <?php } ?>
+                ?>
+                <br>
+            <?php endfor; ?>
+        </div>
+
         <p>メッセージの絞り込みをする</p>
         <select id="user_select">
             <option value=""></option>
             <?php $index_child_class->getFamilyUser(); ?>
         </select>
+
         <p id="order-string"></p>
 
-
-            </div>
-        </div>
-        <hr class="index_child_hr">
-        <br>
+        <hr class="mb-3 index_child_hr">
 
         <!-- <hr class="index_child_hr"> -->
         <div class="index_child_messagecss1">
             <div class="index_child_messagecss2">
-            <div class="index_child_messagecss3">
+                <div class="index_child_messagecss3">
 
             <!-- <span>
                 <p>メッセージ</p>
             </span> -->
-            <p><img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40></p>
-            <select id="user_select">
-                <option value=""></option>
-                <?php $index_child_class->getFamilyUser(); ?>
-            </select>
 
-            <p id="order-string"></p><br>
+                    <p><img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40></p>
 
-            <?php if ($message_count != 0) : ?>
-                <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                    ➡
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                    
-                    <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
-                    <hr>
-                <?php endfor; ?>
-            <?php else : ?>
-                <p>メッセージがありません</p>
-            <?php endif; ?>
-            </div>
+                    <select id="user_select">
+                        <option value=""></option>
+                        <?php $index_child_class->getFamilyUser(); ?>
+                    </select>
+
+                    <p class="mb-3" id="order-string"></p>
+
+                    <?php if ($message_count != 0) : ?>
+                        <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                            ➡
+                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                            
+                            <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?></p>
+
+                            <hr>
+                        <?php endfor; ?>
+                    <?php else : ?>
+                        <p>メッセージがありません</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
-    <!-- ナビゲーションバー -->
+
+    <!-- ボトムナビゲーションバー -->
     <?php include_once("./include/bottom_nav.php") ?>
 </main>
 
 <script>
     let select = document.getElementById('user_select');
     let count = <?php echo $message_count; ?>;
+
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user_select').value;
         let message = [];
-        <?php for($i=0;$i<$message_count;$i++){ ?>
-        
-            if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) || (selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>)){
-                if((selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>) && (<?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?> == <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>)){
-                    message.push('自分：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
-                }else{
-                    message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>'+'：'+'<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>');
-                }
-            }
 
-        <?php } ?>
+        let xxx1 = null;
+        let xxx2 = null;
+        let xxx3 = null;
+        let xxx4 = null;
+        let xxx5 = null;
+        
+        <?php for ($i = 0; $i < $message_count; $i++) : ?>
+            xxx1 = <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>;
+            xxx2 = <?php echo htmlspecialchars($index_child_class->getMessage($i)['session_user']); ?>;
+            xxx3 = <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender_id']); ?>;
+            xxx4 = '<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>';
+            xxx5 = '<?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>';
+
+            if (selected_value == xxx1 && xxx2 == xxx3 || selected_value == xxx3 && xxx2 == xxx1) {
+                if (selected_value == xxx1 && xxx2 == xxx3) message.push('自分：' + xxx4);
+                else message.push(xxx5 + '：' + xxx4);
+            }
+        <?php endfor; ?>
+
         let str = message.join('<br>');
         document.getElementById('order-string').innerHTML = str;
     });

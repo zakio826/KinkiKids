@@ -36,10 +36,8 @@ $goal = new goal($db);
                 <label for="goal_deadline">きげん</label>
                 <input id="goal_deadline" type="date" name="goal_deadline">
             </div>
- 
-            <br>
 
-            <div class="control-2">
+            <div class="mt-3 control-2">
                 <button type="submit" class="btn">とうろくする</button>
             </div>
         </form>

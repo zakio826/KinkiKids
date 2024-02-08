@@ -29,9 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="content">
         <form action="" method="POST">
             <h1>アカウント追加</h1>
-            <p>当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
+            <p class="mb-3">当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
             
-            <br>
             <div class="scrollable-container">
                 <div id="userFormsContainer">
                     <div id="userForm" class="control">
@@ -79,10 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings">貯蓄</label>
-                            <input class="savings-input" type="int" name="savings[]" value="0">
-                            <br>
+                            <input class="mb-3 savings-input" type="int" name="savings[]" value="0">
+
                             <label for="allowances">お小遣い金額</label>
                             <input class="allowance-input" type="int" name="allowances[]" value="0">
+
                             <label for="payments">受取日</label>
                             <input class="payment-input" type="int" name="payments[]" value="0">
                         </div>
@@ -91,16 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="admin_flag">管理者</label>
                         <input type="checkbox" name="admin_flag[]">
                     </div>
-
                 </div>
 
-                <div class="btn-p">
-                    <button type="button" id="addUser" >＋</button>
-                </div>
-
-                <div class="control">
-                    <button type="submit" class="btn">確認する</button>
-                </div>
+                <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
+                <div class="control"><button type="submit" class="btn">確認する</button></div>
             </div>
         </form>
     </div>
