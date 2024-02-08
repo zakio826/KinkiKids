@@ -65,6 +65,12 @@ input {
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
 
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btn-1 {
     background-color: #525ED2;
     color: white;
@@ -76,3 +82,16 @@ input {
     font-weight: bold;
     width: 120px;
 }
+
+.btn-2 {
+    background-color: #ce3f3f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 120px;
+}
+
