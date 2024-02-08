@@ -31,19 +31,35 @@ class index_parent_class{
         }
     }
 
-    public function getFamily(){
+    public function getFamily($i){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $family_id = $result['family_id'];
 
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE family_id = :family_id");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE family_id = :family_id AND NOT user_id = :user_id order by goal_deadline asc");
         $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $help_name = $result[$i]['help_name'];
 
+        return $result[$i];
+    }
+    public function getFamilyCount(){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $family_id = $result['family_id'];
+
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE family_id = :family_id AND NOT user_id = :user_id");
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return count($result);
     }
 
     public function getMessageCount(){

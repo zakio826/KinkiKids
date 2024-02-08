@@ -18,6 +18,8 @@ $testpoint = new testpoint($db);
 require($absolute_path."lib/index_parent_class.php");
 $index_parent_class = new index_parent_class($db);
 
+$family_count = $index_parent_class->getFamilyCount();
+
 
 //family_addでのsessionがあれば完了の通知出す
 if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
@@ -39,6 +41,7 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
             <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
+        <p id="order-string"></p>
 
     </section>
     <!-- ナビゲーションバー -->
@@ -48,9 +51,19 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 
 <script>
     let select = document.getElementById('user_select');
-    let count = <?php echo $message_count; ?>;
     select.addEventListener('change', (e) => {
+        goal = [];
         let selected_value = document.getElementById('user_select').value;
+        <?php for($i=0;$i<$family_count;$i++){ ?>
+            if(selected_value==<?php echo htmlspecialchars($index_parent_class->getFamily($i)['user_id']); ?>){
+                goal.push('<?php echo htmlspecialchars($index_parent_class->getFamily($i)['goal_detail']);?>');
+
+            }
+        <?php } ?>
+        let str = goal.join('<br>');
+        document.getElementById('order-string').innerHTML = str;
+
+
     });
 </script>
 
