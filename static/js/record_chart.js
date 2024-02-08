@@ -10,33 +10,54 @@
  */
 
 
-let chartData = {
-    labels: ['2023年10月','2023年11月','2023年12月','2024年1月','2024年2月'],
+
+const in_exChartLabels = income_data["年月"];
+const incomeData = income_data["合計金額"];
+
+let amount_difference = [];
+for (let i = 0; i < 5; i++) {
+    amount_difference[i] = income_data["合計金額"] - expense_data["合計金額"];
+}
+
+let in_exChartData = {
+    labels: income_data["年月"],
     datasets: [
         {
+            type: 'bar',
             label: '月間収入',
-            data: ['500','300','800','600','200'],
-            borderColor : "rgba(54,164,235,0.8)",
-            backgroundColor : "rgba(54,164,235,0.5)",
+            data: income_data["合計金額"],
+            backgroundColor : "rgba(54, 164, 235, 0.5)",
+            borderColor : "rgba(54, 164, 235, 0.8)",
+            borderWidth: 1
         },
         {
+            type: 'bar',
             label: '月間支出',
-            data: ['-300','-600','-500','-200','-100'],
-            borderColor : "rgba(254,97,132,0.8)",
-            backgroundColor : "rgba(254,97,132,0.5)",
+            data: expense_data["合計金額"],
+            backgroundColor : "rgba(254, 97, 132, 0.5)",
+            borderColor : "rgba(254, 97, 132, 0.8)",
+            borderWidth: 1
+        },
+        {
+            type: 'bar',
+            label: '月間収支',
+            data: amount_difference,
+            backgroundColor : "rgba(75, 192, 192, 0.3)",
+            borderColor : "rgba(75, 192, 192, 0.8)",
+            borderWidth: 1
         },
     ],
 };
 
-let chartOption = {
-    responsive: true,
+let in_exChartOption = {
+    responsive: false,
 };
 
 
-const ctx = document.getElementById('chart').getContext('2d');
+const in_exCtx = document.getElementById('in_exChart').getContext('2d');
 
-let chart = new Chart(ctx, {
+let in_exChart = new Chart(in_exCtx, {
     type: 'bar',  // 棒グラフ
-    data: chartData,
-    options: chartOption
+    data: in_exChartData,
+    options: in_exChartOption
 });
