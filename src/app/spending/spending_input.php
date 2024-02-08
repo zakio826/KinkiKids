@@ -1,7 +1,7 @@
 <?php
   $page_title = "収支";
   require_once("../include/header.php");
-  require_once($absolute_path."config/db_connect.php");
+  //require_once($absolute_path."config/db_connect.php");
   require_once($absolute_path."lib/functions.php");
 ?>
 
