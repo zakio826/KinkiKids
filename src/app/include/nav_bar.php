@@ -37,7 +37,14 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
                 </h3>
             </div>
-            <div class="col-auto"><img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40" data-tab="3"></div>
+            <div class="col-auto row gx-2 justify-content-end">
+                <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/family_add.php">
+                    <img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40">
+                </a>
+                <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/logout.php">
+                    <img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40">
+                </a>
+            </div>
         </div>
     </div>
 </nav>
