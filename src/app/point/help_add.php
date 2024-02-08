@@ -88,7 +88,7 @@ $helps = $help->display_help($family_id);
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p>
+        <!-- <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p> -->
     </div>
 </main>
 
