@@ -1,70 +1,150 @@
-<!-- トップページ画面 -->
+<!-- トップページ画面子用　テスト作成中 -->
 
 <!-- ヘッダー -->
 <?php
 $page_title = "トップページ";
+$stylesheet_name = "index_child.css";
 include("./include/header.php");
 ?>
 
 <?php
+
 // testpointクラスのインスタンスを作成
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
+
+require($absolute_path."lib/index_child_class.php");
+$index_child_class = new index_child_class($db);
+$have_points = $index_child_class->getHave_points();
+$savings = $index_child_class->getSavings();
+$have_money = $have_points+$savings;
+$goal_count = $index_child_class->getGoalCount();
+$help_count = $index_child_class->getHelpCount();
+$message_count = $index_child_class->getMessageCount();
 ?>
 
-<style>
-    .action-btn {
-        background-color: lemonchiffon;
-        border-radius: 2rem;
-        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
-        /* height: 30%; */
-    }
-</style>
+
+<!-- ナビゲーションバー -->
+<?php include_once("./include/nav_bar.php") ?>
 
 <main>
-    <!-- ナビゲーションバー -->
-    <?php include_once("./include/nav_bar.php") ?>
-
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
     
     <section class="position-relative h-75">
-        <div class="container px-4">
-            <div class="row row-cols-1 row-cols-md-3 gx-3 gy-5 justify-content-around">
-                <div class="col col-md-2">
-                    <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
-                        <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/mission.png">
-                        </div>
-                        <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Coin.png">
-                        </div>
+        <div class="index_child_mokuhyoucss">
+            <div class="index_child_mokuhyoucss2">
+            <?php if ($goal_count != 0) : ?>
+                <a href="./goal/goal_detail.php">もくひょう<br>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                </a>
+            <?php else : ?>
+                <p>目標がないので設定してください</p>
+            <?php endif; ?>
+            </div>
+        </div>
+        <hr>
+        <div class="index_child_mokuhyoucss3">
+            <div class="index_child_mokuhyoucss4">
+            <p>
+                ちょきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
+                てもち: <span><?php echo htmlspecialchars($have_points); ?></span> ポイント
+            </p>
+            <p class="index_child_moji">
+                <br>ごうけい: <span><?php echo htmlspecialchars($have_money); ?></span> えん
+            </p>
+            <?php if($goal_count != 0) : ?>
+                <p>
+                    <br>きょうかせぐポイント: 
+                    <span>
+                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                    </span> ポイント
+                </p>
+            <?php else : ?>
+                <p>
+                    <br>目標がないので設定してください
+                </p>
+            <?php endif; ?>
+            </div>
+        </div>
+        <hr>
+
+        <div class="modal-2__wrap"> 
+            <input type="radio" id="modal-2__open" class="modal-2__open-input" name="modal-2__trigger"/>
+            <label for="modal-2__open" class="modal-2__open-label">きょうのおてつだいをひょうじ</label>
+            <input type="radio" id="modal-2__close" name="modal-2__trigger"/>
+
+            <div class="modal-2">
+                <div class="modal-2__content-wrap">
+                    <label for="modal-2__close" class="modal-2__close-label">×</label>
+                    <div class="modal-2__content">
+                        <span>
+                            <p>みっしょん</p>
+                        </span>
+
+                        <?php if ($help_count != 0) : ?>
+                            <?php for ($i = 0; $i < $help_count; $i++) : ?>
+                                <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
+                                <hr>
+                            <?php endfor; ?>
+                        <?php else : ?>
+                            <p>お手伝いを設定してください</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <div class="col-10 col-sm-8 col-md-6 px-5 action-btn">
-                    <div class="position-relative my-3" style="height: 8rem;">
-                        <?php $testpoint->role_select(); ?>
-                    </div>
-                </div>
+                <label for="modal-2__close"><div class="modal-2__background"></div></label>
+            </div>
+        </div>
 
-                <div class="col- col-md-2">
-                    <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
-                        <a class="col-5 col-md py-4 action-btn" href="./record/calendar.php">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Calendar.png" data-tab="5">
-                        </a>
-                        <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Cog.png" data-tab="1">
-                        </div>
-                    </div>
-                </div>
-                <!-- <img src="./img/household.png" id="householdBtn" data-tab="4"> -->
+        <hr>
+        <div class="index_child_mokuhyoucss5">
+            <div class="index_child_mokuhyoucss6">
+            <p>メッセージ</p>
+            <select id="user_select">
+                <option value=""></option>
+                <?php $index_child_class->getFamilyUser(); ?>
+            </select>
+
+            <p id="order-string"></p><br>
+
+            <?php if ($message_count != 0) : ?>
+                <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                    ➡
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                    
+                    <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
+                    <hr>
+                <?php endfor; ?>
+            <?php else : ?>
+                <p>メッセージがありません</p>
+            <?php endif; ?>
             </div>
         </div>
     </section>
 </main>
+
+<script>
+    let select = document.getElementById('user_select');
+    let message = [];
+    let count = <?php echo $message_count; ?>;
+    let selected_value = document.getElementById('user_select').value;
+    <?php for($i=0;$i<$message_count;$i++){ ?>
+        if(selected_value==<?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver_id']); ?>){
+            message.push('<?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?>')
+        }
+    <?php } ?>
+    select.addEventListener('change', (e) => {
+        document.getElementById('order-string').innerHTML = message[0];
+    });
+
+    // return selected_value
+</script>
 
 <!-- フッター -->
 <?php include_once("./include/footer.php"); ?>

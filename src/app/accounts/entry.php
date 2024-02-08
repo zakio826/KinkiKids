@@ -23,10 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="frame_entry">
             <div class="wrapper1">
                 <form action="" method="POST">
-                    <h1>アカウント作成</h1>
+                    <div class="title"><h1>アカウント作成</h1></div>
                     <p>当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
+
                     <br>
-                    <div class ="scrollable-container">
+
+                    <div class="scrollable-container">
+                        <!-- 「FIXME」管理ユーザーがログインしている場合は表示しないようにする -->
+                        <div class="form-group_entry">
+                            <label for="family_name">家族名</label>
+                            <input id="family_name" type="text" name="family_name" class="form-control_entry">
+                        </div>
+                        
                         <div class="form-group_entry">
                             <label for="username">ユーザー名</label>
                             <input id="username" type="text" name="username" class="form-control_entry">
@@ -76,23 +84,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input id="savings" type="int" name="savings" class="form-control_entry">
                         </div>
                         
-                        <!-- 「FIXME」管理ユーザーがログインしている場合は表示しないようにする -->
-                        <div class="form-group_entry">
-                            <label for="family_name">家族名</label>
-                            <input id="family_name" type="text" name="family_name" class="form-control_entry">
-                        </div>
-            
                         <div class="form-group_entry">
                             <button type="submit" class="btn btn-primary btn_margintop">確認する</button>
                         </div>
                     </div>
-                    
                 </form>
             </div> 
         </div>
     </div>
-</div>
-
 </main>
 
 <!-- フッター -->

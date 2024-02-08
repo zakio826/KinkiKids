@@ -2,7 +2,6 @@
 // 動的にルートディレクトリまで繋げるパスを生成する
 $url_path = explode("/", $_SERVER["REQUEST_URI"]);
 $absolute_path = "../";
-
 $accounts_page = false;
 for ($i = 3; $i < count($url_path); $i++) {
     if ($url_path[$i] === "accounts") {
@@ -52,10 +51,7 @@ $db = new connect();
 
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> -->
 
 
         <!-- カスタムスタイルシート -->
@@ -81,6 +77,15 @@ $db = new connect();
             min-height: calc(100vh - 4rem);
             margin-bottom: 4rem;
         }
+
+        <?php if ($accounts_page) : $select = "child"; ?>
+        <?php else : $select = $_SESSION["select"]; ?>
+        <?php endif; ?>
+
+        body {
+            background: url('<?php echo $absolute_path . "static/assets/" . $select . "_back_image.png"; ?>');
+            /* background: url('<?php echo $absolute_path; ?>static/assets/child_back_image.png'); */
+        }
     </style>
 
-    <body style="background:url('<?php echo $absolute_path; ?>static/assets/back_image.png');">
+    <body>

@@ -1,4 +1,4 @@
-<!-- トップページ画面 -->
+<!-- トップページ画面親用　テスト作成中 -->
 
 <!-- ヘッダー -->
 <?php
@@ -21,10 +21,10 @@ $testpoint = new testpoint($db);
     }
 </style>
 
-<main>
-    <!-- ナビゲーションバー -->
-    <?php include_once("./include/nav_bar.php") ?>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/nav_bar.php") ?>
 
+<main>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">

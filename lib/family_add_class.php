@@ -6,10 +6,10 @@ class family_add {
 
     function __construct($db) {
         $this->db = $db;
-        $this->error = []; // 初期化
+        $this->error = [];
 
         if (!empty($_POST)) {
-            // フォームから送信された各種情報を取得
+            
             $usernames = $_POST['username'];
             $passwords = $_POST['password'];
             $first_names = $_POST['first_name'];
@@ -19,12 +19,15 @@ class family_add {
             $role_ids = $_POST['role_id'];
             $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array();
             $savings = $_POST['savings'];
-            $family_names = $_POST['family_name'];
+            $allowances = $_POST['allowances'];
+            $payments = $_POST['payments'];
 
+            // 登録する家族のfamily_idを取得
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
 
+            // フォームから送信された各ユーザー情報をループ処理
             for ($i = 0; $i < count($usernames); $i++) {
-
+                // 入力情報に空白がないか検知
                 if ($usernames[$i] === "") {
                     $error['username'][$i] = "blank";
                 }
@@ -46,8 +49,14 @@ class family_add {
                 if ($role_ids[$i] === "") {
                     $error['role_id'][$i] = "blank";
                 }
-                if ($family_names[$i] === "") {
-                    $error['family_name'][$i] = "blank";
+                if ($savings[$i] === "") {
+                    $error['savings'][$i] = "blank";
+                }
+                if ($allowances[$i] === "") {
+                    $error['allowances'][$i] = "blank";
+                }
+                if ($payments[$i] === "") {
+                    $error['payments'][$i] = "blank";
                 }
 
                 // usernameの重複を検知
@@ -61,30 +70,18 @@ class family_add {
 
             // エラーがなければ次のページへ
             if (!isset($error)) {
+
                 $_SESSION['join'] = $_POST;
 
+                // フォームから送信された各ユーザー情報をループ処理
                 for ($i = 0; $i < count($usernames); $i++) {
-
+                    
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
-
-                    $statement = $this->db->prepare("INSERT INTO family SET family_name=?");
-                    $statement->execute(array($family_names[$i]));
-
-                    $statement = $this->db->prepare('SELECT * FROM family WHERE family_name=?');
-                    $statement->execute(array($family_names[$i]));
-                    $record = $statement->fetch(PDO::FETCH_ASSOC);
-
-                    if ($record !== false) {
-                        end($record);
-                        $family_id = $record['family_id'];
-                    } else {
-                        $family_id = null;
-                        error_log('Fetch failed in family_add.php');
-                    }
+                    $firstlogin = date('Y-m-d');
 
                     $statement = $this->db->prepare(
                         "INSERT INTO user 
-                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, savings, family_id)
+                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
 
@@ -97,13 +94,46 @@ class family_add {
                         $gender_ids[$i],
                         $role_ids[$i],
                         isset($admin_flags[$i]) ? $admin_flags[$i] : 0,
-                        $savings[$i],
-                        $family_id
+                        $family_id,
+                        $firstlogin
                     ));
+
+                    $savedUserId = $this->getUserIdByUsername($usernames[$i]);
+
+                    $allowedRoleIds = [31, 32, 33, 34];
+                    if (in_array($role_ids[$i], $allowedRoleIds)) {
+                        $allowanceStatement = $this->db->prepare(
+                            "INSERT INTO allowance (user_id, family_id, allowance_amount, payment_day)
+                            VALUES (?, ?, ?, ?)"
+                        );
+                        
+                        $childStatement = $this->db->prepare(
+                            "INSERT INTO child_data (user_id, have_points, max_lending, allowance_id, savings)
+                            VALUES (?, ?, ?, ?, ?)"
+                        );
+                        
+                        $allowanceStatement->execute(array(
+                            $savedUserId, // 保存されたユーザーのID
+                            $family_id,
+                            $allowances[$i],
+                            $payments[$i]
+                        ));
+                        
+                        $savedAllowanceId = $this->getAllowanceIdByUserId($savedUserId);
+
+                        // 初期値として0をセット（必要に応じて変更）
+                        $childStatement->execute(array(
+                            $savedUserId, // 保存されたユーザーのID
+                            0, // have_points
+                            0, // max_lending
+                            $savedAllowanceId,
+                            $savings[$i]
+                        ));
+                    }
                 }
 
-                unset($_SESSION['join']);
-                header('Location: ./thank.php');
+                unset($_SESSION['join']);   // セッションを破棄
+                header('Location: ../index.php');   // thank.phpへ移動
                 exit();
             }
         }
@@ -118,6 +148,25 @@ class family_add {
 
         return $result['family_id'];
     }
+
+    private function getUserIdByUsername($username) {
+        $stmt = $this->db->prepare("SELECT user_id FROM user WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['user_id'];
+    }
+
+    private function getAllowanceIdByUserId($user_id) {
+        $stmt = $this->db->prepare("SELECT allowance_id FROM allowance WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['allowance_id'];
+    }
+
 
     public function role_select(){
         // $this->db が null でないことを確認

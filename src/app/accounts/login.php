@@ -89,10 +89,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 exit();
             } else {
-                $login_err = 'ユーザー名かパスワードが無効です。';
+                $login_err = 'パスワードが無効です。';
             }
         }else {
-            $login_err = 'ユーザー名かパスワードが無効です。';
+            $login_err = '存在しないユーザー名です。';
         }
     }
 }
@@ -101,32 +101,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <main>
     <div class="frame_login">
         <div class="wrapper1">
-        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" height="100" class="login_hiyoko">
+        <img src="<?php echo $absolute_path; ?>static/assets/login_hiyoko2.png" class="login_hiyoko">
             <h1>ログイン</h1>
             <p>ログイン情報を入力してください</p>
 
-            <?php 
-            if(!empty($login_err)){
-                echo '<div class="alert alert-danger">' . $login_err . '</div>';
-            }        
-            ?>
-            <form action="<?php echo $_SERVER['SCRIPT_NAME'];; ?>" method="post">
+            <?php if(!empty($login_err)) : ?>
+                <div class="alert alert-danger"><?php echo $login_err; ?></div>
+            <?php endif; ?>
+
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
                 <div class="form-group_login">
                     <label>ユーザー名:</label>
                     <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                     <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
                 </div>    
+
                 <div class="form-group_login">
                     <label>パスワード:</label>
                     <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                     <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
                 </div>
+
                 <br>
+
                 <div class="form-group_login-login">
                     <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                     <input type="submit" class="btn btn-primary" value="ログイン">
                 </div>
+
                 <br>
+
                 <p>アカウントがない場合 <br><a href="./entry.php">ここからサインアップしてください</a></p>
             </form>
         </div>
