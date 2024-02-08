@@ -133,6 +133,8 @@ class family_add {
                 }
 
                 unset($_SESSION['join']);   // セッションを破棄
+                $_SESSION['family_success'] = true;
+                $_SESSION['family_count'] = count($usernames);
                 header('Location: ../index.php');   // thank.phpへ移動
                 exit();
             }

@@ -32,3 +32,4 @@ const hasChildSelect = (methodValue, parentElement) => {
     parentElement.classList.remove("show"); // クレジットorスマホ決済選択div要素からshowクラス削除で非表示
   }
 }
+

@@ -34,24 +34,26 @@ $message_count = $index_child_class->getMessageCount();
     </header>
     
     <section class="position-relative h-75">
-        <div class="index_child_mokuhyoucss">
+        <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
                 <a href="./goal/goal_detail.php">もくひょう<br>
+                <span>
                     <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                     <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                <span>
                 </a>
             <?php else : ?>
-                <p>目標がないので設定してください</p>
+                <span><p>目標がないので設定してください</p></span>
             <?php endif; ?>
             </div>
         </div>
-        <hr>
+        <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
             <p>
-                ちょきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
+                しょじきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
                 てもち: <span><?php echo htmlspecialchars($have_points); ?></span> ポイント
             </p>
             <p class="index_child_moji">
@@ -71,11 +73,13 @@ $message_count = $index_child_class->getMessageCount();
             <?php endif; ?>
             </div>
         </div>
-        <hr>
+        <hr class="index_child_hr">
 
         <div class="modal-2__wrap"> 
             <input type="radio" id="modal-2__open" class="modal-2__open-input" name="modal-2__trigger"/>
-            <label for="modal-2__open" class="modal-2__open-label">きょうのおてつだいをひょうじ</label>
+                <label for="modal-2__open" class="modal-2__open-label">
+                    <img src="<?php echo $absolute_path; ?>static/assets/otetudaiA.png" height=55>
+                </label>
             <input type="radio" id="modal-2__close" name="modal-2__trigger"/>
 
             <div class="modal-2">
@@ -100,11 +104,17 @@ $message_count = $index_child_class->getMessageCount();
                 <label for="modal-2__close"><div class="modal-2__background"></div></label>
             </div>
         </div>
+        <br>
 
-        <hr>
-        <div class="index_child_mokuhyoucss5">
-            <div class="index_child_mokuhyoucss6">
-            <p>メッセージ</p>
+        <!-- <hr class="index_child_hr"> -->
+        <div class="index_child_messagecss1">
+            <div class="index_child_messagecss2">
+            <div class="index_child_messagecss3">
+
+            <!-- <span>
+                <p>メッセージ</p>
+            </span> -->
+            <p><img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40></p>
             <select id="user_select">
                 <option value=""></option>
                 <?php $index_child_class->getFamilyUser(); ?>
@@ -124,6 +134,7 @@ $message_count = $index_child_class->getMessageCount();
             <?php else : ?>
                 <p>メッセージがありません</p>
             <?php endif; ?>
+            </div>
             </div>
         </div>
     </section>
