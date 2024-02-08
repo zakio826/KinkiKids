@@ -47,11 +47,15 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
         <select id="user_select">
             <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
+        <p id="order-string"></p>
+
     </section>
     <!-- ナビゲーションバー -->
     <?php include_once("./include/bottom_nav.php") ?>
@@ -60,9 +64,18 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 
 <script>
     let select = document.getElementById('user_select');
-    let count = <?php echo $message_count; ?>;
     select.addEventListener('change', (e) => {
+        goal = [];
         let selected_value = document.getElementById('user_select').value;
+        <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
+            if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
+                goal.push('<?php echo htmlspecialchars($index_parent_class->getFamily()[$i]['goal_detail']); ?>');
+            }
+        <?php } ?>
+        let str = goal.join('<br>');
+        document.getElementById('order-string').innerHTML = str;
+
+
     });
 </script>
 
