@@ -36,10 +36,10 @@ a:hover {
 
 <nav>
     <ul>
-        <li><a href="../record/calendar.php"><img src="">カレンダー</a></li>
-        <li><a href=""><img src="">お手伝い</a></li>
-        <li><a href=""><img src="">シェア</a></li>
-        <li><a href=""><img src="">銀行</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/record/calendar.php"><img src="">カレンダー</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/point/help_add.php"><img src="">お手伝い</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/spending/spending_input.php"><img src="">収支登録</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">目標</a></li>
         <li><a href=""><img src="">設定</a></li>
     </ul>
 </nav>
