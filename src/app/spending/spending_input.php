@@ -1,8 +1,8 @@
 <?php
-  $page_title = "収支";
-  require_once("../include/header.php");
-  require_once($absolute_path."config/db_connect.php");
-  require_once($absolute_path."lib/functions.php");
+	$page_title = "収支";
+	require_once("../include/header.php");
+	require_once($absolute_path."config/db_connect.php");
+	require_once($absolute_path."lib/functions.php");
 ?>
 
 <!DOCTYPE html>
@@ -37,34 +37,34 @@ include("../include/header.php");
 			</div>
 
         <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
-          <p class="long-name">支出カテゴリー</p>
-          <select name="spending_category" id="spendingCategory">
+        <p class="long-name">支出カテゴリー</p>
+        <select name="spending_category" id="spendingCategory">
             <option value="0">選択してください</option>
             <?php
-              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
-              sql_check($stmt_incomecat, $db);
-              $stmt_incomecat->bind_result($id, $name);
+            $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
+            sql_check($stmt_incomecat, $db);
+            $stmt_incomecat->bind_result($id, $name);
                 while ($stmt_incomecat->fetch()) :
             ?>
             <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
             <?php endwhile; ?>
-          </select>
-          <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+        </select>
+        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
         </div>
 
         <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
-          <p class="long-name">収入カテゴリー</p>
-          <select name="income_category" id="incomeCategory">
+        <p class="long-name">収入カテゴリー</p>
+        <select name="income_category" id="incomeCategory">
             <?php
-              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
-              sql_check($stmt_incomecat, $db);
-              $stmt_incomecat->bind_result($id, $name);
-              while ($stmt_incomecat->fetch()) :
+            $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
+            sql_check($stmt_incomecat, $db);
+            $stmt_incomecat->bind_result($id, $name);
+            while ($stmt_incomecat->fetch()) :
             ?>
                 <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
             <?php endwhile; ?>
-          </select>
-          <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+        </select>
+        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
         </div>
 
 			<div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
