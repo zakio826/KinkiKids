@@ -18,8 +18,6 @@ $testpoint = new testpoint($db);
 require($absolute_path."lib/index_parent_class.php");
 $index_parent_class = new index_parent_class($db);
 
-$family_count = $index_parent_class->getFamilyCount();
-
 
 //family_addでのsessionがあれば完了の通知出す
 if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
