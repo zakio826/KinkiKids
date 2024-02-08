@@ -3,7 +3,7 @@
 /* ボタンの基本的なスタイル */
 button {
     padding: 10px 70px;
-    background-color: #6784EC; /* ボタンの背景色 */
+    background-color: #525ED2; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     border: none; /* ボーダーをなしに設定 */
     border-radius: 5px; /* ボタンの角を丸くする */
@@ -23,7 +23,7 @@ main{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #7f98f1; /* テキストの色を指定 */
+    color: #7f98f1; /*テキストの色を指定 */
     
     border-radius: 5px;
     font-size: 20px; /* フォントサイズを16pxに変更 */
@@ -40,6 +40,15 @@ form p {
 
 }
 
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 15px;
+}
+
 /* 黄色の枠部分 */
 .content {
     background-color: #fff7ab;
@@ -54,4 +63,16 @@ form p {
     font-weight: bold;
     color: rgb(255, 136, 136);
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+.btn-1 {
+    background-color: #525ED2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 120px;
 }

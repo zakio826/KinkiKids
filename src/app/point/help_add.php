@@ -30,12 +30,15 @@ $helps = $help->display_help($family_id);
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">
-                お手伝い名<input type="text" name="help_name"><br>
-                お手伝い詳細<input type="text" name="help_detail"><br>
-                獲得ポイント<input type="number" name="get_point"><br>
                 担当者　<?php $help->child_select(); ?><br>
+                <label for="help_name">お手伝い名</label>
+                <input type="text" name="help_name"><br>
+                <label for="help_detail">お手伝い詳細</label>
+                <input type="text" name="help_detail"><br>
+                <label for="get_point">獲得ポイント</label>
+                <input type="number" name="get_point"><br>
 
-                <button type="submit">登録</button>
+                <button type="submit" class="btn-1">登録</button>
             </form>
         <?php elseif ($select === 'child'): ?>
             <!-- 子供の場合のフォーム -->
@@ -57,16 +60,14 @@ $helps = $help->display_help($family_id);
         <?php else: ?>
             <ul>
                 <?php foreach ($helps as $help_data): ?>
-                    <li>
-                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <strong>お手伝い名:</strong><br> <?php echo $help_data['help_name']; ?><br>
                         <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>
                         <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                         <strong>担当者</strong>
                         <?php
                             $help->person_select($help_data['help_id']);
                         ?><br>
-                    </li>
-                    
+                    <hr>
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
                             <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
