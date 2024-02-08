@@ -110,9 +110,7 @@
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
-
-        private function consentHelpToDatabase($help_id) {
+        private function consentHelpToDatabase($help_id) { //LINE機能コード追加
             if(isset($_SESSION["user_id"])){
                 $user_id = $_SESSION["user_id"];
                 $dtime = date("Y-m-d H:i:s");
@@ -133,72 +131,6 @@
             } else {
                 //TODO ログインしていない
             }
-        }
-        
-    
-        private function getLineId($help_id) {
-            // helpテーブルからuser_idを取得
-            $stmt = $this->db->prepare("SELECT user_id FROM help WHERE help_id = :help_id");
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-         
-            // LINEdatabaseからUIDを取得
-            $stmt2 = $this->db->prepare("SELECT UID FROM LINEdatabase WHERE id = :user_id");
-            $stmt2->bindParam(':user_id', $result['user_id']);
-            $stmt2->execute();
-            $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-            
-            return $result2['UID'];
-        }
-        
-    
-    
-        private function MessageGet($user_id, $help_id) {
-            $stmt = $this->db->prepare("SELECT help_name FROM help WHERE help_id = :help_id");
-            $stmt->bindParam(':help_id', $help_id);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-            // LINEdatabaseからUIDを取得
-            $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
-            $stmt2->bindParam(':user_id', $user_id);
-            $stmt2->execute();
-            $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                    
-            return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']; 
-        }
-        
-        
-    
-        private function sendLineNotification($line_id, $message,$help_id) {
-            $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 30 WHERE UID = :uid");
-            $stmt->bindParam(':uid', $line_id);
-            $stmt->execute();
-    
-            // LINE Messaging API SDKの読み込み
-            require_once(__DIR__ . '/vendor/autoload.php');
-        
-            // LINE BOTの設定
-            $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('bvUO7pMHtF+vhpf5OKz20kgcoO6Epwd/fYPljIuqA4GjL82Kw+Vt2+5OLKGAbauojY8/2Zaok5x9Fr6/pPPK6EbxZa6rSv9BCo+bbIsBcNuWPdHSYlyFuSVCw45efp68lEbENrfQDRu6ix+S3e/uFgdB04t89/1O/w1cDnyilFU=');
-            $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'ae82ad82812d8d72b5662ccb43d232f8']);
-        
-            // メッセージの送信
-            $textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
-            $bot->pushMessage($line_id, $textMessage);
-        
-            // 確認ダイアログの送信
-            $confirmMessage = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-                '確認ダイアログ',
-                new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(
-                    '承認しますか？',
-                    [
-                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('はい', $help_id),
-                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('いいえ', 'いいえ')
-                    ]
-                )
-            );
-            $bot->pushMessage($line_id, $confirmMessage);
         }
 
         public function child_select() {
@@ -314,6 +246,69 @@
                 echo "Error: " . $e->getMessage();
                 return false;
             }
+        }
+
+        private function getLineId($help_id) {
+            // helpテーブルからuser_idを取得
+            $stmt = $this->db->prepare("SELECT user_id FROM help WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+         
+            // LINEdatabaseからUIDを取得
+            $stmt2 = $this->db->prepare("SELECT UID FROM LINEdatabase WHERE id = :user_id");
+            $stmt2->bindParam(':user_id', $result['user_id']);
+            $stmt2->execute();
+            $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            
+            return $result2['UID'];
+        }
+        
+    
+    
+        private function MessageGet($user_id, $help_id) {
+            $stmt = $this->db->prepare("SELECT help_name FROM help WHERE help_id = :help_id");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            // LINEdatabaseからUIDを取得
+            $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+            $stmt2->bindParam(':user_id', $user_id);
+            $stmt2->execute();
+            $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    
+            return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']; 
+        }
+        
+        private function sendLineNotification($line_id, $message,$help_id) {
+            $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 30 WHERE UID = :uid");
+            $stmt->bindParam(':uid', $line_id);
+            $stmt->execute();
+    
+            // LINE Messaging API SDKの読み込み
+            require_once(__DIR__ . '/vendor/autoload.php');
+        
+            // LINE BOTの設定
+            $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('bvUO7pMHtF+vhpf5OKz20kgcoO6Epwd/fYPljIuqA4GjL82Kw+Vt2+5OLKGAbauojY8/2Zaok5x9Fr6/pPPK6EbxZa6rSv9BCo+bbIsBcNuWPdHSYlyFuSVCw45efp68lEbENrfQDRu6ix+S3e/uFgdB04t89/1O/w1cDnyilFU=');
+            $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'ae82ad82812d8d72b5662ccb43d232f8']);
+        
+            // メッセージの送信
+            $textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
+            $bot->pushMessage($line_id, $textMessage);
+        
+            // 確認ダイアログの送信
+            $confirmMessage = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+                '確認ダイアログ',
+                new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(
+                    '承認しますか？',
+                    [
+                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('はい', $help_id),
+                        new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('いいえ', 'いいえ')
+                    ]
+                )
+            );
+            $bot->pushMessage($line_id, $confirmMessage);
         }
     }
 ?>
