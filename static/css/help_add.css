@@ -46,6 +46,12 @@ label {
 
 input {
     margin-bottom: 15px;
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    padding: 5px;
+    margin-right: 10px; /* 右側に10pxの空白を追加 */
 }
 
 /* 黄色の枠部分 */
@@ -62,6 +68,11 @@ input {
     font-weight: bold;
     color: rgb(255, 136, 136);
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+.choice {
+    color: #7f98f1; /*テキストの色を指定 */
+    margin-bottom: 0;
 }
 
 .btn-group {
@@ -96,4 +107,19 @@ input {
 
 .content h1 {
     font-weight: bold;
+    color: rgb(255, 136, 136);
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+strong {
+    font-weight: 500;
+    color: #a0a0a0;
+    margin-bottom: 0;
+}
+
+.mt-1 {
+    margin-bottom: 3px;
+    color: #7f98f1; /*テキストの色を指定 */
+    font-size: 23px;
+    font-weight: 900;
 }
