@@ -58,13 +58,14 @@ $helps = $help->display_help($family_id);
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <?php foreach ($helps as $help_data): ?>
-                <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                <strong>お手伝い名</strong> <p class="mt-1"><?php echo $help_data['help_name']; ?></p>
+                <strong>獲得ポイント</strong> <p class="mt-1"><?php echo $help_data['get_point']; ?></p>
                 <strong>担当者</strong>
+                <p class="mt-1">
                 <?php
                     $help->person_select($help_data['help_id']);
                 ?>
-                <br>
+                </p>
                 <div class="btn-group">
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
