@@ -46,10 +46,10 @@
           <select name="spending_category" id="spendingCategory">
             <option value="0">選択してください</option>
             <?php
-              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
-              sql_check($stmt_incomecat, $db);
-              $stmt_incomecat->bind_result($id, $name);
-                while ($stmt_incomecat->fetch()) :
+              $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
+              sql_check($stmt_spendingcat, $db);
+              $stmt_spendingcat->bind_result($id, $name);
+                while ($stmt_spendingcat->fetch()) :
             ?>
             <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
             <?php endwhile; ?>
@@ -61,7 +61,7 @@
           <p class="long-name">収入カテゴリー</p>
           <select name="income_category" id="incomeCategory">
             <?php
-              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
+              $stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
               sql_check($stmt_incomecat, $db);
               $stmt_incomecat->bind_result($id, $name);
               while ($stmt_incomecat->fetch()) :
