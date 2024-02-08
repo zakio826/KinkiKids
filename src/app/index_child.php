@@ -37,12 +37,7 @@ $message_count = $index_child_class->getMessageCount();
         <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
-<<<<<<< HEAD
                 <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
-=======
-                <a href="./goal/goal_detail.php">もくひょう<br>
-                <span>
->>>>>>> 93cfd6157863e9550a2150c653e15f5f08610581
                     <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                     <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
@@ -73,7 +68,6 @@ $message_count = $index_child_class->getMessageCount();
                     <br>目標がないので設定してください
                 </p>
             <?php endif; ?>
-<<<<<<< HEAD
         </div>
         </div>
         <hr>
@@ -108,12 +102,10 @@ $message_count = $index_child_class->getMessageCount();
         <p id="order-string"></p>
 
 
-=======
             </div>
         </div>
         <hr class="index_child_hr">
         <br>
->>>>>>> 93cfd6157863e9550a2150c653e15f5f08610581
 
         <!-- <hr class="index_child_hr"> -->
         <div class="index_child_messagecss1">
