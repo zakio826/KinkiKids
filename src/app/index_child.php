@@ -90,19 +90,31 @@ $message_count = $index_child_class->getMessageCount();
         </div>
         <hr>
         <p>メッセージ</p>
-        <select id="user_select">
+        <!-- <select id="user_select">
             <option value=""></option>
             <?php $index_child_class->getFamilyUser(); ?>
         </select>
-        <p id="order-string"></p>
-        <br>
+        <p id="order-string"></p> -->
+        <?php for($i=0;$i<$message_count;$i++){ ?>
+            <?php
+                echo htmlspecialchars(
+                    $index_child_class->getMessage($i)['sender'].
+                    '➡'.
+                    $index_child_class->getMessage($i)['receiver'].
+                    '：'.
+                    $index_child_class->getMessage($i)['messagetext']
+                );
+                echo '<br>';
+            ?>
+        <?php } ?>
+
 
     </section>
     <!-- ナビゲーションバー -->
     <?php include_once("./include/bottom_nav.php") ?>
 </main>
 
-<script>
+<!-- <script>
     let select = document.getElementById('user_select');
     let count = <?php echo $message_count; ?>;
     select.addEventListener('change', (e) => {
@@ -122,7 +134,7 @@ $message_count = $index_child_class->getMessageCount();
         let str = message.join('<br>');
         document.getElementById('order-string').innerHTML = str;
     });
-</script>
+</script> -->
 
 
 <!-- フッター -->
