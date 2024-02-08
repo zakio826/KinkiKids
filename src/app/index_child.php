@@ -63,14 +63,12 @@ $message_count = $index_child_class->getMessageCount();
         </div>
         <hr>
 
-        <p>きょうのおてつだい</p>
-        <?php if($help_count != 0){ ?>
-            <?php for($i=0;$i<$help_count;$i++){ ?>
-                <p>・<?php echo htmlspecialchars($index_child_class->getHelp($i)); ?> </p>
-            <?php } ?>
-        <?php } else { ?>
-                <p>お手伝いを設定してください</p>
-        <?php } ?>
+        <nav>
+            <ul>
+                <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
+                <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
+            </ul>
+        </nav>
 
         <hr>
 
