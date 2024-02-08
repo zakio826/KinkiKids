@@ -30,7 +30,7 @@ $goals = $goal->getUserGoals($user_id);
             <ul>
                 <?php foreach ($goals as $goal): ?>
                     <li>
-                        <strong>きんがく:</strong> <?php echo $goal['target_amount']; ?> 円<br>
+                        <strong>もくひょうきんがく:</strong> <?php echo $goal['target_amount']; ?> 円<br>
                         <strong>しょうさい:</strong> <?php echo $goal['goal_detail']; ?><br>
                         <strong>きげん:</strong> <?php echo $goal['goal_deadline']; ?><br>
                         <strong>さくせいび:</strong> <?php echo $goal['goal_created_date']; ?>
