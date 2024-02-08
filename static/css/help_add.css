@@ -49,6 +49,10 @@ input {
     text-align: center;
 }
 
+input[type="text"] ,[type="number"]{
+    width: 90%;
+}
+
 input[type="checkbox"] {
     padding: 5px;
     margin-right: 10px; /* 右側に10pxの空白を追加 */
