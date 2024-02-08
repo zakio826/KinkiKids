@@ -17,7 +17,7 @@ class family_add {
             $birthdays = $_POST['birthday'];
             $gender_ids = $_POST['gender_id'];
             $role_ids = $_POST['role_id'];
-            $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array();
+            $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array_fill(0, count($usernames), 0);
             $savings = $_POST['savings'];
             $allowances = $_POST['allowances'];
             $payments = $_POST['payments'];
@@ -49,14 +49,14 @@ class family_add {
                 if ($role_ids[$i] === "") {
                     $error['role_id'][$i] = "blank";
                 }
-                if ($savings[$i] === "") {
-                    $error['savings'][$i] = "blank";
+                if (!is_numeric($savings[$i]) || $savings[$i] < 0 || $savings[$i] > 9999999999) {
+                    $error['savings'][$i] = "invalid";
                 }
-                if ($allowances[$i] === "") {
-                    $error['allowances'][$i] = "blank";
+                if (!is_numeric($allowances[$i]) || $allowances[$i] < 0 || $allowances[$i] > 9999999999) {
+                    $error['allowances'][$i] = "invalid";
                 }
-                if ($payments[$i] === "") {
-                    $error['payments'][$i] = "blank";
+                if (!is_numeric($payments[$i]) || $payments[$i] < 0 || $payments[$i] > 31) {
+                    $error['payments'][$i] = "invalid";
                 }
 
                 // usernameの重複を検知
@@ -67,7 +67,7 @@ class family_add {
                     $error['username'][$i] = 'duplicate';
                 }
             }
-
+            
             // エラーがなければ次のページへ
             if (!isset($error)) {
 
@@ -78,12 +78,14 @@ class family_add {
                     
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
                     $firstlogin = date('Y-m-d');
+                    $adminFlag = isset($admin_flags[$i]) ? 1 : 0;
 
                     $statement = $this->db->prepare(
                         "INSERT INTO user 
                         (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
+
 
                     $statement->execute(array(
                         $usernames[$i],
@@ -93,7 +95,7 @@ class family_add {
                         $birthdays[$i],
                         $gender_ids[$i],
                         $role_ids[$i],
-                        isset($admin_flags[$i]) ? $admin_flags[$i] : 0,
+                        $adminFlag,
                         $family_id,
                         $firstlogin
                     ));
