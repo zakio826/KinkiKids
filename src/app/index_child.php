@@ -37,7 +37,7 @@ $message_count = $index_child_class->getMessageCount();
         <div class="index_child_mokuhyoucss">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
-                <a href="./goal/goal_detail.php">もくひょう<br>
+                <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                     <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
