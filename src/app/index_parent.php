@@ -69,10 +69,9 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     select.addEventListener('change', (e) => {
         goal = [];
         let selected_value = document.getElementById('user_select').value;
-        <?php for($i=0;$i<$family_count;$i++){ ?>
-            if(selected_value==<?php echo htmlspecialchars($index_parent_class->getFamily($i)['user_id']); ?>){
-                goal.push('<?php echo htmlspecialchars($index_parent_class->getFamily($i)['goal_detail']);?>');
-
+        <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
+            if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
+                goal.push('<?php echo htmlspecialchars($index_parent_class->getFamily()[$i]['goal_detail']); ?>');
             }
         <?php } ?>
         let str = goal.join('<br>');

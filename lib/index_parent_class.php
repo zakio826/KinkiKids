@@ -31,7 +31,7 @@ class index_parent_class{
         }
     }
 
-    public function getFamily($i){
+    public function getFamily(){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
@@ -44,7 +44,7 @@ class index_parent_class{
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $result[$i];
+        return $result;
     }
     public function getFamilyCount(){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
