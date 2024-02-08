@@ -60,6 +60,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
    
     <br>
+    <?php if ($select === 'adult'): ?>
     <div class = "content">
         <form action="" method="post">
             <select name="narrow">
@@ -70,6 +71,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <button type="submit">絞り込む</button>
         </form>
     </div>
+    <?php endif; ?>
     <br>
 
     <div class="content">
@@ -80,6 +82,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <?php else: ?>
             <ul>
             <?php foreach ($helps as $help_data): ?>
+                <?php if ($select === 'adult'): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                         <?php 
@@ -95,13 +98,30 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             $help->person_select($help_data['help_id']);
                         ?><br>
                     </li>
+                <?php endif; ?>
+                <?php if ($select === 'child'): ?>
+                    <li>
+                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <?php 
+                        if(!($help_data['help_detail'] == "")){
+                            echo "<strong>お手伝い詳細:</strong>";
+                            echo $help_data['help_detail']; 
+                            echo '<br>';
+                        }
+                        ?>
+                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                        <strong>担当者</strong>
+                        <?php
+                            $help->person_select($help_data['help_id']);
+                        ?><br>
+                    </li>
+                <?php endif; ?>
                     
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
                             <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">編集</button>
                         </form>
-                        
                         <form action="" method="post">
                             <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">削除</button>

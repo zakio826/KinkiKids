@@ -110,7 +110,6 @@
             $stmt->bindParam(':help_id', $help_id);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo "<p>削除しました</p>";
         }
 
         private function consentHelpToDatabase($help_id) {
