@@ -64,13 +64,12 @@
         }
 
         private function saveHelpToDatabase() {
-            $sql = "INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)";
+            $sql = "INSERT INTO help (user_id, family_id, help_name, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :get_point,1)";
         
             $params = array(
                 ':user_id' => $_SESSION['join']['user_id'],
                 ':family_id' => $_SESSION['join']['family_id'],
                 ':help_name' => $_SESSION['join']['help_name'],
-                ':help_detail' => $_SESSION['join']['help_detail'],
                 ':get_point' => $_SESSION['join']['get_point']
             );
         
@@ -158,16 +157,14 @@
         public function updateHelp($data){
             $help_id = $data['help_id'];
             $help_name = $data['help_name'];
-            $help_detail = $data['help_detail'];
             $get_point = $data['get_point'];
 
             $user_id = (int)$_SESSION['user_id'];
             $family_id = (int)$_SESSION['family_id'];
-            $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, help_detail, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :help_detail, :get_point,1)");
+            $stmt = $this->db->prepare("INSERT INTO help (user_id, family_id, help_name, get_point,stop_flag) VALUES (:user_id, :family_id, :help_name, :get_point,1)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':family_id', $family_id);
             $stmt->bindParam(':help_name', $help_name);
-            $stmt->bindParam(':help_detail', $help_detail);
             $stmt->bindParam(':get_point', $get_point);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
