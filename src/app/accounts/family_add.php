@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="control">
                         <label for="admin_flag">管理者</label>
-                        <input type="checkbox" name="admin_flag[]" value="1">
+                        <input type="checkbox" name="admin_flag[]">
                     </div>
 
                 </div>

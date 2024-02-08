@@ -10,6 +10,12 @@ include("./include/header.php");
 // testpointクラスのインスタンスを作成
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
+
+//family_addでのsessionがあれば完了の通知出す
+if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
+    echo '<script>alert("' . $_SESSION['family_count'] . '人の登録が完了しました。");</script>';
+    unset($_SESSION['family_success'], $_SESSION['family_count']);
+}
 ?>
 
 <style>
