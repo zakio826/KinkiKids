@@ -33,7 +33,7 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="point_norma_deadline">期限</label>
-                    <input id="point_norma_deadline" type="date" value="<?php echo isset($_SESSION['join']['point_norma_deadline']) ? htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES) : ''; ?>">
+                    <input id="point_norma_deadline" type="date" name="point_norma_deadline" value="<?php echo isset($_SESSION['join']['point_norma_deadline']) ? htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_norma->deadline_error(); ?>
                 </div>
 
