@@ -26,14 +26,14 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
-                    <input id="norma_amount" type="number" name="norma_amount">
+                    <input id="norma_amount" type="number" name="norma_amount" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
                     <b>pt</b>
                     <?php $setting_norma->norma_error(); ?>
                 </div>
 
                 <div class="control-1">
                     <label for="point_norma_deadline">期限</label>
-                    <input id="point_norma_deadline" type="date" name="point_norma_deadline">
+                    <input id="point_norma_deadline" type="date" value="<?php echo isset($_SESSION['join']['point_norma_deadline']) ? htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_norma->deadline_error(); ?>
                 </div>
 
