@@ -1,3 +1,12 @@
+<?php
+  $page_title = "収支";
+  require_once("../include/header.php");
+  require_once($absolute_path."config/db_connect.php");
+  require_once($absolute_path."lib/functions.php");
+?>
+
+<!DOCTYPE html>
+<html lang="ja">
 
 <!-- ヘッダー -->
 <?php
@@ -27,17 +36,36 @@ include("../include/header.php");
 				<input type="text" name="title" id="title" maxlength="15" required>
 			</div>
 
-			<div class="p-form__flex-input">
-				<p>金額</p>
-				<input type="number" name="amount" id="amount" step="1" maxlength="7" required>
-			</div>
+        <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
+          <p class="long-name">支出カテゴリー</p>
+          <select name="spending_category" id="spendingCategory">
+            <option value="0">選択してください</option>
+            <?php
+              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
+              sql_check($stmt_incomecat, $db);
+              $stmt_incomecat->bind_result($id, $name);
+                while ($stmt_incomecat->fetch()) :
+            ?>
+            <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
+            <?php endwhile; ?>
+          </select>
+          <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+        </div>
 
-			<div class="p-form__flex-input type">
-				<input id="spending" type="radio" name="type" value="0" onchange="onRadioChangeType(0);" required>
-				<label for="spending">支出 </label>
-				<input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
-				<label for="income">収入 </label>
-			</div>
+        <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
+          <p class="long-name">収入カテゴリー</p>
+          <select name="income_category" id="incomeCategory">
+            <?php
+              $stmt_incomecat = $db->prepare('SELECT income_expense_category_name FROM income_expense_category');
+              sql_check($stmt_incomecat, $db);
+              $stmt_incomecat->bind_result($id, $name);
+              while ($stmt_incomecat->fetch()) :
+              ?>
+                <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
+            <?php endwhile; ?>
+          </select>
+          <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+        </div>
 
 			<div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
 				<p class="long-name">支出カテゴリー</p>
