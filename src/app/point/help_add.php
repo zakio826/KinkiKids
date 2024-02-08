@@ -60,7 +60,6 @@ $helps = $help->display_help($family_id);
         <?php else: ?>
             <ul>
                 <?php foreach ($helps as $help_data): ?>
-                    <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                         <strong>お手伝い詳細</strong> <?php echo $help_data['help_detail']; ?><br>
                         <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
