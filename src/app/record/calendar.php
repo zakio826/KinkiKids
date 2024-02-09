@@ -33,73 +33,49 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
 ?>
 
 <?php  // 収支関連のデータを取得
-// $user_id = $_SESSION["user_id"];
+$user_id = $_SESSION["user_id"];
 
-// $columns = array(
-//     "DATE_FORMAT(income_expense_date,'%Y年%c月')" => "年月, ",
-//     "SUM(income_expense_amount)" => "合計金額",
-// );
+$columns = array(
+    "DATE_FORMAT(income_expense_date,'%Y年%c月')" => "'年月', ",
+    "SUM(income_expense_amount)" => "'合計金額'",
+);
+$column = "";
+foreach ($columns as $key => $value) {
+    $column .= $key . " AS " . $value;
+}
 
-// $column = "";
-// foreach ($columns as $key => $value) {
-//     $column .= $key . " AS " . $value;
-// }
+$start_ym = date("Y-m", strtotime("-4 month", $this_date));
+$end_ym = date("Y-m", $this_date);
 
-// $start_ym = date("Y-m", strtotime("-4 month", $this_date));
-// $end_ym = date("Y-m", $this_date);
+$wheres = array(
+    ["user_id", "=", $user_id],
+    ["income_expense_date", "BETWEEN", $start_ym."-01", "AND", $end_ym."-".$last_day],
+);
+$where = "";
+for ($i = 0; $i < count($wheres); $i++) {
+    for ($j = 0; $j < count($wheres[$i]); $j++) {
+        $where .= $wheres[$i][$j];
 
-// $wheres = array(
-//     ["user_id", "=", $user_id],
-//     ["income_expense_flag", "=", 0],
-//     ["DATE_FORMAT(income_expense_date,'%Y-%m')", "BETWEEN", $start_ym, "AND", $end_ym],
-// );
+        if ($j+1 != count($wheres[$i])) {
+            $where .= " ";
+        } elseif ($i+1 != count($wheres)) {
+            $where .= " AND ";
+        }
+    }
+}
 
-// $where = "";
-// for ($i = 0; $i < count($wheres); $i++) {
-//     for ($j = 0; $j < count($wheres[$i]); $j++) {
-//         $where .= $wheres[$i];
+$order_by = "'年月'";
 
-//         if ($j+1 != count($wheres[$i])) {
-//             $where .= " ";
-//         } elseif ($i+1 != count($wheres)) {
-//             $where .= " AND ";
-//         }
-//     }
-// }
+$sql = "SELECT ".$column." FROM income_expense WHERE ".$where." ORDER BY ".$order_by.";";
+$balance_data =  $db->query($sql);
 
-// $order_by = "年月";
+$income_expense_flag = " AND income_expense_flag = ";
 
-// $sql = "SELECT " . $column . " FROM income_expense WHERE " . $where . "ORDER BY " . $order_by;
+$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."0 ORDER BY ".$order_by.";";
+$income_data =  $db->query($sql);
 
-
-// $income_data =  $db->query($sql);
-// $income_data_json =  json_encode($income_data);
-
-
-// $wheres[1][2] = 1;
-// $where = "";
-// for ($i = 0; $i < count($wheres); $i++) {
-//     for ($j = 0; $j < count($wheres[$i]); $j++) {
-//         $where .= $wheres[$i];
-
-//         if ($j+1 != count($wheres[$i])) {
-//             $where .= " ";
-//         } elseif ($i+1 != count($wheres)) {
-//             $where .= " AND ";
-//         }
-//     }
-// }
-
-// $sql = "SELECT " . $column . " FROM income_expense WHERE " . $where . "ORDER BY " . $order_by;
-
-
-
-// $expense_data =  $db->query($sql);
-// $expense_data_json =  json_encode($expense_data);
-
-
-// $income_expense_date
-
+$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."1 ORDER BY ".$order_by.";";
+$expense_data =  $db->query($sql);
 ?>
 
 
@@ -187,33 +163,52 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
                     <canvas class="w-100 h-100" id="in_exChart"></canvas>
                 </div>
             </div>
-
+            
             <!-- 月間収支別カテゴリ詳細グラフ表示 -->
             <div class="row mt-5 money-grid">
                 <div class="position-relative d-block p-5">
-                    <?php
-                    // foreach ($income_data as $key => $value) {
-                    //     $column .= $key . " AS " . $value;
-                    // }
-                    
-                    ?>
                     <!-- チャートの表示エリア -->
-                    <!-- <canvas class="w-100 h-100" id="in_exDetailChart"></canvas> -->
+                    <canvas class="w-100 h-100" id="categoryChart"></canvas>
                 </div>
             </div>
-
         </div>
     </section>
 </main>
 
 
 <script>
-    // const income_data = JSON.parse('<?php //echo $income_data_json; ?>');
-    // const expense_data = JSON.parse('<?php //echo $expense_data_json; ?>');
+    <?php
+    $dataset = [
+        "balance_data" => $balance_data,
+        "income_data" => $income_data,
+        "expense_data" => $expense_data,
+    ];
+    foreach($dataset as $name => $data) {
+        $data_array = array();
+        foreach($data as $index => $item) {
+            foreach($item as $key => $value) {
+                if (gettype($key) !== "integer") {
+                    if ($index == 0) {
+                        $data_array += [$key => [$value]];
+                    } else {
+                        array_push($data_array[$key], $value);
+                    }
+                }
+            }
+        }
+        echo "const ". $name. " = JSON.parse('". json_encode($data_array, JSON_UNESCAPED_UNICODE). "');";
+        echo "console.log(". $name. ");";
+    }
+    ?>
 </script>
 
 <!-- JavaScript -->
-<script src="<?php echo $absolute_path; ?>static/js/record_chart5.js"></script>
+<script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart.js"></script>
+<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart_sample.js"></script> -->
 
+<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script> -->
+<script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

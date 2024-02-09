@@ -7,12 +7,15 @@ $stylesheet_name = "norma_check.css";
 require_once("../include/header.php");
 ?>
 
-<?php include_once("../include/nav_bar.php") ?>
-
 <?php
 require($absolute_path."lib/norma_check_class.php");
 $norma_check = new norma_check($db);
+$norma_user_name = $norma_check->getusername(); 
 ?>
+
+
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
@@ -31,24 +34,35 @@ $norma_check = new norma_check($db);
 
                     <div class="control_check">
                         <p class="moji-check">ノルマ:</p>
-                        <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES); ?></span></p>
+                        <p>
+                            <span class="fas fa-angle-double-right"></span>
+                            <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES); ?></span>
+                        </p>
+                    </div>
+
+                    <div class="control_check">
+                        <p class="moji-check">子供:</p>
+                        <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($norma_user_name, ENT_QUOTES); ?></span></p>
                     </div>
         
-                    <div class="control_check">
+                    <div class="mb-3 control_check">
                         <p class="moji-check">期限:</p>
-                        <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES); ?></span></p>
+                        <p>
+                            <span class="fas fa-angle-double-right"></span>
+                            <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES); ?></span>
+                        </p>
                     </div>
-                
-                    <br>
                     
                     <a href="./setting_norma.php" class="btn back-btn">変更する</a>
                     <button type="submit" class="btn btn-primary">登録する</button>
+
                     <div class="clear"></div>
                 </form>
             </div>
         </div>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

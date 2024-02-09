@@ -6,6 +6,9 @@ include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -26,6 +29,17 @@ require_once($absolute_path."lib/functions.php");
 				<input type="text" name="title" id="title" maxlength="15" required>
 			</div>
 
+			<div class="p-form__flex-input">
+				<p>金額</p>
+				<input type="number" name="amount" id="amount" step="1" maxlength="5" required>
+			</div>
+
+			<div class="p-form__flex-input type">
+				<input id="spending" type="radio" name="type" value="0" onchange="onRadioChangeType(0);" required>
+				<label for="spending">支出 </label>
+				<input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
+				<label for="income">収入 </label>
+			</div>
         <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
         <p class="long-name">支出カテゴリー</p>
         <select name="spending_category" id="spendingCategory">
@@ -81,6 +95,7 @@ require_once($absolute_path."lib/functions.php");
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/radio.js"></script>
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/import.js"></script>
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/functions.js"></script>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

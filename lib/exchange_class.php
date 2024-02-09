@@ -11,6 +11,12 @@ class Exchange {
             $points = $_POST['points'];
 
             list($childDataId, $savings, $havePoints) = $this->getChildDataInfo($selectedUserId);
+            
+            if ($points > $havePoints) {
+                $_SESSION['exchange_error'] = '入力されたポイントが所持ポイントを超えています。';
+                header('Location: exchange.php');
+                exit();
+            }
 
             $result_points = $havePoints - $points;
             $result_savings = $savings + $points;
@@ -27,9 +33,10 @@ class Exchange {
             $updateStatement->bindValue(':child_data_id', $childDataId, PDO::PARAM_INT);
     
             $updateStatement->execute();
-            
-            $_SESSION['points_success'] = true;
-            $_SESSION['points_count'] = $points;
+
+            $_SESSION['exchange_points'] = $points;
+            header('Location: exchange.php');
+            exit();
 
         }
     }
