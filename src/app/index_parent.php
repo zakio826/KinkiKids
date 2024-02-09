@@ -84,7 +84,7 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         document.getElementById('target_amount').innerHTML = target_amount;
     });
 </script>
-
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("./include/footer.php"); ?>

@@ -17,5 +17,6 @@ $havepoint = new havepoint($db);
     <?php $havepoint->display_point(); ?>
 
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <?php require_once("../include/footer.php"); ?>
