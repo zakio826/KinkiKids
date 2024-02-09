@@ -2,63 +2,58 @@
 //短縮やよく使う関数等のPHP
 
 //XSS対策
-function h($s){
+function h($s) {
     return htmlspecialchars($s, ENT_QUOTES, "UTF-8");
 }
 
 //セッションにトークンセット
-function setToken(){
+function setToken() {
     $token = sha1(uniqid(mt_rand(), true));
     $_SESSION['token'] = $token;
 }
 
 //セッション変数のトークンとPOSTされたトークンをチェック
-function checkToken(){
+function checkToken() {
     if(empty($_SESSION['token']) || ($_SESSION['token'] != $_POST['token'])){
-        echo 'Invalid POST', PHP_EOL;
-        exit;
+        echo 'Invalid POST', PHP_EOL; exit;
     }
 }
 
-function sql_check($stmt, $db){
+function sql_check($stmt, $db) {
     //SQLが正しくない場合はエラーを表示
-    if (!$stmt) :
-      die($db->error);
-    endif;
+    if (!$stmt) { die($db->error); }
     
     //正しければSQL実行
     $success = $stmt->execute();
     
     //実行されなかったらエラー表示
-    if (!$success) :
-      die($db->error);
-    endif;
+    if (!$success) { die($db->error); }
   }
-
   
 //POSTされた値のバリデーション
-function validation($datas,$confirm = true)
-{
+function validation($datas,$confirm = true) {
     $errors = [];
 
     //ユーザー名のチェック
-    if(empty($datas['username'])) {
+    if (empty($datas['username'])) {
         $errors['username'] = 'Please enter username.';
-    }//else if(mb_strlen($datas['name']) > 20) {
+    }
+    // else if(mb_strlen($datas['name']) > 20) {
     //     $errors['name'] = 'Please enter up to 20 characters.';
     // }
 
     //パスワードのチェック（正規表現）
-    if(empty($datas["password"])){
+    if (empty($datas["password"])) {
         $errors['password']  = "Please enter a password.";
-    }else if(!preg_match('/\A[a-z\d]{8,100}+\z/i',$datas["password"])){
+    } else if (!preg_match('/\A[a-z\d]{8,100}+\z/i',$datas["password"])) {
         $errors['password'] = "Please set a password with at least 8 characters.";
     }
+
     //パスワード入力確認チェック（ユーザー新規登録時のみ使用）
-    if($confirm){
-        if(empty($datas["confirm_password"])){
+    if ($confirm) {
+        if (empty($datas["confirm_password"])) {
             $errors['confirm_password']  = "Please confirm password.";
-        }else if(empty($errors['password']) && ($datas["password"] != $datas["confirm_password"])){
+        } else if (empty($errors['password']) && ($datas["password"] != $datas["confirm_password"])) {
             $errors['confirm_password'] = "Password did not match.";
         }
     }
