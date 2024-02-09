@@ -72,12 +72,12 @@ require_once($absolute_path."lib/functions.php");
         <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
 		<div id="paymentMethodBox" class="u-js__show-switch flex p-form__flex-input sp-change-order">
 			<p class="long-name">支払い方法</p>
-			<select name="payment_method" id="paymentMethod" onchange="hasChildSelect('2', creditSelectBox, qrChecked);hasChildSelect('3', qrSelectBox, creditChecked);">
+			<!-- <select name="payment_method" id="paymentMethod" onchange="hasChildSelect('2', creditSelectBox, qrChecked);hasChildSelect('3', qrSelectBox, creditChecked);">
 				<option value="0">選択してください</option>
 				<option value="1">現金</option>
 				<option value="2" id="radioCredit">クレジット</option>
 				<option value="3" id="radioQr">スマホ決済</option>
-			</select>
+			</select> -->
 			<!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
 		</div>
 
