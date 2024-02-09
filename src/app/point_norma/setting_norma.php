@@ -24,7 +24,7 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
-                    <input id="norma_amount" type="number" name="norma_amount" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
+                    <input id="norma_amount" type="number" name="norma_amount" placeholder="500" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
                     <!-- <b>pt</b> -->
                     <?php $setting_norma->norma_error(); ?>
                 </div>

@@ -48,6 +48,10 @@ input {
     width: 250px;
 }
 
+input::placeholder {
+    color: #a0a0a0; /* 好みの色に変更してください */
+  }
+
 .content {
     background-color: #fff7ab;
     padding: 20px;
