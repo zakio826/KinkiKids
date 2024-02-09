@@ -119,7 +119,7 @@ class help {
             $user_id = $_SESSION["user_id"];
             $dtime = date("Y-m-d H:i:s");
 
-            $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag) VALUES (:user_id, :help_id, :dtime, 1)");
+            $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag,receive_flag) VALUES (:user_id, :help_id, :dtime, 1,0)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':help_id', $help_id);
             $stmt->bindParam(':dtime', $dtime);
