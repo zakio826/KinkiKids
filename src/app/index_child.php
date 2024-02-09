@@ -116,25 +116,31 @@ $index_child_class->message($db);
                 <?php $index_child_class->getFamilyUser(); ?>
             </select>
 
-            <p class="mb-3" id="order-string"></p>
+           
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+               <p class="mb-3" id="order-string"></p>
+            </div> 
 
-            <?php if ($message_count != 0) : ?>
-                <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                    ➡
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                    
-                    <p>
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
-                    </p>
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                <?php if ($message_count != 0) : ?>
+                    <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                        ➡
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                        
+                        <p>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
+                        </p>
 
-                    <hr>
+                        <hr>
 
-                <?php endfor; ?>
-            <?php else : ?>
-                <p>メッセージがありません</p>
-            <?php endif; ?>
+                    <?php endfor; ?>
+                <?php else : ?>
+                    <p>メッセージがありません</p>
+                <?php endif; ?>
+            </div>
+
             <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
                 <p>誰に送るか</p>
