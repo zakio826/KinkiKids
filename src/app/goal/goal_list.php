@@ -42,7 +42,8 @@ $goals = $goal->getUserGoals($user_id);
         <p class="mt-3"><a href="../index.php" class="btn btn-primary">もどる</a></p>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
 

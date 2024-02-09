@@ -62,6 +62,7 @@ $norma_user_name = $norma_check->getusername();
         </div>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

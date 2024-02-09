@@ -13,6 +13,7 @@ include("./include/header.php");
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 
+
 require($absolute_path."lib/index_child_class.php");
 $index_child_class = new index_child_class($db);
 $have_points = $index_child_class->getHave_points();
@@ -21,6 +22,8 @@ $have_money = $have_points+$savings;
 $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
+
+$index_child_class->message($db, $_SESSION['join']);
 ?>
 
 
@@ -132,6 +135,17 @@ $message_count = $index_child_class->getMessageCount();
             <?php else : ?>
                 <p>メッセージがありません</p>
             <?php endif; ?>
+            <form action="" method="POST">
+            <input type="hidden" name="check" value="checked">
+                <p>誰に送るか</p>
+                <select name="receiver">
+                    <option value=""></option>
+                    <?php $index_child_class->getFamilyUser(); ?>
+                </select>
+                <input type="text" name="message">
+                <button type="submit">返信</button>
+            </form>
+                
             </div>
             </div>
         </div>
@@ -141,7 +155,7 @@ $message_count = $index_child_class->getMessageCount();
 <!-- ナビゲーションバー -->
 <?php include_once("./include/bottom_nav.php") ?>
 
-<script>
+<script>    
     let select = document.getElementById('user_select');
     let count = <?php echo $message_count; ?>;
 

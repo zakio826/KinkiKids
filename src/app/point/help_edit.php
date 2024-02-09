@@ -60,6 +60,7 @@ if (!empty($_POST)) {
         <button type="submit">更新</button>
     </form>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

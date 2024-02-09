@@ -32,5 +32,7 @@ if(isset($_SESSION['exchange_points'])) {
         <button type="submit">ポイント交換</button>
     </form>
 <main>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 
 <?php require_once("../include/footer.php"); ?>

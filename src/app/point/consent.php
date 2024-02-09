@@ -46,6 +46,7 @@ $helps = $consent->display_consent_help($user_id);
     </div>
     </section>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
