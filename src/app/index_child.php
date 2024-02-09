@@ -30,34 +30,43 @@ $message_count = $index_child_class->getMessageCount();
 <main>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
-        <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
+        <img class="d-block mx-auto py-3 index_child_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
     
     <section class="position-relative h-75">
-        <div class="index_child_mokuhyoucss">
+        <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
                 <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
                     <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                     <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                <span>
                 </a>
             <?php else : ?>
-                <p>目標がないので設定してください</p>
+                <span><p>目標がないので設定してください</p></span>
             <?php endif; ?>
             </div>
         </div>
-        <hr>
+        <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
-        <div class="index_child_mokuhyoucss4">
-            ちょきん: <?php echo htmlspecialchars($savings); ?> えん　　
-            てもち: <?php echo htmlspecialchars($have_points); ?> ポイント
+            <div class="index_child_mokuhyoucss4">
+            <p>
+                しょじきん: <span><?php echo htmlspecialchars($savings); ?></span> えん　
+                てもち: <span><?php echo htmlspecialchars($have_points); ?></span> ポイント
+            </p>
 
-            <br>ごうけい: <?php echo htmlspecialchars($have_money); ?> えん
             <?php if($goal_count != 0) : ?>
-                <br>きょうかせぐポイント: <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?> ポイント
+                <p>
+                    <br>きょうかせぐポイント: 
+                    <span>
+                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                    </span> ポイント
+                </p>
             <?php else : ?>
-                <br>目標がないので設定してください
+                <p class="index_child_moji">
+                    <br>目標がないので設定してください
+                </p>
             <?php endif; ?>
         </div>
         </div>
@@ -93,7 +102,42 @@ $message_count = $index_child_class->getMessageCount();
         <p id="order-string"></p>
 
 
+            </div>
+        </div>
+        <hr class="index_child_hr">
+        <br>
 
+        <!-- <hr class="index_child_hr"> -->
+        <div class="index_child_messagecss1">
+            <div class="index_child_messagecss2">
+            <div class="index_child_messagecss3">
+
+            <!-- <span>
+                <p>メッセージ</p>
+            </span> -->
+            <p><img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40></p>
+            <select id="user_select">
+                <option value=""></option>
+                <?php $index_child_class->getFamilyUser(); ?>
+            </select>
+
+            <p id="order-string"></p><br>
+
+            <?php if ($message_count != 0) : ?>
+                <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                    ➡
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                    
+                    <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> </p>
+                    <hr>
+                <?php endfor; ?>
+            <?php else : ?>
+                <p>メッセージがありません</p>
+            <?php endif; ?>
+            </div>
+            </div>
+        </div>
     </section>
     <!-- ナビゲーションバー -->
     <?php include_once("./include/bottom_nav.php") ?>
@@ -120,7 +164,6 @@ $message_count = $index_child_class->getMessageCount();
         document.getElementById('order-string').innerHTML = str;
     });
 </script>
-
 
 <!-- フッター -->
 <?php include_once("./include/footer.php"); ?>

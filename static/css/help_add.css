@@ -3,7 +3,7 @@
 /* ボタンの基本的なスタイル */
 button {
     padding: 10px 70px;
-    background-color: #6784EC; /* ボタンの背景色 */
+    background-color: #525ED2; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     border: none; /* ボーダーをなしに設定 */
     border-radius: 5px; /* ボタンの角を丸くする */
@@ -23,8 +23,6 @@ main{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #7f98f1; /* テキストの色を指定 */
-    
     border-radius: 5px;
     font-size: 20px; /* フォントサイズを16pxに変更 */
     font-weight: bold; /* フォントを太字に変更 */
@@ -32,12 +30,32 @@ main{
 }
 
     /* フォーム内のテキストのスタイル */
-form p {
+/* form p {
     font-weight: bold;
-    text-align: left; /* テキストを左寄せにする */
+    text-align: left; テキストを左寄せにする
     -webkit-text-stroke: 1px rgb(40, 155, 248);
-    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; 白で縁取り
 
+} */
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #7f98f1; /*テキストの色を指定 */
+}
+
+input {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+input[type="text"] ,[type="number"]{
+    width: 90%;
+}
+
+input[type="checkbox"] {
+    padding: 5px;
+    margin-right: 10px; /* 右側に10pxの空白を追加 */
 }
 
 /* 黄色の枠部分 */
@@ -54,4 +72,58 @@ form p {
     font-weight: bold;
     color: rgb(255, 136, 136);
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+.choice {
+    color: #7f98f1; /*テキストの色を指定 */
+    margin-bottom: 0;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-1 {
+    background-color: #525ED2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 120px;
+}
+
+.btn-2 {
+    background-color: #ce3f3f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 120px;
+}
+
+.content h1 {
+    font-weight: bold;
+    color: rgb(255, 136, 136);
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+strong {
+    font-weight: 500;
+    color: #a0a0a0;
+    margin-bottom: 0;
+}
+
+.mt-1 {
+    margin-bottom: 3px;
+    color: #7f98f1; /*テキストの色を指定 */
+    font-size: 23px;
+    font-weight: 900;
 }
