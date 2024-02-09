@@ -11,6 +11,7 @@ include("../include/header.php");
 <?php // ページの最初に行う処理
  require($absolute_path."lib/setting_norma_class.php");
  $setting_norma = new setting_norma($db);
+ $familyId = $_SESSION['join']['family_id'];
 ?>
 
 
@@ -28,6 +29,29 @@ include("../include/header.php");
                     <input id="norma_amount" type="number" name="norma_amount" placeholder="500" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
                     <!-- <b>pt</b> -->
                     <?php $setting_norma->norma_error(); ?>
+                </div>
+
+                <div class="control-1">
+                    <label for="norma_user">子供</label>
+                    <select id="norma_user" name="norma_user">
+                        <?php
+                        // セッションから家族IDを取得
+                        $familyId = $_SESSION['join']['family_id'];
+
+                        // 家族IDに基づいてユーザーを取得
+                        $familyUsers = $setting_norma->getFamilyUsers($familyId);
+                         $new_user = array($familyUsers["user_id"] => $familyUsers["first_name"]);
+
+
+                        
+
+
+                        // プルダウンメニューにユーザーを表示
+                        foreach ($new_user as $key => $value) {
+                            echo  '<option value="' . $key . '">' . $value . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="control-1">

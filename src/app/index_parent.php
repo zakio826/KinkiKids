@@ -36,12 +36,6 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
             <div class="row row-cols-1 row-cols-md-3 gx-3 gy-5 justify-content-around">
                 <div class="col col-md-2">
                     <div class="row row-cols-2 row-cols-md-1 gy-4 justify-content-around">
-                        <a class="col-5 col-md py-4 action-btn" href="./point/help_add.php">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/mission.png">
-                        </a>
-                        <div class="col-5 col-md py-4 action-btn">
-                            <img class="d-block mx-auto" src="<?php echo $absolute_path; ?>static/assets/Coin.png">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -55,6 +49,7 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         目標：<p id="goal_detail"></p>
         期限：<p id="goal_deadline"></p>
         値段：<p id="target_amount"></p>
+        貯金：<p id="savings"></p>
 
     </section>
 
@@ -64,6 +59,10 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 
 <script>
     let select = document.getElementById('user_select');
+    let goal_detail = '';
+    let goal_deadline = '';
+    let target_amount = '';
+    let savings;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user_select').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -73,9 +72,9 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
                     $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
                 ?>
                 <?php if($today->format('Y-m-d') <= $deadline->format('Y-m-d')){ ?>
-                     let goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
-                     let goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
-                     let target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+                     goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
+                     goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
+                     target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
                 <?php } ?>
             }
         <?php } ?>

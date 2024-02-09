@@ -9,6 +9,11 @@ class setting_norma {
         $this->db = $db;
         $this->error = []; // 初期化
 
+        $user_id = $_SESSION["user_id"];
+
+        $family_id = $this->getFamilyId($user_id);
+        $_SESSION['join']['family_id'] = $family_id;
+
         if (!empty($_POST)) {
 
             // 入力情報に空白がないか検知
@@ -64,6 +69,16 @@ class setting_norma {
                 case 'blank': echo '*期限を入力してください。'; break;
             }
         }
+    }
+
+    public function getFamilyUsers($familyId) {
+        // データベースから家族IDが一致するユーザーを取得するクエリを実行する
+        $stmt = $this->db->prepare("SELECT user_id ,first_name FROM user WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $familyId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 }
 ?>
