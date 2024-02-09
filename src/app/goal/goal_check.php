@@ -46,6 +46,7 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
         <p class="mt-2"><a href="goal_list.php" class="btn">目標リスト</a></p>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

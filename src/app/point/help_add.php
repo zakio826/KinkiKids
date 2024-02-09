@@ -122,4 +122,6 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
         
     </div>
 </main>
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <?php require_once("../include/footer.php"); ?>
