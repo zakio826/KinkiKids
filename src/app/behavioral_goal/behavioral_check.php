@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "入力情報確認";
-$stylesheet_name = "norma_check.css";
+$stylesheet_name = "behavioral_check.css";
 require_once("../include/header.php");
 ?>
 
@@ -60,6 +60,7 @@ $behavioral_user_name = $behavioral_check->getusername();
         </div>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
