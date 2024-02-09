@@ -1,6 +1,13 @@
 <?php
 $page_title = "お手伝い登録";
 $stylesheet_name = "help_add.css";
+// // require_once("../include/header.php");
+// $select = $_SESSION["select"];
+// if($select === "adult"){
+//     $stylesheet_name = "help_add_adult.css";
+// }else{
+//     $stylesheet_name = "help_add_child.css";
+// }
 require_once("../include/header.php");
 ?>
 
@@ -54,10 +61,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <?php foreach ($helps as $help): ?>
                         <li>
                             <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?> <br>
-
                             <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?><br>
-
-                            <strong>お手伝い詳細</strong> <?php echo $help['help_detail']; ?><br>
                             <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
                         <button type="submit">登録</button>
                     </form>
