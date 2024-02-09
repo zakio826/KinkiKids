@@ -2,7 +2,7 @@
 
 <?php
 $page_title = "目標設定";
-$stylesheet_name = "goal.css";
+$stylesheet_name = "goal_adult.css";
 require_once("../include/header.php");
 ?>
 
