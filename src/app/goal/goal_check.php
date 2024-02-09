@@ -47,6 +47,6 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
     </div>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

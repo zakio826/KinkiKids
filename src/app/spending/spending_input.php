@@ -96,6 +96,6 @@ require_once($absolute_path."lib/functions.php");
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/import.js"></script>
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/functions.js"></script>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

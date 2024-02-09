@@ -227,6 +227,6 @@ for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
 <!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script> -->
 <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
