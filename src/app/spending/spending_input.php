@@ -65,11 +65,22 @@ include("../include/header.php");
             <?php endwhile; ?>
         </select>
         <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+		<div id="paymentMethodBox" class="u-js__show-switch flex p-form__flex-input sp-change-order">
+			<p class="long-name">支払い方法</p>
+			<select name="payment_method" id="paymentMethod" onchange="hasChildSelect('2', creditSelectBox, qrChecked);hasChildSelect('3', qrSelectBox, creditChecked);">
+				<option value="0">選択してください</option>
+				<option value="1">現金</option>
+				<option value="2" id="radioCredit">クレジット</option>
+				<option value="3" id="radioQr">スマホ決済</option>
+			</select>
+			<!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+		</div>
+
 		<div>
 			<textarea name="memo" id="" cols="45" rows="5" placeholder="入力収支の詳細"></textarea>
 		</div>
 
-		<input class="c-button c-button--bg-blue" type="submit" value="登録">
+			<input class="c-button c-button--bg-blue" type="submit" value="登録">
 		</form>
 	</section>
 </main>
