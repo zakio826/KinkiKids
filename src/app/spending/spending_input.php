@@ -1,22 +1,13 @@
+<!-- ヘッダー -->
 <?php
-	$page_title = "収支";
-	require_once("../include/header.php");
-	require_once($absolute_path."lib/functions.php");
+$page_title = "収支";
+$stylesheet_name = "spending_input.css";
+include("../include/header.php");
+require_once($absolute_path."lib/functions.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-
-<!-- ヘッダー -->
-<?php
-$page_title = "カレンダー";
-$stylesheet_name = "spending_input.css";
-include("../include/header.php");
-?>
-
-
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
 
 <main class="l-main">
 
@@ -42,10 +33,10 @@ include("../include/header.php");
             <?php
               $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
               sql_check($stmt_spendingcat, $db);
-              $stmt_spendingcat->bind_result($id, $name);
-                while ($stmt_spendingcat->fetch()) :
+              $stmt_spendingcat->execute();
+                while ($row = $stmt_spendingcat->fetch(PDO::FETCH_ASSOC)) :
             ?>
-            <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
+            <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
             <?php endwhile; ?>
         </select>
         <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
@@ -54,13 +45,14 @@ include("../include/header.php");
         <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
         <p class="long-name">収入カテゴリー</p>
         <select name="income_category" id="incomeCategory">
+		<option value="0">選択してください</option>
             <?php
               $stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
               sql_check($stmt_incomecat, $db);
-              $stmt_incomecat->bind_result($id, $name);
-              while ($stmt_incomecat->fetch()) :
+              $stmt_incomecat->execute(); // 実行する必要があります
+          	  while ($row = $stmt_incomecat->fetch(PDO::FETCH_ASSOC)) :
               ?>
-                <option value="<?php echo h($id); ?>"><?php echo h($name); ?></option>
+                <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
             <?php endwhile; ?>
         </select>
         <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
