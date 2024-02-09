@@ -73,19 +73,17 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <?php foreach ($helps as $help_data): ?>
-                <ul>
-                    <li>
-                        <!--<strong>お手伝い名:</strong>--> <?php echo $help_data['help_name']; ?><br>
-        
+                    
+                        <!--<strong>お手伝い名:</strong>--> <?php echo $help_data['help_name']; ?>
+                        &ensp;
                         <?php if ($select === 'child' and isset($help_data['help_detail'])) : ?>
-                        <strong>お手伝い詳細:</strong><?php $help->person_select($help_data['help_detail']); ?><br>
+                        <strong>お手伝い詳細:</strong><?php $help->person_select($help_data['help_detail']); ?>
                         <?php endif; ?>
 
                         <!--<strong>獲得ポイント:</strong>--> <?php echo $help_data['get_point']; ?><strong>pt</strong>
-                        &emsp; 
-                        <strong>担当者 :</strong>&ensp;  <?php $help->person_select($help_data['help_id']); ?><br>
-                    </li>
-                </ul>
+                        &ensp;  <?php $help->person_select($help_data['help_id']); ?>
+                    
+
 
                     
                 <?php if ($select === 'adult'): ?>

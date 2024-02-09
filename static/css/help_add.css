@@ -24,7 +24,7 @@ main{
     justify-content: center;
     min-height: 100vh;
     border-radius: 5px;
-    font-size: 20px; /* フォントサイズを16pxに変更 */
+    font-size: 18px; /* フォントサイズを16pxに変更 */
     font-weight: bold; /* フォントを太字に変更 */
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
@@ -94,7 +94,7 @@ input[type="checkbox"] {
 
 .btn-group {
     display: flex;
-    justify-content: space-between;
+    margin-left: 40px;
     align-items: center;
 }
 
@@ -107,7 +107,8 @@ input[type="checkbox"] {
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
-    width: 90px;
+    width: 60px;
+    margin-top: revert-layer;
 }
 
 .btn-2 {
@@ -119,7 +120,8 @@ input[type="checkbox"] {
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
-    width: 90px;
+    width: 60px;
+    margin-top: revert-layer
 }
 
 .content h1 {
@@ -149,9 +151,9 @@ strong {
     max-width: 400px;
     margin: 0 auto;
     overflow-y: scroll; /* 垂直方向のスクロールバーを表示 */
-    height: 150px; /* コンテンツの高さに合わせて調整（必要に応じて） */
+    height: 170px; /* コンテンツの高さに合わせて調整（必要に応じて） */
     border-radius: 10px; /* スクロールバーの角を丸くする */
-    
+
 }
 
 .btn-touroku{
