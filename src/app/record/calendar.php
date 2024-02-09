@@ -44,15 +44,11 @@ $column = "";
 for ($i = 0; $i < count($columns); $i++) {
     foreach ($columns[$i] as $key => $value) {
         $column .= $value. " AS `". $key. "`";
-        // echo $column. "<br>";
     }
     if ($i+1 < count($columns)) {
         $column .= ", ";
     }
 }
-// foreach ($columns as $key => $value) {
-//     $column .= $value. " AS ". $key;
-// }
 
 $start_ym = date("Y-m", strtotime("-4 month", $this_date));
 $this_ym = date("Y-m", $this_date);
@@ -63,17 +59,10 @@ $wheres = array(
     "income_expense_flag =",
 );
 
-// $group_by = "`年月`";
-
-$where = "";
-
 $dataset = array(
     "name" => ["expense_data", "income_data", "balance_data"],
     "query" => [],
     "data" => [],
-    // ["expense_data" => ""],
-    // ["income_data" => ""],
-    // ["balance_data" => ""],
 );
 
 for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
@@ -94,8 +83,8 @@ for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
     if ($i != 0) {
         array_push($dataset["data"], $dataset["data"][0]);
     }
-
     $n = 0;
+
     foreach ($dataset["query"][$i] as $index => $item) {
         foreach ($item as $key => $value) {
             if (gettype($key) !== "integer") {
@@ -116,29 +105,6 @@ for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
         $n++;
     }
 }
-
-// array_push($dataset["data"], $dataset["data"][0]);
-
-// for ($i = 0; $i < count($dataset["data"][2]))
-// $dataset["data"][2]
-
-
-// $order_by = "'年月' ASC";
-
-// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where." GROUP BY ".$group_by.";";
-// $balance_data =  $db->query($sql);
-// $ttt = [$sql];
-
-// $income_expense_flag = " AND income_expense_flag = ";
-
-// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."0 GROUP BY ".$group_by.";";
-// $income_data =  $db->query($sql);
-// array_push($ttt, $sql);
-
-// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."1 GROUP BY ".$group_by.";";
-// $expense_data =  $db->query($sql);
-// array_push($ttt, $sql);
-
 ?>
 
 <?php  // 表示月以前5か月分の月間収支データを取得
@@ -246,32 +212,7 @@ for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
 
 
 <script>
-    // console.log("<?php //echo $ttt[0] ?>");
-    // console.log("<?php //echo $ttt[1] ?>");
-    // console.log("<?php //echo $ttt[2] ?>");
-
     <?php
-    // $dataset = [
-    //     "balance_data" => $balance_data,
-    //     "income_data" => $income_data,
-    //     "expense_data" => $expense_data,
-    // ];
-    // foreach ($dataset as $name => $data) {
-    //     $data_array = array();
-    //     foreach ($data as $index => $item) {
-    //         foreach ($item as $key => $value) {
-    //             if (gettype($key) !== "integer") {
-    //                 if ($index == 0) {
-    //                     $data_array += [$key => [$value]];
-    //                 } else {
-    //                     array_push($data_array[$key], $value);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     echo "const ". $name. " = JSON.parse('". json_encode($data_array, JSON_UNESCAPED_UNICODE). "');";
-    //     echo "console.log(". $name. ");";
-    // }
     for ($i = 0; $i < count($dataset["name"]); $i++) {
         echo "const ". $dataset["name"][$i]. " = JSON.parse('". json_encode($dataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
         echo "console.log(". $dataset["name"][$i]. ");";
