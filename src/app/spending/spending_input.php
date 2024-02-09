@@ -1,22 +1,13 @@
+<!-- ヘッダー -->
 <?php
-	$page_title = "収支";
-	require_once("../include/header.php");
-	require_once($absolute_path."lib/functions.php");
+$page_title = "収支";
+$stylesheet_name = "spending_input.css";
+include("../include/header.php");
+require_once($absolute_path."lib/functions.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-
-<!-- ヘッダー -->
-<?php
-$page_title = "カレンダー";
-$stylesheet_name = "spending_input.css";
-include("../include/header.php");
-?>
-
-
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
 
 <main class="l-main">
 
