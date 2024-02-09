@@ -13,7 +13,6 @@
                 $help_log_id = $_POST["child_consent_help_log_id"];
                 $user_id = $_POST["child_consent_user_id"];
                 $get_point = $_POST["child_consent_get_point"];
-                
                 $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 0 WHERE help_log_id = :help_log_id");
                 $stmt->bindParam(':help_log_id', $help_log_id);
                 $stmt->execute();
