@@ -31,7 +31,15 @@ class index_parent_class {
         }
     }
 
-    public function getFamily($i) {
+    public function getPoint($i) {
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $i);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getFamily() {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
