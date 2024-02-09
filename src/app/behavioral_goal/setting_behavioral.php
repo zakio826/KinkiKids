@@ -35,7 +35,7 @@ include("../include/header.php");
                     <label for="behavioral_user">子供</label>
                     <select id="behavioral_user" name="behavioral_user">
                         <?php
-                        // セッションから家族IDを取得（実際のアプリケーションのロジックに合わせて修正してください）
+                        // セッションから家族IDを取得
                         $familyId = $_SESSION['join']['family_id'];
 
                         // 家族IDに基づいてユーザーを取得
