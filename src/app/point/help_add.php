@@ -1,6 +1,13 @@
 <?php
 $page_title = "お手伝い登録";
 $stylesheet_name = "help_add.css";
+// // require_once("../include/header.php");
+// $select = $_SESSION["select"];
+// if($select === "adult"){
+//     $stylesheet_name = "help_add_adult.css";
+// }else{
+//     $stylesheet_name = "help_add_child.css";
+// }
 require_once("../include/header.php");
 ?>
 
