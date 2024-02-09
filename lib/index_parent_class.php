@@ -317,10 +317,5 @@ class index_parent_class {
             }
         }
     }
-
-    public function isDeadlinePassed($goal_deadline) {
-        $current_date = date('Y-m-d'); // 現在の日付を取得
-        return ($goal_deadline < $current_date);
-    }
 }
 ?>
