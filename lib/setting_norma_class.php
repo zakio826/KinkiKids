@@ -9,17 +9,15 @@ class setting_norma {
         $this->db = $db;
         $this->error = []; // 初期化
 
-
         if (!empty($_POST)) {
-            /* 入力情報に空白がないか検知 */
+
+            // 入力情報に空白がないか検知
             if (empty($_POST['norma_amount'])) {
                 $this->error['norma_amount'] = 'blank';
             }
             if (empty($_POST['point_norma_deadline'])) {
                 $this->error['point_norma_deadline'] = "blank";
             }
-
-
             
             // エラーがなければ次のページへ
             if (empty($this->error)) {
@@ -34,8 +32,8 @@ class setting_norma {
                 $_SESSION['join']['user_id'] = $user_id;
                 $_SESSION['join']['family_id'] = $family_id;
                 $_SESSION['join']['point_norma_created_date'] = $point_norma_created_date;
-                header('Location: ./norma_check.php');
-                exit();
+
+                header('Location: ./norma_check.php'); exit();
             }
         }
     }
@@ -49,13 +47,12 @@ class setting_norma {
 
         return $result['family_id'];
     }
+
     public function norma_error() {
         if (!empty($this->error['norma_amount'])) {
             switch ($this->error['norma_amount']) {
                 //ノルマが入力されてなければエラーを表示
-                case 'blank':
-                    echo '*ノルマを入力してください。';
-                    break;
+                case 'blank': echo '*ノルマを入力してください。'; break;
             }
         }
     }
@@ -64,14 +61,9 @@ class setting_norma {
         if (!empty($this->error['point_norma_deadline'])) {
             switch ($this->error['point_norma_deadline']) {
                 //期限が入力されてなければエラーを表示
-                case 'blank':
-                    echo '*期限を入力してください。';
-                    break;
+                case 'blank': echo '*期限を入力してください。'; break;
             }
         }
     }
-
-
 }
 ?>
-

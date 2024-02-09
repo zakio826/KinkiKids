@@ -9,7 +9,6 @@ class family_add {
         $this->error = [];
 
         if (!empty($_POST)) {
-            
             $usernames = $_POST['username'];
             $passwords = $_POST['password'];
             $first_names = $_POST['first_name'];
@@ -27,6 +26,7 @@ class family_add {
 
             // フォームから送信された各ユーザー情報をループ処理
             for ($i = 0; $i < count($usernames); $i++) {
+
                 // 入力情報に空白がないか検知
                 if ($usernames[$i] === "") {
                     $error['username'][$i] = "blank";
@@ -63,6 +63,7 @@ class family_add {
                 $user = $this->db->prepare('SELECT COUNT(*) as cnt FROM user WHERE username=?');
                 $user->execute(array($usernames[$i]));
                 $record = $user->fetch();
+
                 if ($record['cnt'] > 0) {
                     $error['username'][$i] = 'duplicate';
                 }
@@ -70,22 +71,18 @@ class family_add {
             
             // エラーがなければ次のページへ
             if (!isset($error)) {
-
                 $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理
                 for ($i = 0; $i < count($usernames); $i++) {
-                    
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
                     $firstlogin = date('Y-m-d');
                     $adminFlag = isset($admin_flags[$i]) ? 1 : 0;
 
                     $statement = $this->db->prepare(
-                        "INSERT INTO user 
-                        (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                        "INSERT INTO user (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login) ".
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
-
 
                     $statement->execute(array(
                         $usernames[$i],
@@ -105,13 +102,13 @@ class family_add {
                     $allowedRoleIds = [31, 32, 33, 34];
                     if (in_array($role_ids[$i], $allowedRoleIds)) {
                         $allowanceStatement = $this->db->prepare(
-                            "INSERT INTO allowance (user_id, family_id, allowance_amount, payment_day)
-                            VALUES (?, ?, ?, ?)"
+                            "INSERT INTO allowance (user_id, family_id, allowance_amount, payment_day) ".
+                            "VALUES (?, ?, ?, ?)"
                         );
                         
                         $childStatement = $this->db->prepare(
-                            "INSERT INTO child_data (user_id, have_points, max_lending, allowance_id, savings)
-                            VALUES (?, ?, ?, ?, ?)"
+                            "INSERT INTO child_data (user_id, have_points, max_lending, allowance_id, savings) ".
+                            "VALUES (?, ?, ?, ?, ?)"
                         );
                         
                         $allowanceStatement->execute(array(
@@ -137,8 +134,7 @@ class family_add {
                 unset($_SESSION['join']);   // セッションを破棄
                 $_SESSION['family_success'] = true;
                 $_SESSION['family_count'] = count($usernames);
-                header('Location: ../index.php');   // thank.phpへ移動
-                exit();
+                header('Location: ../index.php'); exit(); // thank.phpへ移動
             }
         }
     }
@@ -171,19 +167,14 @@ class family_add {
         return $result['allowance_id'];
     }
 
-
     public function role_select(){
         // $this->db が null でないことを確認
         if ($this->db !== null) { 
             $stmt = $this->db->query("SELECT role_id,role_name FROM role");
             foreach($stmt as $record){
-                echo '<option value="';
-                echo $record[0];
-                echo '">';
-                echo $record[1];
-                echo "</option>";
+                echo '<option value="' . $record[0] . '">' . $record[1] . "</option>";
             }
         }
     }
 }
-
+?>

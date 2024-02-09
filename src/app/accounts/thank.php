@@ -14,9 +14,7 @@ require_once("../include/header.php");
                 <img src="<?php echo $absolute_path; ?>static/assets/registration_completedC.png" height="100" class="registration_completedC">
                 
                 <h1>ユーザー登録が完了しました。</h1>
-                <p>下のボタンよりログインページに移動してください。</p>
-                
-                <br>
+                <p class="mb-3">下のボタンよりログインページに移動してください。</p>
 
                 <p><a href="./login.php"><button class="btn btn-primary">ログインページに移動する</button></a></p>
             </div>

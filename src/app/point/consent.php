@@ -11,10 +11,6 @@ include("../include/header.php");  // appディレクトリ直下であれば、
 require($absolute_path."lib/conset_class.php");
 $consent = new consent($db);
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../accounts/login.php", true , 301);
-    exit;
-}
 $user_id = $_SESSION["user_id"];
 $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
