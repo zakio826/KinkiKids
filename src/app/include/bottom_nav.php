@@ -59,13 +59,13 @@ li.bottom_nav_bar4 {
 /* ホーム以外のアイコンスタイル */
 .bottom_nav_img1 {
     height: 50px;
-    margin-bottom: -10px;
+    /* margin-bottom: -10px; */
 }
 
 /* ホームのアイコンスタイル） */
 .bottom_nav_img2 {
     height: 55px;
-    margin-bottom: -10px;
+    /* margin-bottom: -10px; */
 }
 
 /* アイコン下の文字スタイル */
@@ -148,32 +148,32 @@ a:hover {
             <li class="bottom_nav_bar4">
                 <a href="<?php echo $absolute_path; ?>src/app/record/calendar.php">
                 <img src="../../static/assets/calendar_yellow.png" alt="カレンダー" class="bottom_nav_img1">
-                <br><b class="bottom_nav_font1">カレンダー</b>
                 </a>
+                <br><b class="bottom_nav_font1">カレンダー</b>
             </li>
             <li class="bottom_nav_bar4">
                 <a href="<?php echo $absolute_path; ?>src/app/point/help_add.php">
                 <img src="../../static/assets/help_mission.png" alt="お手伝い" class="bottom_nav_img1">
-                <br><b class="bottom_nav_font1">おてつだい</b>
                 </a>
+                <br><b class="bottom_nav_font1">おてつだい</b>
             </li>
             <li class="bottom_nav_bar4">
                 <a href="<?php echo $absolute_path; ?>src/app/index.php">
                     <img src="../../static/assets/homeB.png" alt="ホーム" class="bottom_nav_img2">
-                <br><b class="bottom_nav_font1">ホーム</b>
                 </a>
+                <br><b class="bottom_nav_font1">ホーム</b>
             </li>
             <li class="bottom_nav_bar4">
                 <a href="">
                 <img src="../../static/assets/bank_icon.png" alt="ぎんこう" class="bottom_nav_img1">
-                <br><b class="bottom_nav_font1">ぎんこう</b>
                 </a>
+                <br><b class="bottom_nav_font1">ぎんこう</b>
             </li>
             <li class="bottom_nav_bar4">
                 <a href="<?php echo $absolute_path; ?>src/app/spending/spending_input.php">
                 <img src="../../static/assets/okodukaityouA.png" alt="お小遣い帳" class="bottom_nav_img1">
-                <br><b class="bottom_nav_font1">おこづかい帳</b>
                 </a>
+                <br><b class="bottom_nav_font1">おこづかい帳</b>
             </li>
             
             <!-- <div class="bottom_nav_bar3">
