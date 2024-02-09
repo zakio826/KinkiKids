@@ -21,17 +21,6 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     unset($_SESSION['family_success'], $_SESSION['family_count']);
 }
 
-echo '<script>';
-foreach ($index_parent_class->getFamily() as $child) {
-    $goal_deadline = $child['goal_deadline'];
-    if ($index_parent_class->isDeadlinePassed($goal_deadline)) {
-        echo 'alert("子供の目標の期限が過ぎています！");';
-        echo 'window.location.href = "./goal/again_goal.php";'; 
-        break;
-    }
-}
-echo '</script>';
-
 ?>
 
 <!-- ナビゲーションバー -->
