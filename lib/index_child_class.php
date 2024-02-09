@@ -139,7 +139,7 @@ class index_child_class{
         foreach ($result as $deadline){
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
                 return $deadline['target_amount'];
             }
         }
@@ -153,9 +153,10 @@ class index_child_class{
         foreach ($result as $deadline){
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
                 return $deadline['goal_deadline'];
             }
+
         }
     }
     public function getGoal_detail(){
@@ -167,9 +168,11 @@ class index_child_class{
         foreach ($result as $deadline){
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
                 return $deadline['goal_detail'];
             }
+
+            
         }
     }
     public function getRequired_point(){
@@ -181,7 +184,7 @@ class index_child_class{
         foreach ($result as $deadline){
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
                 
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
@@ -237,7 +240,7 @@ class index_child_class{
         foreach ($result as $deadline){
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
 
                 
                 $date01 = new DateTime('now');
@@ -273,14 +276,18 @@ class index_child_class{
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $allowance_amount = $result['allowance_amount'];
-                
-                $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                if($diff2->format('%a')>0){
+                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                }else{
+                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m));
+                }
                 
                 if ($answer >= 0){
                     return $answer;
                 } else {
                     return 0;
                 }
+
             }
         }
     }
