@@ -39,7 +39,6 @@ $helps = $consent->display_consent_help($user_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
-                        <input type="hidden" name="consent_get_point" value="<?php echo $help_data['get_point']; ?>">  
                         <button type="submit">承認する</button>
                     </form>
                 </li>
