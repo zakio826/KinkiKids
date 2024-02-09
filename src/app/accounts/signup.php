@@ -1,12 +1,14 @@
+<!-- サインアップのPHP(未機能) -->
+
+<!-- ヘッダー -->
 <?php
-//サインアップのPHP(未機能)
+$page_title = "サインアップ";
+require_once("../include/header.php");
+?>
 
+<?php
 //ファイルの読み込み
-require_once("../../../config/db_connect.php");
-require_once("../../../lib/functions.php");
-
-//セッションの開始
-session_start();
+require_once($absolute_path."lib/functions.php");
 
 //POSTされてきたデータを格納する変数の定義と初期化
 $datas = [
@@ -81,11 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-<?php
-$page_title = "サインアップ";
-require_once("../include/header.php");
-?>
-
 <main>
     <div class="wrapper">
         <h2>Sign Up</h2>
@@ -96,20 +93,24 @@ require_once("../include/header.php");
                 <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['username']); ?></span>
             </div>    
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </div>
+
             <div class="form-group">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty(h($errors['confirm_password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['confirm_password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['confirm_password']); ?></span>
             </div>
+
             <div class="form-group">
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
                 <input type="submit" class="btn btn-primary" value="Submit">
             </div>
+            
             <p>Already have an account? <a href="./login.php">Login here</a>.</p>
         </form>
     </div>    

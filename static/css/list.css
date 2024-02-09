@@ -1,0 +1,118 @@
+/* list.css */
+
+/* Reset some default styles for better consistency */
+body, h1, h2, ul, li {
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-size: 24px; /* You can change this value to your preferred font size */
+}
+
+/* Apply a cute font style */
+body {
+    font-family: 'YourCuteFont', sans-serif; /* Replace 'YourCuteFont' with the actual cute font name */
+    background-color: #FFF1AA;
+    color: #333;
+}
+
+/* Style for the content container */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FFF1AA;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the list of goals */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for each goal item */
+li {
+    border: 1px solid #FFD966;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    color: #333;
+}
+
+/* Media query for small screens (e.g., smartphones) */
+@media screen and (max-width: 767px) {
+    li {
+        padding: 10px;
+    }
+}
+
+.btn-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    margin:0 auto;
+    padding: .9em 2em;
+    border: none;
+    border-radius: 25px;
+    background-color: #ffeb6b;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.btn-primary::after {
+    transform: rotate(45deg);
+    width: 5px;
+    height: 5px;
+    margin-left: 10px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    content: '';
+}
+
+.btn-primary:hover {
+    background-color: #efdb5b;
+}
+
+/* Style for the button */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    background-color: #FFF1AA;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.btn:hover {
+    background-color: #FFC107;
+}
+
+.btn-primary {
+    background-color: #FFC107;
+}
+
+/* Media query for small screens (e.g., smartphones) */
+@media screen and (max-width: 767px) {
+    .btn {
+        padding: 10px 20px;
+    }
+}
+
+/* Center-align the button */
+.center-button {
+    text-align: center;
+}
