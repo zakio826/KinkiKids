@@ -54,7 +54,10 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
             <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
-        <p id="order-string"></p>
+        <br>
+        目標：<p id="goal_detail"></p>
+        期限：<p id="goal_deadline"></p>
+        値段：<p id="target_amount"></p>
 
     </section>
     <!-- ナビゲーションバー -->
@@ -65,15 +68,10 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 <script>
     let select = document.getElementById('user_select');
     select.addEventListener('change', (e) => {
-        goal = [];
         let selected_value = document.getElementById('user_select').value;
-        <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
-            if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
-                goal.push('<?php echo htmlspecialchars($index_parent_class->getFamily()[$i]['goal_detail']); ?>');
-            }
-        <?php } ?>
-        let str = goal.join('<br>');
-        document.getElementById('order-string').innerHTML = str;
+        document.getElementById('goal_detail').innerHTML = '<?php echo $goal_detail; ?>';
+        document.getElementById('goal_deadline').innerHTML = '<?php echo $goal_deadline; ?>';
+        document.getElementById('target_amount').innerHTML = '<?php echo count($index_parent_class->getFamily()); ?>';
 
 
     });
