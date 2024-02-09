@@ -8,10 +8,17 @@ require_once("../include/header.php");
 require($absolute_path."lib/exchange_class.php");
 $exchange = new Exchange($db);
 
-if (isset($_SESSION['points_success']) && $_SESSION['points_success']) {
-    echo '<script>alert("' . $_SESSION['points_count'] . 'ポイントの換金が完了しました。");</script>';
-    unset($_SESSION['points_success'], $_SESSION['points_count']);
+if(isset($_SESSION['exchange_error'])) {
+    echo '<p class="exchange-error">' . $_SESSION['exchange_error'] . '</p>';
+    unset($_SESSION['exchange_error']);
 }
+
+// セッションからメッセージがある場合に表示し、セッションをクリア
+if(isset($_SESSION['exchange_points'])) {
+    echo '<script>alert("' . $_SESSION['exchange_points'] . 'ポイントの換金が完了しました。");</script>' ;
+    unset($_SESSION['exchange_points']);
+}
+
 ?>
 
 <!-- 以下は HTML フォーム部分 -->

@@ -58,6 +58,7 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         目標：<p id="goal_detail"></p>
         期限：<p id="goal_deadline"></p>
         値段：<p id="target_amount"></p>
+        ちょきん：<p id="saving"></p>
 
     </section>
     <!-- ナビゲーションバー -->
@@ -75,12 +76,14 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
                     goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
                     goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
                     target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+                    saving = '<?php echo $index_parent_class->getPoint($index_parent_class->getFamily()[$i]['user_id'])['savings']; ?>';
                 <?php } ?>
             }
         <?php } ?>
         document.getElementById('goal_detail').innerHTML = goal_detail;
         document.getElementById('goal_deadline').innerHTML = goal_deadline;
         document.getElementById('target_amount').innerHTML = target_amount;
+        document.getElementById('saving').innerHTML = saving;
     });
 </script>
 
