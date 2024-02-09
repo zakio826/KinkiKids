@@ -42,6 +42,7 @@ $helps = $consent->display_consent_help($user_id);
                             <button type="submit" class="btn-2">拒否する</button>
                         </div>
                     </form>
+                    <hr>
                 <?php endforeach; ?>
             </ul>
         </div>
