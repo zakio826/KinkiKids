@@ -49,7 +49,10 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         目標：<p id="goal_detail"></p>
         期限：<p id="goal_deadline"></p>
         値段：<p id="target_amount"></p>
+<<<<<<< HEAD
         貯金：<p id="savings"></p>
+=======
+>>>>>>> 149368c8914379455ac1a4f5721cdd9c2619b572
 
     </section>
 
@@ -72,9 +75,15 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
                     $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
                 ?>
                 <?php if($today->format('Y-m-d') <= $deadline->format('Y-m-d')){ ?>
+<<<<<<< HEAD
                      goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
                      goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
                      target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+=======
+                     let goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
+                     let goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
+                     let target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+>>>>>>> 149368c8914379455ac1a4f5721cdd9c2619b572
                 <?php } ?>
             }
         <?php } ?>
