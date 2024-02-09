@@ -55,7 +55,6 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         目標：<p id="goal_detail"></p>
         期限：<p id="goal_deadline"></p>
         値段：<p id="target_amount"></p>
-        ちょきん：<p id="saving"></p>
 
     </section>
 
@@ -69,18 +68,20 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
         let selected_value = document.getElementById('user_select').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
             if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
-                <?php if(new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']) > new DateTime('now')){ ?>
-                    goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
-                    goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
-                    target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
-                    saving = '<?php echo $index_parent_class->getPoint($index_parent_class->getFamily()[$i]['user_id'])['savings']; ?>';
+                <?php 
+                    $today = new DateTime('now');
+                    $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
+                ?>
+                <?php if($today->format('Y-m-d') <= $deadline->format('Y-m-d')){ ?>
+                     let goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
+                     let goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
+                     let target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
                 <?php } ?>
             }
         <?php } ?>
         document.getElementById('goal_detail').innerHTML = goal_detail;
         document.getElementById('goal_deadline').innerHTML = goal_deadline;
         document.getElementById('target_amount').innerHTML = target_amount;
-        document.getElementById('saving').innerHTML = saving;
     });
 </script>
 
