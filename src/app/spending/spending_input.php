@@ -90,6 +90,9 @@ require_once($absolute_path."lib/functions.php");
 	</section>
 </main>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+
 
 <!-- JavaScript -->
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/radio.js"></script>
