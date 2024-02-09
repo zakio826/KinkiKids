@@ -55,6 +55,7 @@ class index_child_class {
         return array(
             'session_user' => $_SESSION["user_id"],
             'messagetext' => $message[$i]['messagetext'],
+            'sent_time' => $message[$i]['sent_time'],
             'sender' => $sender['first_name'],
             'sender_id' => $sender['user_id'],
             'receiver' => $receiver['first_name'],
@@ -138,7 +139,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['target_amount'];
             }
         }
@@ -153,7 +154,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['goal_deadline'];
             }
 
@@ -169,7 +170,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['goal_detail'];
             }
 
@@ -186,7 +187,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
@@ -242,7 +243,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01->format('Y-m-d') == $date02->format('Y-m-d')){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
 
                 
                 $date01 = new DateTime('now');

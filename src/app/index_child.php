@@ -123,6 +123,7 @@ $message_count = $index_child_class->getMessageCount();
                     
                     <p>
                      <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
                     </p>
 
                     <hr>
