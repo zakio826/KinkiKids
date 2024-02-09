@@ -10,6 +10,7 @@ require_once("../include/header.php");
 <?php
 require($absolute_path."lib/norma_check_class.php");
 $norma_check = new norma_check($db);
+$norma_user_name = $norma_check->getusername(); 
 ?>
 
 
@@ -37,6 +38,11 @@ $norma_check = new norma_check($db);
                             <span class="fas fa-angle-double-right"></span>
                             <span class="check-info"><?php echo htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES); ?></span>
                         </p>
+                    </div>
+
+                    <div class="control_check">
+                        <p class="moji-check">子供:</p>
+                        <p><span class="fas fa-angle-double-right"></span> <span class="check-info"><?php echo htmlspecialchars($norma_user_name, ENT_QUOTES); ?></span></p>
                     </div>
         
                     <div class="mb-3 control_check">
