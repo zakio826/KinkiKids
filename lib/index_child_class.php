@@ -39,7 +39,7 @@ class index_child_class{
         return count($result);
     }
     public function getMessage($i){
-        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id");
+        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id order by sent_time desc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $message = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class index_child_class{
         $family_id = $result['family_id'];
 
         $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
-        $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+        $stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $help_name = $result[$i]['help_name'];
@@ -87,7 +87,7 @@ class index_child_class{
         $family_id = $result['family_id'];
 
         $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id");
-        $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+        $stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $help_count = count($result);

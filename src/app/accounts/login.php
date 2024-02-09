@@ -81,11 +81,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $stmt->execute();
                     
                     //ウェルカムページへリダイレクト
-                    header("Location: ../welcome.php");
+                    header("Location: ./family_add.php");
                 } else {
                     //トップページへリダイレクト
                     // header("Location: ..index.php");
-                    header("Location: ../welcome.php");
+                    header("Location: ../index_child.php");
                 }
                 exit();
             } else {

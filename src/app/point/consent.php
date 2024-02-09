@@ -30,7 +30,6 @@ $helps = $consent->display_consent_help($user_id);
     <section>
     <div class="title">
         <h1>おてつだい承認</h1>
-        <h1>まだ承認ボタン押さないで！！！</h1>
     </div>
     <br>
     <div class ="content">
@@ -40,9 +39,11 @@ $helps = $consent->display_consent_help($user_id);
                     <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                     <strong>担当者</strong>
                     <?php
-                        //$consent->person_select($help_data['help_id']);
+                        $consent->person_select($help_data['help_id']);
                     ?><br>
-                    <form action="" method="post">           
+                    <form action="" method="post">       
+                        <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
+                        <input type="hidden" name="consent_get_point" value="<?php echo $help_data['get_point']; ?>">  
                         <button type="submit">承認する</button>
                     </form>
                 </li>

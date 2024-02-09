@@ -14,10 +14,22 @@ $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
 $helps = $help->display_help($family_id);
-?>
+$options = $help->narrow_down();
 
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
+if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
+    $selectedUserId = $_POST["narrow"];
+    $helps = $help->getHelpsByUserId($selectedUserId);
+} else {
+    // $_POST["narrow"] に何もない場合は全てのお手伝い項目を表示する
+    $family_id = $_SESSION["family_id"];
+    $helps = $help->display_help($family_id);
+}
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../accounts/login.php", true , 301);
+    exit;
+}
+?>
 
 <main>
     <div class="title">
@@ -31,7 +43,6 @@ $helps = $help->display_help($family_id);
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">
                 お手伝い名<input type="text" name="help_name"><br>
-                お手伝い詳細<input type="text" name="help_detail"><br>
                 獲得ポイント<input type="number" name="get_point"><br>
                 担当者　<?php $help->child_select(); ?><br>
 
@@ -48,6 +59,19 @@ $helps = $help->display_help($family_id);
     </div>
    
     <br>
+    <?php if ($select === 'adult'): ?>
+    <div class = "content">
+        <form action="" method="post">
+            <select name="narrow">
+                <?php foreach ($options as $user): ?>
+                    <option value="<?php echo $user['user_id']; ?>"><?php echo $user['first_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit">絞り込む</button>
+        </form>
+    </div>
+    <?php endif; ?>
+    <br>
 
     <div class="content">
         <h2>お手伝い一覧</h2>
@@ -56,29 +80,33 @@ $helps = $help->display_help($family_id);
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <ul>
-                <?php foreach ($helps as $help_data): ?>
+            <?php foreach ($helps as $help_data): ?>
+                <?php if ($select === 'adult'): ?>
                     <li>
                         <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <?php 
-                        if(!($help_data['help_detail'] == "")){
-                            echo "<strong>お手伝い詳細:</strong>";
-                            echo $help_data['help_detail']; 
-                            echo '<br>';
-                        }
-                        ?>
                         <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                         <strong>担当者</strong>
                         <?php
                             $help->person_select($help_data['help_id']);
                         ?><br>
                     </li>
+                <?php endif; ?>
+                <?php if ($select === 'child'): ?>
+                    <li>
+                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                        <strong>担当者</strong>
+                        <?php
+                            $help->person_select($help_data['help_id']);
+                        ?><br>
+                    </li>
+                <?php endif; ?>
                     
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
                             <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">編集</button>
                         </form>
-                        
                         <form action="" method="post">
                             <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                             <button type="submit">削除</button>
@@ -96,7 +124,7 @@ $helps = $help->display_help($family_id);
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
-
+        <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
         <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p>
     </div>
 </main>
