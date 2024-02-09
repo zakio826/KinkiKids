@@ -6,10 +6,7 @@ $page_title = "大人用トップページ";
 $stylesheet_name = "index_parent.css";
 include("./include/header.php");
 ?>
-<<<<<<< HEAD
-=======
 
->>>>>>> f8fc85fbe3e472e7ff45d041823f4bfe93c283ad
 <?php
 // testpointクラスのインスタンスを作成
 require($absolute_path."lib/testpoint_class.php");
