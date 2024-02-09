@@ -75,18 +75,21 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
             <?php foreach ($helps as $help_data): ?>
                 <ul>
                     <li>
-                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        
+                        <!--<strong>お手伝い名:</strong>--> <?php echo $help_data['help_name']; ?><br>
+        
                         <?php if ($select === 'child' and isset($help_data['help_detail'])) : ?>
-                            <strong>お手伝い詳細:</strong><?php $help->person_select($help_data['help_detail']); ?><br>
+                        <strong>お手伝い詳細:</strong><?php $help->person_select($help_data['help_detail']); ?><br>
                         <?php endif; ?>
 
-                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                        <strong>担当者</strong><?php $help->person_select($help_data['help_id']); ?><br>
+                        <!--<strong>獲得ポイント:</strong>--> <?php echo $help_data['get_point']; ?><strong>pt</strong>
+                        &emsp; 
+                        <strong>担当者 :</strong>&ensp;  <?php $help->person_select($help_data['help_id']); ?><br>
                     </li>
                 </ul>
+
                     
                 <?php if ($select === 'adult'): ?>
+                    <div class="btn-group">
                     <form action="help_edit.php" method="get">
                         <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-1">編集</button>
@@ -98,6 +101,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                     </form>
 
                     <hr>
+                    </div>
                 <?php else : ?>
                     <hr>
 

@@ -101,7 +101,7 @@ input[type="checkbox"] {
 .btn-1 {
     background-color: #525ED2;
     color: white;
-    
+    padding: 5px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -113,11 +113,11 @@ input[type="checkbox"] {
 .btn-2 {
     background-color: #ce3f3f;
     color: white;
-    
+    padding: 5px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     width: 90px;
 }
@@ -130,7 +130,7 @@ input[type="checkbox"] {
 
 strong {
     font-weight: 500;
-    color: #a0a0a0;
+    color: #000000;
     margin-bottom: 0;
 }
 
@@ -157,7 +157,19 @@ strong {
 .btn-touroku{
     background-color: #525ED2;
     color: white;
-    padding: 10px;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
+}
+
+.btn-primary{
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
