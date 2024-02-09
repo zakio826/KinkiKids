@@ -6,9 +6,6 @@ $page_title = "大人用トップページ";
 $stylesheet_name = "index_parent.css";
 include("./include/header.php");
 ?>
-
-
-
 <?php
 
 // testpointクラスのインスタンスを作成
@@ -24,6 +21,18 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     echo '<script>alert("' . $_SESSION['family_count'] . '人の登録が完了しました。");</script>';
     unset($_SESSION['family_success'], $_SESSION['family_count']);
 }
+
+echo '<script>';
+foreach ($index_parent_class->getFamily() as $child) {
+    $goal_deadline = $child['goal_deadline'];
+    if ($index_parent_class->isDeadlinePassed($goal_deadline)) {
+        echo 'alert("子供の目標の期限が過ぎています！");';
+        echo 'window.location.href = "./goal/again_goal.php";'; 
+        break;
+    }
+}
+echo '</script>';
+
 ?>
 
 <!-- ナビゲーションバー -->
