@@ -3,9 +3,10 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ポイントノルマ設定";
-$stylesheet_name = "setting_norma.css";
+$stylesheet_name = "setting_norma_adult.css";
 include("../include/header.php");
 ?>
+
 
 <?php // ページの最初に行う処理
  require($absolute_path."lib/setting_norma_class.php");
@@ -24,7 +25,7 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
-                    <input id="norma_amount" type="number" name="norma_amount" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
+                    <input id="norma_amount" type="number" name="norma_amount" placeholder="500" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
                     <!-- <b>pt</b> -->
                     <?php $setting_norma->norma_error(); ?>
                 </div>
