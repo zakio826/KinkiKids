@@ -33,18 +33,21 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
 ?>
 
 <?php  // 大人であれば子どもの情報、子どもであれば、自分の情報を取得
-if ($_SESSION["select"] === "child") {
-    $user_id = $_SESSION["user_id"];
-} else if (isset($_POST["child_select"])) {
-    $user_id = $_POST["child_select"];
-} else {
-    $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id < 30;");
-    foreach ($familys as $family) {
-        if ($family["user_id"] != $_SESSION["user_id"]) {
-            $user_id = $family["user_id"];
-        }
-    }
-}
+// if ($_SESSION["select"] === "child") {
+//     $user_id = $_SESSION["user_id"];
+// } else if (isset($_POST["child_select"])) {
+//     $user_id = $_POST["child_select"];
+// } else {
+//     $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id < 30;");
+//     foreach ($familys as $family) {
+//         if ($family["user_id"] != $_SESSION["user_id"]) {
+//             $user_id = $family["user_id"];
+//         }
+//     }
+// }
+
+// エラーが出るのでこれで代用
+$user_id = $_SESSION["user_id"];
 ?>
 
 <?php  // 表示月以前5か月分の月間収支データを取得
@@ -205,19 +208,20 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
             <div class="row mt-3">
                 <div class="position-relative px-0 px-sm-5">
 
-                    <?php if ($_SESSION["select"] === "adult") : ?>
-                        <form class="w-75 mt-3 mx-auto" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
+                    <!-- エラーが出るので以下をコメントアウト -->
+                    <!-- <?php //if ($_SESSION["select"] === "adult") : ?>
+                        <form class="w-75 mt-3 mx-auto" action="<?php //echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
                             <select name="child_select" id="">
-                                <?php for ($i = 0; $i < count($familys); $i++) : ?>
-                                    <?php if ($familys[$i]["user_id"] != $_SESSION["user_id"]) : ?>
-                                        <option value="<?php echo $familys[$i]["user_id"]; ?>" <?php if ($familys[$i]["user_id"]==$user_id){echo "checked";} ?>>
-                                            <?php echo $familys[$i]["first_name"]; ?>
+                                <?php //for ($i = 0; $i < count($familys); $i++) : ?>
+                                    <?php //if ($familys[$i]["user_id"] != $_SESSION["user_id"]) : ?>
+                                        <option value="<?php //echo $familys[$i]["user_id"]; ?>" <?php //if ($familys[$i]["user_id"]==$user_id){echo "checked";} ?>>
+                                            <?php //echo $familys[$i]["first_name"]; ?>
                                         </option>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
+                                    <?php //endif; ?>
+                                <?php //endfor; ?>
                             </select>
                         </form>
-                    <?php endif; ?>
+                    <?php //endif; ?> -->
 
                     <table class="w-75 mx-auto" style="caption-side: top;">
                         <!-- 月の変更 -->
