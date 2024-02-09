@@ -45,9 +45,9 @@ require_once($absolute_path."lib/functions.php");
         <select name="spending_category" id="spendingCategory">
             <option value="0">選択してください</option>
             <?php
-              $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category WHERE user_id = 31');
-              sql_check($stmt_spendingcat, $db);
-              $stmt_spendingcat->execute();
+            $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category WHERE user_id = 31');
+            sql_check($stmt_spendingcat, $db);
+            $stmt_spendingcat->execute();
                 while ($row = $stmt_spendingcat->fetch(PDO::FETCH_ASSOC)) :
             ?>
             <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
