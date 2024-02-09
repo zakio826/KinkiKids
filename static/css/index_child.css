@@ -6,7 +6,6 @@ body {
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
-
 .action-btn {
 background-color: lemonchiffon;
 border-radius: 2rem;
@@ -24,20 +23,27 @@ display: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
-    margin:0 auto;
-    padding: .8em 2em;
+    width: 330px;
+    margin: 0 auto;
+    -webkit-text-stroke: 0.5px #fff;
+    color: orange;
+    font-size: 18px;
+    font-weight: 1000;
+    /* padding: 0.8em 2em;
     border: none;
     border-radius: 5px;
     background-color: #2589d0;
     color: #ffffff;
     font-weight: 600;
-    font-size: 1em;
+    font-size: 1em; */
 }
 .modal-2__open-label:hover {
-    background-color: #fff;
+    /* background-color: #fff;
     color: #2589d0;
-    outline: 1px solid #2589d0;
+    outline: 1px solid #2589d0; */
+    /* color: #ffd900; */
+    transform:scale(0.97);
+	transition:0.3s;
 }
 .modal-2 {
     position: fixed;
@@ -83,7 +89,19 @@ display: none;
     max-height: 50vh;
     overflow-y: auto;
     padding: 39px 45px 40px;
+    background-color: #fff689;
+    border: 3px solid orange;
+    border-radius: 4px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    text-align: center;
 }
+
+.modal-2__content span {
+    font-weight: 1000;
+    font-size: 18px;
+    -webkit-text-stroke: 0.5px #fff;
+}
+
 .modal-2__background {
     position: absolute;
     left: 0;
@@ -104,7 +122,7 @@ display: none;
 @media only screen and (max-width: 520px) {
     .modal-2__open-label {
         max-width: 90%;
-        padding: .94em 2.1em .94em 2.6em;
+        /* padding: .94em 2.1em .94em 2.6em; */
     }
     .modal-2__close-label {
         top: -17px;
@@ -120,33 +138,72 @@ display: none;
 }
 
 
-.index_child_mokuhyoucss {
+
+/* ------------------------------------------------- */
+/* ロゴの部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_child_logo {
+    margin-top: -40px;
+}
+
+
+/* ------------------------------------------------- */
+/* 目標の部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_child_mokuhyoucss1 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* 枠組みと文字スタイル */
 .index_child_mokuhyoucss2 {
     background-color: #fff689;
     border: 3px solid orange;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 10px 30px;
     box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
-}
-
-.index_child_mokuhyoucss3 {
-    text-align: center;
-}
-
-.index_child_mokuhyoucss4 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: left;
-    font-synthesis: none;
-    color: orange;
+    /* 文字太さ */
     font-weight: 1000;
+    /* 文字白枠 */
     -webkit-text-stroke: 0.5px #fff;
+}
+
+/* 目標の内容文字だけ別スタイル指定 */
+.index_child_mokuhyoucss2 span {
+    color: #742200;
+    font-size: 20px;
+
+}
+
+/* ------------------------------------------------- */
+/* ただの線 */
+/* ------------------------------------------------- */
+
+/* ページのhr線スタイル */
+.index_child_hr {
+    background-color: #fff1a9;
+    height: 4px;
+    border: none;
+    opacity: initial;
+}
+
+
+/* ------------------------------------------------- */
+/* 所持金などの情報の部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_child_mokuhyoucss3 {
+    margin-top: -10px;
+}
+
+/* 配置と文字スタイル */
+.index_child_mokuhyoucss4 {
     /* text-shadow: 6px     6px    6px #fff,
                 -6px    -6px    6px #fff,
                 -6px     6px    6px #fff,
@@ -155,4 +212,59 @@ display: none;
                 -6px     0px    6px #fff,
                  0px     6px    6px #fff,
                  0px    -6px    6px #fff; */
+    display: flex;
+    font-weight: 1000;
+    -webkit-text-stroke: 0.5px #fff;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
+
+/* 数字だけ別スタイル指定 */
+.index_child_mokuhyoucss4 span {
+    color: orange;
+    font-size: 30px;
+}
+
+/* 一部の行の配置調整 */
+p.index_child_moji {
+    margin-bottom: 5px;
+    margin-top: -20px;
+}
+
+
+/* ------------------------------------------------- */
+/* メッセージ部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_child_messagecss1 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+
+}
+
+/* 枠組み */
+.index_child_messagecss2 {
+    background-color: #ffffff;
+    border: 3px solid #fff1a9;
+    border-radius: 10px;
+    padding: 10px 10px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    width: 380px;
+    height: auto;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+/* 枠組みの中の模様画像 */
+.index_child_messagecss3 {
+    background-image: url(../../static/assets/messageB.png);
+    background-size: 100%;
+    background-repeat: repeat-y;
+    margin-top: 15px;
+}
+
+
