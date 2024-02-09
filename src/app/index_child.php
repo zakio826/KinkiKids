@@ -52,15 +52,24 @@ $message_count = $index_child_class->getMessageCount();
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
-            <p class="row">
+                <p class="row">
                     <span class="col-6">
-                        しょじきん:<span class="px-2"><?php echo htmlspecialchars($savings); ?></span>えん
+                        <b class="index_child_mokuhyoumoji">
+                            しょじきん:
+                        <span>
+                            <?php echo htmlspecialchars($savings); ?>
+                        </span>えん
+                        </b>
                     </span>
                     <span class="col-6">
-                        てもち:<span class="px-2"><?php echo htmlspecialchars($have_points); ?></span>ポイント
+                        <b class="index_child_mokuhyoumoji">
+                        てもち:
+                        <span>
+                            <?php echo htmlspecialchars($have_points); ?>
+                        </span>ポイント
+                        </b>
                     </span>
                 </p>
-
             <?php if($goal_count != 0) : ?>
                 <p>
                     きょうかせぐポイント:
@@ -126,29 +135,31 @@ $message_count = $index_child_class->getMessageCount();
             <p>
                 <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
             </p>
-            <select id="user_select">
-                <option value=""></option>
-                <?php $index_child_class->getFamilyUser(); ?>
-            </select>
+                <div class="login_scroll_bar">
+                    <select id="user_select">
+                        <option value=""></option>
+                        <?php $index_child_class->getFamilyUser(); ?>
+                    </select>
 
-            <p class="mb-3" id="order-string"></p>
+                    <p class="mb-3" id="order-string"></p>
 
-            <?php if ($message_count != 0) : ?>
-                <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                    ➡
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                    
-                    <p>
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
-                    </p>
+                    <?php if ($message_count != 0) : ?>
+                        <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                            ➡
+                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                            
+                            <p>
+                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                            </p>
 
-                    <hr>
+                            <hr>
 
-                <?php endfor; ?>
-            <?php else : ?>
-                <p>メッセージがありません</p>
-            <?php endif; ?>
+                        <?php endfor; ?>
+                    <?php else : ?>
+                        <p>メッセージがありません</p>
+                    <?php endif; ?>
+                </div>
             </div>
             </div>
         </div>
