@@ -17,7 +17,7 @@ $goal = new goal($db);
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>もくひょうせってい</h1>
+            <h1>こうにゅうもくひょうせってい</h1>
 
             <br>
 
