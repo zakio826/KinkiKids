@@ -89,7 +89,6 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                             $help->person_select($help_data['help_id']);
                         ?><br>
                     </li>
-                <?php endif; ?>
                 <?php if ($select === 'adult'): ?>
                     <form action="help_edit.php" method="get">
                         <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
