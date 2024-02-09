@@ -8,30 +8,30 @@
             $this->db = $db;
             $this->error = []; // 初期化
 
-            if (isset($_POST["consent_help_id"]) && isset($_POST["consent_get_point"])){//ポイント追加処理
+            if (isset($_POST["consent_help_id"])){//ポイント追加処理
                 $help_id = $_POST["consent_help_id"];
-                $get_point = $_POST["consent_get_point"];
 
-                $stmt = $this->db->prepare("SELECT user.user_id FROM user
-                                            INNER JOIN help_person ON user.user_id = help_person.user_id
-                                            WHERE help_id = :help_id");
+                $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
                 $stmt->bindParam(':help_id', $help_id);
                 $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($result as $row) {
-                    $stmt2 = $this->db->prepare("UPDATE child_data SET have_points = have_points + :get_point WHERE user_id = :user_id");
-                    $stmt2->bindParam(':get_point', $get_point);
-                    $stmt2->bindParam(':user_id', $row['user_id']);
-                    $stmt2->execute();
-                    $stmt2->fetchAll(PDO::FETCH_ASSOC);
-                }
+                $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                $stmt = $this->db->prepare("UPDATE help_log SET consent_flag = 0 WHERE consent_flag = 1 and help_id = :help_id");
-                $stmt->bindParam(':help_id', $help_id);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "承認しました";
 
-                echo "ポイント追加しました";
+                // foreach ($result as $row) {
+                //     $stmt2 = $this->db->prepare("UPDATE child_data SET have_points = have_points + :get_point WHERE user_id = :user_id");
+                //     $stmt2->bindParam(':get_point', $get_point);
+                //     $stmt2->bindParam(':user_id', $row['user_id']);
+                //     $stmt2->execute();
+                //     $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                // }
+
+                // $stmt = $this->db->prepare("UPDATE help_log SET consent_flag = 0 WHERE consent_flag = 1 and help_id = :help_id");
+                // $stmt->bindParam(':help_id', $help_id);
+                // $stmt->execute();
+                // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                
             }
         }
         public function display_consent_help($user_id) {
