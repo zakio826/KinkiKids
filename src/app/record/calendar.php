@@ -34,14 +34,27 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
 
 
 <?php
+if ($_SESSION["select"] === "child") {
+    $user_id = $_SESSION["user_id"];
+} else if (isset($_POST["child_select"])) {
+    $user_id = $_POST["child_select"];
+} else {
+    $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. ";");
+    foreach ($familys as $family) {
+        if ($family["user_id"] != $_SESSION["user_id"]) {
+            $user_id = $family["user_id"];
+        }
+    }
+}
+
 
 // $user_id = $_SESSION["user_id"];
-$user_id = 103;
+// $user_id = 103;
 
 
-$ttt = [
+// $ttt = [
 
-];
+// ];
 
 ?>
 
@@ -183,7 +196,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     $sql .= $i. " GROUP BY `". key($columns[0]). "`";
     $sql .= " ORDER BY `". key($columns[1]). "` DESC;";
     array_push($categoryDataset["query"], ($db->query($sql)));
-    array_push($ttt, $sql);
+    // array_push($ttt, $sql);
     
     array_push($categoryDataset["data"], array());
     foreach ($categoryDataset["query"][$i] as $index => $item) {
@@ -209,8 +222,22 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         <div class="container">
             <div class="row mt-3">
                 <div class="position-relative px-0 px-sm-5">
-                    <table class="w-75 mx-auto" style="caption-side: top;">
 
+                    <?php if ($_SESSION["select"] === "adult") : ?>
+                        <form class="w-75 mt-3 mx-auto" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
+                            <select name="child_select" id="">
+                                <?php for ($i = 0; $i < count($familys); $i++) : ?>
+                                    <?php if ($familys[$i]["user_id"] != $_SESSION["user_id"]) : ?>
+                                        <option value="<?php echo $familys[$i]["user_id"]; ?>" <?php if ($familys[$i]["user_id"]==$user_id){echo "checked";} ?>>
+                                            <?php echo $familys[$i]["first_name"]; ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            </select>
+                        </form>
+                    <?php endif; ?>
+
+                    <table class="w-75 mx-auto" style="caption-side: top;">
                         <!-- 月の変更 -->
                         <caption class="mx-sm-5 text-center">
                             <h5 class="mb-1"><?php echo date("Y", $this_date); ?>年</h5>
