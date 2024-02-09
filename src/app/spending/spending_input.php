@@ -26,6 +26,10 @@ require_once($absolute_path."lib/functions.php");
 				<input type="text" name="title" id="title" maxlength="15" required>
 			</div>
 
+			<div class="p-form__flex-input">
+				<p>金額</p>
+				<input type="number" name="amount" id="amount" step="1" maxlength="5" required>
+			</div>
         <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
         <p class="long-name">支出カテゴリー</p>
         <select name="spending_category" id="spendingCategory">
