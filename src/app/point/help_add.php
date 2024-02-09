@@ -114,6 +114,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                         <?php $help->consent_button($help_data['help_id']); ?>
                     </form>
                 <?php endif; ?>
+                </ul>
             <?php endforeach; ?>
         <?php endif; ?>
         </div>
