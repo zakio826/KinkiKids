@@ -3,9 +3,10 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ポイントノルマ設定";
-$stylesheet_name = "setting_norma.css";
+$stylesheet_name = "setting_norma_adult.css";
 include("../include/header.php");
 ?>
+
 
 <?php // ページの最初に行う処理
  require($absolute_path."lib/setting_norma_class.php");
