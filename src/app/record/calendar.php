@@ -32,34 +32,20 @@ $first_week = date("w", strtotime("first day of", $this_date));  // 表示月の
 $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の最終日
 ?>
 
-
-<?php
+<?php  // 大人であれば子どもの情報、子どもであれば、自分の情報を取得
 if ($_SESSION["select"] === "child") {
     $user_id = $_SESSION["user_id"];
 } else if (isset($_POST["child_select"])) {
     $user_id = $_POST["child_select"];
 } else {
-    $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. ";");
+    $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id < 30;");
     foreach ($familys as $family) {
         if ($family["user_id"] != $_SESSION["user_id"]) {
             $user_id = $family["user_id"];
         }
     }
 }
-
-
-// $user_id = $_SESSION["user_id"];
-// $user_id = 103;
-
-
-// $ttt = [
-
-// ];
-
 ?>
-
-
-
 
 <?php  // 表示月以前5か月分の月間収支データを取得
 $in_exDataset = array(
@@ -136,9 +122,6 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
 }
 ?>
 
-
-
-
 <?php  // 表示月のカテゴリ別月間収支データを取得
 $categoryDataset = array(
     "name" => ["ex_category_data", "in_category_data", ],
@@ -196,7 +179,6 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     $sql .= $i. " GROUP BY `". key($columns[0]). "`";
     $sql .= " ORDER BY `". key($columns[1]). "` DESC;";
     array_push($categoryDataset["query"], ($db->query($sql)));
-    // array_push($ttt, $sql);
     
     array_push($categoryDataset["data"], array());
     foreach ($categoryDataset["query"][$i] as $index => $item) {
@@ -327,10 +309,6 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
 
 
 <script>
-
-    // console.log("<?php echo $ttt[0]; ?>");
-    // console.log("<?php echo $ttt[1]; ?>");
-
     <?php
     for ($i = 0; $i < count($in_exDataset["name"]); $i++) {
         echo "const ". $in_exDataset["name"][$i]. " = JSON.parse('". json_encode($in_exDataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
