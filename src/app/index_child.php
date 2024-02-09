@@ -36,23 +36,23 @@ $message_count = $index_child_class->getMessageCount();
     <section class="position-relative h-75">
         <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
-                <?php if ($goal_count != 0) : ?>
-                    <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
-                        <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
-                        <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
-                        <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
-                    </a>
-                <?php else : ?>
-                    <p>目標がないので設定してください</p>
-                <?php endif; ?>
+            <?php if ($goal_count != 0) : ?>
+                <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
+                <span>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                <span>
+                </a>
+            <?php else : ?>
+                <span><p>目標がないので設定してください</p></span>
+            <?php endif; ?>
             </div>
         </div>
-
         <hr class="index_child_hr">
-
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
-                <p class="row">
+            <p class="row">
                     <span class="col-6">
                         しょじきん:<span class="px-2"><?php echo htmlspecialchars($savings); ?></span>えん
                     </span>
@@ -61,15 +61,24 @@ $message_count = $index_child_class->getMessageCount();
                     </span>
                 </p>
 
-                <?php if($goal_count != 0) : ?>
-                    <p>きょうかせぐポイント:<span class="px-2"><?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?></span>ポイント</p>
-                <?php else : ?>
-                    <p class="index_child_moji">目標がないので設定してください</p>
-                <?php endif; ?>
+            <?php if($goal_count != 0) : ?>
+                <p>
+                    きょうかせぐポイント:
+                    <span class="px-2">
+                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                    </span>
+                    ポイント
+                </p>
+            <?php else : ?>
+                <p class="index_child_moji">
+                    <br>目標がないので設定してください
+                </p>
+            <?php endif; ?>
             </div>
         </div>
 
         <hr>
+
 
         <div>
             <ul>
@@ -109,42 +118,45 @@ $message_count = $index_child_class->getMessageCount();
         <!-- <hr class="index_child_hr"> -->
         <div class="index_child_messagecss1">
             <div class="index_child_messagecss2">
-                <div class="index_child_messagecss3">
+            <div class="index_child_messagecss3">
 
             <!-- <span>
                 <p>メッセージ</p>
             </span> -->
+            <p>
+                <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
+            </p>
+            <select id="user_select">
+                <option value=""></option>
+                <?php $index_child_class->getFamilyUser(); ?>
+            </select>
 
-                    <p><img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40></p>
+            <p class="mb-3" id="order-string"></p>
 
-                    <select id="user_select">
-                        <option value=""></option>
-                        <?php $index_child_class->getFamilyUser(); ?>
-                    </select>
+            <?php if ($message_count != 0) : ?>
+                <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                    ➡
+                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                    
+                    <p>
+                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                    </p>
 
-                    <p class="mb-3" id="order-string"></p>
+                    <hr>
 
-                    <?php if ($message_count != 0) : ?>
-                        <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                            ➡
-                            <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                            
-                            <p><?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?></p>
-
-                            <hr>
-                        <?php endfor; ?>
-                    <?php else : ?>
-                        <p>メッセージがありません</p>
-                    <?php endif; ?>
-                </div>
+                <?php endfor; ?>
+            <?php else : ?>
+                <p>メッセージがありません</p>
+            <?php endif; ?>
+            </div>
             </div>
         </div>
     </section>
-
-    <!-- ボトムナビゲーションバー -->
-    <?php include_once("./include/bottom_nav.php") ?>
 </main>
+
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 
 <script>
     let select = document.getElementById('user_select');
