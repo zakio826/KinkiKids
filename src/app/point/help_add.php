@@ -61,7 +61,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                     <?php endforeach; ?>
                 </select>
 
-                <button type="submit">絞り込む</button>
+                <button type="submit" class="btn-1">絞り込む</button>
             </form>
         </div>
     <?php endif; ?>
@@ -109,7 +109,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
+        <p class="mt-3"><a href="consent.php" class="btn-1" style="text-decoration:none">承認ページ</a></p>
         <!-- <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p> -->
     </div>
 </main>
