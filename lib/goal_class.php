@@ -1,10 +1,10 @@
 <?php
 // test
-class goal{
+class goal {
     private $error; // エラー情報を保持するプロパティ
     private $db; // データベース接続を保持するプロパティ
 
-    function __construct($db){
+    function __construct($db) {
         $this->db = $db;
         $this->error = []; // 初期化
 
@@ -36,8 +36,7 @@ class goal{
 
                 $this->saveGoalToDatabase();
 
-                header('Location: ./goal_check.php');
-                exit();
+                header('Location: ./goal_check.php'); exit();
             }
         }
     }
@@ -53,7 +52,8 @@ class goal{
     }
 
     private function saveGoalToDatabase() {
-        $sql = "INSERT INTO goal (user_id, family_id, target_amount, goal_detail, goal_deadline, goal_created_date) VALUES (:user_id, :family_id, :target_amount, :goal_detail, :goal_deadline, :goal_created_date)";
+        $sql = "INSERT INTO goal (user_id, family_id, target_amount, goal_detail, goal_deadline, goal_created_date) ".
+               "VALUES (:user_id, :family_id, :target_amount, :goal_detail, :goal_deadline, :goal_created_date)";
     
         $params = array(
             ':user_id' => $_SESSION['join']['user_id'],
@@ -79,6 +79,4 @@ class goal{
         return $result;
     }
 }
-
 ?>
-

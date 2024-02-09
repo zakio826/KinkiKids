@@ -1,11 +1,9 @@
 <?php
-
 function checkUser($db, $joinData) {
  
     /* 会員登録の手続き以外のアクセスを飛ばす */
     if (!isset($_SESSION['join'])) {
-        header('Location: ./entry.php');
-        exit();
+        header('Location: ./entry.php'); exit();
     }
 
     if (!empty($_POST['check'])) {
@@ -52,10 +50,9 @@ function checkUser($db, $joinData) {
             $admin_flag,
             $firstlogin
         ));
-        unset($_SESSION['join']);   // セッションを破棄
-        header('Location: ./thank.php');   // thank.phpへ移動
-        exit();    
+
+        unset($_SESSION['join']);  // セッションを破棄
+        header('Location: ./thank.php'); exit(); // thank.phpへ移動
     }
 }
-
 ?>

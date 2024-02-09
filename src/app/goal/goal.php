@@ -2,7 +2,7 @@
 
 <?php
 $page_title = "目標設定";
-$stylesheet_name = "goal.css";
+$stylesheet_name = "goal_adult.css";
 require_once("../include/header.php");
 ?>
 
@@ -17,7 +17,7 @@ $goal = new goal($db);
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>もくひょうせってい</h1>
+            <h1>こうにゅうもくひょうせってい</h1>
 
             <br>
 
@@ -36,10 +36,8 @@ $goal = new goal($db);
                 <label for="goal_deadline">きげん</label>
                 <input id="goal_deadline" type="date" name="goal_deadline">
             </div>
- 
-            <br>
 
-            <div class="control-2">
+            <div class="mt-3 control-2">
                 <button type="submit" class="btn">とうろくする</button>
             </div>
         </form>

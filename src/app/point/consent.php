@@ -11,10 +11,6 @@ include("../include/header.php");  // appディレクトリ直下であれば、
 require($absolute_path."lib/conset_class.php");
 $consent = new consent($db);
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../accounts/login.php", true , 301);
-    exit;
-}
 $user_id = $_SESSION["user_id"];
 $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
@@ -30,7 +26,6 @@ $helps = $consent->display_consent_help($user_id);
     <section>
     <div class="title">
         <h1>おてつだい承認</h1>
-        <h1>まだ承認ボタン押さないで！！！</h1>
     </div>
     <br>
     <div class ="content">

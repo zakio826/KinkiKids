@@ -1,8 +1,16 @@
 <?php
 $page_title = "お手伝い登録";
 $stylesheet_name = "help_add.css";
+// // require_once("../include/header.php");
+// $select = $_SESSION["select"];
+// if($select === "adult"){
+//     $stylesheet_name = "help_add_adult.css";
+// }else{
+//     $stylesheet_name = "help_add_child.css";
+// }
 require_once("../include/header.php");
 ?>
+
 
 <?php
 require($absolute_path."lib/help_class.php");
@@ -24,21 +32,12 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
     $family_id = $_SESSION["family_id"];
     $helps = $help->display_help($family_id);
 }
-
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../accounts/login.php", true , 301);
-    exit;
-}
 ?>
 
 <main>
-    <div class="title">
-        <h1>おてつだい</h1>
-    </div>
+    <div class="mb-3 title"><h1>おてつだい</h1></div>
 
-    <br>
-
-    <div class ="content">
+    <div class ="mb-3 content">
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">
@@ -49,7 +48,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <label for="get_point">獲得ポイント</label>
                 <input type="number" name="get_point"><br>
 
-                <button type="submit" class="btn-1">登録</button>
+                <button type="submit" class="btn-touroku">登録</button>
             </form>
         <?php elseif ($select === 'child'): ?>
             <!-- 子供の場合のフォーム -->
@@ -58,85 +57,61 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <?php else: ?>
             <!-- 予期せぬケースに備えてデフォルトの表示 -->
             <p>選択されたユーザータイプに対応するフォームがありません。</p>
-        <?php endif; ?>
-    </div>
-   
-    <br>
-    <?php if ($select === 'adult'): ?>
-    <div class = "content">
-        <form action="" method="post">
-            <select name="narrow">
-                <?php foreach ($options as $user): ?>
-                    <option value="<?php echo $user['user_id']; ?>"><?php echo $user['first_name']; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit">絞り込む</button>
-        </form>
-    </div>
-    <?php endif; ?>
-    <br>
-
-    <div class="content">
+        <?php endif; ?>  
         <h1>お手伝い一覧</h1>
+    <?php if ($select === 'adult'): ?>
+       
+            <form action="" method="post">
+                <select name="narrow">
+                    <?php foreach ($options as $user): ?>
+                        <option value="<?php echo $user['user_id']; ?>"><?php echo $user['first_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <button type="submit" class="btn-1">絞り込む</button>
+            </form>
+       
+    <?php endif; ?>
+
+    
+        <div class="scroll_bar">
 
         <?php if (empty($helps)): ?>
             <p>お手伝いはありません。</p>
         <?php else: ?>
-            <ul>
             <?php foreach ($helps as $help_data): ?>
+                <ul>
+                    <li>
+                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                        <strong>担当者</strong>
+                        <?php
+                            $help->person_select($help_data['help_id']);
+                        ?><br>
+                    </li>
                 <?php if ($select === 'adult'): ?>
-                    <li>
-                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                        <strong>担当者</strong>
-                        <?php
-                            $help->person_select($help_data['help_id']);
-                        ?><br>
-                    </li>
+                    <form action="help_edit.php" method="get">
+                        <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
+                        <button type="submit" class="btn-1">編集</button>
+                    </form>
+                    <form action="" method="post">
+                        <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
+                        <button type="submit" class="btn-2">削除</button>
+                    </form>
                 <?php endif; ?>
-                <?php if ($select === 'child'): ?>
-                    <li>
-                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <?php 
-                        if(!($help_data['help_detail'] == "")){
-                            echo "<strong>お手伝い詳細:</strong>";
-                            echo $help_data['help_detail']; 
-                            echo '<br>';
-                        }
-                        ?>
-                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                        <strong>担当者</strong>
-                        <?php
-                            $help->person_select($help_data['help_id']);
-                        ?><br>
-                    </li>
-                <?php endif; ?>
-                    
-                    <?php if ($select === 'adult'): ?>
-                        <form action="help_edit.php" method="get">
-                            <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
-                            <button type="submit" class="btn-1">編集</button>
-                        </form>
-                        <form action="" method="post">
-                            <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
-                            <button type="submit" class="btn-2">削除</button>
-                        </form>
-                    <?php endif; ?>
-                </div>
                 <hr>
                 <?php if ($select === 'child'): ?>
                     <form action="" method="post">
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
-                        <?php
-                        $help->consent_button($help_data['help_id']);
-                        ?>
+                        <?php $help->consent_button($help_data['help_id']); ?>
                     </form>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
+        </div>
         <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
         <!-- <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p> -->
+        
     </div>
 </main>
-
 <?php require_once("../include/footer.php"); ?>
