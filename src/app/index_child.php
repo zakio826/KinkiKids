@@ -34,6 +34,8 @@ $message_count = $index_child_class->getMessageCount();
     </header>
     
     <section class="position-relative h-75">
+    <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php">目標一覧</a>
+
         <div class="index_child_mokuhyoucss">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
