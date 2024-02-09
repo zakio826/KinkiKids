@@ -40,7 +40,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                 <label for="get_point">獲得ポイント</label>
                 <input type="number" name="get_point"><br>
 
-                <button type="submit" class="btn-1">登録</button>
+                <button type="submit" class="btn-touroku">登録</button>
             </form>
         <?php elseif ($select === 'child'): ?>
             <!-- 子供の場合のフォーム -->
@@ -49,11 +49,10 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
         <?php else: ?>
             <!-- 予期せぬケースに備えてデフォルトの表示 -->
             <p>選択されたユーザータイプに対応するフォームがありません。</p>
-        <?php endif; ?>
-    </div>
-   
+        <?php endif; ?>  
+        <h1>お手伝い一覧</h1>
     <?php if ($select === 'adult'): ?>
-        <div class = "mb-3 content">
+       
             <form action="" method="post">
                 <select name="narrow">
                     <?php foreach ($options as $user): ?>
@@ -63,11 +62,11 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 
                 <button type="submit">絞り込む</button>
             </form>
-        </div>
+       
     <?php endif; ?>
 
-    <div class="mb-3 content">
-        <h1>お手伝い一覧</h1>
+    
+        <div class="scroll_bar">
 
         <?php if (empty($helps)): ?>
             <p>お手伝いはありません。</p>
@@ -108,9 +107,10 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
-
+        </div>
         <p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p>
         <!-- <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p> -->
+        
     </div>
 </main>
 
