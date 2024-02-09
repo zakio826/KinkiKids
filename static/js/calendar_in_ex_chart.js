@@ -34,6 +34,7 @@ let in_exChartData = {
             borderWidth: 1,
             barPercentage: 1.0,
             barThickness: 30,
+            // stack: 'Stack 0',
         },
         {
             type: 'bar',
@@ -46,6 +47,7 @@ let in_exChartData = {
             borderWidth: 1,
             barPercentage: 1.0,
             barThickness: 30,
+            // stack: 'Stack 1',
         },
         {
             type: 'bar',
@@ -58,6 +60,7 @@ let in_exChartData = {
             borderWidth: 1,
             barPercentage: 1.0,
             barThickness: 30,
+            // stack: 'Stack 1',
         },
     ],
 };

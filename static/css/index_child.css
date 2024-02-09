@@ -243,7 +243,7 @@ p.index_child_moji {
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-
+    margin-bottom: 100px;
 }
 
 /* 枠組み */

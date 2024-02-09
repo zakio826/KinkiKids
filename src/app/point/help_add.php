@@ -90,6 +90,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                         ?><br>
                     </li>
                 <?php if ($select === 'adult'): ?>
+                    <div class="btn-group">
                     <form action="help_edit.php" method="get">
                         <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-1">編集</button>
@@ -98,17 +99,12 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                         <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-2">削除</button>
                     </form>
-                <?php endif; ?>
-                <hr>
-                <?php if ($select === 'child'): ?>
-                    <li>
-                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
-                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                        <strong>担当者</strong>
-                        <?php
-                            $help->person_select($help_data['help_id']);
-                        ?><br>
-                    </li>
+
+                    <hr>
+                    </div>
+                <?php else : ?>
+                    <hr>
+
                     <form action="" method="post">
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <?php $help->consent_button($help_data['help_id']); ?>

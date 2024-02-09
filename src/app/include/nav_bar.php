@@ -11,6 +11,71 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
     main {
         padding-top: 4rem;
     }
+    .menu-btn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        display: flex;
+        height: 50px;
+        width: 50px;
+        justify-content: center;
+        align-items: center;
+        z-index: 90;
+        background-color: #fff27e;
+        border: 3px solid orange;
+        border-radius: 10px;
+    }
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        background-color: #ffa500;
+        position: absolute;
+    }
+    .menu-btn span:before {
+        bottom: 8px;
+    }
+    .menu-btn span:after {
+        top: 8px;
+    }
+    #menu-btn-check:checked ~ .menu-btn span {
+        background-color: rgba(255, 255, 255, 0);
+    }
+    #menu-btn-check:checked ~ .menu-btn span::before {
+        bottom: 0;
+        transform: rotate(45deg);
+    }
+    #menu-btn-check:checked ~ .menu-btn span::after {
+        top: 0;
+        transform: rotate(-45deg);
+    }
+    #menu-btn-check {
+        display: none;
+    }
+    #menu-btn-check:checked ~ .menu-content {
+        left: 0;/*メニューを画面内へ*/
+    }
+    .menu-content {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 100%;/*leftの値を変更してメニューを画面外へ*/
+        z-index: 80;
+        background-color: #fff27e;
+        transition: all 0.5s;/*アニメーション設定*/
+    }
+    .menu-content ul {
+        padding: 70px 10px 0;
+    }
+    .menu-content ul li {
+        border-bottom: solid 1px #000000;
+        list-style: none;
+    }
 </style>
 
 <nav class="position-absolute w-100" style="height: 4rem; background-color: lemonchiffon;">
@@ -35,18 +100,35 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <span class="">さん</span>
                         </span>
                     <?php endif; ?>
+                    
+                    <div class="hamburger-menu">
+                        <input type="checkbox" id="menu-btn-check">
+                        <label for="menu-btn-check" class="menu-btn"><span></span>
+                        </label>
+                        <div class="menu-content">
+                            <ul>
+                                <li>
+                                    <?php if ($_SESSION["admin_flag"] == 1) : ?>
+                                    <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/family_add.php">
+                                    家族アカウント追加
+                                    </a>
+                                </li>
+                                <br>
+                                <br>
+                                <li>
+                                    <?php endif; ?>
+                                    <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/logout.php">
+                                    ログアウト
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </h3>
             </div>
-            <div class="col-auto row gx-2 justify-content-end">
-                <?php if ($_SESSION["admin_flag"] == 1) : ?>
-                    <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/family_add.php">
-                        <img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40">
-                    </a>
-                <?php endif; ?>
-                <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/logout.php">
-                    <img src="<?php echo $absolute_path; ?>static/assets/Cog.png" width="40" height="40">
-                </a>
-            </div>
+
+
         </div>
     </div>
 </nav>
