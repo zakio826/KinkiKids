@@ -42,12 +42,14 @@ $helps = $consent->display_consent_help($user_id);
                             <button type="submit" class="btn-2">拒否する</button>
                         </div>
                     </form>
-                    <hr>
                 <?php endforeach; ?>
+                <hr>
             </ul>
         </div>
     </section>
 </main>
+
+
 
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
