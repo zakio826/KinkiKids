@@ -33,11 +33,11 @@ class index_child_class {
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return count($result);
+        return 5;
     }
 
     public function getMessage($i) {
-        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id order by sent_time desc");
+        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id order by sent_time desc limit 5");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $message = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -55,6 +55,7 @@ class index_child_class {
         return array(
             'session_user' => $_SESSION["user_id"],
             'messagetext' => $message[$i]['messagetext'],
+            'sent_time' => $message[$i]['sent_time'],
             'sender' => $sender['first_name'],
             'sender_id' => $sender['user_id'],
             'receiver' => $receiver['first_name'],
@@ -138,8 +139,7 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-
-            if ($date01 <= $date02) {
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['target_amount'];
             }
         }
@@ -154,10 +154,10 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-
-            if ($date01 <= $date02) {
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['goal_deadline'];
             }
+
         }
     }
 
@@ -170,9 +170,11 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            if($date01 <= $date02){
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
                 return $deadline['goal_detail'];
             }
+
+            
         }
     }
 
@@ -185,8 +187,8 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-
-            if ($date01 <= $date02) {
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
+                
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
                 $diff = date_diff($date01, $date02);
@@ -241,8 +243,9 @@ class index_child_class {
         foreach ($result as $deadline) {
             $date01 = new DateTime('now');
             $date02 = new DateTime($deadline['goal_deadline']);
-            
-            if ($date01 <= $date02) {
+            if($date01->format('Y-m-d') <= $date02->format('Y-m-d')){
+
+                
                 $date01 = new DateTime('now');
                 $date02 = new DateTime($deadline['goal_deadline']);
                 $diff = date_diff($date01, $date02);
@@ -278,14 +281,18 @@ class index_child_class {
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $allowance_amount = $result['allowance_amount'];
-                
-                $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                if($diff2->format('%a')>0){
+                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                }else{
+                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m));
+                }
                 
                 if ($answer >= 0) {
                     return $answer;
                 } else {
                     return 0;
                 }
+
             }
         }
     }
