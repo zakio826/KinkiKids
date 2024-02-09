@@ -8,6 +8,7 @@ require_once("../include/header.php");
 require($absolute_path."lib/help_class.php");
 $help = new help($db);
 
+
 $user_id = $_SESSION["user_id"];
 $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
@@ -46,6 +47,18 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 獲得ポイント<input type="number" name="get_point"><br>
                 担当者　<?php $help->child_select(); ?><br>
 
+    <?php if (empty($helps)): ?>
+        <p>登録した目標はありません。</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($helps as $help): ?>
+                <li>
+                    <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?> <br>
+
+                    <strong>お手伝い名:</strong> <?php echo $help['help_name']; ?><br>
+
+                    <strong>お手伝い詳細</strong> <?php echo $help['help_detail']; ?><br>
+                    <strong>獲得ポイント:</strong> <?php echo $help['get_point']; ?><br>
                 <button type="submit">登録</button>
             </form>
         <?php elseif ($select === 'child'): ?>
@@ -101,7 +114,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         ?><br>
                     </li>
                 <?php endif; ?>
-                    
                     <?php if ($select === 'adult'): ?>
                         <form action="help_edit.php" method="get">
                             <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
