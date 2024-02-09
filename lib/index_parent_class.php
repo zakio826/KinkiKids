@@ -43,7 +43,7 @@ class index_parent_class {
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $help_name = $result[$i]['help_name'];
+        return $result;
     }
 
     public function getMessageCount() {
