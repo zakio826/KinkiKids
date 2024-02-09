@@ -23,7 +23,7 @@ $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
 
-$index_child_class->message($db, $_SESSION['join']);
+$index_child_class->message($db);
 ?>
 
 
@@ -138,11 +138,11 @@ $index_child_class->message($db, $_SESSION['join']);
             <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
                 <p>誰に送るか</p>
-                <select name="receiver">
+                <select name="receiver" required>
                     <option value=""></option>
                     <?php $index_child_class->getFamilyUser(); ?>
                 </select>
-                <input type="text" name="message">
+                <input type="text" name="message" required>
                 <button type="submit">返信</button>
             </form>
                 
