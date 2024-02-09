@@ -32,50 +32,119 @@ $first_week = date("w", strtotime("first day of", $this_date));  // 表示月の
 $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の最終日
 ?>
 
-<?php  // 収支関連のデータを取得
+<?php  // 表示月以前5か月分の月間収支データを取得
 $user_id = $_SESSION["user_id"];
 
 $columns = array(
-    "DATE_FORMAT(income_expense_date,'%Y年%c月')" => "'年月', ",
-    "SUM(income_expense_amount)" => "'合計金額'",
+    ["年月" => "DATE_FORMAT(income_expense_date,'%Y年%c月')"],
+    ["合計金額" => "SUM(income_expense_amount)"],
 );
+
 $column = "";
-foreach ($columns as $key => $value) {
-    $column .= $key . " AS " . $value;
+for ($i = 0; $i < count($columns); $i++) {
+    foreach ($columns[$i] as $key => $value) {
+        $column .= $value. " AS `". $key. "`";
+        // echo $column. "<br>";
+    }
+    if ($i+1 < count($columns)) {
+        $column .= ", ";
+    }
 }
+// foreach ($columns as $key => $value) {
+//     $column .= $value. " AS ". $key;
+// }
 
 $start_ym = date("Y-m", strtotime("-4 month", $this_date));
-$end_ym = date("Y-m", $this_date);
+$this_ym = date("Y-m", $this_date);
 
 $wheres = array(
-    ["user_id", "=", $user_id],
-    ["income_expense_date", "BETWEEN", $start_ym."-01", "AND", $end_ym."-".$last_day],
+    "user_id = ".$user_id,
+    "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
+    "income_expense_flag =",
 );
-$where = "";
-for ($i = 0; $i < count($wheres); $i++) {
-    for ($j = 0; $j < count($wheres[$i]); $j++) {
-        $where .= $wheres[$i][$j];
 
-        if ($j+1 != count($wheres[$i])) {
-            $where .= " ";
-        } elseif ($i+1 != count($wheres)) {
-            $where .= " AND ";
+// $group_by = "`年月`";
+
+$where = "";
+
+$dataset = array(
+    "name" => ["expense_data", "income_data", "balance_data"],
+    "query" => [],
+    "data" => [],
+    // ["expense_data" => ""],
+    // ["income_data" => ""],
+    // ["balance_data" => ""],
+);
+
+for ($i = 0; $i+1 < count($dataset["name"]); $i++) {
+    $sql = "SELECT ".$column." FROM income_expense WHERE ";
+    for ($j = 0; $j < count($wheres); $j++) {
+        $sql .= $wheres[$j];
+
+        if ($j+1 < count($wheres)) {
+            $sql .= " AND ";
+        } else {
+            $sql .= " ";
         }
+    }
+    $sql .= $i. " GROUP BY `". key($columns[0]). "`;";
+    array_push($dataset["query"], ($db->query($sql)));
+    
+    array_push($dataset["data"], array());
+    if ($i != 0) {
+        array_push($dataset["data"], $dataset["data"][0]);
+    }
+
+    $n = 0;
+    foreach ($dataset["query"][$i] as $index => $item) {
+        foreach ($item as $key => $value) {
+            if (gettype($key) !== "integer") {
+                if ($key === key($columns[1])) {
+                    if ($i == 0) {
+                        $value *= -1;
+                    } else {
+                        $dataset["data"][2][$key][$n] += $value;
+                    }
+                }
+                if ($index == 0) {
+                    $dataset["data"][$i] += [$key => [$value]];
+                } else {
+                    array_push($dataset["data"][$i][$key], $value);
+                }
+            }
+        }
+        $n++;
     }
 }
 
-$order_by = "'年月'";
+// array_push($dataset["data"], $dataset["data"][0]);
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where." ORDER BY ".$order_by.";";
-$balance_data =  $db->query($sql);
+// for ($i = 0; $i < count($dataset["data"][2]))
+// $dataset["data"][2]
 
-$income_expense_flag = " AND income_expense_flag = ";
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."0 ORDER BY ".$order_by.";";
-$income_data =  $db->query($sql);
+// $order_by = "'年月' ASC";
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."1 ORDER BY ".$order_by.";";
-$expense_data =  $db->query($sql);
+// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where." GROUP BY ".$group_by.";";
+// $balance_data =  $db->query($sql);
+// $ttt = [$sql];
+
+// $income_expense_flag = " AND income_expense_flag = ";
+
+// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."0 GROUP BY ".$group_by.";";
+// $income_data =  $db->query($sql);
+// array_push($ttt, $sql);
+
+// $sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."1 GROUP BY ".$group_by.";";
+// $expense_data =  $db->query($sql);
+// array_push($ttt, $sql);
+
+?>
+
+<?php  // 表示月以前5か月分の月間収支データを取得
+
+
+
 ?>
 
 
@@ -86,7 +155,7 @@ $expense_data =  $db->query($sql);
     <section class="position-relative">
         <div class="container">
             <div class="row mt-3">
-                <div class="position-relative px-5">
+                <div class="position-relative px-0 px-sm-5">
                     <table class="w-75 mx-auto" style="caption-side: top;">
 
                         <!-- 月の変更 -->
@@ -100,8 +169,8 @@ $expense_data =  $db->query($sql);
 
                                 <span class="col-4"><?php echo date("n", $this_date); ?>月</span>
                                 
-                                <label class="col-auto" for="next">＞
-                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>">
+                                <label class="col-auto" for="next"><font <?php if ($month_now) { echo 'color="darkgray"'; } ?>>＞</font>
+                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>" <?php if ($month_now) { echo "disabled"; } ?>>
                                 </label>
                             </form>
                         </caption>
@@ -157,7 +226,7 @@ $expense_data =  $db->query($sql);
             </div>
 
             <!-- 収支グラフ表示 -->
-            <div class="row mt-5 money-grid">
+            <div class="row mx-3 mt-5 money-grid">
                 <div class="position-relative d-block p-5">
                     <!-- チャートの表示エリア -->
                     <canvas class="w-100 h-100" id="in_exChart"></canvas>
@@ -165,7 +234,7 @@ $expense_data =  $db->query($sql);
             </div>
             
             <!-- 月間収支別カテゴリ詳細グラフ表示 -->
-            <div class="row mt-5 money-grid">
+            <div class="row mx-3 mt-5 money-grid">
                 <div class="position-relative d-block p-5">
                     <!-- チャートの表示エリア -->
                     <canvas class="w-100 h-100" id="categoryChart"></canvas>
@@ -177,27 +246,35 @@ $expense_data =  $db->query($sql);
 
 
 <script>
+    // console.log("<?php //echo $ttt[0] ?>");
+    // console.log("<?php //echo $ttt[1] ?>");
+    // console.log("<?php //echo $ttt[2] ?>");
+
     <?php
-    $dataset = [
-        "balance_data" => $balance_data,
-        "income_data" => $income_data,
-        "expense_data" => $expense_data,
-    ];
-    foreach($dataset as $name => $data) {
-        $data_array = array();
-        foreach($data as $index => $item) {
-            foreach($item as $key => $value) {
-                if (gettype($key) !== "integer") {
-                    if ($index == 0) {
-                        $data_array += [$key => [$value]];
-                    } else {
-                        array_push($data_array[$key], $value);
-                    }
-                }
-            }
-        }
-        echo "const ". $name. " = JSON.parse('". json_encode($data_array, JSON_UNESCAPED_UNICODE). "');";
-        echo "console.log(". $name. ");";
+    // $dataset = [
+    //     "balance_data" => $balance_data,
+    //     "income_data" => $income_data,
+    //     "expense_data" => $expense_data,
+    // ];
+    // foreach ($dataset as $name => $data) {
+    //     $data_array = array();
+    //     foreach ($data as $index => $item) {
+    //         foreach ($item as $key => $value) {
+    //             if (gettype($key) !== "integer") {
+    //                 if ($index == 0) {
+    //                     $data_array += [$key => [$value]];
+    //                 } else {
+    //                     array_push($data_array[$key], $value);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     echo "const ". $name. " = JSON.parse('". json_encode($data_array, JSON_UNESCAPED_UNICODE). "');";
+    //     echo "console.log(". $name. ");";
+    // }
+    for ($i = 0; $i < count($dataset["name"]); $i++) {
+        echo "const ". $dataset["name"][$i]. " = JSON.parse('". json_encode($dataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
+        echo "console.log(". $dataset["name"][$i]. ");";
     }
     ?>
 </script>
