@@ -4,6 +4,7 @@ $stylesheet_name = "help_add.css";
 require_once("../include/header.php");
 ?>
 
+
 <?php
 require($absolute_path."lib/help_class.php");
 $help = new help($db);
@@ -60,7 +61,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                     <?php endforeach; ?>
                 </select>
 
-                <button type="submit">絞り込む</button>
+                <button type="submit" class="btn-1">絞り込む</button>
             </form>
        
     <?php endif; ?>
