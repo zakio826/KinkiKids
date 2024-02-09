@@ -31,7 +31,7 @@ main {
     text-align: center;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    max-width: 400px;
+    width: 350px;
     margin: 0 auto;
 }
 
