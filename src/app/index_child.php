@@ -52,15 +52,24 @@ $message_count = $index_child_class->getMessageCount();
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
-            <p class="row">
-                <span class="col-6">
-                    しょじきん:<span class="px-2"><?php echo htmlspecialchars($savings); ?></span>えん
-                </span>
-                <span class="col-6">
-                    てもち:<span class="px-2"><?php echo htmlspecialchars($have_points); ?></span>ポイント
-                </span>
-            </p>
-
+                <p class="row">
+                    <span class="col-6">
+                        <b class="index_child_mokuhyoumoji">
+                            しょじきん:
+                        <span>
+                            <?php echo htmlspecialchars($savings); ?>
+                        </span>えん
+                        </b>
+                    </span>
+                    <span class="col-6">
+                        <b class="index_child_mokuhyoumoji">
+                        てもち:
+                        <span>
+                            <?php echo htmlspecialchars($have_points); ?>
+                        </span>ポイント
+                        </b>
+                    </span>
+                </p>
             <?php if($goal_count != 0) : ?>
                 <p>
                     きょうかせぐポイント:
