@@ -32,18 +32,17 @@ $helps = $consent->display_consent_help($user_id);
         <div class ="content">
             <ul>
                 <?php foreach ($helps as $help_data): ?>
-                    <li>
-                        <strong>お手伝い名:</strong><?php echo $help_data['help_name']; ?><br>
-                        <strong>獲得ポイント:</strong><?php echo $help_data['get_point']; ?><br>
-                        <strong>担当者</strong><?php $consent->person_select($help_data['help_id']); ?><br>
+                    <p class="mt-1"><?php echo $help_data['help_name']; ?>…<?php echo $help_data['get_point']; ?>ポイント</p>
+                    <p class="mt-2"><?php $consent->person_select($help_data['help_id']); ?></p>
 
-                        <form action="" method="post">       
+                    <form action="" method="post">
+                        <div class="btn-group">     
                             <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
-                            <input type="hidden" name="consent_get_point" value="<?php echo $help_data['get_point']; ?>">  
-                            
-                            <button type="submit">承認する</button>
-                        </form>
-                    </li>
+                            <button type="submit" class="btn-1">承認する</button>
+                            <button type="submit" class="btn-2">拒否する</button>
+                        </div>
+                    </form>
+                    <hr>
                 <?php endforeach; ?>
             </ul>
         </div>
