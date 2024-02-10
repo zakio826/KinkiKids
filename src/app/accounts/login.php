@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 
                 //初回ログイン時の処理
-                if ($row['first_login'] === '0000-00-00') {
+                if ($row['first_login'] === null) {
                     $date = new DateTime("now");
                     $today = $date->format("Y-m-d");
                 
@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     header("Location: ./family_add.php");
                 } else {
                     // トップページへリダイレクト
-                    header("Location: ../index_child.php");
+                    header("Location: ../index.php");
                 }
                 exit();
             } else {
