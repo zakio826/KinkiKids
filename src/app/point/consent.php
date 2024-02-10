@@ -45,7 +45,7 @@ $debts = $consent->display_consent_debt($family_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
-                        <button type="submit">承認する</button>
+                        <button type="submit" class="btn-syounin">承認する</button>
                     </form>
                 </li>
         <?php endforeach; ?>
@@ -64,7 +64,7 @@ $debts = $consent->display_consent_debt($family_id);
                 <form action="" method="post">
                     <input type="int" name="interest" placeholder="利率を入力してください" required><span>%</span><br>
                     <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
-                    <button type="submit">承認する</button>
+                    <button type="submit" class="btn-syounin">承認する</button>
                 </form>
             </li>
         <?php endforeach; ?>
