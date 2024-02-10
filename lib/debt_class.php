@@ -2,7 +2,7 @@
 class debt {
     private $db;
 
-    function __construct($db) {
+    function __construct($db, $user_id, $family_id) {
         $this->db = $db;
         $this->error = [];
 
@@ -20,7 +20,6 @@ class debt {
             //     exit();
             // }
 
-            $family_id = $this->getFamilyId($_SESSION["user_id"]);
             $approval_flag = FALSE;
             $debt_day = date('Y-m-d');
 
@@ -30,7 +29,7 @@ class debt {
             );
 
             $statement->execute(array(
-                $_SESSION["user_id"],
+                $user_id,
                 $family_id,
                 $debt_day,
                 $debt_amount,
@@ -46,15 +45,6 @@ class debt {
 
         }
     }
-    
-    private function getFamilyId($user_id) {
-        $stmt = $this->db->prepare("SELECT family_id FROM user WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result['family_id'];
-    }
 
     private function getChildDataInfo($user_id) {
         $stmt = $this->db->prepare("SELECT child_data_id, max_lending FROM child_data WHERE user_id = :user_id");
@@ -63,6 +53,20 @@ class debt {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return [$result['child_data_id'], $result['max_lending']];
+    }
+
+    public function display_consent_repayment($user_id) {
+        $currentDate = date("d");
+        $query = "SELECT * FROM debt WHERE user_id = :user_id AND approval_flag = 1 AND repayment_date = :current_date";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // データを連想配列として取得
+        $debts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $debts;
     }
 }
 
