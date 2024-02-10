@@ -34,6 +34,9 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 }
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
     <div class="mb-3 title"><h1>おてつだい</h1></div>
 
