@@ -72,20 +72,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 
                 //初回ログイン時の処理
-                if (isset($row['first_login'])) {
+                if ($row['first_login'] === null) {
                     $date = new DateTime("now");
                     $today = $date->format("Y-m-d");
-
-                    $sql = "UPDATE user SET first_login = TO_DATE('".$today."','YYYY-MM-DD') WHERE user_id = ".$row['user_id'];
+                
+                    $sql = "UPDATE user SET first_login = '".$today."' WHERE user_id = ".$row['user_id'];
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
                     
-                    //ウェルカムページへリダイレクト
+                    // ウェルカムページへリダイレクト
                     header("Location: ./family_add.php");
                 } else {
-                    //トップページへリダイレクト
-                    // header("Location: ..index.php");
-                    header("Location: ../index_child.php");
+                    // トップページへリダイレクト
+                    header("Location: ../index.php");
                 }
                 exit();
             } else {

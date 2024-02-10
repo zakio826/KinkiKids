@@ -1,7 +1,5 @@
-<!-- 目標登録ページ -->
-
 <?php
-$page_title = "目標設定";
+$page_title = "再目標設定";
 $stylesheet_name = "goal_adult.css";
 require_once("../include/header.php");
 ?>
@@ -9,11 +7,22 @@ require_once("../include/header.php");
 <?php 
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
-$familyId = $_SESSION['join']['family_id'];
+
+
+require($absolute_path."lib/index_parent_class.php");
+$index_parent_class = new index_parent_class($db);
+
+foreach ($index_parent_class->getFamily() as $child) {
+    $goal_deadline = $child['goal_deadline'];
+    if ($index_parent_class->isDeadlinePassed($goal_deadline)) {
+        // 目標の削除処理（例：目標のIDを使用してDBから目標を削除する処理）
+        // ここに目標を削除する処理を記述
+        $child_user_id = $child['user_id'];
+        $goal->deleteGoal($child_user_id);
+    }
+}
 ?>
 
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
@@ -21,24 +30,6 @@ $familyId = $_SESSION['join']['family_id'];
             <h1>こうにゅうもくひょうせってい</h1>
 
             <br>
-
-            <div class="control-1">
-                    <label for="goal_user">こども</label>
-                    <select id="goal_user" name="goal_user">
-                        <?php
-                        // セッションから家族IDを取得
-                        $familyId = $_SESSION['join']['family_id'];
-
-                        // 家族IDに基づいてユーザーを取得
-                        list($child_id, $child_first_name) = $goal->getFamilyUsers($familyId);
-                        $new_user = array_combine($child_id, $child_first_name);
-                        // プルダウンメニューにユーザーを表示
-                        foreach ($new_user as $key => $value) {
-                            echo  '<option value="' . $key . '">' . $value . '</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
 
             <div class="control-1">
                 <label for="target_amount">きんがく</label>
@@ -63,6 +54,6 @@ $familyId = $_SESSION['join']['family_id'];
     </div>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("../include/bottom_nav.php") ?>
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

@@ -39,13 +39,8 @@ include("../include/header.php");
                         $familyId = $_SESSION['join']['family_id'];
 
                         // 家族IDに基づいてユーザーを取得
-                        $familyUsers = $setting_norma->getFamilyUsers($familyId);
-                         $new_user = array($familyUsers["user_id"] => $familyUsers["first_name"]);
-
-
-                        
-
-
+                        list($child_id, $child_first_name) = $setting_norma->getFamilyUsers($familyId);
+                        $new_user = array_combine($child_id, $child_first_name);
                         // プルダウンメニューにユーザーを表示
                         foreach ($new_user as $key => $value) {
                             echo  '<option value="' . $key . '">' . $value . '</option>';
@@ -68,6 +63,6 @@ include("../include/header.php");
     </section>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

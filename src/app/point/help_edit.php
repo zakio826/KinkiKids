@@ -61,6 +61,6 @@ if (!empty($_POST)) {
     </form>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

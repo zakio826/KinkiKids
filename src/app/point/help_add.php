@@ -34,6 +34,9 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 }
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
     <div class="mb-3 title"><h1>おてつだい</h1></div>
 
@@ -90,6 +93,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                         ?><br>
                     </li>
                 <?php if ($select === 'adult'): ?>
+                    <div class="btn-group">
                     <form action="help_edit.php" method="get">
                         <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-1">編集</button>
@@ -116,5 +120,5 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
     </div>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <?php require_once("../include/footer.php"); ?>
