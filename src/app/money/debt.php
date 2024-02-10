@@ -32,12 +32,14 @@ $repayment = $debt->display_consent_repayment($user_id);
 
 
 <main>
+<div class="mb-3 title"><h1>ぎんこう</h1></div>
 <div class ="mb-3 content">
     
     <p id="currentDate"></p>
     <form action="" method="POST">
+    
         <div class="control">
-            <label for="contents">なににつかうuu？</label>
+            <label for="contents">なににつかう？</label>
             <input type="text" name="contents" required>
         </div>
         <div class="control">
@@ -58,7 +60,7 @@ $repayment = $debt->display_consent_repayment($user_id);
             <label for="repayment_date">いつかえす？</label>
             <input type="int" name="repayment_date" placeholder="日付をにゅうりょく" required>
         </div>
-        <button type="submit">お金をかりる</button>
+        <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
 
     <?php 

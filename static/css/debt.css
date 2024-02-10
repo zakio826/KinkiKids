@@ -16,7 +16,7 @@ main{
 label {
     display: block;
     margin-bottom: 5px;
-    color: #7f98f1; /*テキストの色を指定 */
+    color: #525ED2; /*テキストの色を指定 */
 }
 
 input {
@@ -33,6 +33,11 @@ input[type="checkbox"] {
     margin-right: 10px; /* 右側に10pxの空白を追加 */
 }
 
+.title h1{
+    font-weight: bold;
+    color: #2862ff;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
 /* 青色の枠部分 */
 .content {
     background-color: #FFF27E;
@@ -42,4 +47,22 @@ input[type="checkbox"] {
     width: 370px; /* 幅を固定 */
     margin: 0 auto;
     min-width: 370px; /* 最小幅を設定 */
+}
+
+.btn-group {
+    display: flex;
+    margin-left: 40px;
+    align-items: center;
+}
+
+.btn-kariru {
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
 }
