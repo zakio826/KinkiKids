@@ -9,12 +9,6 @@
  * scatter      散布図
  */
 
-const chart_color = [
-    "255, 0, 0",
-    "0, 255, 0",
-    "0, 0, 255",
-];
-
 
 let categoryChartData = {
     labels: ['赤', '青', '黄'],

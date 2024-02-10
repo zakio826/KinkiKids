@@ -31,7 +31,7 @@ $debts = $consent->display_consent_debt($family_id);
 <main>
     <section>
     <div class="title">
-        <h1>おてつだい承認</h1>
+        <h1>承認</h1>
     </div>
     <br>
     <div class ="content">
@@ -70,6 +70,8 @@ $debts = $consent->display_consent_debt($family_id);
         <?php endforeach; ?>
     </div>
     </section>
+        <!-- ボトムナビゲーションバー -->
+        <?php include_once("../include/bottom_nav.php") ?>
 </main>
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
