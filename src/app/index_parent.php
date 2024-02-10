@@ -89,6 +89,17 @@ echo '</script>';
                     <p>
                         <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
                     </p>
+                    <form action="" method="POST">
+                        <input type="hidden" name="check" value="checked">
+                        <p>誰に送るか</p>
+                        <select name="receiver" required>
+                            <option value=""></option>
+                            <?php $index_parent_class->getFamilyUser(); ?>
+                        </select>
+                        <input type="text" name="message" required>
+                        <button type="submit">返信</button>
+                    </form>
+
                     <select id="user_select">
                         <option value=""></option>
                         <?php $index_parent_class->getFamilyUser(); ?>
@@ -119,16 +130,6 @@ echo '</script>';
                         <?php endif; ?>
                     </div>
 
-                    <form action="" method="POST">
-                        <input type="hidden" name="check" value="checked">
-                        <p>誰に送るか</p>
-                        <select name="receiver" required>
-                            <option value=""></option>
-                            <?php $index_parent_class->getFamilyUser(); ?>
-                        </select>
-                        <input type="text" name="message" required>
-                        <button type="submit">返信</button>
-                    </form>
                 </div>
             </div>
         </div>
