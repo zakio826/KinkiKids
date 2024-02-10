@@ -76,12 +76,11 @@ class family_add {
                 // フォームから送信された各ユーザー情報をループ処理
                 for ($i = 0; $i < count($usernames); $i++) {
                     $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
-                    $firstlogin = date('Y-m-d');
                     $adminFlag = isset($admin_flags[$i]) ? 1 : 0;
 
                     $statement = $this->db->prepare(
-                        "INSERT INTO user (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id, first_login) ".
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                        "INSERT INTO user (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id) ".
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     );
 
                     $statement->execute(array(
@@ -93,8 +92,7 @@ class family_add {
                         $gender_ids[$i],
                         $role_ids[$i],
                         $adminFlag,
-                        $family_id,
-                        $firstlogin
+                        $family_id
                     ));
 
                     $savedUserId = $this->getUserIdByUsername($usernames[$i]);
