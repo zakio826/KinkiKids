@@ -11,6 +11,11 @@ include("../include/header.php");  // appディレクトリ直下であれば、
 require($absolute_path."lib/conset_class.php");
 $consent = new consent($db);
 
+if ($select === 'child'):
+    header("Location: ./help_add.php");
+    exit();
+endif;
+
 $user_id = $_SESSION["user_id"];
 $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
