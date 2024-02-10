@@ -33,7 +33,7 @@ $repayment = $debt->display_consent_repayment($user_id);
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
-    //ここに追加
+    //ここに追加aaa
     <p id="currentDate"></p>
     <form action="" method="POST">
         <div class="control">
