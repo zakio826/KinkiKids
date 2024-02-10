@@ -8,6 +8,14 @@ require_once("../include/header.php");
 require($absolute_path."lib/exchange_class.php");
 $exchange = new Exchange($db);
 
+$select = $_SESSION["select"];
+
+if ($select !== 'adult'):
+    header("Location: ../index.php");
+    exit();
+endif;
+
+
 if(isset($_SESSION['exchange_error'])) {
     echo '<p class="exchange-error">' . $_SESSION['exchange_error'] . '</p>';
     unset($_SESSION['exchange_error']);

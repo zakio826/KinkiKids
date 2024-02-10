@@ -6,7 +6,8 @@ require_once("../include/header.php");
 
 <?php
 require($absolute_path."lib/goal_class.php");
-
+$goal_check = new goal_check($db);
+$goal_user_name = $goal_check->getusername($db); 
 // if (!isset($_SESSION['join'])) { //
 //     header('Location: ./goal.php');
 //     exit();
@@ -25,6 +26,11 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
 <main>
     <div class="container--">
         <h1>もくひょうかくにん</h1>
+
+        <div class="mt-1">
+            <strong>こども　</strong>
+            <p><?php echo htmlspecialchars($goal_user_name); ?></p>
+        </div>
 
         <div class="mt-1">
             <strong>きんがく　</strong>
