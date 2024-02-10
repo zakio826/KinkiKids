@@ -37,18 +37,31 @@ class consent {
             $debt_id = $_POST["consent_debt_id"];
             $interest = $_POST["interest"];
 
-            $query = "SELECT debt_amount FROM debt WHERE debt_id = :debt_id";
+            $query = "SELECT debt_amount, installments FROM debt WHERE debt_id = :debt_id";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':debt_id', $debt_id, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $debt_amount = $result['debt_amount'];
+            $installments = $result['installments'];
 
             $repayment_amount = $debt_amount * (1 + $interest / 100);
+            $repayment_installments = $repayment_amount / $installments;
 
-            $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = $repayment_amount, interest = $interest WHERE debt_id = :debt_id");
+            $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = :repayment_amount, interest = :interest, repayment_installments = :repayment_installments WHERE debt_id = :debt_id");
+            $stmt->bindParam(':repayment_amount', $repayment_amount);
+            $stmt->bindParam(':interest', $interest);
+            $stmt->bindParam(':repayment_installments', $repayment_installments);
             $stmt->bindParam(':debt_id', $debt_id);
             $stmt->execute();
+
+            $child_data_id = $this->get_child_data_id($debt_id);
+
+            $stmt = $this->db->prepare("UPDATE child_data SET savings = savings + :amount WHERE child_data_id = :child_data_id");
+            $stmt->bindParam(':amount', $debt_amount, PDO::PARAM_STR);
+            $stmt->bindParam(':child_data_id', $child_data_id, PDO::PARAM_INT);
+            $stmt->execute();
+
 
             echo "承認しました";
         }
@@ -120,6 +133,35 @@ class consent {
             }
         } else {
             echo "データが見つかりません";
+        }
+    }
+
+    public function get_child_data_id($debt_id) {
+        // debtテーブルからuser_idを取得
+        $query = "SELECT user_id FROM debt WHERE debt_id = :debt_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':debt_id', $debt_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $debtuser = $result['user_id'];
+
+            // child_dataテーブルからchild_data_idを取得
+            $query_child_data = "SELECT child_data_id FROM child_data WHERE user_id = :user_id";
+            $stmt_child_data = $this->db->prepare($query_child_data);
+            $stmt_child_data->bindParam(':user_id', $debtuser, PDO::PARAM_INT);
+            $stmt_child_data->execute();
+            $result_child_data = $stmt_child_data->fetch(PDO::FETCH_ASSOC);
+
+            if ($result_child_data) {
+                $child_data_id = $result_child_data['child_data_id'];
+                return $child_data_id;
+            } else {
+                return "child_dataが見つかりません";
+            }
+        } else {
+            return "データが見つかりません";
         }
     }
 }

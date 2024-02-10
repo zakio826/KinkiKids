@@ -5,7 +5,9 @@ require_once("../include/header.php");
 ?>
 <?php
 require($absolute_path."lib/debt_class.php");
-$exchange = new debt($db);
+$user_id = $_SESSION["user_id"];
+$family_id = $_SESSION["family_id"];
+$debt = new debt($db, $user_id, $family_id);
 
 $select = $_SESSION["select"];
 
@@ -14,14 +16,21 @@ if ($select !== 'child'):
     exit();
 endif;
 
+if(isset($_SESSION['updated'])) {
+    echo '<script>alert("借金の返済をしました");</script>' ;
+    unset($_SESSION['updated']);
+}
 
 if(isset($_SESSION['debt'])) {
     echo '<script>alert("' . $_SESSION['debt'] . '円の借り入れを申請しました");</script>' ;
     unset($_SESSION['debt']);
 }
+
+$repayment = $debt->display_consent_repayment($user_id);
 ?>
 
 <main>
+    //ここに追加
     <p id="currentDate"></p>
     <form action="" method="POST">
         <div class="control">
@@ -48,6 +57,21 @@ if(isset($_SESSION['debt'])) {
         </div>
         <button type="submit">お金をかりる</button>
     </form>
+
+    <?php 
+    if (!empty($repayment)) {
+        echo '<h2>借金返済</h2>';
+        echo '<ul>';
+        foreach ($repayment as $repayment_data) {
+            echo '<li>';
+            echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
+            echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
+            echo '<a href="repayment.php?debt_id=' . $repayment_data['debt_id'] . '">借金返済する</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+    ?>
 </main>
 
 <script>
