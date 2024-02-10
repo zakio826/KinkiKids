@@ -11,11 +11,11 @@ $debt = new debt($db, $user_id, $family_id);
 
 $select = $_SESSION["select"];
 
+
 if ($select !== 'child'):
     header("Location: ../index.php");
     exit();
 endif;
-
 if(isset($_SESSION['updated'])) {
     echo '<script>alert("借金の返済をしました");</script>' ;
     unset($_SESSION['updated']);
@@ -29,15 +29,15 @@ if(isset($_SESSION['debt'])) {
 $repayment = $debt->display_consent_repayment($user_id);
 ?>
 
-<!-- ナビゲーションバー -->
-<?php include_once("../include/nav_bar.php") ?>
+
 
 <main>
-    //ここに追加aaa
+<div class ="mb-3 content">
+    
     <p id="currentDate"></p>
     <form action="" method="POST">
         <div class="control">
-            <label for="contents">なににつかう？</label>
+            <label for="contents">なににつかうuu？</label>
             <input type="text" name="contents" required>
         </div>
         <div class="control">
@@ -75,7 +75,13 @@ $repayment = $debt->display_consent_repayment($user_id);
         echo '</ul>';
     }
     ?>
+</div>
 </main>
+
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+
+<?php require_once("../include/footer.php"); ?>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
