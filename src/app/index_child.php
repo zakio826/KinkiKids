@@ -23,7 +23,7 @@ $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
 
-$index_child_class->message($db, $_SESSION['join']);
+$index_child_class->message($db);
 ?>
 
 
@@ -39,7 +39,7 @@ $index_child_class->message($db, $_SESSION['join']);
     <section class="position-relative h-75">
     <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php">目標一覧</a>
 
-        <div class="index_child_mokuhyoucss">
+        <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
             <?php if ($goal_count != 0) : ?>
                 <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
@@ -89,6 +89,7 @@ $index_child_class->message($db, $_SESSION['join']);
             <ul>
                 <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
                 <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
+                <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
             </ul>
         </div>
 
@@ -116,33 +117,39 @@ $index_child_class->message($db, $_SESSION['join']);
                 <?php $index_child_class->getFamilyUser(); ?>
             </select>
 
-            <p class="mb-3" id="order-string"></p>
+           
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+               <p class="mb-3" id="order-string"></p>
+            </div> 
 
-            <?php if ($message_count != 0) : ?>
-                <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                    ➡
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                    
-                    <p>
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
-                    </p>
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                <?php if ($message_count != 0) : ?>
+                    <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                        ➡
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                        
+                        <p>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
+                        </p>
 
-                    <hr>
+                        <hr>
 
-                <?php endfor; ?>
-            <?php else : ?>
-                <p>メッセージがありません</p>
-            <?php endif; ?>
+                    <?php endfor; ?>
+                <?php else : ?>
+                    <p>メッセージがありません</p>
+                <?php endif; ?>
+            </div>
+
             <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
                 <p>誰に送るか</p>
-                <select name="receiver">
+                <select name="receiver" required>
                     <option value=""></option>
                     <?php $index_child_class->getFamilyUser(); ?>
                 </select>
-                <input type="text" name="message">
+                <input type="text" name="message" required>
                 <button type="submit">返信</button>
             </form>
                 

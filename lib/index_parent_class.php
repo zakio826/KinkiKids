@@ -31,12 +31,27 @@ class index_parent_class {
         }
     }
 
-    public function getPoint($i) {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
+    public function getChildSavings($i) {
+        $stmt = $this->db->prepare("SELECT * FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $i);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return 0;
+        }
+    }
+    public function getChildAllowance($i) {
+        $stmt = $this->db->prepare("SELECT * FROM allowance WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $i);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return 0;
+        }
     }
 
     public function getFamily() {
@@ -317,7 +332,6 @@ class index_parent_class {
             }
         }
     }
-
     public function isDeadlinePassed($goal_deadline) {
         $current_date = date('Y-m-d'); // 現在の日付を取得
         return ($goal_deadline < $current_date);

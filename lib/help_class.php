@@ -249,7 +249,7 @@ class help {
     }
 
     public function person_select($help_id) {
-        $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+        $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id ");
         $stmt->bindParam(':help_id', $help_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -34,6 +34,12 @@ echo '</script>';
 
 ?>
 
+<ul>
+    <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
+    <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
+    <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
+</ul>
+
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>
 
@@ -64,9 +70,6 @@ echo '</script>';
         貯金：<p id="savings"></p>
 
     </section>
-
-    <!-- ボトムナビゲーションバー -->
-    <?php include_once("./include/bottom_nav.php") ?>
 </main>
 
 <script>
@@ -74,7 +77,12 @@ echo '</script>';
     let goal_detail = '';
     let goal_deadline = '';
     let target_amount = '';
-    let savings;
+    let savings = '';
+    let points = '';
+    let have;
+    let day;
+    let dayPoint;
+    let allowance_amount;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user_select').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -87,12 +95,31 @@ echo '</script>';
                      goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
                      goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
                      target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+                     savings = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['savings'];?>;
+                     points = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['have_points'];?>;
+                     have = savings + points;
+                     allowance_amount = <?php echo $index_parent_class->getChildAllowance($index_parent_class->getFamily()[$i]['user_id'])['allowance_amount']; ?>;
+                     day = <?php echo $today->diff($deadline)->format('%a'); ?>;
+                     if(target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?> >= 0){
+                         if(day != 0){
+                             dayPoint = (target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>) / day;
+                        } else {
+                            dayPoint = target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>;
+                        }
+                    } else {
+                        dayPoint = 0;
+                    }
+
                 <?php } ?>
             }
         <?php } ?>
         document.getElementById('goal_detail').innerHTML = goal_detail;
         document.getElementById('goal_deadline').innerHTML = goal_deadline;
         document.getElementById('target_amount').innerHTML = target_amount;
+        document.getElementById('savings').innerHTML = savings;
+        document.getElementById('points').innerHTML = points;
+        document.getElementById('have').innerHTML = have;
+        document.getElementById('dayPoint').innerHTML = dayPoint;
     });
 </script>
 <!-- ナビゲーションバー -->

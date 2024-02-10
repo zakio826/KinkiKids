@@ -30,7 +30,6 @@ class goal {
 
                 $goal_created_date = date("Y-m-d H:i:s");
 
-
                 $_SESSION['join']['user_id'] = $user_id;
                 $_SESSION['join']['family_id'] = $family_id;
                 $_SESSION['join']['goal_created_date'] = $goal_created_date;
@@ -53,13 +52,12 @@ class goal {
     }
 
     private function saveGoalToDatabase() {
-        $sql = "INSERT INTO goal (user_id, family_id, goal_user_id, target_amount, goal_detail, goal_deadline, goal_created_date) ".
-               "VALUES (:user_id, :family_id, :goal_user_id, :target_amount, :goal_detail, :goal_deadline, :goal_created_date)";
+        $sql = "INSERT INTO goal (user_id, family_id, target_amount, goal_detail, goal_deadline, goal_created_date) ".
+               "VALUES (:user_id, :family_id, :target_amount, :goal_detail, :goal_deadline, :goal_created_date)";
     
         $params = array(
             ':user_id' => $_SESSION['join']['user_id'],
             ':family_id' => $_SESSION['join']['family_id'],
-            ':goal_user_id' => $_SESSION['join']['goal_user'],
             ':target_amount' => $_SESSION['join']['target_amount'],
             ':goal_detail' => $_SESSION['join']['goal_detail'],
             ':goal_deadline' => $_SESSION['join']['goal_deadline'],
@@ -81,34 +79,11 @@ class goal {
         return $result;
     }
 
-    public function getFamilyUsers($familyId) {
-        // データベースから家族IDが一致するユーザーを取得するクエリを実行する
-        $stmt = $this->db->prepare("SELECT user_id ,first_name FROM user WHERE family_id = :family_id");
-        $stmt->bindParam(':family_id', $familyId);
+    public function deleteGoal($user_id) {
+        // データベースから目標を削除する処理を実装
+        $stmt = $this->db->prepare("DELETE FROM goal WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result;
     }
-
-
-}
-
-class goal_check{
-    private $error; // エラー情報を保持するプロパティ
-    private $db; // データベース接続を保持するプロパティ
-
-    public function getusername($db) {
-        $this->db = $db;
-        $this->error = []; // 初期化
-        // データベースから選択されたユーザーIDが一致するユーザーを取得するクエリを実行する
-        $stmt = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $_SESSION['join']['goal_user']);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result['first_name'];
-    }
-
 }
 ?>

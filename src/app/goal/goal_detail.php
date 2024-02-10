@@ -57,6 +57,6 @@ $help_count = $index_child_class->getHelpCount();
     <a href="../index.php">トップページに戻る</a>
 </main>
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
