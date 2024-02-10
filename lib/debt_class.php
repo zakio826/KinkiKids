@@ -13,6 +13,14 @@ class debt {
             $reason = $_POST['reason'];
             $repayment_date = $_POST['repayment_date'];
 
+            list($childDataId, $maxlending) = $this->getChildDataInfo($user_id);
+
+            if ($debt_amount > $maxlending) {
+                $_SESSION['debt_error'] = '※貸出金額が最大貸出金額を超えています';
+                header('Location: debt.php');
+                exit();
+            }
+
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
             $approval_flag = FALSE;
             $interest = 1;
@@ -50,6 +58,15 @@ class debt {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result['family_id'];
+    }
+
+    private function getChildDataInfo($user_id) {
+        $stmt = $this->db->prepare("SELECT child_data_id, max_lending FROM child_data WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return [$result['child_data_id'], $result['max_lending']];
     }
 }
 

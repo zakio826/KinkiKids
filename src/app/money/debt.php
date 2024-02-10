@@ -31,6 +31,12 @@ if(isset($_SESSION['debt'])) {
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
             <input type="int" name="debt_amount" required>
+            <?php 
+            if(isset($_SESSION['debt_error'])) {
+                echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
+                unset($_SESSION['debt_error']);
+            } 
+            ?>
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
@@ -49,13 +55,13 @@ if(isset($_SESSION['debt'])) {
 </main>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var currentDateElement = document.getElementById('currentDate');
-            var currentDate = new Date();
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentDateElement = document.getElementById('currentDate');
+        var currentDate = new Date();
 
-            var formattedDate = currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate();
+        var formattedDate = currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate();
 
-            currentDateElement.textContent = formattedDate;
-        });
-    </script>
+        currentDateElement.textContent = formattedDate;
+    });
+</script>
 <?php require_once("../include/footer.php"); ?>
