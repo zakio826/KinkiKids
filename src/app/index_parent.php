@@ -34,12 +34,6 @@ echo '</script>';
 
 ?>
 
-<ul>
-    <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
-</ul>
-
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>
 
@@ -48,6 +42,12 @@ echo '</script>';
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
+
+    <ul>
+        <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
+        <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
+    </ul>
 
     <section class="position-relative h-75">
         <div class="container px-4">
