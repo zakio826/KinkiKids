@@ -1,6 +1,6 @@
 <?php
-$page_title = "";
-$stylesheet_name = "";
+$page_title = "銀行";
+$stylesheet_name = "debt.css";
 require_once("../include/header.php");
 ?>
 <?php
