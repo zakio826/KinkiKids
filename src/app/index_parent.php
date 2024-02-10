@@ -15,6 +15,10 @@ $testpoint = new testpoint($db);
 require($absolute_path."lib/index_parent_class.php");
 $index_parent_class = new index_parent_class($db);
 
+$message_count = $index_parent_class->getMessageCount();
+
+$index_parent_class->message($db);
+
 //family_addでのsessionがあれば完了の通知出す
 if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     echo '<script>alert("' . $_SESSION['family_count'] . '人の登録が完了しました。");</script>';
@@ -22,8 +26,8 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 }
 
 echo '<script>';
-foreach ($index_parent_class->getFamily() as $child) {
-    $goal_deadline = $child['goal_deadline'];
+foreach ($index_parent_class->getFamily() as $parent) {
+    $goal_deadline = $parent['goal_deadline'];
     if ($index_parent_class->isDeadlinePassed($goal_deadline)) {
         echo 'alert("子供の目標の期限が過ぎています！");';
         echo 'window.location.href = "./goal/again_goal.php";'; 
@@ -59,7 +63,7 @@ echo '</script>';
             </div>
         </div>
 
-        <select id="user_select">
+        <select id="user">
             <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
@@ -74,11 +78,67 @@ echo '</script>';
         今日稼ぐポイント：<p id="dayPoint"></p>
         <hr>
 
+        <!-- <hr class="index_child_hr"> -->
+        <div class="index_child_messagecss1">
+            <div class="index_child_messagecss2">
+                <div class="index_child_messagecss3">
+
+                    <!-- <span>
+                        <p>メッセージ</p>
+                    </span> -->
+                    <p>
+                        <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
+                    </p>
+                    <select id="user_select">
+                        <option value=""></option>
+                        <?php $index_parent_class->getFamilyUser(); ?>
+                    </select>
+
+           
+                    <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                        <p class="mb-3" id="order-string"></p>
+                    </div> 
+
+                    <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                        <?php if ($message_count != 0) : ?>
+                            <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                                <?php echo htmlspecialchars($index_parent_class->getMessage($i)['sender']); ?>
+                                ➡
+                                <?php echo htmlspecialchars($index_parent_class->getMessage($i)['receiver']); ?>
+                                
+                                <p>
+                                    <?php echo htmlspecialchars($index_parent_class->getMessage($i)['messagetext']); ?> 
+                                    <?php echo htmlspecialchars($index_parent_class->getMessage($i)['sent_time']); ?> 
+                                </p>
+
+                                <hr>
+
+                            <?php endfor; ?>
+                        <?php else : ?>
+                            <p>メッセージがありません</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <form action="" method="POST">
+                        <input type="hidden" name="check" value="checked">
+                        <p>誰に送るか</p>
+                        <select name="receiver" required>
+                            <option value=""></option>
+                            <?php $index_parent_class->getFamilyUser(); ?>
+                        </select>
+                        <input type="text" name="message" required>
+                        <button type="submit">返信</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
 
 <script>
-    let select = document.getElementById('user_select');
+    let select = document.getElementById('user');
+    let select1 = document.getElementById('user_select');
+    let count = <?php echo $message_count; ?>;
     let goal_detail = '';
     let goal_deadline = '';
     let target_amount = '';
@@ -89,7 +149,7 @@ echo '</script>';
     let dayPoint;
     let allowance_amount;
     select.addEventListener('change', (e) => {
-        let selected_value = document.getElementById('user_select').value;
+        let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
             if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
                 <?php 
@@ -126,6 +186,37 @@ echo '</script>';
         document.getElementById('have').innerHTML = have;
         document.getElementById('dayPoint').innerHTML = dayPoint;
     });
+
+
+
+
+    select1.addEventListener('change', (e) => {
+        let selected_value = document.getElementById('user_select').value;
+        let message = [];
+
+        let xxx1 = null;
+        let xxx2 = null;
+        let xxx3 = null;
+        let xxx4 = null;
+        let xxx5 = null;
+        
+        <?php for ($i = 0; $i < $message_count; $i++) : ?>
+            xxx1 = <?php echo htmlspecialchars($index_parent_class->getMessage($i)['receiver_id']); ?>;
+            xxx2 = <?php echo htmlspecialchars($index_parent_class->getMessage($i)['session_user']); ?>;
+            xxx3 = <?php echo htmlspecialchars($index_parent_class->getMessage($i)['sender_id']); ?>;
+            xxx4 = '<?php echo htmlspecialchars($index_parent_class->getMessage($i)['messagetext']); ?>';
+            xxx5 = '<?php echo htmlspecialchars($index_parent_class->getMessage($i)['sender']); ?>';
+
+            if (selected_value == xxx1 && xxx2 == xxx3 || selected_value == xxx3 && xxx2 == xxx1) {
+                if (selected_value == xxx1 && xxx2 == xxx3) message.push('自分：' + xxx4);
+                else message.push(xxx5 + '：' + xxx4);
+            }
+        <?php endfor; ?>
+
+        let str = message.join('<br>');
+        document.getElementById('order-string').innerHTML = str;
+    });
+
 </script>
 <!-- ナビゲーションバー -->
 <?php include_once("./include/bottom_nav.php") ?>
