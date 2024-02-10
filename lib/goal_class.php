@@ -8,6 +8,9 @@ class goal {
         $this->db = $db;
         $this->error = []; // 初期化
 
+        $family_id = $this->getFamilyId($_SESSION['user_id']);
+        $_SESSION['join']['family_id'] = $family_id;
+
         if (!empty($_POST)) {
             /* 入力情報に空白がないか検知 */
             if ($_POST['target_amount'] === "") {
@@ -26,12 +29,10 @@ class goal {
 
                 $user_id = $_SESSION["user_id"];
 
-                $family_id = $this->getFamilyId($user_id);
 
                 $goal_created_date = date("Y-m-d H:i:s");
 
                 $_SESSION['join']['user_id'] = $user_id;
-                $_SESSION['join']['family_id'] = $family_id;
                 $_SESSION['join']['goal_created_date'] = $goal_created_date;
 
                 $this->saveGoalToDatabase();
