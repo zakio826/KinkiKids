@@ -9,6 +9,7 @@ require_once("../include/header.php");
 <?php 
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
+$familyId = $_SESSION['join']['family_id'];
 ?>
 
 <!-- ナビゲーションバー -->
@@ -20,6 +21,24 @@ $goal = new goal($db);
             <h1>こうにゅうもくひょうせってい</h1>
 
             <br>
+
+            <div class="control-1">
+                    <label for="goal_user">こども</label>
+                    <select id="goal_user" name="goal_user">
+                        <?php
+                        // セッションから家族IDを取得
+                        $familyId = $_SESSION['join']['family_id'];
+
+                        // 家族IDに基づいてユーザーを取得
+                        list($child_id, $child_first_name) = $goal->getFamilyUsers($familyId);
+                        $new_user = array_combine($child_id, $child_first_name);
+                        // プルダウンメニューにユーザーを表示
+                        foreach ($new_user as $key => $value) {
+                            echo  '<option value="' . $key . '">' . $value . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
 
             <div class="control-1">
                 <label for="target_amount">きんがく</label>
