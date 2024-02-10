@@ -29,6 +29,9 @@ if(isset($_SESSION['debt'])) {
 $repayment = $debt->display_consent_repayment($user_id);
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
     //ここに追加
     <p id="currentDate"></p>
