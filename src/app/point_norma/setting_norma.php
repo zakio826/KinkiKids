@@ -11,6 +11,7 @@ include("../include/header.php");
 <?php // ページの最初に行う処理
  require($absolute_path."lib/setting_norma_class.php");
  $setting_norma = new setting_norma($db);
+ $familyId = $_SESSION['join']['family_id'];
 ?>
 
 
@@ -31,6 +32,24 @@ include("../include/header.php");
                 </div>
 
                 <div class="control-1">
+                    <label for="norma_user">子供</label>
+                    <select id="norma_user" name="norma_user">
+                        <?php
+                        // セッションから家族IDを取得
+                        $familyId = $_SESSION['join']['family_id'];
+
+                        // 家族IDに基づいてユーザーを取得
+                        list($child_id, $child_first_name) = $setting_norma->getFamilyUsers($familyId);
+                        $new_user = array_combine($child_id, $child_first_name);
+                        // プルダウンメニューにユーザーを表示
+                        foreach ($new_user as $key => $value) {
+                            echo  '<option value="' . $key . '">' . $value . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="control-1">
                     <label for="point_norma_deadline">いつまで？</label>
                     <input id="point_norma_deadline" type="date" name="point_norma_deadline" value="<?php echo isset($_SESSION['join']['point_norma_deadline']) ? htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_norma->deadline_error(); ?>
@@ -43,6 +62,7 @@ include("../include/header.php");
         </div>
     </section>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

@@ -32,50 +32,170 @@ $first_week = date("w", strtotime("first day of", $this_date));  // 表示月の
 $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の最終日
 ?>
 
-<?php  // 収支関連のデータを取得
+<?php  // 大人であれば子どもの情報、子どもであれば、自分の情報を取得
+// if ($_SESSION["select"] === "child") {
+//     $user_id = $_SESSION["user_id"];
+// } else if (isset($_POST["child_select"])) {
+//     $user_id = $_POST["child_select"];
+// } else {
+//     $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id < 30;");
+//     foreach ($familys as $family) {
+//         if ($family["user_id"] != $_SESSION["user_id"]) {
+//             $user_id = $family["user_id"];
+//         }
+//     }
+// }
+
+// エラーが出るのでこれで代用
 $user_id = $_SESSION["user_id"];
+?>
+
+<?php  // 表示月以前5か月分の月間収支データを取得
+$in_exDataset = array(
+    "name" => ["expense_data", "income_data", "balance_data"],
+    "query" => [],
+    "data" => [],
+);
+
+$from = "income_expense";
 
 $columns = array(
-    "DATE_FORMAT(income_expense_date,'%Y年%c月')" => "'年月', ",
-    "SUM(income_expense_amount)" => "'合計金額'",
+    ["年月" => "DATE_FORMAT(income_expense_date,'%Y年%c月')"],
+    ["合計金額" => "SUM(income_expense_amount)"],
 );
+
 $column = "";
-foreach ($columns as $key => $value) {
-    $column .= $key . " AS " . $value;
-}
-
-$start_ym = date("Y-m", strtotime("-4 month", $this_date));
-$end_ym = date("Y-m", $this_date);
-
-$wheres = array(
-    ["user_id", "=", $user_id],
-    ["income_expense_date", "BETWEEN", $start_ym."-01", "AND", $end_ym."-".$last_day],
-);
-$where = "";
-for ($i = 0; $i < count($wheres); $i++) {
-    for ($j = 0; $j < count($wheres[$i]); $j++) {
-        $where .= $wheres[$i][$j];
-
-        if ($j+1 != count($wheres[$i])) {
-            $where .= " ";
-        } elseif ($i+1 != count($wheres)) {
-            $where .= " AND ";
-        }
+for ($i = 0; $i < count($columns); $i++) {
+    foreach ($columns[$i] as $key => $value) {
+        $column .= $value. " AS `". $key. "`";
+    }
+    if ($i+1 < count($columns)) {
+        $column .= ", ";
     }
 }
 
-$order_by = "'年月'";
+$start_ym = date("Y-m", strtotime("-4 month", $this_date));
+$this_ym = date("Y-m", $this_date);
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where." ORDER BY ".$order_by.";";
-$balance_data =  $db->query($sql);
+$wheres = array(
+    "user_id = ". $user_id,
+    "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
+    "income_expense_flag =",
+);
 
-$income_expense_flag = " AND income_expense_flag = ";
+for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
+    $sql = "SELECT ". $column. " FROM ". $from. " WHERE ";
+    for ($j = 0; $j < count($wheres); $j++) {
+        $sql .= $wheres[$j];
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."0 ORDER BY ".$order_by.";";
-$income_data =  $db->query($sql);
+        if ($j+1 < count($wheres)) {
+            $sql .= " AND ";
+        } else {
+            $sql .= " ";
+        }
+    }
+    $sql .= $i. " GROUP BY `". key($columns[0]). "`;";
+    array_push($in_exDataset["query"], ($db->query($sql)));
+    
+    array_push($in_exDataset["data"], array());
+    if ($i != 0) {
+        array_push($in_exDataset["data"], $in_exDataset["data"][0]);
+    }
+    $n = 0;
 
-$sql = "SELECT ".$column." FROM income_expense WHERE ".$where.$income_expense_flag."1 ORDER BY ".$order_by.";";
-$expense_data =  $db->query($sql);
+    foreach ($in_exDataset["query"][$i] as $index => $item) {
+        foreach ($item as $key => $value) {
+            if (gettype($key) !== "integer") {
+                if ($key === key($columns[1])) {
+                    if ($i == 0) {
+                        $value *= -1;
+                    } else {
+                        $in_exDataset["data"][2][$key][$n] += $value;
+                    }
+                }
+                if ($index == 0) {
+                    $in_exDataset["data"][$i] += [$key => [$value]];
+                } else {
+                    array_push($in_exDataset["data"][$i][$key], $value);
+                }
+            }
+        }
+        $n++;
+    }
+}
+?>
+
+<?php  // 表示月のカテゴリ別月間収支データを取得
+$categoryDataset = array(
+    "name" => ["ex_category_data", "in_category_data", ],
+    "query" => [],
+    "data" => [],
+);
+
+$from_join = array(
+    "from" => "income_expense",
+    "table" => ["income_expense_category"],
+    "column" => [
+        ["income_expense_category_id", "income_expense_category_id"],
+    ],
+);
+
+$from = $from_join["from"];
+for ($i = 0; $i < count($from_join["table"]); $i++) {
+    $from .= " LEFT JOIN ". $from_join["table"][$i].
+        " ON ". $from_join["from"]. ".". $from_join["column"][$i][0].
+        " = ". $from_join["table"][$i]. ".". $from_join["column"][$i][1];
+}
+
+$columns = array(
+    ["カテゴリ名" => $from_join["table"][0].".income_expense_category_name"],
+    ["合計金額" => "SUM(".$from_join["from"].".income_expense_amount)"],
+);
+
+$column = "";
+for ($i = 0; $i < count($columns); $i++) {
+    foreach ($columns[$i] as $key => $value) {
+        $column .= $value. " AS `". $key. "`";
+    }
+    if ($i+1 < count($columns)) {
+        $column .= ", ";
+    }
+}
+
+$wheres = array(
+    $from_join["from"].".user_id = ". $user_id,
+    "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    $from_join["from"].".income_expense_flag =",
+);
+
+for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
+    $sql = "SELECT ". $column. " FROM ". $from. " WHERE ";
+    for ($j = 0; $j < count($wheres); $j++) {
+        $sql .= $wheres[$j];
+
+        if ($j+1 < count($wheres)) {
+            $sql .= " AND ";
+        } else {
+            $sql .= " ";
+        }
+    }
+    $sql .= $i. " GROUP BY `". key($columns[0]). "`";
+    $sql .= " ORDER BY `". key($columns[1]). "` DESC;";
+    array_push($categoryDataset["query"], ($db->query($sql)));
+    
+    array_push($categoryDataset["data"], array());
+    foreach ($categoryDataset["query"][$i] as $index => $item) {
+        foreach ($item as $key => $value) {
+            if (gettype($key) !== "integer") {
+                if ($index == 0) {
+                    $categoryDataset["data"][$i] += [$key => [$value]];
+                } else {
+                    array_push($categoryDataset["data"][$i][$key], $value);
+                }
+            }
+        }
+    }
+}
 ?>
 
 
@@ -86,9 +206,24 @@ $expense_data =  $db->query($sql);
     <section class="position-relative">
         <div class="container">
             <div class="row mt-3">
-                <div class="position-relative px-5">
-                    <table class="w-75 mx-auto" style="caption-side: top;">
+                <div class="position-relative px-0 px-sm-5">
 
+                    <!-- エラーが出るので以下をコメントアウト -->
+                    <!-- <?php //if ($_SESSION["select"] === "adult") : ?>
+                        <form class="w-75 mt-3 mx-auto" action="<?php //echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
+                            <select name="child_select" id="">
+                                <?php //for ($i = 0; $i < count($familys); $i++) : ?>
+                                    <?php //if ($familys[$i]["user_id"] != $_SESSION["user_id"]) : ?>
+                                        <option value="<?php //echo $familys[$i]["user_id"]; ?>" <?php //if ($familys[$i]["user_id"]==$user_id){echo "checked";} ?>>
+                                            <?php //echo $familys[$i]["first_name"]; ?>
+                                        </option>
+                                    <?php //endif; ?>
+                                <?php //endfor; ?>
+                            </select>
+                        </form>
+                    <?php //endif; ?> -->
+
+                    <table class="w-75 mx-auto" style="caption-side: top;">
                         <!-- 月の変更 -->
                         <caption class="mx-sm-5 text-center">
                             <h5 class="mb-1"><?php echo date("Y", $this_date); ?>年</h5>
@@ -100,8 +235,8 @@ $expense_data =  $db->query($sql);
 
                                 <span class="col-4"><?php echo date("n", $this_date); ?>月</span>
                                 
-                                <label class="col-auto" for="next">＞
-                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>">
+                                <label class="col-auto" for="next"><font <?php if ($month_now) { echo 'color="darkgray"'; } ?>>＞</font>
+                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>" <?php if ($month_now) { echo "disabled"; } ?>>
                                 </label>
                             </form>
                         </caption>
@@ -157,7 +292,7 @@ $expense_data =  $db->query($sql);
             </div>
 
             <!-- 収支グラフ表示 -->
-            <div class="row mt-5 money-grid">
+            <div class="row mx-3 mt-5 money-grid">
                 <div class="position-relative d-block p-5">
                     <!-- チャートの表示エリア -->
                     <canvas class="w-100 h-100" id="in_exChart"></canvas>
@@ -165,8 +300,9 @@ $expense_data =  $db->query($sql);
             </div>
             
             <!-- 月間収支別カテゴリ詳細グラフ表示 -->
-            <div class="row mt-5 money-grid">
-                <div class="position-relative d-block p-5">
+            <div class="row mx-3 mt-5 pt-2 money-grid">
+                <button class="w-75 mx-auto my-4 btn btn-primary" id="in_exSwitch">収支切り替え</button>
+                <div class="position-relative d-block px-5 pb-5">
                     <!-- チャートの表示エリア -->
                     <canvas class="w-100 h-100" id="categoryChart"></canvas>
                 </div>
@@ -178,36 +314,27 @@ $expense_data =  $db->query($sql);
 
 <script>
     <?php
-    $dataset = [
-        "balance_data" => $balance_data,
-        "income_data" => $income_data,
-        "expense_data" => $expense_data,
-    ];
-    foreach($dataset as $name => $data) {
-        $data_array = array();
-        foreach($data as $index => $item) {
-            foreach($item as $key => $value) {
-                if (gettype($key) !== "integer") {
-                    if ($index == 0) {
-                        $data_array += [$key => [$value]];
-                    } else {
-                        array_push($data_array[$key], $value);
-                    }
-                }
-            }
-        }
-        echo "const ". $name. " = JSON.parse('". json_encode($data_array, JSON_UNESCAPED_UNICODE). "');";
-        echo "console.log(". $name. ");";
+    for ($i = 0; $i < count($in_exDataset["name"]); $i++) {
+        echo "const ". $in_exDataset["name"][$i]. " = JSON.parse('". json_encode($in_exDataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
+        echo "console.log(". $in_exDataset["name"][$i]. ");";
+    }
+
+    for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
+        echo "const ". $categoryDataset["name"][$i]. " = JSON.parse('". json_encode($categoryDataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
+        echo "console.log(". $categoryDataset["name"][$i]. ");";
     }
     ?>
 </script>
+
 
 <!-- JavaScript -->
 <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart.js"></script>
 <!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart_sample.js"></script> -->
 
-<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script> -->
-<script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script>
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+<script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script>
+<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script> -->
 
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

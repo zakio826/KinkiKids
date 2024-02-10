@@ -232,6 +232,11 @@ p.index_child_moji {
     margin-top: -20px;
 }
 
+.index_child_mokuhyoumoji {
+    color: black;
+    font-size: 20px;
+}
+
 
 /* ------------------------------------------------- */
 /* メッセージ部分 */
@@ -243,7 +248,7 @@ p.index_child_moji {
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-
+    margin-bottom: 100px;
 }
 
 /* 枠組み */
@@ -265,6 +270,14 @@ p.index_child_moji {
     background-size: 100%;
     background-repeat: repeat-y;
     margin-top: 15px;
+    padding: 0px 40px;
 }
+
+/* メッセージのスクロールバー */
+.login_scroll_bar {
+    overflow-y: scroll;
+    height: 170px;
+}
+
 
 

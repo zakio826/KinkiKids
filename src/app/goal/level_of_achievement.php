@@ -45,6 +45,7 @@ $have_money = $have_points+$savings;
         <p class="mt-3"><a href="../accounts/welcome.php" class="btn btn-primary">ホーム</a></p>
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
