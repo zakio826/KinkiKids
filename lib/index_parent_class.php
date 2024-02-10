@@ -63,6 +63,17 @@ class index_parent_class {
             return 0;
         }
     }
+    public function getPointNorma($i) {
+        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $i);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return 0;
+        }
+    }
 
     public function getFamily() {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
