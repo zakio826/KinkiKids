@@ -9,6 +9,12 @@ $exchange = new debt($db);
 
 $select = $_SESSION["select"];
 
+if ($select !== 'child'):
+    header("Location: ../index.php");
+    exit();
+endif;
+
+
 if(isset($_SESSION['debt'])) {
     echo '<script>alert("' . $_SESSION['debt'] . '円の借り入れを申請しました");</script>' ;
     unset($_SESSION['debt']);
