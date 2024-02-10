@@ -16,6 +16,7 @@ $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 $helps = $consent->display_consent_help($user_id);
+$debts = $consent->display_consent_debt($family_id);
 ?>
 
 
@@ -42,6 +43,25 @@ $helps = $consent->display_consent_help($user_id);
                         <button type="submit">承認する</button>
                     </form>
                 </li>
+        <?php endforeach; ?>
+    </div>
+    <div class ="content">
+        <?php foreach ($debts as $debt_data): ?>
+            <li>
+                <strong>内容:</strong> <?php echo $debt_data['contents']; ?><br>
+                <strong>金額:</strong> <?php echo $debt_data['debt_amount']; ?><br>
+                <strong>返済日:</strong> <?php echo $debt_data['repayment_date']; ?><br>
+                <strong>分割回数:</strong> <?php echo $debt_data['installments']; ?><br>
+                <strong>担当者</strong>
+                <?php
+                    $consent->debt_select($debt_data['debt_id']);
+                ?><br>
+                <form action="" method="post">
+                    <input type="int" name="interest" placeholder="利率を入力してください" required><span>%</span><br>
+                    <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
+                    <button type="submit">承認する</button>
+                </form>
+            </li>
         <?php endforeach; ?>
     </div>
     </section>

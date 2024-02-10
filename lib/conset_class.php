@@ -9,41 +9,75 @@ class consent {
         $this->db = $db;
         $this->error = []; // 初期化
 
-            if (isset($_POST["consent_help_id"])){//ポイント追加処理
-                $help_id = $_POST["consent_help_id"];
+        if (isset($_POST["consent_help_id"])){//ポイント追加処理
+            $help_id = $_POST["consent_help_id"];
 
-                $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
-                $stmt->bindParam(':help_id', $help_id);
-                $stmt->execute();
-                $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                echo "承認しました";
-
-                // foreach ($result as $row) {
-                //     $stmt2 = $this->db->prepare("UPDATE child_data SET have_points = have_points + :get_point WHERE user_id = :user_id");
-                //     $stmt2->bindParam(':get_point', $get_point);
-                //     $stmt2->bindParam(':user_id', $row['user_id']);
-                //     $stmt2->execute();
-                //     $stmt2->fetchAll(PDO::FETCH_ASSOC);
-                // }
-
-                // $stmt = $this->db->prepare("UPDATE help_log SET consent_flag = 0 WHERE consent_flag = 1 and help_id = :help_id");
-                // $stmt->bindParam(':help_id', $help_id);
-                // $stmt->execute();
-                // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                
-            }
-        }
-        public function display_consent_help($user_id) {
-            $stmt = $this->db->prepare("SELECT help.help_name,help.get_point,help.help_id FROM help
-                                        INNER JOIN help_log ON help.help_id = help_log.help_id 
-                                        WHERE help_log.consent_flag = 1 and help.user_id = :user_id and help.stop_flag = 1");
-            $stmt->bindParam(':user_id', $user_id);
+            $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
+            $stmt->bindParam(':help_id', $help_id);
             $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "承認しました";
+
+            // foreach ($result as $row) {
+            //     $stmt2 = $this->db->prepare("UPDATE child_data SET have_points = have_points + :get_point WHERE user_id = :user_id");
+            //     $stmt2->bindParam(':get_point', $get_point);
+            //     $stmt2->bindParam(':user_id', $row['user_id']);
+            //     $stmt2->execute();
+            //     $stmt2->fetchAll(PDO::FETCH_ASSOC);
+            // }
+
+            // $stmt = $this->db->prepare("UPDATE help_log SET consent_flag = 0 WHERE consent_flag = 1 and help_id = :help_id");
+            // $stmt->bindParam(':help_id', $help_id);
+            // $stmt->execute();
+            // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            
+        } elseif (isset($_POST["consent_debt_id"])){//ポイント追加処理
+            $debt_id = $_POST["consent_debt_id"];
+            $interest = $_POST["interest"];
+
+            $query = "SELECT debt_amount FROM debt WHERE debt_id = :debt_id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':debt_id', $debt_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $debt_amount = $result['debt_amount'];
+
+            $repayment_amount = $debt_amount * (1 + $interest / 100);
+
+            $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = $repayment_amount, interest = $interest WHERE debt_id = :debt_id");
+            $stmt->bindParam(':debt_id', $debt_id);
+            $stmt->execute();
+
+            echo "承認しました";
         }
+    }      
+
+
+    public function display_consent_help($user_id) {
+        $stmt = $this->db->prepare("SELECT help.help_name,help.get_point,help.help_id FROM help
+                                    INNER JOIN help_log ON help.help_id = help_log.help_id 
+                                    WHERE help_log.consent_flag = 1 and help.user_id = :user_id and help.stop_flag = 1");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function display_consent_debt($family_id) {
+        // データベースクエリを実行して、指定されたユーザーIDおよびファミリーIDに関連するデータを取得
+        $query = "SELECT * FROM debt WHERE family_id = :family_id AND approval_flag = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // データを連想配列として取得
+        $debts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $debts;
+    }
+        
 
     public function person_select($help_id) {
         $stmt = $this->db->prepare(
@@ -60,6 +94,32 @@ class consent {
             if ($first_flag != 0) { echo ","; }
             $first_flag = 1;
             echo $row['first_name'];
+        }
+    }
+
+    public function debt_select($debt_id) {
+        $query = "SELECT user_id FROM debt WHERE debt_id = :debt_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':debt_id', $debt_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result) {
+            $debtuser = $result['user_id'];
+            $query = "SELECT first_name FROM user WHERE user_id = :user_id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':user_id', $debtuser, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($result) {
+                $first_name = $result['first_name'];
+                echo $first_name;
+            } else {
+                echo "ユーザーが見つかりません";
+            }
+        } else {
+            echo "データが見つかりません";
         }
     }
 }

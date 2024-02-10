@@ -32,19 +32,15 @@ if(isset($_SESSION['debt'])) {
             <label for="debt_amount">どれだけかりる？</label>
             <input type="int" name="debt_amount" required>
             <?php 
-            if(isset($_SESSION['debt_error'])) {
-                echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
-                unset($_SESSION['debt_error']);
-            } 
+            // if(isset($_SESSION['debt_error'])) {
+            //     echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
+            //     unset($_SESSION['debt_error']);
+            // } 
             ?>
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
             <input type="text" name="installments" required>
-        </div>
-        <div class="control">
-            <label for="reason">りゆう</label>
-            <input type="text" name="reason" required>
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
