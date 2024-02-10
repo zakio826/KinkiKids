@@ -67,7 +67,12 @@ echo '</script>';
         目標：<p id="goal_detail"></p>
         期限：<p id="goal_deadline"></p>
         値段：<p id="target_amount"></p>
+        <hr>
         貯金：<p id="savings"></p>
+        手持ち：<p id="points"></p>
+        合計：<p id="have"></p>
+        今日稼ぐポイント：<p id="dayPoint"></p>
+        <hr>
 
     </section>
 </main>
