@@ -10,25 +10,23 @@ class debt {
             $contents = $_POST['contents'];
             $debt_amount = $_POST['debt_amount'];
             $installments = $_POST['installments'];
-            $reason = $_POST['reason'];
             $repayment_date = $_POST['repayment_date'];
 
             list($childDataId, $maxlending) = $this->getChildDataInfo($user_id);
 
-            if ($debt_amount > $maxlending) {
-                $_SESSION['debt_error'] = '※貸出金額が最大貸出金額を超えています';
-                header('Location: debt.php');
-                exit();
-            }
+            // if ($debt_amount > $maxlending) {
+            //     $_SESSION['debt_error'] = '※貸出金額が最大貸出金額を超えています';
+            //     header('Location: debt.php');
+            //     exit();
+            // }
 
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
             $approval_flag = FALSE;
-            $interest = 1;
             $debt_day = date('Y-m-d');
 
             $statement = $this->db->prepare(
-                "INSERT INTO debt (user_id, family_id, debt_day, debt_amount, repayment_date, installments, contents, reason, approval_flag, interest) ".
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO debt (user_id, family_id, debt_day, debt_amount, repayment_date, installments, contents, approval_flag) ".
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
             );
 
             $statement->execute(array(
@@ -39,9 +37,7 @@ class debt {
                 $repayment_date,
                 $installments,
                 $contents,
-                $reason,
                 $approval_flag,
-                $interest
             ));
 
             $_SESSION['debt'] = $debt_amount;
