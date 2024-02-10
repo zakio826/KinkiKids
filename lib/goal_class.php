@@ -126,5 +126,17 @@ class goal_check{
 
         return $result['first_name'];
     }
+
+    public function getchildname($db, $user_id) {
+        $this->db = $db;
+        $this->error = []; // 初期化
+        // データベースから選択されたユーザーIDが一致するユーザーを取得するクエリを実行する
+        $stmt = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['first_name'];
+    }
 }
 ?>
