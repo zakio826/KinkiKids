@@ -70,6 +70,8 @@ $debts = $consent->display_consent_debt($family_id);
         <?php endforeach; ?>
     </div>
     </section>
+        <!-- ボトムナビゲーションバー -->
+        <?php include_once("../include/bottom_nav.php") ?>
 </main>
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>

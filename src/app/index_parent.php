@@ -37,12 +37,12 @@ foreach ($index_parent_class->getFamily() as $parent) {
 echo '</script>';
 
 ?>
-
 <ul>
     <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
     <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
     <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
 </ul>
+
 
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>
