@@ -13,6 +13,7 @@ include("./include/header.php");
 require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 
+
 require($absolute_path."lib/index_child_class.php");
 $index_child_class = new index_child_class($db);
 $have_points = $index_child_class->getHave_points();
@@ -21,6 +22,8 @@ $have_money = $have_points+$savings;
 $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
+
+$index_child_class->message($db);
 ?>
 
 
@@ -113,25 +116,42 @@ $message_count = $index_child_class->getMessageCount();
                 <?php $index_child_class->getFamilyUser(); ?>
             </select>
 
-            <p class="mb-3" id="order-string"></p>
+           
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+               <p class="mb-3" id="order-string"></p>
+            </div> 
 
-            <?php if ($message_count != 0) : ?>
-                <?php for ($i = 0; $i < $message_count; $i++) : ?>
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
-                    ➡
-                    <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
-                    
-                    <p>
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
-                     <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
-                    </p>
+            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                <?php if ($message_count != 0) : ?>
+                    <?php for ($i = 0; $i < $message_count; $i++) : ?>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sender']); ?>
+                        ➡
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['receiver']); ?>
+                        
+                        <p>
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['messagetext']); ?> 
+                        <?php echo htmlspecialchars($index_child_class->getMessage($i)['sent_time']); ?> 
+                        </p>
 
-                    <hr>
+                        <hr>
 
-                <?php endfor; ?>
-            <?php else : ?>
-                <p>メッセージがありません</p>
-            <?php endif; ?>
+                    <?php endfor; ?>
+                <?php else : ?>
+                    <p>メッセージがありません</p>
+                <?php endif; ?>
+            </div>
+
+            <form action="" method="POST">
+            <input type="hidden" name="check" value="checked">
+                <p>誰に送るか</p>
+                <select name="receiver" required>
+                    <option value=""></option>
+                    <?php $index_child_class->getFamilyUser(); ?>
+                </select>
+                <input type="text" name="message" required>
+                <button type="submit">返信</button>
+            </form>
+                
             </div>
             </div>
         </div>
@@ -141,7 +161,7 @@ $message_count = $index_child_class->getMessageCount();
 <!-- ナビゲーションバー -->
 <?php include_once("./include/bottom_nav.php") ?>
 
-<script>
+<script>    
     let select = document.getElementById('user_select');
     let count = <?php echo $message_count; ?>;
 

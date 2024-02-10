@@ -3,12 +3,22 @@
 class index_child_class {
     private $error; // エラー情報を保持するプロパティ
     private $db; // データベース接続を保持するプロパティ
+
+    
     
     function __construct($db) {
         $this->db = $db;
         $this->error = []; // 初期化
     }
     
+    function message($db) {
+            $today = new DateTime('now');
+            if (!empty($_POST['check'])) {
+                $statement = $db->prepare("INSERT INTO line_message SET sender_id=?, receiver_id=?, messagetext=?, sent_time=?");
+                $statement->execute(array($_SESSION["user_id"], $_POST['receiver'], $_POST['message'], $today->format('Y-m-d H:i:s')));
+            }    
+
+    }
     public function getFamilyUser() {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -33,11 +43,11 @@ class index_child_class {
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return 5;
+        return count($result);
     }
 
     public function getMessage($i) {
-        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id order by sent_time desc limit 5");
+        $stmt = $this->db->prepare("SELECT * FROM line_message WHERE sender_id = :user_id OR receiver_id = :user_id order by sent_time desc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $message = $stmt->fetchAll(PDO::FETCH_ASSOC);

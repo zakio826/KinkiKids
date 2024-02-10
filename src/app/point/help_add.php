@@ -99,17 +99,15 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
                         <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-2">削除</button>
                     </form>
-
-                    <hr>
-                    </div>
-                <?php else : ?>
-                    <hr>
-
+                <?php endif; ?>
+                <?php if ($select === 'child'): ?>
                     <form action="" method="post">
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <?php $help->consent_button($help_data['help_id']); ?>
                     </form>
                 <?php endif; ?>
+                <hr>
+                </ul>
             <?php endforeach; ?>
         <?php endif; ?>
         </div>

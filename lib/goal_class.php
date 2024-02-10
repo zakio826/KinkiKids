@@ -78,5 +78,12 @@ class goal {
 
         return $result;
     }
+
+    public function deleteGoal($user_id) {
+        // データベースから目標を削除する処理を実装
+        $stmt = $this->db->prepare("DELETE FROM goal WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+    }
 }
 ?>

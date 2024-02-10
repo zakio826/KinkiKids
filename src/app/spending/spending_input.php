@@ -45,31 +45,14 @@ require_once($absolute_path."lib/functions.php");
         <select name="spending_category" id="spendingCategory">
             <option value="0">選択してください</option>
             <?php
-              $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
-              sql_check($stmt_spendingcat, $db);
-              $stmt_spendingcat->execute();
+            $stmt_spendingcat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category WHERE user_id = 31');
+            sql_check($stmt_spendingcat, $db);
+            $stmt_spendingcat->execute();
                 while ($row = $stmt_spendingcat->fetch(PDO::FETCH_ASSOC)) :
             ?>
             <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
             <?php endwhile; ?>
         </select>
-        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
-        </div>
-
-        <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
-        <p class="long-name">収入カテゴリー</p>
-        <select name="income_category" id="incomeCategory">
-		<option value="0">選択してください</option>
-            <?php
-              $stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
-              sql_check($stmt_incomecat, $db);
-              $stmt_incomecat->execute(); // 実行する必要があります
-          	  while ($row = $stmt_incomecat->fetch(PDO::FETCH_ASSOC)) :
-              ?>
-                <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
-            <?php endwhile; ?>
-        </select>
-        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
 		<div id="paymentMethodBox" class="u-js__show-switch flex p-form__flex-input sp-change-order">
 			<p class="long-name">支払い方法</p>
 			<select name="payment_method" id="paymentMethod" onchange="hasChildSelect('2', creditSelectBox, qrChecked);hasChildSelect('3', qrSelectBox, creditChecked);">
@@ -80,6 +63,23 @@ require_once($absolute_path."lib/functions.php");
 			</select>
 			<!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
 		</div>
+        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+        </div>
+
+        <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
+        <p class="long-name">収入カテゴリー</p>
+        <select name="income_category" id="incomeCategory">
+		<option value="0">選択してください</option>
+            <?php
+            $stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
+            sql_check($stmt_incomecat, $db);
+          		while ($row = $stmt_incomecat->fetch(PDO::FETCH_ASSOC)) :
+            ?>
+                <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
+            <?php endwhile; ?>
+        </select>
+        <!-- <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a> -->
+		
 
 		<div>
 			<textarea name="memo" id="" cols="45" rows="5" placeholder="入力収支の詳細"></textarea>
