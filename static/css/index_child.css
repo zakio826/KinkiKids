@@ -153,11 +153,22 @@ display: none;
 /* 目標の部分 */
 /* ------------------------------------------------- */
 
+/* 目標一覧の部分 */
+.index_child_mokuhyouitiran {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /* 配置調整 */
 .index_child_mokuhyoucss1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 /* 枠組みと文字スタイル */
@@ -170,7 +181,8 @@ display: none;
     /* 文字太さ */
     font-weight: 1000;
     /* 文字白枠 */
-    -webkit-text-stroke: 0.5px #fff;
+    /* -webkit-text-stroke: 0.5px #fff; */
+    text-align: center;
 }
 
 /* 目標の内容文字だけ別スタイル指定 */
@@ -200,6 +212,7 @@ display: none;
 /* 配置調整 */
 .index_child_mokuhyoucss3 {
     margin-top: -10px;
+    text-align: center;
 }
 
 /* 配置と文字スタイル */
@@ -218,12 +231,13 @@ display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    /* white-space: nowrap; */
 }
 
 /* 数字だけ別スタイル指定 */
 .index_child_mokuhyoucss4 span {
-    color: orange;
-    font-size: 30px;
+    color: #ff7c00;
+    font-size: 25px;
 }
 
 /* 一部の行の配置調整 */
@@ -232,9 +246,10 @@ p.index_child_moji {
     margin-top: -20px;
 }
 
+/* 文字 */
 .index_child_mokuhyoumoji {
     color: black;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
@@ -277,7 +292,105 @@ p.index_child_moji {
 .login_scroll_bar {
     overflow-y: scroll;
     height: 170px;
+    scrollbar-color: #bcdd38 #fffbe9;
+}
+
+/* メッセージの画像位置調整 */
+.index_child_message {
+    margin-left: 25px;
+}
+
+/* 「誰に送るか」文字部分 */
+.index_child_send {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+/* 返信ボタン部分 */
+.btn {
+    background-color: #8fc31f;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
 }
 
 
+/* ------------------------------------------------- */
+/* 目標部分*/
+/* ------------------------------------------------- */
 
+input[name="slideshow"]{
+        position : absolute;
+        opacity : 0;
+        z-index : -1;
+}
+
+#slide1:checked ~ .slideshow .slides{
+    left : 0;
+}
+
+#slide2:checked ~ .slideshow .slides{
+    left : -100%;
+}
+
+#slide3:checked ~ .slideshow .slides{
+    left : -200%;
+}
+
+#slide4:checked ~ .slideshow .slides{
+    left : -300%;
+}
+
+.slideshow{
+    max-width: 190px;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    border: 4px solid #ffa500;
+    background-color: #fff689;
+    border-radius: 15px;
+    margin: 0px auto;
+    /* margin-top: 40px; */
+    position: relative;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+}
+
+.slides{
+    width : 400%;
+    height : 100%;
+    display : flex;
+    position : absolute;
+    top : 0;
+    transition : 1s;
+}
+
+.slide{
+    width : 100%;
+    height : 100%;
+    object-fit : cover;
+}
+
+.slideshow-nav{
+    display : flex;
+    justify-content : center;
+}
+
+.slides-nav{
+    display : block;
+    background-color : #fff;
+    width : 20px;
+    height : 20px;
+    border : 4px solid #ffa500;
+    border-radius : 50%;
+    margin : 10px 10px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+}
+
+.slides-nav:hover{
+    background-color : #ffa500;
+    border-color: #fff689;
+}
