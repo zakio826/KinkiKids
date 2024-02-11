@@ -1,6 +1,6 @@
 <?php
-$page_title = "";
-$stylesheet_name = "";
+$page_title = "銀行";
+$stylesheet_name = "debt.css";
 require_once("../include/header.php");
 ?>
 <?php
@@ -11,11 +11,11 @@ $debt = new debt($db, $user_id, $family_id);
 
 $select = $_SESSION["select"];
 
+
 if ($select !== 'child'):
     header("Location: ../index.php");
     exit();
 endif;
-
 if(isset($_SESSION['updated'])) {
     echo '<script>alert("借金の返済をしました");</script>' ;
     unset($_SESSION['updated']);
@@ -34,8 +34,14 @@ $repayment = $debt->display_consent_repayment($user_id);
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
+
+<main>
+<div class="mb-3 title"><h1>ぎんこう</h1></div>
+<div class ="mb-3 content">
+    
     <p id="currentDate"></p>
     <form action="" method="POST">
+    
         <div class="control">
             <label for="contents">なににつかう？</label>
             <input type="text" name="contents" required>
@@ -58,7 +64,7 @@ $repayment = $debt->display_consent_repayment($user_id);
             <label for="repayment_date">いつかえす？</label>
             <input type="int" name="repayment_date" placeholder="日付をにゅうりょく" required>
         </div>
-        <button type="submit">お金をかりる</button>
+        <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
 
     <?php 
@@ -75,8 +81,28 @@ $repayment = $debt->display_consent_repayment($user_id);
         echo '</ul>';
     }
     ?>
+</div>
 </main>
 <script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
+<<<<<<< HEAD
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
+=======
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+
+<?php require_once("../include/footer.php"); ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentDateElement = document.getElementById('currentDate');
+        var currentDate = new Date();
+
+        var formattedDate = currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate();
+
+        currentDateElement.textContent = formattedDate;
+    });
+</script>
+<?php require_once("../include/footer.php"); ?>
+>>>>>>> origin/UIgroup

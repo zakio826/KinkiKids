@@ -37,7 +37,7 @@ $index_child_class->message($db);
     </header>
     
     <section class="position-relative h-75">
-    <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php">目標一覧</a>
+    <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php" class="index_child_mokuhyouitiran">目標一覧</a>
 
         <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
@@ -58,7 +58,7 @@ $index_child_class->message($db);
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
                 <p class="row">
-                    <span class="col-6">
+                    <span>
                         <b class="index_child_mokuhyoumoji">
                             しょじきん:
                         <span>
@@ -66,7 +66,7 @@ $index_child_class->message($db);
                         </span>えん
                         </b>
                     </span>
-                    <span class="col-6">
+                    <span>
                         <b class="index_child_mokuhyoumoji">
                         てもち:
                         <span>
@@ -77,11 +77,13 @@ $index_child_class->message($db);
                 </p>
             <?php if($goal_count != 0) : ?>
                 <p>
-                    きょうかせぐポイント:
-                    <span class="px-2">
-                        <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
-                    </span>
-                    ポイント
+                    <span>
+                        <b class="index_child_mokuhyoumoji">
+                        きょうかせぐポイント:
+                        <span>
+                            <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                        </span>ポイント
+                        </b>
                 </p>
             <?php else : ?>
                 <p class="index_child_moji">
@@ -91,22 +93,32 @@ $index_child_class->message($db);
             </div>
         </div>
 
-        <hr>
+        <hr class="index_child_hr">
 
-
-        <div>
-            <ul>
-                <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
-                <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
-                <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
-            </ul>
-        </div>
-
-        <hr>
-
-
+                <input type="radio" name="slideshow" id="slide1" checked>
+                <input type="radio" name="slideshow" id="slide2">
+                <input type="radio" name="slideshow" id="slide3">
+            <div class="slideshow">
+                <div class="slides">
+                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouA.png" alt="購入目標">  
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouB.png" alt="ポイントノルマ">
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouC.png" alt="行動目標">
+                    </a>
+                </div>
             </div>
-        </div>
+            <div class="slideshow-nav">
+                <label for="slide1" class="slides-nav"></label>
+                <label for="slide2" class="slides-nav"></label>
+                <label for="slide3" class="slides-nav"></label>
+            </div>
+
+
+        
         <hr class="index_child_hr">
         <br>
 
@@ -119,18 +131,19 @@ $index_child_class->message($db);
                 <p>メッセージ</p>
             </span> -->
             <p>
-                <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
-            </p>
-                <div class="login_scroll_bar">
-                    <select id="user_select">
+                <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ" class="index_child_message">
+                <select id="user_select">
                         <option value=""></option>
                         <?php $index_child_class->getFamilyUser(); ?>
-                    </select>
+                </select>
+            </p>
+                <div class="login_scroll_bar">
+
 
            
-            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
-               <p class="mb-3" id="order-string"></p>
-            </div> 
+                <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                <p class="mb-3" id="order-string"></p>
+                </div> 
 
             <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
                 <?php if ($message_count != 0) : ?>
@@ -154,13 +167,13 @@ $index_child_class->message($db);
 
             <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
-                <p>誰に送るか</p>
+                <p class="index_child_send">▼ メッセージ送信 ▼</p>
                 <select name="receiver" required>
                     <option value=""></option>
                     <?php $index_child_class->getFamilyUser(); ?>
                 </select>
                 <input type="text" name="message" required>
-                <button type="submit">返信</button>
+                <button type="submit" class="btn">返信</button>
             </form>
                 
             </div>

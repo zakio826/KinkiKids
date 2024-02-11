@@ -8,11 +8,22 @@ body {
     padding: 0;
 }
 
-main {
+.title h1{
+    font-weight: bold;
+    color: #2862ff;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+main{
+    text-align: center;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
+    border-radius: 5px;
+    font-size: 18px; /* フォントサイズを16pxに変更 */
+    font-weight: bold; /* フォントを太字に変更 */
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
 .content {
@@ -53,6 +64,18 @@ main {
     font-size: 20px;
     font-weight: bold;
     width: 110px;
+}
+
+.btn-syounin{
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
 }
 
 /* ul要素のマージンやパディングをリセット */
