@@ -29,8 +29,11 @@ if(isset($_SESSION['debt'])) {
 $repayment = $debt->display_consent_repayment($user_id);
 ?>
 
+
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
 <main>
-    //ここに追加
     <p id="currentDate"></p>
     <form action="" method="POST">
         <div class="control">
@@ -73,15 +76,7 @@ $repayment = $debt->display_consent_repayment($user_id);
     }
     ?>
 </main>
+<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var currentDateElement = document.getElementById('currentDate');
-        var currentDate = new Date();
-
-        var formattedDate = currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate();
-
-        currentDateElement.textContent = formattedDate;
-    });
-</script>
-<?php require_once("../include/footer.php"); ?>
+<!-- フッター -->
+<?php include_once("../include/footer.php"); ?>

@@ -1,0 +1,159 @@
+<?php
+date_default_timezone_set('Asia/Tokyo');
+
+class mission {
+    private $db;
+    private $error;
+
+    function __construct($db) {
+        $this->db = $db;
+        $this->error = []; // 初期化
+        if (isset($_POST["delete_mission_id"])) {
+            $this->DeletemissionToDatabase($_POST["delete_mission_id"]);
+        }elseif(isset($_POST['consent_mission_id'])){
+            $this->consentmissionToDatabase($_POST["consent_mission_id"]);
+        }
+        if(isset($_POST["mission_name"]) && isset($_POST["mission_get_point"])){
+            //nullチェック
+            if ($_POST['mission_name'] === "") {
+                $error['mission_name'] = "blank";
+            }
+            if ($_POST['mission_get_point'] === "") {
+                $error['mission_get_point'] = "blank";
+            }
+            if (!isset($_POST['mission_person'])) {
+                $error['mission_person'] = "blank";
+            } 
+            
+
+            if (!isset($error)) {
+                $m_name =$_POST['mission_name'];
+                $m_get_point = $_POST['mission_get_point'];
+                $m_persons = $_POST['mission_person'];
+                $this->missionToDatabase($m_name,$m_get_point);
+                $this->missionpersonToDatabase($m_persons);
+            }else{
+                //TODO エラー処理
+            }
+        }
+    }
+    public function display_mission($family_id) {
+        $stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1");
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function child_select() {
+        $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
+        $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $person) {
+            if (floor($person['role_id'] / 10 ) == 3) {
+                echo "<input type='checkbox' name='mission_person[]' value=".$person['user_id'].">";
+                echo $person['first_name']."　";
+            }
+        }
+    }
+
+    public function missionToDatabase($m_name,$m_get_point){
+        $user_id = $_SESSION["user_id"];
+        $family_id = $_SESSION["family_id"];
+
+        $stmt = $this->db->prepare("INSERT INTO mission (user_id,family_id,mission_name,get_point,display_flag) VALUES (:user_id,:family_id,:mission_name,:get_point,1)");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':mission_name', $m_name);
+        $stmt->bindParam(':get_point', $m_get_point);
+        $stmt->execute();
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo "登録完了";
+    }
+    public function missionpersonToDatabase($m_persons){
+        $user_id = $_SESSION["user_id"];
+        $family_id = $_SESSION["family_id"];
+
+        $stmt2 = $this->db->prepare("SELECT mission_id FROM mission ORDER BY mission_id DESC LIMIT 1");
+        $stmt2->execute();
+        $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        $mission_id = (int)$result2[0]["mission_id"];
+
+        foreach ($m_persons as $person) {
+            $stmt = $this->db->prepare("INSERT INTO mission_person (mission_id,user_id) VALUES (:mission_id, :user_id)");
+            $stmt->bindParam(':mission_id', $mission_id);
+            $stmt->bindParam(':user_id', $person);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function person_select($mission_id) {
+        $stmt = $this->db->prepare("SELECT user.first_name FROM user
+                                    INNER JOIN mission_person ON user.user_id = mission_person.user_id 
+                                    WHERE mission_person.mission_id = :mission_id");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $first_flag = 0;
+        foreach ($result as $person) {
+            if ($first_flag != 0) { echo ","; }
+            $first_flag++;
+
+            echo $person['first_name'];
+        }
+    }
+    public function DeletemissionToDatabase($mission_id) {
+        $stmt = $this->db->prepare("DELETE FROM mission WHERE mission_id = :mission_id");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo "削除しました";
+    }
+
+    public function m_consent_button($mission_id) {
+        $stmt = $this->db->prepare("SELECT consent_flag FROM mission_log WHERE mission_id = :mission_id ORDER BY mission_log_id DESC LIMIT 1");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (isset($result[0])) {
+            if($result[0]['consent_flag'] == 1) {
+                echo "承認待ち";
+            } else {
+                echo "<button type='submit'>やりました！</button>";
+            } 
+        } else {
+            echo "<button type='submit'>やりました！</button>";
+        }   
+    }
+    public function consentmissionToDatabase($mission_id) {
+        if(isset($_SESSION["user_id"])){
+            $user_id = $_SESSION["user_id"];
+            $dtime = date("Y-m-d H:i:s");
+
+            $stmt = $this->db->prepare("INSERT INTO mission_log (user_id, mission_id, mission_day, consent_flag,receive_flag) VALUES (:user_id, :mission_id, :dtime, 1,0)");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->bindParam(':mission_id', $mission_id);
+            $stmt->bindParam(':dtime', $dtime);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "<p>承認待ち</p>";
+    
+            // TODO LINEBOTへの通知処理
+            // $line_id = $this->getLineId($help_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
+            // $result = $this->MessageGet($user_id,$help_id);
+            // $message = "お手伝いが完了しました。\n".$result;
+
+            //$this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+
+        }
+    }
+}

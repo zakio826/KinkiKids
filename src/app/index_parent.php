@@ -34,6 +34,16 @@ foreach ($index_parent_class->getFamily() as $parent) {
         break;
     }
 }
+$point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+if ($point_norma_deadline_passed) {
+    echo 'alert("ポイントノルマの期限が過ぎています！");';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
+}
+$behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+if ($behavioral_goal_deadline_passed) {
+    echo 'alert("行動目標の期限が過ぎています！");';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
+}
 echo '</script>';
 
 ?>
