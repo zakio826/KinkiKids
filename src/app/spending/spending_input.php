@@ -81,7 +81,7 @@ require_once($absolute_path."lib/functions.php");
 			<select name="income_category" id="incomeCategory">
 				<option value="0">選択してください</option>
 				<?php
-				$stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category');
+				$stmt_incomecat = $db->prepare('SELECT income_expense_category_id,income_expense_category_name FROM income_expense_category WHERE user_id = 31');
 				sql_check($stmt_incomecat, $db);
 					while ($row = $stmt_incomecat->fetch(PDO::FETCH_ASSOC)) :
 				?>
