@@ -49,7 +49,7 @@ $goalDeadline = $_SESSION['join']['goal_deadline'];
 
         <!-- <p class="mt-3 msg">以上の内容で登録しました</p> -->
 
-        <p class="mt-2"><a href="goal_list.php" class="btn">目標リスト</a></p>
+        <p class="mt-2"><a href="../index.php" class="btn">ホームへ</a></p>
     </div>
 </main>
 <!-- ナビゲーションバー -->
