@@ -4,6 +4,7 @@ $page_title = "収支";
 $stylesheet_name = "spending_input.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
+require_once("db_entry.php"); //収支登録でデータベースに登録の際に使うもの(別の場所に移動可)
 ?>
 
 <!-- ナビゲーションバー -->
@@ -16,11 +17,10 @@ require_once($absolute_path."lib/functions.php");
 
 	<!-- 収支データ入力 -->
 	<section class="p-section p-section__records-input">
-
 		<form class="p-form p-form--input-record" name="recordInput" action="" method="POST">
 			<input type="hidden" name="input_time" id="input_time" value="<?php echo date("Y/m/d-H:i:s"); ?>">
 
-			<!-- 収支登録データ -->
+			<!-- 基本データ -->
 			<div class="p-form__flex-input">
 				<p>日付</p>
 				<label for="date"><input type="date" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" required></label>
