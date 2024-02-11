@@ -2,6 +2,7 @@
 <?php
 $page_title = "収支";
 $stylesheet_name = "spending_input.css";
+$stylesheet_name = "spending_input2.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 ?>
@@ -22,22 +23,22 @@ require_once($absolute_path."lib/functions.php");
 
 			<!-- 収支登録データ -->
 			<div class="p-form__flex-input">
-				<p>日付</p>
+				<p class="long-name">日付</p>
 				<label for="date"><input type="date" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" required></label>
 			</div>
 			<div class="p-form__flex-input">
-				<p>タイトル</p>
+				<p class="long-name">タイトル</p>
 				<input type="text" name="title" id="title" maxlength="15" required>
 			</div>
 			<div class="p-form__flex-input">
-				<p>金額</p>
+				<p class="long-name">金額</p>
 				<input type="number" name="amount" id="amount" step="1" maxlength="5" required>
 			</div>
 			<div class="p-form__flex-input type">
 				<input id="spending" type="radio" name="type" value="0" onchange="onRadioChangeType(0);" required>
-				<label for="spending">支出 </label>
+				<label for="spending" class="spinradio">支出 </label>
 				<input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
-				<label for="income">収入 </label>
+				<label for="income" class="spinradio">収入 </label>
 			</div>
 		
 		<!-- セレクトボックス(支出カテゴリ) -->
@@ -54,7 +55,7 @@ require_once($absolute_path."lib/functions.php");
 				<option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
 				<?php endwhile; ?>
 			</select>
-			<a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+			<a class="button btn-1" href="./item-edit.php">編集</a>
 		</div>
 
 		<!-- セレクトボックス(支払方法) -->
@@ -71,7 +72,7 @@ require_once($absolute_path."lib/functions.php");
 				<option value="<?php echo h($row['payment_id']); ?>"><?php echo h($row['payment_name']); ?></option>
 				<?php endwhile; ?>
 			</select>
-			<a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+			<a class="button btn-1" href="./item-edit.php">編集</a>
 		</div>
 		
 		<!-- セレクトボックス(収入カテゴリ) -->
@@ -87,15 +88,15 @@ require_once($absolute_path."lib/functions.php");
 				<option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
 				<?php endwhile; ?>
 			</select>
-			<a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+			<a class="button btn-1" href="./item-edit.php">編集</a>
         </div>
 
 		<!-- 入力したデータの詳細情報 -->
-		<div>
-			<textarea name="memo" id="" cols="45" rows="5" placeholder="入力収支の詳細"></textarea>
+		<div class="spending_input_textarea">
+			<textarea name="memo" id="" cols="30" rows="5" placeholder="入力収支の詳細"></textarea>
 		</div>
 
-			<input class="c-button c-button--bg-blue" type="submit" value="登録">
+			<input class="button btn-touroku" type="submit" value="登録">
 		</form>
 	</section>
 </main>
