@@ -10,6 +10,8 @@ $family_id = $_SESSION["family_id"];
 $repayment = new repayment($db, $user_id, $family_id);
 $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
 ?>
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class ="content">

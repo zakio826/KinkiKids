@@ -34,14 +34,20 @@ foreach ($index_parent_class->getFamily() as $parent) {
         break;
     }
 }
+$point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+if ($point_norma_deadline_passed) {
+    echo 'alert("ポイントノルマの期限が過ぎています！");';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
+}
+$behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+if ($behavioral_goal_deadline_passed) {
+    echo 'alert("行動目標の期限が過ぎています！");';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
+}
 echo '</script>';
 
 ?>
-<ul>
-    <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
-</ul>
+
 
 
 <!-- ナビゲーションバー -->
@@ -50,7 +56,7 @@ echo '</script>';
 <main>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
-        <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
+        <img class="d-block mx-auto py-3 index_parent_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
 
     <section class="position-relative h-75">
@@ -63,20 +69,70 @@ echo '</script>';
             </div>
         </div>
 
-        <select id="user">
-            <option value=""></option>
-            <?php $index_parent_class->getFamilyUser(); ?>
-        </select>
-        <br>
-        目標：<p id="goal_detail"></p>
-        期限：<p id="goal_deadline"></p>
-        値段：<p id="target_amount"></p>
-        <hr>
-        貯金：<p id="savings"></p>
-        手持ち：<p id="points"></p>
-        合計：<p id="have"></p>
-        今日稼ぐポイント：<p id="dayPoint"></p>
-        <hr>
+
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+            <select id="user">
+                <option value=""></option>
+                <?php $index_parent_class->getFamilyUser(); ?>
+            </select>
+            <br>
+                <b class="index_parent_mokuhyoumoji">
+                    目標：<p id="goal_detail"></p>
+                    期限：<p id="goal_deadline"></p>
+                    値段：<p id="target_amount"></p>
+                </b>
+            </div>
+        </div>
+        
+        <hr class="index_parent_hr">
+
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    貯金：<p id="savings"></p>
+                    手持ち：<p id="points"></p>
+                    合計：<p id="have"></p>
+                    今日稼ぐポイント：<p id="dayPoint"></p>
+                </b>
+            </div>
+        </div>
+
+        <hr class="index_parent_hr">
+
+        <input type="radio" name="slideshow" id="slide1" checked>
+                <input type="radio" name="slideshow" id="slide2">
+                <input type="radio" name="slideshow" id="slide3">
+            <div class="slideshow">
+                <div class="slides">
+                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouD.png" alt="購入目標">  
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouE.png" alt="ポイントノルマ">
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouF.png" alt="行動目標">
+                    </a>
+                </div>
+            </div>
+            <div class="slideshow-nav">
+                <label for="slide1" class="slides-nav"></label>
+                <label for="slide2" class="slides-nav"></label>
+                <label for="slide3" class="slides-nav"></label>
+            </div>
+
+
+        
+
+
+        <hr class="index_parent_hr">
+
+        <!-- <hr class="index_parent_hr"> -->
+        <div class="index_parent_messagecss1">
+            <div class="index_parent_messagecss2">
+                <div class="index_parent_messagecss3">
+        <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php"><img src="">緊急ミッション</a><a href="<?php echo $absolute_path; ?>src/app/point/consent.php"><img src="">承認待ち</a>
 
         <!-- <hr class="index_child_hr"> -->
         <div class="index_child_messagecss1">
@@ -87,25 +143,14 @@ echo '</script>';
                         <p>メッセージ</p>
                     </span> -->
                     <p>
-                        <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
-                    </p>
-                    <form action="" method="POST">
-                        <input type="hidden" name="check" value="checked">
-                        <p>誰に送るか</p>
-                        <select name="receiver" required>
+                        <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ" class="index_parent_message">
+                        <select id="user_select">
                             <option value=""></option>
                             <?php $index_parent_class->getFamilyUser(); ?>
                         </select>
-                        <input type="text" name="message" required>
-                        <button type="submit">返信</button>
-                    </form>
+                    </p>
+                <div class="login_scroll_bar">
 
-                    <select id="user_select">
-                        <option value=""></option>
-                        <?php $index_parent_class->getFamilyUser(); ?>
-                    </select>
-
-           
                     <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
                         <p class="mb-3" id="order-string"></p>
                     </div> 
@@ -129,6 +174,24 @@ echo '</script>';
                             <p>メッセージがありません</p>
                         <?php endif; ?>
                     </div>
+
+                    <form action="" method="POST">
+                        <input type="hidden" name="check" value="checked">
+                        <p class="index_parent_send">▼ メッセージ送信 ▼</p>
+                        <select name="receiver" required>
+                            <option value=""></option>
+                            <?php $index_parent_class->getFamilyUser(); ?>
+                        </select>
+                        <input type="text" name="message" required>
+                        <button type="submit" class="btn">返信</button>
+                    </form>
+
+
+
+           
+
+
+
 
                 </div>
             </div>

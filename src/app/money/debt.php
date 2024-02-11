@@ -30,6 +30,10 @@ $repayment = $debt->display_consent_repayment($user_id);
 ?>
 
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
+
+<main>
 
 <main>
 <div class="mb-3 title"><h1>ぎんこう</h1></div>
@@ -79,7 +83,12 @@ $repayment = $debt->display_consent_repayment($user_id);
     ?>
 </div>
 </main>
+<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
+<<<<<<< HEAD
+<!-- フッター -->
+<?php include_once("../include/footer.php"); ?>
+=======
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
 
@@ -96,3 +105,4 @@ $repayment = $debt->display_consent_repayment($user_id);
     });
 </script>
 <?php require_once("../include/footer.php"); ?>
+>>>>>>> origin/UIgroup

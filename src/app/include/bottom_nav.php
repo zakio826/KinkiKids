@@ -164,7 +164,7 @@ a:hover {
                 <br><b class="bottom_nav_font1">ホーム</b>
             </li>
             <li class="bottom_nav_bar4">
-                <a href="">
+                <a href="<?php echo $absolute_path; ?>src/app/money/debt.php">
                 <img src="<?php echo $absolute_path; ?>static/assets/bank_icon.png" alt="ぎんこう" class="bottom_nav_img1">
                 </a>
                 <br><b class="bottom_nav_font1">ぎんこう</b>

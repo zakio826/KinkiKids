@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+
+/* 全体の部分 */
+body {
+    background-image: url('../assets/back_image.png');  /* 背景画像を設定 */
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+}
+
+.action-btn {
+background-color: lemonchiffon;
+border-radius: 2rem;
+box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
+/* height: 30%; */
+}
+.modal-2__wrap input {
+display: none;
+}
+
+.modal-2__open-label, .modal-2__close-label {
+    cursor: pointer;
+}
+.modal-2__open-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 330px;
+    margin: 0 auto;
+    -webkit-text-stroke: 0.5px #fff;
+    color: orange;
+    font-size: 18px;
+    font-weight: 1000;
+    /* padding: 0.8em 2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #2589d0;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em; */
+}
+.modal-2__open-label:hover {
+    /* background-color: #fff;
+    color: #2589d0;
+    outline: 1px solid #2589d0; */
+    /* color: #ffd900; */
+    transform:scale(0.97);
+	transition:0.3s;
+}
+.modal-2 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+}
+.modal-2__open-input:checked + label + input + .modal-2 {
+    display: block;
+    animation: modal-2-animation .6s;
+}
+.modal-2__content-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 650px;
+    background-color: #fefefe;
+    z-index: 2;
+    border-radius: 5px;
+}
+.modal-2__close-label {
+    background-color: #777;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    width: 36px;
+    height: 36px;
+    line-height: 1.6;
+    text-align: center;
+    display: table-cell;
+    position: fixed;
+    top: -15px;
+    right: -2%;
+    z-index: 99999;
+    font-size: 1.3em;
+}
+.modal-2__content {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 39px 45px 40px;
+    background-color: #fff689;
+    border: 3px solid orange;
+    border-radius: 4px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    text-align: center;
+}
+
+.modal-2__content span {
+    font-weight: 1000;
+    font-size: 18px;
+    -webkit-text-stroke: 0.5px #fff;
+}
+
+.modal-2__background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .45);
+    z-index: 1;
+}
+@keyframes modal-2-animation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@media only screen and (max-width: 520px) {
+    .modal-2__open-label {
+        max-width: 90%;
+        /* padding: .94em 2.1em .94em 2.6em; */
+    }
+    .modal-2__close-label {
+        top: -17px;
+        right: -4%;
+    }
+    .modal-2__content-wrap {
+        width: 90vw;
+    }
+    .modal-2__content {
+        padding: 33px 21px 35px;
+        max-width: 100%;
+    }
+}
+
+
+
+/* ------------------------------------------------- */
+/* ロゴの部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_parent_logo {
+    margin-top: -40px;
+}
+
+
+/* ------------------------------------------------- */
+/* 目標の部分 */
+/* ------------------------------------------------- */
+
+/* 目標一覧の部分 */
+.index_parent_mokuhyouitiran {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 配置調整 */
+.index_parent_mokuhyoucss1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* 枠組みと文字スタイル */
+.index_parent_mokuhyoucss2 {
+    background-color: #C7EEEE;
+    border: 3px solid #4f40ff;
+    border-radius: 15px;
+    padding: 10px 30px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    /* 文字太さ */
+    font-weight: 1000;
+    /* 文字白枠 */
+    /* -webkit-text-stroke: 0.5px #fff; */
+    text-align: center;
+}
+
+/* 目標の内容文字だけ別スタイル指定 */
+.index_parent_mokuhyoucss2 span {
+    color: #742200;
+    font-size: 20px;
+
+}
+
+/* ------------------------------------------------- */
+/* ただの線 */
+/* ------------------------------------------------- */
+
+/* ページのhr線スタイル */
+.index_parent_hr {
+    background-color: #0003f3;
+    height: 4px;
+    border: none;
+    /* opacity: initial; */
+    width: 100%;
+}
+
+
+/* ------------------------------------------------- */
+/* 所持金などの情報の部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_parent_mokuhyoucss3 {
+    margin-top: -10px;
+    text-align: center;
+}
+
+/* 配置と文字スタイル */
+.index_parent_mokuhyoucss4 {
+    /* text-shadow: 6px     6px    6px #fff,
+                -6px    -6px    6px #fff,
+                -6px     6px    6px #fff,
+                 6px    -6px    6px #fff,
+                 6px     0px    6px #fff, 
+                -6px     0px    6px #fff,
+                 0px     6px    6px #fff,
+                 0px    -6px    6px #fff; */
+    display: flex;
+    font-weight: 1000;
+    -webkit-text-stroke: 0.5px #fff;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* white-space: nowrap; */
+}
+
+/* 数字だけ別スタイル指定 */
+.index_parent_mokuhyoucss4 span {
+    color: #ff7c00;
+    font-size: 25px;
+}
+
+/* 一部の行の配置調整 */
+p.index_parent_moji {
+    margin-bottom: 5px;
+    margin-top: -20px;
+}
+
+/* 文字 */
+.index_parent_mokuhyoumoji {
+    color: black;
+    font-size: 18px;
+}
+
+
+/* ------------------------------------------------- */
+/* メッセージ部分 */
+/* ------------------------------------------------- */
+
+/* 配置調整 */
+.index_parent_messagecss1 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+/* 枠組み */
+.index_parent_messagecss2 {
+    background-color: #ffffff;
+    border: 3px solid #fff1a9;
+    border-radius: 10px;
+    padding: 10px 10px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    width: 380px;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+/* 枠組みの中の模様画像 */
+.index_parent_messagecss3 {
+    background-image: url(../../static/assets/messageB.png);
+    background-size: 100%;
+    background-repeat: repeat-y;
+    margin-top: 15px;
+    padding: 0px 40px;
+}
+
+/* メッセージのスクロールバー */
+.login_scroll_bar {
+    overflow-y: scroll;
+    height: 170px;
+    scrollbar-color: #bcdd38 #fffbe9;
+}
+
+/* メッセージの画像位置調整 */
+.index_parent_message {
+    margin-left: 25px;
+}
+
+/* 「誰に送るか」文字部分 */
+.index_parent_send {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+/* 返信ボタン部分 */
+.btn {
+    background-color: #8fc31f;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+
+/* ------------------------------------------------- */
+/* 目標部分*/
+/* ------------------------------------------------- */
+
+input[name="slideshow"]{
+        position : absolute;
+        opacity : 0;
+        z-index : -1;
+}
+
+#slide1:checked ~ .slideshow .slides{
+    left : 0;
+}
+
+#slide2:checked ~ .slideshow .slides{
+    left : -100%;
+}
+
+#slide3:checked ~ .slideshow .slides{
+    left : -200%;
+}
+
+
+
+.slideshow{
+    max-width: 190px;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    border: 4px solid #4f40ff;
+    background-color: #C7EEEE;
+    border-radius: 15px;
+    margin: 0px auto;
+    /* margin-top: 40px; */
+    position: relative;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+}
+
+.slides{
+    width : 400%;
+    height : 100%;
+    display : flex;
+    position : absolute;
+    top : 0;
+    transition : 1s;
+}
+
+.slide{
+    width : 100%;
+    height : 100%;
+    object-fit : cover;
+}
+
+.slideshow-nav{
+    display : flex;
+    justify-content : center;
+}
+
+.slides-nav{
+    display : block;
+    background-color : #fff;
+    width : 20px;
+    height : 20px;
+    border : 4px solid #4f40ff;
+    border-radius : 50%;
+    margin : 10px 10px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+}
+
+.slides-nav:hover{
+    background-color : #4f40ff;
+    border-color: #C7EEEE;
+}

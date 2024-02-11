@@ -31,7 +31,7 @@ $debts = $consent->display_consent_debt($family_id);
 <main>
     <section>
     <div class="title">
-        <h1>おてつだい承認</h1>
+        <h1>承認</h1>
     </div>
     <br>
     <div class ="content">

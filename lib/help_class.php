@@ -28,11 +28,7 @@ class help {
                 } else {
                     $error['get_person'] = "blank";
                 }
-                if (isset($_POST['help_person'])) {
-                    $person = $_POST['help_person'];
-                } else {
-                    $error['get_person'] = "blank";
-                }
+
             
                 // エラーがなければ次のページへ
                 if (!isset($error)) {
