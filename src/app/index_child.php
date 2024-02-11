@@ -141,9 +141,9 @@ $index_child_class->message($db);
 
 
            
-            <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
-               <p class="mb-3" id="order-string"></p>
-            </div> 
+                <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
+                <p class="mb-3" id="order-string"></p>
+                </div> 
 
             <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
                 <?php if ($message_count != 0) : ?>

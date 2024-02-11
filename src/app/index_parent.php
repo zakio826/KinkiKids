@@ -63,49 +63,54 @@ echo '</script>';
             </div>
         </div>
 
-        <select id="user">
-            <option value=""></option>
-            <?php $index_parent_class->getFamilyUser(); ?>
-        </select>
-        <br>
-        目標：<p id="goal_detail"></p>
-        期限：<p id="goal_deadline"></p>
-        値段：<p id="target_amount"></p>
-        <hr>
-        貯金：<p id="savings"></p>
-        手持ち：<p id="points"></p>
-        合計：<p id="have"></p>
-        今日稼ぐポイント：<p id="dayPoint"></p>
-        <hr>
 
-        <!-- <hr class="index_child_hr"> -->
-        <div class="index_child_messagecss1">
-            <div class="index_child_messagecss2">
-                <div class="index_child_messagecss3">
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+            <select id="user">
+                <option value=""></option>
+                <?php $index_parent_class->getFamilyUser(); ?>
+            </select>
+            <br>
+                <b class="index_parent_mokuhyoumoji">
+                    目標：<p id="goal_detail"></p>
+                    期限：<p id="goal_deadline"></p>
+                    値段：<p id="target_amount"></p>
+                </b>
+            </div>
+        </div>
+        
+        <hr class="index_parent_hr">
+
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    貯金：<p id="savings"></p>
+                    手持ち：<p id="points"></p>
+                    合計：<p id="have"></p>
+                    今日稼ぐポイント：<p id="dayPoint"></p>
+                </b>
+            </div>
+        </div>
+
+        <hr class="index_parent_hr">
+
+        <!-- <hr class="index_parent_hr"> -->
+        <div class="index_parent_messagecss1">
+            <div class="index_parent_messagecss2">
+                <div class="index_parent_messagecss3">
 
                     <!-- <span>
                         <p>メッセージ</p>
                     </span> -->
                     <p>
                         <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
-                    </p>
-                    <form action="" method="POST">
-                        <input type="hidden" name="check" value="checked">
-                        <p>誰に送るか</p>
-                        <select name="receiver" required>
+                        <select id="user_select">
                             <option value=""></option>
                             <?php $index_parent_class->getFamilyUser(); ?>
                         </select>
-                        <input type="text" name="message" required>
-                        <button type="submit">返信</button>
-                    </form>
+                    </p>
+                <div class="login_scroll_bar">
 
-                    <select id="user_select">
-                        <option value=""></option>
-                        <?php $index_parent_class->getFamilyUser(); ?>
-                    </select>
-
-           
                     <div style="width: 100%; height: 100px; overflow-y: scroll; border: 1px #999999 solid;">
                         <p class="mb-3" id="order-string"></p>
                     </div> 
@@ -129,6 +134,24 @@ echo '</script>';
                             <p>メッセージがありません</p>
                         <?php endif; ?>
                     </div>
+
+                    <form action="" method="POST">
+                        <input type="hidden" name="check" value="checked">
+                        <p class="index_parent_send">▼ メッセージ送信 ▼</p>
+                        <select name="receiver" required>
+                            <option value=""></option>
+                            <?php $index_parent_class->getFamilyUser(); ?>
+                        </select>
+                        <input type="text" name="message" required>
+                        <button type="submit" class="btn">返信</button>
+                    </form>
+
+
+
+           
+
+
+
 
                 </div>
             </div>
