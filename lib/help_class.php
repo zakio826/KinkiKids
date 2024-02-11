@@ -167,7 +167,7 @@ class help {
     }
 
     private function sendLineNotification($line_id, $message,$help_id) {
-        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 30 WHERE UID = :uid");
+        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 41 WHERE UID = :uid");
         $stmt->bindParam(':uid', $line_id);
         $stmt->execute();
 
