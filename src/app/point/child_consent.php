@@ -1,4 +1,4 @@
-<!-- 緊急ミッション画面 -->
+<!-- ポイント受け取り画面 -->
 
 <!-- ヘッダー -->
 <?php
@@ -33,6 +33,9 @@ $select = $_SESSION["select"];
     <div class ="content">
         <?php
         $chid_consent->getHelps($user_id);
+        ?>
+        <?php
+        $chid_consent->getmissions($user_id);
         ?>
     </div>
     </section>

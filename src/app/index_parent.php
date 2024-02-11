@@ -34,6 +34,16 @@ foreach ($index_parent_class->getFamily() as $parent) {
         break;
     }
 }
+$point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+if ($point_norma_deadline_passed) {
+    echo 'alert("ポイントノルマの期限が過ぎています！");';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
+}
+$behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+if ($behavioral_goal_deadline_passed) {
+    echo 'alert("行動目標の期限が過ぎています！");';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
+}
 echo '</script>';
 
 ?>
@@ -122,6 +132,12 @@ echo '</script>';
         <div class="index_parent_messagecss1">
             <div class="index_parent_messagecss2">
                 <div class="index_parent_messagecss3">
+        <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php"><img src="">緊急ミッション</a><a href="<?php echo $absolute_path; ?>src/app/point/consent.php"><img src="">承認待ち</a>
+
+        <!-- <hr class="index_child_hr"> -->
+        <div class="index_child_messagecss1">
+            <div class="index_child_messagecss2">
+                <div class="index_child_messagecss3">
 
                     <!-- <span>
                         <p>メッセージ</p>
