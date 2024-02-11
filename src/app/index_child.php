@@ -58,7 +58,7 @@ $index_child_class->message($db);
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
                 <p class="row">
-                    <span class="col-6">
+                    <span>
                         <b class="index_child_mokuhyoumoji">
                             しょじきん:
                         <span>
@@ -66,7 +66,7 @@ $index_child_class->message($db);
                         </span>えん
                         </b>
                     </span>
-                    <span class="col-6">
+                    <span>
                         <b class="index_child_mokuhyoumoji">
                         てもち:
                         <span>
@@ -77,7 +77,7 @@ $index_child_class->message($db);
                 </p>
             <?php if($goal_count != 0) : ?>
                 <p>
-                    <span class="col-6">
+                    <span>
                         <b class="index_child_mokuhyoumoji">
                         きょうかせぐポイント:
                         <span>
