@@ -1,10 +1,11 @@
+振り返り
 <?php
 $page_title = "再目標設定";
 $stylesheet_name = "goal_adult.css";
 require_once("../include/header.php");
 ?>
 
-<?php 
+<!--<?php 
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 
@@ -45,7 +46,8 @@ $index_parent_class = new index_parent_class($db);
         </form>
     </div>
 </main>
-<!-- ナビゲーションバー -->
+
 <?php include_once("./include/bottom_nav.php") ?>
-<!-- フッター -->
+
 <?php require_once("../include/footer.php"); ?>
+
