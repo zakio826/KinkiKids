@@ -253,6 +253,28 @@ p.index_parent_moji {
     font-size: 18px;
 }
 
+/* 換金ボタン */
+.btn-kankin {
+    background-color: #525ED2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+.btn-kankin:hover{
+    background-color : #9ba1de;
+    color: white;
+}
+
+
+/* 換金ボタン位置 */
+.btn-kankin_iti{
+    margin-top: 15px;
+}
+
 
 /* ------------------------------------------------- */
 /* メッセージ部分 */

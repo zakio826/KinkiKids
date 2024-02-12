@@ -4,6 +4,7 @@ $page_title = "カテゴリ編集";
 //$stylesheet_name = "spending_input.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
+$user_id = $_SESSION['user_id']; 
 ?>
 
 <!-- ナビゲーションバー -->
@@ -45,16 +46,74 @@ require_once($absolute_path."lib/functions.php");
             // $table_list = ['spending_category', 'income_category', 'payment_method', 'creditcard', 'qr'];
             // $table_name = $table_list[$editItem];
             // if (in_array($table_name, $table_list) !== false) :
-              $stmt = $db->prepare('SELECT payment_id,payment_name FROM payment WHERE user_id = 31');
+              $stmt = $db->prepare('SELECT user_id,income_expense_category_id, income_expense_category_name FROM income_expense_category WHERE (user_id = 31 OR user_id = :user_id) AND income_expense_flag = 1');
+              $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
               sql_check($stmt, $db);
               $stmt->execute();
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
             ?>
                 <tr class="p-table__item">
-                  <td><?php echo h($row['payment_name']); ?></td>
+                  <td><?php echo h($row['income_expense_category_name']); ?></td>
                   <td>
-                    <button class='c-button c-button--bg-green edit'><i class="fa-solid fa-pen"></i></button>
-                    <a class='c-button c-button--bg-red delete' id="" href=''><i class="fa-regular fa-trash-can"></i></a>
+                  <?php if ($row['user_id'] == 31) : ?>
+                    操作不可
+                  <?php else : ?>
+                    <!-- <a id="<?php echo 'item' . h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo 'item' . h($row['income_expense_category_id']); ?>');">削除</a> -->
+                    <a class='c-button c-button--bg-red delete' id="<?php echo h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>')" href=''>
+                    削除<i class="fa-regular fa-trash-can"></i></a>
+
+                    <?php endif; ?>
+                  </td>
+                </tr>
+            <?php
+              endwhile;
+            // else :
+            //   header('Location: ./index.php');
+            // endif;
+            ?>
+        </table>
+      </div>
+    </section>
+
+    <section class="p-section p-section__category-edit">
+
+      <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
+        <input type="hidden" name="editItem" value="">
+        <a href="./item-add.php">追加</a>     
+        <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"> -->
+      </form>
+
+    </section>
+
+    <h2 class="c-text c-text__subtitle">【収入カテゴリー編集】</h2>
+
+
+    <section class="p-section p-section__category-table">
+      <div>
+        <table class="p-table p-table--category">
+          <tr class="p-table__head">
+            <th>項目</th>
+            <th>操作</th>
+          </tr>
+
+          <?php
+            // $table_list = ['spending_category', 'income_category', 'payment_method', 'creditcard', 'qr'];
+            // $table_name = $table_list[$editItem];
+            // if (in_array($table_name, $table_list) !== false) :
+              $stmt = $db->prepare('SELECT user_id,income_expense_category_id, income_expense_category_name FROM income_expense_category WHERE (user_id = 31 OR user_id = :user_id) AND income_expense_flag = 0');
+              $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+              sql_check($stmt, $db);
+              $stmt->execute();
+              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
+            ?>
+                <tr class="p-table__item">
+                  <td><?php echo h($row['income_expense_category_name']); ?></td>
+                  <td>
+                  <?php if ($row['user_id'] == 31) : ?>
+                    操作不可
+                  <?php else : ?>
+                    <a class='c-button c-button--bg-red delete' id="" href=''>削除<i class="fa-regular fa-trash-can"></i></a>
+                  <?php endif; ?>
                   </td>
                 </tr>
             <?php
@@ -71,15 +130,64 @@ require_once($absolute_path."lib/functions.php");
 
       <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
         <input type="hidden" name="editItem" value="">     
-        <input class="c-button c-button--bg-blue" type="submit" name="add" value="【カテゴリーを追加】">
+        <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">
+      </form>
+
+    </section>
+
+    <h2 class="c-text c-text__subtitle">【支出い方法編集】</h2>
+
+
+    <section class="p-section p-section__category-table">
+      <div>
+        <table class="p-table p-table--category">
+          <tr class="p-table__head">
+            <th>項目</th>
+            <th>操作</th>
+          </tr>
+
+          <?php
+            // $table_list = ['spending_category', 'income_category', 'payment_method', 'creditcard', 'qr'];
+            // $table_name = $table_list[$editItem];
+            // if (in_array($table_name, $table_list) !== false) :
+              $stmt = $db->prepare('SELECT user_id,payment_id,payment_name FROM payment WHERE (user_id = 31 OR user_id = :user_id)');
+              $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+              sql_check($stmt, $db);
+              $stmt->execute();
+              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
+            ?>
+                <tr class="p-table__item">
+                  <td><?php echo h($row['payment_name']); ?></td>
+                  <td>
+                  <?php if ($row['user_id'] == 31) : ?>
+                    操作不可
+                  <?php else : ?>
+                    <a class='c-button c-button--bg-red delete' id="" href=''>削除<i class="fa-regular fa-trash-can"></i></a>
+                  <?php endif; ?>
+                  </td>
+                </tr>
+            <?php
+              endwhile;
+            // else :
+            //   header('Location: ./index.php');
+            // endif;
+            ?>
+        </table>
+      </div>
+    </section>
+
+    <section class="p-section p-section__category-edit">
+
+      <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
+        <input type="hidden" name="editItem" value="">     
+        <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">
       </form>
 
     </section>
 
 
-
     <section class="p-section p-section__back-home">
-      <a href="./index.php" class="c-button c-button--bg-gray">ホームに戻る</a>
+      <a href="./spending_input.php" class="c-button c-button--bg-gray">戻る</a>
     </section>
   </main>
 
