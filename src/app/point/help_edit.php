@@ -46,6 +46,9 @@ if (!empty($_POST)) {
         <label for="get_point">獲得ポイント：</label>
         
         <input type="number" id="get_point" name="get_point" value="<?php echo htmlspecialchars($edit_help_info['get_point'], ENT_QUOTES, 'UTF-8'); ?>"><br>
+
+        <strong>担当者</strong>
+        <?php $help->e_child_select($edit_help_id); ?><br>
         <button type="submit">更新</button>
     </form>
 </main>
