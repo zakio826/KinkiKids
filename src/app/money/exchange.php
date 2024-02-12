@@ -1,6 +1,6 @@
 <?php
 $page_title = "換金";
-$stylesheet_name = "";
+$stylesheet_name = "exchange.css";
 require_once("../include/header.php");
 ?>
 <?php
@@ -31,13 +31,15 @@ if(isset($_SESSION['exchange_points'])) {
 
 <!-- 以下は HTML フォーム部分 -->
 <main>
+<div class="mb-3 title"><h1>換金</h1></div>
     <form action="" method="POST">
         <select id="user_select" name="selected_user">
             <option value=""></option>
             <?php $exchange->getFamilyUser(); ?>
         </select>
-        <input type="int" name="points" placeholder="ポイントを入力" required>
-        <button type="submit">ポイント交換</button>
+        <br>
+        <input type="int" name="points" class="exchange_pointinput" placeholder="ポイントを入力" required>
+        <button type="submit" class="btn-kankin">ポイント交換</button>
     </form>
 <main>
 <!-- ナビゲーションバー -->
