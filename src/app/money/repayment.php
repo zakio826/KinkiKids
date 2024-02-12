@@ -1,6 +1,6 @@
 <?php
 $page_title = "";
-$stylesheet_name = "";
+$stylesheet_name = "repayment.css";
 require_once("../include/header.php");
 ?>
 <?php
@@ -26,7 +26,7 @@ $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
                 echo '<strong>借金残額:</strong> ' . $debt_info['repayment_amount'] . "円<br>";
                 echo '<form action="" method="post">';
                 echo '<input type="hidden" name="consent_repayment" value="' . $debt_id . '">';
-                echo '<button type="submit">返済する</button>';
+                echo '<button type="submit" class="btn-hensai">返済する</button>';
                 echo '</form>';
             } else {
                 echo '指定された借金が見つかりません';
@@ -37,4 +37,6 @@ $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
         ?>
     </div>
 </main>
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
 <?php require_once("../include/footer.php"); ?>
