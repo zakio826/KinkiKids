@@ -12,15 +12,7 @@ $goal = new goal($db);
 require($absolute_path."lib/index_parent_class.php");
 $index_parent_class = new index_parent_class($db);
 
-foreach ($index_parent_class->getFamily() as $child) {
-    $goal_deadline = $child['goal_deadline'];
-    if ($index_parent_class->isDeadlinePassed($goal_deadline)) {
-        // 目標の削除処理（例：目標のIDを使用してDBから目標を削除する処理）
-        // ここに目標を削除する処理を記述
-        $child_user_id = $child['user_id'];
-        $goal->deleteGoal($child_user_id);
-    }
-}
+
 ?>
 
 

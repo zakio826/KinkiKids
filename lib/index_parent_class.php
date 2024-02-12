@@ -354,9 +354,14 @@ class index_parent_class {
             }
         }
     }
-    public function isDeadlinePassed($goal_deadline) {
-        $current_date = date('Y-m-d'); // 現在の日付を取得
-        return ($goal_deadline < $current_date);
+    public function againgoalPassed()
+    {
+        $current_date = date("Y-m-d");
+        $query = "SELECT COUNT(*) AS count FROM goal WHERE goal_deadline < '$current_date'";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['count'] > 0;
     }
 
     public function checkPointNormaDeadlinePassed()
