@@ -29,7 +29,7 @@ echo '<script>';
 $again_goal_passed = $index_parent_class->againgoalPassed();
 if ($again_goal_passed) {
     echo 'alert("子供の目標の期限が過ぎています！");';
-    echo 'window.location.href = "./goal/again_goal.php";';  
+    echo 'window.location.href = "./goal/goal.php";';  
 }
 $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
 if ($point_norma_deadline_passed) {
