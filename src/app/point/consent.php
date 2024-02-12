@@ -1,4 +1,4 @@
-<!-- 親ユーザーがお手伝いを承認する画面 -->
+<!-- 親ユーザーがお手伝い、ミッションを承認する画面 -->
 
 <!-- ヘッダー -->
 <?php
@@ -21,6 +21,7 @@ $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 $helps = $consent->display_consent_help($user_id);
+$missions = $consent->display_consent_mission($user_id);
 $debts = $consent->display_consent_debt($family_id);
 ?>
 
@@ -46,6 +47,25 @@ $debts = $consent->display_consent_debt($family_id);
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
                         <button type="submit" class="btn-syounin">承認する</button>
+                    </form>
+                </li>
+        <?php endforeach; ?>
+    </div>
+    <div class="title">
+        <h1>ミッション承認</h1>
+    </div>
+    <div class ="content">
+        <?php foreach ($missions as $mission_data): ?>
+                <li>
+                    <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
+                    <strong>獲得ポイント:</strong> <?php echo $mission_data['get_point']; ?><br>
+                    <strong>担当者</strong>
+                    <?php
+                        $consent->m_person_select($mission_data['mission_id']);
+                    ?><br>
+                    <form action="" method="post">       
+                        <input type="hidden" name="consent_mission_id" value="<?php echo $mission_data['mission_id']; ?>">    
+                        <button type="submit">承認する</button>
                     </form>
                 </li>
         <?php endforeach; ?>

@@ -11,8 +11,7 @@ class behavioral_check{
         if (!empty($_POST['check'])) {
             $_SESSION['join']['family_id'] = $this->getFamilyId($_SESSION['join']['user_id']);
             $this->saveBehavioralToDatabase();
-    
-            //ここに次のページ遷移先を入れる
+            header("Location: ../index.php");
             exit();    
         }
 
