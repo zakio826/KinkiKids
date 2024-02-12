@@ -28,7 +28,9 @@ class goal {
                 $_SESSION['join'] = $_POST;
 
                 $user_id = $_SESSION["user_id"];
-
+                
+                $family_id = $this->getFamilyId($_SESSION['user_id']);
+                $_SESSION['join']['family_id'] = $family_id;
 
                 $goal_created_date = date("Y-m-d H:i:s");
 
@@ -37,7 +39,8 @@ class goal {
 
                 $this->saveGoalToDatabase();
 
-                header('Location: ./goal_check.php'); exit();
+                header('Location: ./goal_check.php'); 
+                exit();
             }
         }
     }

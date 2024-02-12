@@ -9,7 +9,9 @@ class norma_check {
         $this->error = []; // 初期化
 
         if (!empty($_POST['check'])) {
-            $this->saveNormaToDatabase(); exit();    
+            $this->saveNormaToDatabase(); 
+            header("Location: ../index.php");
+            exit();    
         }
     }
 

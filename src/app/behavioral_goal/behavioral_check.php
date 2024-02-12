@@ -7,13 +7,16 @@ $stylesheet_name = "behavioral_check.css";
 require_once("../include/header.php");
 ?>
 
-<?php include_once("../include/nav_bar.php") ?>
+
 
 <?php
 require($absolute_path."lib/behavioral_check_class.php");
 $behavioral_check = new behavioral_check($db);
 $behavioral_user_name = $behavioral_check->getusername(); 
 ?>
+
+
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
@@ -52,7 +55,7 @@ $behavioral_user_name = $behavioral_check->getusername();
                 
                     <br>
                     
-                    <a href="./setting_norma.php" class="btn back-btn">変更する</a>
+                    <a href="./setting_behavioral.php" class="btn back-btn">変更する</a>
                     <button type="submit" class="btn btn-primary">登録する</button>
                     <div class="clear"></div>
                 </form>
