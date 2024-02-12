@@ -130,8 +130,8 @@ $user_id = $_SESSION['user_id'];
 
       <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
         <input type="hidden" name="editItem" value="">     
-        <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">
-
+        <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">   -->
+        <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'">項目を追加</button>
       </form>
 
     </section>
@@ -180,8 +180,9 @@ $user_id = $_SESSION['user_id'];
     <section class="p-section p-section__category-edit">
 
       <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
-        <input type="hidden" name="editItem" value="">     
-        <a href="<?php echo $absolute_path; ?>src/app/spending/item-add.php"><input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"></a>
+        <input type="hidden" name="editItem" value="">
+        <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'">項目を追加</button>    
+        <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"> -->
       </form>
 
     </section>
