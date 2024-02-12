@@ -118,19 +118,29 @@ echo '</script>';
                 <label for="slide2" class="slides-nav"></label>
                 <label for="slide3" class="slides-nav"></label>
             </div>
-            <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php"><img src="">緊急ミッション</a><a href="<?php echo $absolute_path; ?>src/app/point/consent.php"><img src="">承認待ち</a>
+            
 
         <hr class="index_parent_hr">
+
+        <!-- <hr class="index_parent_hr"> -->
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+        <!-- <div class="index_parent_kinkyuu"> -->
+            <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php">
+                <img src="<?php echo $absolute_path; ?>static/assets/kinkyuumi.png" height="50">
+                
+            </a>
+            <a href="<?php echo $absolute_path; ?>src/app/point/consent.php">
+                <img src="<?php echo $absolute_path; ?>static/assets/syouninnmati.png" height="50">
+                
+            </a>
+            </div>
+        </div>
 
         <!-- <hr class="index_parent_hr"> -->
         <div class="index_parent_messagecss1">
             <div class="index_parent_messagecss2">
                 <div class="index_parent_messagecss3">
-
-        <!-- <hr class="index_child_hr"> -->
-        <div class="index_child_messagecss1">
-            <div class="index_child_messagecss2">
-                <div class="index_child_messagecss3">
 
                     <!-- <span>
                         <p>メッセージ</p>
