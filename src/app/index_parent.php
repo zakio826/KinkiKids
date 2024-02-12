@@ -47,11 +47,7 @@ if ($behavioral_goal_deadline_passed) {
 echo '</script>';
 
 ?>
-<ul>
-    <li><a href="<?php echo $absolute_path; ?>src/app/goal/goal.php"><img src="">購入目標</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php"><img src="">ポイントノルマ</a></li>
-    <li><a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php"><img src="">行動目標</a></li>
-</ul>
+
 
 
 <!-- ナビゲーションバー -->
@@ -60,7 +56,7 @@ echo '</script>';
 <main>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
-        <img class="d-block mx-auto py-3" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
+        <img class="d-block mx-auto py-3 index_parent_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
     </header>
 
     <section class="position-relative h-75">
@@ -104,6 +100,34 @@ echo '</script>';
 
         <hr class="index_parent_hr">
 
+        <input type="radio" name="slideshow" id="slide1" checked>
+                <input type="radio" name="slideshow" id="slide2">
+                <input type="radio" name="slideshow" id="slide3">
+            <div class="slideshow">
+                <div class="slides">
+                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouD.png" alt="購入目標">  
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouE.png" alt="ポイントノルマ">
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouF.png" alt="行動目標">
+                    </a>
+                </div>
+            </div>
+            <div class="slideshow-nav">
+                <label for="slide1" class="slides-nav"></label>
+                <label for="slide2" class="slides-nav"></label>
+                <label for="slide3" class="slides-nav"></label>
+            </div>
+
+
+        
+
+
+        <hr class="index_parent_hr">
+
         <!-- <hr class="index_parent_hr"> -->
         <div class="index_parent_messagecss1">
             <div class="index_parent_messagecss2">
@@ -119,7 +143,7 @@ echo '</script>';
                         <p>メッセージ</p>
                     </span> -->
                     <p>
-                        <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ">
+                        <img src="<?php echo $absolute_path; ?>static/assets/messageC.png" height=40 alt="メッセージ" class="index_parent_message">
                         <select id="user_select">
                             <option value=""></option>
                             <?php $index_parent_class->getFamilyUser(); ?>
