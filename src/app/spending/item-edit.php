@@ -131,6 +131,7 @@ $user_id = $_SESSION['user_id'];
       <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
         <input type="hidden" name="editItem" value="">     
         <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">
+
       </form>
 
     </section>
@@ -180,7 +181,7 @@ $user_id = $_SESSION['user_id'];
 
       <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
         <input type="hidden" name="editItem" value="">     
-        <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">
+        <a href="<?php echo $absolute_path; ?>src/app/spending/item-add.php"><input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"></a>
       </form>
 
     </section>
