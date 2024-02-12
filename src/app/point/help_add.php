@@ -115,7 +115,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
         <?php endif; ?>
         </div>
         <?php if ($select === 'adult'): ?><p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p><?php endif; ?>
-        <?php if ($select === 'child'): ?><p class="mt-3"><a href="child_consent.php" class="btn btn-primary">ポイント受け取りページ</a></p><?php endif; ?>
+        <?php if ($select === 'child'): ?><p class="mt-3"><a href="child_consent.php" class="btn btn-primary">ポイント受け取り</a></p><?php endif; ?>
         <!-- <p class="mt-3"><a href="../welcome.php" class="btn btn-primary">もどる</a></p> -->
         
     </div>
