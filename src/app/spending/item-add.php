@@ -1,7 +1,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "カテゴリ編集";
-//$stylesheet_name = "spending_input.css";
+$stylesheet_name = "item_add.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 $user_id = $_SESSION['user_id']; 
@@ -45,7 +45,7 @@ $user_id = $_SESSION['user_id'];
           <input type="text" class="item-operate-name" id="name" name="name" value="" pattern="\S|\S.*?\S" required>
         </div>
         
-        <input class="c-button c-button--bg-blue" type="submit" name="add" value="追加">
+        <input class="btn-1" type="submit" name="add" value="追加">
       </form>
 
     </section>
