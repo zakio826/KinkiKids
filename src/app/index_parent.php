@@ -88,8 +88,12 @@ echo '</script>';
             <div class="index_parent_mokuhyoucss2">
                 <b class="index_parent_mokuhyoumoji">
                     貯金：<p id="savings"></p>
-                    手持ち：<p id="points"></p>
-                    合計：<p id="have"></p>
+                    手持ち：
+                    <p id="points" class="btn-kankin_iti">
+                        <a href="<?php echo $absolute_path; ?>src/app/money/exchange.php" class="btn-kankin">
+                            換金
+                        </a>
+                    </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
                 </b>
             </div>
