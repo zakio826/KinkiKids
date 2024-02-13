@@ -1,3 +1,7 @@
+<?php
+$select = $_SESSION["select"];
+?>
+
 <style>
 nav {
     max-width: 100vw;
@@ -41,7 +45,7 @@ nav.bottom_nav_bar1 {
 
 /* 下のメニュー背景 */
 .bottom_nav_bar1 {
-    background-color: #fff27e;
+    background-color: <?php echo ($select === 'adult') ? '#AADBFF' : '#fff27e'; ?>;;
     border-top: 4px solid #8fc31f;
     padding-bottom: 15px;
 }
