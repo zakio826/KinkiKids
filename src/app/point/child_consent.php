@@ -32,10 +32,12 @@ $select = $_SESSION["select"];
     <br>
     <div class ="content">
         <?php
-        $chid_consent->getHelps($user_id);
-        ?>
-        <?php
-        $chid_consent->getmissions($user_id);
+        $f1 = $chid_consent->getHelps($user_id);
+        $f2 = $chid_consent->getmissions($user_id);
+
+        if($f1 && $f2){
+            echo "<p>獲得できるポイントはありません</p>";
+        }
         ?>
     </div>
     </section>

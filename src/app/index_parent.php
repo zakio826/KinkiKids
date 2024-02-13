@@ -25,23 +25,25 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     unset($_SESSION['family_success'], $_SESSION['family_count']);
 }
 
-// echo '<script>';
-// $again_goal_passed = $index_parent_class->againgoalPassed();
-// if ($again_goal_passed) {
-//     echo 'alert("子供の目標の期限が過ぎています！");';
-//     echo 'window.location.href = "./goal/goal.php";';  
-// }
-// $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
-// if ($point_norma_deadline_passed) {
-//     echo 'alert("ポイントノルマの期限が過ぎています！");';
-//     echo 'window.location.href = "./point_norma/setting_norma.php";';
-// }
-// $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
-// if ($behavioral_goal_deadline_passed) {
-//     echo 'alert("行動目標の期限が過ぎています！");';
-//     echo 'window.location.href = "./behavioral_goal/setting_behavioral.php";';
-// }
-// echo '</script>';
+$family_id = $_SESSION['family_id'];
+
+echo '<script>';
+$again_goal_passed = $index_parent_class->againgoalPassed($family_id);
+if ($again_goal_passed) {
+    echo 'alert("子供の目標の期限が過ぎています！");';
+    echo 'window.location.href = "./goal/again_goal.php";';  
+}
+$point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+if ($point_norma_deadline_passed) {
+    echo 'alert("ポイントノルマの期限が過ぎています！");';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
+}
+$behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+if ($behavioral_goal_deadline_passed) {
+    echo 'alert("行動目標の期限が過ぎています！");';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
+}
+echo '</script>';
 
 ?>
 
