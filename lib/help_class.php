@@ -28,6 +28,7 @@ class help {
                 } else {
                     $error['get_person'] = "blank";
                 }
+                
 
             
                 // エラーがなければ次のページへ
@@ -215,6 +216,39 @@ class help {
         }
     }
 
+    public function e_child_select($help_id) {
+        if (isset($_SESSION["family_id"])) {
+            $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
+            $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $stmt2 = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+            $stmt2->bindParam(':help_id', $help_id);
+            $stmt2->execute();
+            $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+            $checked_li = [];
+            foreach ($result2 as $id) {
+                array_push($checked_li,$id['user_id']);
+            }
+
+            foreach ($result as $person) {
+                if (floor($person['role_id'] / 10 ) == 3) {
+                    $checked = "";
+                    if(in_array($person['user_id'], $checked_li)){
+                        $checked = "checked";
+                    }
+                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'];
+                    echo " ".$checked.">";
+                    echo $person['first_name']."　";
+                }
+            }
+        } else {
+            //TODO ログインしていない
+        }
+    }
+
     public function getHelpInfo($help_id) {
         $stmt = $this->db->prepare("SELECT * FROM help WHERE help_id = :help_id");
         $stmt->bindParam(':help_id', $help_id);
@@ -264,6 +298,7 @@ class help {
         }
     }
 
+   
     public function consent_button($help_id) {
         $stmt = $this->db->prepare("SELECT consent_flag FROM help_log WHERE help_id = :help_id ORDER BY help_log_id DESC LIMIT 1");
         $stmt->bindParam(':help_id', $help_id);
@@ -318,5 +353,6 @@ class help {
             return false;
         }
     }
+
 }
 ?>
