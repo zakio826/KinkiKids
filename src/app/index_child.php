@@ -120,6 +120,15 @@ $index_child_class->message($db);
 
         
         <hr class="index_child_hr">
+        <div class="index_child_mokuhyoucss1">
+        <div class="index_child_mokuhyoucss2">
+
+        <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php">
+                <img src="<?php echo $absolute_path; ?>static/assets/kinkyuumi.png" height="50">
+                
+        </a>
+            </div>
+        </div>
         <br>
 
         <!-- <hr class="index_child_hr"> -->
