@@ -66,6 +66,12 @@
                 ';
             }
             echo "</li>";
+            if(empty($result)){
+                return true;
+            }else{
+                return false;
+            }
+            
         }
 
         public function getmissions($user_id){
@@ -93,5 +99,10 @@
                 ';
             }
             echo "</li>";
+            if(empty($result)){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
