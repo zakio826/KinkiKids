@@ -49,6 +49,11 @@ input[type="checkbox"] {
     min-width: 370px; /* 最小幅を設定 */
 }
 
+.control_check{
+    color: #525ED2;
+
+}
+
 .btn-group {
     display: flex;
     margin-left: 40px;
