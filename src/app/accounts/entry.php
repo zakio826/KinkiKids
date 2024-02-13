@@ -38,12 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <div class="form-group_entry">
                             <label for="username">ユーザー名</label>
+                            <p>※半角英数字で入力してください</p>
                             <input id="username" type="text" name="username" class="form-control_entry">
                             <?php $entry->username_error(); ?>
                         </div>
 
                         <div class="form-group_entry">
                             <label for="password">パスワード</label>
+                            <p>※半角英数字を含む8文字以上で入力してください</p>
                             <input id="password" type="password" name="password" class="form-control_entry">
                             <?php $entry->password_error(); ?>
                         </div>
