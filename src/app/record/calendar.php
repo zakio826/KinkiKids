@@ -39,21 +39,8 @@ if ($_SESSION["select"] === "child") {
     $user_id = $_POST["child_select"];
 } else {
     $user_id = null;
-    // $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id > 30;");
-    // foreach ($familys as $family) {
-    //     if ($family["user_id"] != $_SESSION["user_id"]) {
-    //         $user_id = $family["user_id"];
-    //     }
-    // }
 }
 $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id > 30;");
-// $user_id = $familys["user_id"];
-
-// エラーが出るのでこれで代用
-// $user_id = $_SESSION["user_id"];
-
-$ttt = [];
-
 ?>
 
 <?php  // 表示月以前5か月分の月間収支データを取得
@@ -108,7 +95,7 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
             $sql .= " ";
         }
     }
-    $sql .= $i. " GROUP BY `". key($columns[0]). "`;"; array_push($ttt, $sql);
+    $sql .= $i. " GROUP BY `". key($columns[0]). "`;";
     array_push($in_exDataset["query"], ($db->query($sql)));
     
     array_push($in_exDataset["data"], array());
@@ -202,7 +189,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         }
     }
     $sql .= $i. " GROUP BY `". key($columns[0]). "`";
-    $sql .= " ORDER BY `". key($columns[1]). "` DESC;"; array_push($ttt, $sql);
+    $sql .= " ORDER BY `". key($columns[1]). "` DESC;";
     array_push($categoryDataset["query"], ($db->query($sql)));
     
     array_push($categoryDataset["data"], array());
@@ -229,33 +216,6 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         <div class="container">
             <div class="row mt-3">
                 <div class="position-relative px-0 px-sm-5">
-
-                    <!-- <?php echo $user_id; ?> -->
-
-                    <!-- <?php echo $_SESSION["family_id"]; ?> -->
-
-                    <!-- 
-                        <?php foreach ($ttt as $t) : ?> 
-                            <?php echo $t; ?>
-                            <br><br>
-                        <?php endforeach; ?> 
-    
-                        <?php if (is_null($user_id)) { echo "true"; } else { echo "false"; } ?> 
-    
-                        <?php if (is_null($_POST["child_select"])) { echo "true"; } else { echo "false"; } ?> 
-    
-                        <?php echo gettype($_POST["child_select"]); ?> 
-    
-                        <?php echo $_POST["child_select"]; ?> 
-                    -->
-                    
-                    <!-- <?php echo var_dump($familys); ?> -->
-
-                    <!-- <?php echo var_dump($in_exDataset["data"][0]); ?> -->
-                    <!-- <?php echo var_dump($in_exDataset["data"][0]["合計金額"]); ?> -->
-                    
-
-
                     <table class="w-75 mx-auto" style="caption-side: top;">
                         <caption class="mx-sm-5 text-center">
                             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
