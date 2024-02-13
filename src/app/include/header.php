@@ -51,11 +51,9 @@ $db = new connect();
 
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> -->
 
 
         <!-- カスタムスタイルシート -->
-        <!-- <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/style.css"> -->
         <?php if (isset($stylesheet_name)) : ?>
             <link rel="stylesheet" href="<?php echo $absolute_path; ?>static/css/<?php echo $stylesheet_name; ?>">
         <?php endif; ?>
@@ -84,7 +82,6 @@ $db = new connect();
 
         body {
             background: url('<?php echo $absolute_path . "static/assets/" . $select . "_back_image.png"; ?>');
-            /* background: url('<?php echo $absolute_path; ?>static/assets/child_back_image.png'); */
         }
     </style>
 

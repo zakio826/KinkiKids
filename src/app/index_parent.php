@@ -193,13 +193,6 @@ echo '</script>';
                         <button type="submit" class="btn">返信</button>
                     </form>
 
-
-
-           
-
-
-
-
                 </div>
             </div>
         </div>
@@ -219,6 +212,7 @@ echo '</script>';
     let day;
     let dayPoint;
     let allowance_amount;
+
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>

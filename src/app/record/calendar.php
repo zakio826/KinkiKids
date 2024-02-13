@@ -215,8 +215,8 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     <section class="position-relative">
         <div class="container">
             <div class="row mt-3">
-                <div class="position-relative px-0 px-sm-5">
-                    <table class="w-75 mx-auto" style="caption-side: top;">
+                <div class="position-relative px-2 px-sm-5" style="width: 85vw;">
+                    <table class="w-100" style="caption-side: top;">
                         <caption class="mx-sm-5 text-center">
                             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
                                 
@@ -268,22 +268,30 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
                         
                         <!-- カレンダー（日付） -->
                         <tbody class="w-100" style="background-color: white;">
-                            <?php for ($i = 0; $i < 5; $i++) : ?>
-                                <tr>
-                                    <?php for ($j = 1; $j <= 7; $j++) : ?>
-                                        <?php $day = $i * 7 + $j - $first_week; ?>
-                                        <td class="px-1" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?>>
-                                            <?php if ($day > 0 and $day <= $last_day) : ?>
-                                                <?php echo $day; ?><br>
-                                                &nbsp;
-                                            <?php else : ?>
-                                                &nbsp;<br>
-                                                &nbsp;
-                                            <?php endif; ?>
-                                        </td>
-                                    <?php endfor; ?>
-                                </tr>
-                            <?php endfor; ?>
+                            <form action="../spending/spending_input.php" method="GET">
+                                <?php for ($i = 0; $i < 5; $i++) : ?>
+                                    <tr>
+                                        <?php for ($j = 1; $j <= 7; $j++) : ?>
+                                            <?php $day = $i * 7 + $j - $first_week; ?>
+                                            <td class="px-1" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?>>
+                                                <?php if ($day > 0 and $day <= $last_day) : ?>
+                                                    <?php if (!$month_now or $day <= $today) : ?>
+                                                        <input class="d-none" type="submit" id="pick_<?php echo $day; ?>" name="pick_date" value="<?php echo date($this_ym. "-". $day); ?>">
+                                                    <?php endif; ?>
+
+                                                    <label class="w-100" for="pick_<?php echo $day; ?>">
+                                                        <?php echo $day; ?><br>
+                                                        &nbsp;
+                                                    </label>
+                                                <?php else : ?>
+                                                    &nbsp;<br>
+                                                    &nbsp;
+                                                <?php endif; ?>
+                                            </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                <?php endfor; ?>
+                            </form>
                         </tbody>
                     </table>
                 </div>
