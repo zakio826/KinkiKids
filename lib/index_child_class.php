@@ -230,8 +230,13 @@ class index_child_class {
                 $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
                 $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $allowance_amount = $result['allowance_amount'];
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $allowance_amount = $result['allowance_amount'];
+                } else {
+                    $allowance_amount = 0;
+                }
+
                 
                 $answer = $target_amount - $have_points - $savings - $allowance_amount * $diff->m;
                 
@@ -289,8 +294,12 @@ class index_child_class {
                 $stmt = $this->db->prepare("SELECT allowance_amount FROM allowance WHERE user_id = :user_id");
                 $stmt->bindParam(':user_id', $_SESSION["user_id"]);
                 $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $allowance_amount = $result['allowance_amount'];
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(count($result) != 0){
+                    $allowance_amount = $result['allowance_amount'];
+                } else {
+                    $allowance_amount = 0;
+                }
                 if($diff2->format('%a')>0){
                     $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
                 }else{
