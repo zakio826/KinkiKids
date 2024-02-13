@@ -121,7 +121,7 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <li>
                                     <?php if ($_SESSION["admin_flag"] == 1) : ?>
                                     <a class="z-1 col-auto" href="<?php echo $absolute_path; ?>src/app/accounts/family_add.php">
-                                    家族アカウント追加
+                                        家族アカウント追加
                                     </a>
                                 </li>
                                 <br>
