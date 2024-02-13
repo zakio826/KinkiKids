@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "うずらフォント";
+  font-display: block;
+  src: url("../webfonts/uzura.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ふわふで";
+  font-display: block;
+  src: url("../webfonts/FuwaFude.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ちはや純";
+  font-display: block;
+  src: url("../webfonts/ちはや純.ttf") format("truetype");
+}/*# sourceMappingURL=font.css.map */

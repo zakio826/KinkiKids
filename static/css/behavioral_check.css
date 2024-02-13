@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+
+main{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    border-radius: 5px;
+    font-size: 18px; /* フォントサイズを16pxに変更 */
+    font-weight: bold; /* フォントを太字に変更 */
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #525ED2; /*テキストの色を指定 */
+}
+
+input {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+input[type="text"] ,[type="number"]{
+    width: 90%;
+}
+
+input[type="checkbox"] {
+    padding: 5px;
+    margin-right: 10px; /* 右側に10pxの空白を追加 */
+}
+
+.title h1{
+    font-weight: bold;
+    color: #2862ff;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+/* 青色の枠部分 */
+.content {
+    background-color: #FFF27E;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 370px; /* 幅を固定 */
+    margin: 0 auto;
+    min-width: 370px; /* 最小幅を設定 */
+}
+
+.btn-group {
+    display: flex;
+    margin-left: 40px;
+    align-items: center;
+}
+
+.btn-henkou {
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
+}
+
+.btn-touroku {
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
+}
