@@ -22,8 +22,6 @@ if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $family_add->__construct($db);
 }
-
-var_dump($errors);
 ?>
 
 <!-- ナビゲーションバー -->
