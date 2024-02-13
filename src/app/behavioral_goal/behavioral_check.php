@@ -2,7 +2,7 @@
 
 <!-- ヘッダー -->
 <?php
-$page_title = "入力情報確認";
+$page_title = "入力情報確認aaaa";
 $stylesheet_name = "behavioral_check.css";
 require_once("../include/header.php");
 ?>
@@ -55,8 +55,8 @@ $behavioral_user_name = $behavioral_check->getusername();
                 
                     <br>
                     
-                    <a href="./setting_behavioral.php" class="btn back-btn">変更する</a>
-                    <button type="submit" class="btn btn-primary">登録する</button>
+                    <a href="./setting_behavioral.php" class="btn kariru">変更する</a>
+                    <button type="submit" class="btn btn-touroku">登録する</button>
                     <div class="clear"></div>
                 </form>
             </div>

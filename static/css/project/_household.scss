@@ -1,0 +1,50 @@
+@use "../global" as g;
+@use "../foundation/mixin" as m;
+
+$switch-color: black;
+
+.household {
+  &-input {
+    position: relative;
+    text-align: center;
+  }
+
+  &-input.hide {
+    display: none;
+  }
+
+  &-calendar.hide {
+    display: none;
+  }
+
+  .category {
+    display: inline-block;
+  }
+}
+
+.household_switch {
+  display: none;
+  left: 0;
+  width: 100%;
+  border-bottom: solid 0.2rem $switch-color;
+  background-color: #fff;
+  z-index: 10;
+  display: flex;
+
+  &__item {
+    width: calc(100% / 4);
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 1.3rem;
+    color: $switch-color;
+    cursor: pointer;
+    i {
+      display: block;
+      font-size: 2.4rem;
+    }
+    &.is-active {
+      background-color: $switch-color;
+      color: #fff;
+    }
+  }
+}
