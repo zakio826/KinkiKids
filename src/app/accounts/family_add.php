@@ -87,15 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input class="payment-input" type="int" name="payments[]" value="0">
                         </div>
 
-                    <div class="control">
-                        <label for="admin_flag">管理者</label>
-                        <input type="checkbox" name="admin_flag[]">
+                        <div class="control">
+                            <label for="admin_flag">管理者</label>
+                            <input type="checkbox" name="admin_flag[]">
+                        </div>
                     </div>
                 </div>
-
-                <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
-                <div class="control"><button type="submit" class="btn">確認する</button></div>
-            </div>
+            <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
+            <div class="control"><button type="submit" class="btn">確認する</button></div>
         </form>
     </div>
 </main>
