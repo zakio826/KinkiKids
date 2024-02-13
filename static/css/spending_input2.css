@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
+
 /* ボタンの基本的なスタイル */
 button {
-    padding: 8px 20px; 
+    padding: 8px 20px;
     background-color: #525ED2;
     color: white;
     border: none;
@@ -11,10 +12,12 @@ button {
 }
 
 
+
 /* ボタンにホバーエフェクトを追加 */
 button:hover {
     background-color: #e4e9f8; /* ホバー時の背景色 */
 }
+
 
 main{
     text-align: center;
@@ -29,6 +32,7 @@ main{
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
+
     /* フォーム内のテキストのスタイル */
 /* form p {
     font-weight: bold;
@@ -36,7 +40,9 @@ main{
     -webkit-text-stroke: 1px rgb(40, 155, 248);
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; 白で縁取り
 
+
 } */
+
 
 label {
     display: block;
@@ -44,14 +50,17 @@ label {
     color: #7f98f1; /*テキストの色を指定 */
 }
 
+
 input {
     text-align: center;
 }
+
 
 input[type="checkbox"] {
     padding: 5px;
     margin-right: 10px; /* 右側に10pxの空白を追加 */
 }
+
 
 /* 青色の枠部分 */
 .p-section {
@@ -65,6 +74,7 @@ input[type="checkbox"] {
     margin-top: 20px;
     margin-bottom: 100px;
 }
+
 
 /* スマートフォン用のスタイル */
 @media only screen and (max-width: 600px) {
@@ -84,16 +94,19 @@ input[type="checkbox"] {
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
 
+
 .choice {
     color: #7f98f1; /*テキストの色を指定 */
     margin-bottom: 0;
 }
+
 
 .btn-group {
     display: flex;
     margin-left: 40px;
     align-items: center;
 }
+
 
 .btn-1 {
     background-color: #525ED2;
@@ -108,6 +121,7 @@ input[type="checkbox"] {
     margin-top: revert-layer;
 }
 
+
 .btn-2 {
     background-color: #ce3f3f;
     color: white;
@@ -121,11 +135,13 @@ input[type="checkbox"] {
     margin-top: revert-layer
 }
 
+
 .p-section h1 {
     font-weight: bold;
     color: #7f98f1;
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
+
 
 strong {
     font-weight: 500;
@@ -133,12 +149,14 @@ strong {
     margin-bottom: 0;
 }
 
+
 .mt-1 {
     margin-bottom: 3px;
     color: #7f98f1; /*テキストの色を指定 */
     font-size: 23px;
     font-weight: 900;
 }
+
 
 .scroll_bar{
     background-color: #7EC1FF;
@@ -151,7 +169,9 @@ strong {
     height: 170px; /* コンテンツの高さに合わせて調整（必要に応じて） */
     border-radius: 10px; /* スクロールバーの角を丸くする */
 
+
 }
+
 
 .btn-touroku{
     background-color: #525ED2;
@@ -165,6 +185,7 @@ strong {
     width: 220px;
 }
 
+
 .btn-primary{
     background-color: #525ED2;
     color: white;
@@ -177,19 +198,24 @@ strong {
     width: 220px;
 }
 
+
 p.long-name {
     margin-bottom: 0px;
     margin-top: 15px;
 }
+
 
 .spinradio {
     display: initial;
     margin-right: 30px;
 }
 
+
 .spending_input_textarea {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
+
 
 .p-form__flex-input.type {
     margin-top: 20px;

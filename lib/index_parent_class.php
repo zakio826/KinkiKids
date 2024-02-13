@@ -49,7 +49,10 @@ class index_parent_class {
         if(count($result) != 0){
             return $result[0];
         } else {
-            return 0;
+            return array(
+                'savings'=>0,
+                'have_points'=>0,
+            );
         }
     }
     public function getChildAllowance($i) {
@@ -60,7 +63,10 @@ class index_parent_class {
         if(count($result) != 0){
             return $result[0];
         } else {
-            return 0;
+            return array(
+                'allowance_amount'=>0,
+            );
+
         }
     }
     public function getPointNorma($i) {

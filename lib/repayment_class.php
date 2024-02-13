@@ -10,6 +10,7 @@ class repayment {
             $debtid = $_POST["consent_repayment"];
 
             $debt_info = $this->getDebtInfo($debtid);
+            $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
 
 
             $updated_amount = $debt_info['repayment_amount'] - $debt_info['repayment_installments'];
@@ -43,7 +44,13 @@ class repayment {
             }
 
             $_SESSION['updated'] = true;
-            header('Location: ./debt.php');
+            if(isset($_SESSION['repaycount'][$debt_id])) {
+                $_SESSION['repaycount'][$debt_id] = $_SESSION['repaycount'][$debt_id] - 1;
+            } else {
+                $_SESSION['repaycount'][$debt_id] = $debt_info['installments'];
+                $_SESSION['repaycount'][$debt_id] = $_SESSION['repaycount'][$debt_id] - 1;
+            }           
+            header('Location: ../index.php');
             exit();
         }
     }

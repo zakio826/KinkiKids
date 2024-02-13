@@ -256,8 +256,8 @@ echo '</script>';
         document.getElementById('target_amount').innerHTML = target_amount;
         document.getElementById('savings').innerHTML = savings;
         document.getElementById('points').innerHTML = points;
-        document.getElementById('have').innerHTML = have;
-        document.getElementById('dayPoint').innerHTML = dayPoint;
+        //document.getElementById('have').innerHTML = have;
+        document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
     });
 
 
