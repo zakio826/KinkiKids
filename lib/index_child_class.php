@@ -6,7 +6,7 @@ class index_child_class {
 
     
     
-    function __construct($db) {
+    function __construct($db, $user_id) {
         $this->db = $db;
         $this->error = []; // 初期化
     }
@@ -314,6 +314,20 @@ class index_child_class {
 
             }
         }
+    }
+
+    public function display_consent_repayment($user_id) {
+        $currentDate = date("d");
+        $query = "SELECT * FROM debt WHERE user_id = :user_id AND approval_flag = 1 AND repayment_date = :current_date";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // データを連想配列として取得
+        $debts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $debts;
     }
 }
 ?>
