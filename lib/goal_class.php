@@ -76,8 +76,8 @@ class goal {
 
     // ユーザーが登録した目標の情報を取得する関数
     public function getUserGoals($user_id) {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id");
+        $stmt->bindParam(':goal_user_id', $user_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

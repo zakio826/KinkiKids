@@ -354,15 +354,18 @@ class index_parent_class {
             }
         }
     }
-    public function againgoalPassed()
+    public function againgoalPassed($family_id)
     {
         $current_date = date("Y-m-d");
-        $query = "SELECT COUNT(*) AS count FROM goal WHERE goal_deadline < '$current_date'";
+        $query = "SELECT COUNT(*) AS count FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
         $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':current_date', $current_date);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['count'] > 0;
     }
+
 
     public function checkPointNormaDeadlinePassed()
     {
