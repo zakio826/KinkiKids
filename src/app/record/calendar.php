@@ -33,21 +33,27 @@ $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の�
 ?>
 
 <?php  // 大人であれば子どもの情報、子どもであれば、自分の情報を取得
-// if ($_SESSION["select"] === "child") {
-//     $user_id = $_SESSION["user_id"];
-// } else if (isset($_POST["child_select"])) {
-//     $user_id = $_POST["child_select"];
-// } else {
-//     $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id < 30;");
-//     foreach ($familys as $family) {
-//         if ($family["user_id"] != $_SESSION["user_id"]) {
-//             $user_id = $family["user_id"];
-//         }
-//     }
-// }
+if ($_SESSION["select"] === "child") {
+    $user_id = $_SESSION["user_id"];
+} else if (isset($_POST["child_select"]) and $_POST["child_select"] != "all") {
+    $user_id = $_POST["child_select"];
+} else {
+    $user_id = null;
+    // $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id > 30;");
+    // foreach ($familys as $family) {
+    //     if ($family["user_id"] != $_SESSION["user_id"]) {
+    //         $user_id = $family["user_id"];
+    //     }
+    // }
+}
+$familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ". $_SESSION["family_id"]. " AND role_id > 30;");
+// $user_id = $familys["user_id"];
 
 // エラーが出るのでこれで代用
-$user_id = $_SESSION["user_id"];
+// $user_id = $_SESSION["user_id"];
+
+$ttt = [];
+
 ?>
 
 <?php  // 表示月以前5か月分の月間収支データを取得
@@ -77,11 +83,19 @@ for ($i = 0; $i < count($columns); $i++) {
 $start_ym = date("Y-m", strtotime("-4 month", $this_date));
 $this_ym = date("Y-m", $this_date);
 
-$wheres = array(
-    "user_id = ". $user_id,
-    "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
-    "income_expense_flag =",
-);
+if (is_null($user_id)) {
+    $wheres = array(
+        "family_id = ". $_SESSION["family_id"],
+        "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
+        "income_expense_flag =",
+    );
+} else {
+    $wheres = array(
+        "user_id = ". $user_id,
+        "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
+        "income_expense_flag =",
+    );
+}
 
 for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
     $sql = "SELECT ". $column. " FROM ". $from. " WHERE ";
@@ -94,7 +108,7 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
             $sql .= " ";
         }
     }
-    $sql .= $i. " GROUP BY `". key($columns[0]). "`;";
+    $sql .= $i. " GROUP BY `". key($columns[0]). "`;"; array_push($ttt, $sql);
     array_push($in_exDataset["query"], ($db->query($sql)));
     
     array_push($in_exDataset["data"], array());
@@ -162,11 +176,19 @@ for ($i = 0; $i < count($columns); $i++) {
     }
 }
 
-$wheres = array(
-    $from_join["from"].".user_id = ". $user_id,
-    "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-    $from_join["from"].".income_expense_flag =",
-);
+if (is_null($user_id)) {
+    $wheres = array(
+        $from_join["from"].".family_id = ". $_SESSION["family_id"],
+        "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+        $from_join["from"].".income_expense_flag =",
+    );
+} else {
+    $wheres = array(
+        $from_join["from"].".user_id = ". $user_id,
+        "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+        $from_join["from"].".income_expense_flag =",
+    );
+}
 
 for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     $sql = "SELECT ". $column. " FROM ". $from. " WHERE ";
@@ -180,7 +202,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         }
     }
     $sql .= $i. " GROUP BY `". key($columns[0]). "`";
-    $sql .= " ORDER BY `". key($columns[1]). "` DESC;";
+    $sql .= " ORDER BY `". key($columns[1]). "` DESC;"; array_push($ttt, $sql);
     array_push($categoryDataset["query"], ($db->query($sql)));
     
     array_push($categoryDataset["data"], array());
@@ -208,36 +230,70 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
             <div class="row mt-3">
                 <div class="position-relative px-0 px-sm-5">
 
-                    <!-- エラーが出るので以下をコメントアウト -->
-                    <!-- <?php //if ($_SESSION["select"] === "adult") : ?>
-                        <form class="w-75 mt-3 mx-auto" action="<?php //echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
-                            <select name="child_select" id="">
-                                <?php //for ($i = 0; $i < count($familys); $i++) : ?>
-                                    <?php //if ($familys[$i]["user_id"] != $_SESSION["user_id"]) : ?>
-                                        <option value="<?php //echo $familys[$i]["user_id"]; ?>" <?php //if ($familys[$i]["user_id"]==$user_id){echo "checked";} ?>>
-                                            <?php //echo $familys[$i]["first_name"]; ?>
-                                        </option>
-                                    <?php //endif; ?>
-                                <?php //endfor; ?>
-                            </select>
-                        </form>
-                    <?php //endif; ?> -->
+                    <!-- <?php echo $user_id; ?> -->
+
+                    <!-- <?php echo $_SESSION["family_id"]; ?> -->
+
+                    <!-- 
+                        <?php foreach ($ttt as $t) : ?> 
+                            <?php echo $t; ?>
+                            <br><br>
+                        <?php endforeach; ?> 
+    
+                        <?php if (is_null($user_id)) { echo "true"; } else { echo "false"; } ?> 
+    
+                        <?php if (is_null($_POST["child_select"])) { echo "true"; } else { echo "false"; } ?> 
+    
+                        <?php echo gettype($_POST["child_select"]); ?> 
+    
+                        <?php echo $_POST["child_select"]; ?> 
+                    -->
+                    
+                    <!-- <?php echo var_dump($familys); ?> -->
+
+                    <!-- <?php echo var_dump($in_exDataset["data"][0]); ?> -->
+                    <!-- <?php echo var_dump($in_exDataset["data"][0]["合計金額"]); ?> -->
+                    
+
 
                     <table class="w-75 mx-auto" style="caption-side: top;">
-                        <!-- 月の変更 -->
                         <caption class="mx-sm-5 text-center">
-                            <h5 class="mb-1"><?php echo date("Y", $this_date); ?>年</h5>
-
-                            <form class="h1 row g-0 justify-content-around pt-0" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST" style="color: black;">
-                                <label class="col-auto" for="last">＜
-                                    <input class="d-none" type="submit" id="last" name="month_transfer" value="<?php echo $last_ym; ?>">
-                                </label>
-
-                                <span class="col-4"><?php echo date("n", $this_date); ?>月</span>
+                            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
                                 
-                                <label class="col-auto" for="next"><font <?php if ($month_now) { echo 'color="darkgray"'; } ?>>＞</font>
-                                    <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>" <?php if ($month_now) { echo "disabled"; } ?>>
-                                </label>
+                                <!-- 大人ユーザの場合は子ども切り替え -->
+                                <?php if ($_SESSION["select"] === "adult") : ?>
+                                    <div class="w-75 mb-3 mx-auto">
+                                        <select name="child_select" id="">
+                                            <option value="all" <?php if (!isset($user_id)) { echo "selected"; } ?>>子ども全員</option>
+                                            <?php foreach ($familys as $family) : ?>
+                                                <?php if ($family["user_id"] != $_SESSION["user_id"]) : ?>
+                                                    <option value="<?php echo $family["user_id"]; ?>" <?php if (isset($user_id) and $family["user_id"] == $user_id) { echo "selected"; } ?>>
+                                                        <?php echo $family["first_name"]; ?>
+                                                    </option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </select>
+
+                                        <button type="submit">変更</button>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- 年表示 -->
+                                <h5 class="mb-1"><?php echo date("Y", $this_date); ?>年</h5>
+                                
+                                <!-- 月表示・変更 -->
+                                <input type="hidden" name="month_transfer" value="<?php echo $this_ym; ?>">
+                                <h1 class="row g-0 justify-content-around pt-0" style="color: black;">
+                                    <label class="col-auto" for="last">＜
+                                        <input class="d-none" type="submit" id="last" name="month_transfer" value="<?php echo $last_ym; ?>">
+                                    </label>
+    
+                                    <span class="col-4"><?php echo date("n", $this_date); ?>月</span>
+                                    
+                                    <label class="col-auto" for="next"><font <?php if ($month_now) { echo 'color="darkgray"'; } ?>>＞</font>
+                                        <input class="d-none" type="submit" id="next" name="month_transfer" value="<?php echo $next_ym; ?>" <?php if ($month_now) { echo "disabled"; } ?>>
+                                    </label>
+                                </h1>
                             </form>
                         </caption>
                         
@@ -277,17 +333,17 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
             <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-around mt-3">
                 <h4 class="col-8 col-md-3 row row-cols-auto gy-3 justify-content-around my-3 pb-3 money-grid">
                     <span class="col">つかったお金</span>
-                    <span class="col">10000円</span>
+                    <span class="col"><?php echo end($in_exDataset["data"][0]["合計金額"]); ?>円</span>
                 </h4>
 
                 <h4 class="col-8 col-md-3 row row-cols-auto gy-3 justify-content-around my-3 pb-3 money-grid">
                     <span class="col">もらったお金</span>
-                    <span class="col">10000円</span>
+                    <span class="col"><?php echo end($in_exDataset["data"][1]["合計金額"]); ?>円</span>
                 </h4>
 
                 <h4 class="col-8 col-md-3 row row-cols-auto gy-3 justify-content-around my-3 pb-3 money-grid">
                     <span class="col">１か月合計</span>
-                    <span class="col">10000円</span>
+                    <span class="col"><?php echo end($in_exDataset["data"][2]["合計金額"]); ?>円</span>
                 </h4>
             </div>
 

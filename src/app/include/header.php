@@ -75,7 +75,7 @@ $db = new connect();
         main {
             position: relative;
             min-height: calc(100vh - 4rem);
-            margin-bottom: 4rem;
+            margin-bottom: 150px;
         }
 
         <?php if ($accounts_page) : $select = "child"; ?>
