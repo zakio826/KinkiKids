@@ -72,6 +72,8 @@ $db = new connect();
         }
         main {
             position: relative;
+            max-width: 100vw;
+            width: 100%;
             min-height: calc(100vh - 4rem);
             margin-bottom: 150px;
         }

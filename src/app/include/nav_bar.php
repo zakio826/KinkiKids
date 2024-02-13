@@ -71,6 +71,7 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         left: 0;/*メニューを画面内へ*/
     }
     .menu-content {
+        max-width: 100vw;
         width: 100%;
         height: 100%;
         position: fixed;
