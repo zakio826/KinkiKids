@@ -34,6 +34,8 @@ $select = $_SESSION["select"];
         <?php
         $chid_consent->getHelps($user_id);
         ?>
+        <hr>
+        <br>
         <?php
         $chid_consent->getmissions($user_id);
         ?>
