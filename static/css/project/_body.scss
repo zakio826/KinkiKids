@@ -1,0 +1,65 @@
+@use "../global" as g;
+@use "../foundation/mixin" as m;
+
+.body {
+
+    // background: url("../img/background.png"), lightgray 50% / cover no-repeat;
+    // background-size: cover;
+    &-daytime {
+        background: url("../img/background.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    &-night {
+        background: url("../img/background_night.png");
+        color: #fff;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+        // input:not(.c-button--bg-blue),
+        // a {
+        //     color: #000;
+        // }
+
+        .l-header {
+            &__title {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+
+        .setting__overview {
+            li {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+}
+
+#body {
+    .announce {
+        font-size: 2rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 0.5rem 0;
+
+        .review_link {
+            color: blue;
+            font-size: 1rem;
+        }
+    }
+
+
+    input[type="text"]:not([name="showyear"],[name^="review_answer"]),
+    input[type="number"],
+    textarea {
+        background-color: #fff;
+    }
+}

@@ -1,0 +1,11 @@
+@use "../global" as g;
+@use "../foundation/mixin" as m;
+
+.c-link {
+  text-decoration: underline;
+  color: g.$main-blue;
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

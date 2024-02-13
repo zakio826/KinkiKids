@@ -1,0 +1,111 @@
+$breakpoint: (
+  tab: "screen and (max-width: 900px)",
+  spWide: "screen and (max-width: 760px)",
+  sp: "screen and (max-width: 480px)",
+);
+
+@mixin mq($break-point) {
+  @media #{map-get($breakpoint, $break-point)} {
+    @content;
+  }
+}
+
+@mixin base {
+  border: solid 1px;
+  background-color: rgba(0, 255, 255, 0.2);
+  border-radius: 4rem;
+  margin: 2rem 0;
+
+  > h3 {
+    font-size: 2.8rem;
+    padding-block: 2rem;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: dashed #000;
+  }
+
+  &-box:not(:last-child) {
+    padding: 0 4rem;
+    border-bottom: solid 0.1rem #ccc;
+  }
+
+  &-box {
+    padding: 0 4rem;
+
+    &__head {
+      margin: 2rem 0 1rem;
+      font-size: 1.2rem;
+      text-align: right;
+      span {
+        font-size: 2rem;
+        padding-left: 0.5rem;
+        font-weight: bold;
+      }
+    }
+    &__overview {
+      align-items: flex-end;
+      padding-bottom: 1rem;
+      gap: 2.4rem;
+      line-height: 1.2;
+
+      p {
+        font-size: 1.8rem;
+        &:last-of-type {
+          white-space: nowrap;
+        }
+      }
+      span {
+        position: relative;
+        font-size: 1.4rem;
+        white-space: nowrap;
+      }
+      i {
+        display: none;
+        position: absolute;
+        cursor: pointer;
+        right: -2.6rem;
+        bottom: -0.1rem;
+        font-size: 2rem;
+      }
+      &.hasmemo i {
+        display: block;
+      }
+    }
+  }
+
+  .name {
+    font-size: 2rem;
+  }
+
+  .p-form {
+    padding: 3rem 0 1rem;
+
+    @include mq(tab) {
+      padding: 0 0 1rem;
+    }
+  }
+
+  .indicator {
+    > progress {
+      width: 100%;
+    }
+
+    > .file_amount {
+      display: flex;
+      justify-content: space-between;
+
+      > label {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .nodata {
+    padding: 2rem 0;
+    border-top: solid 0.1rem #ccc;
+    p {
+      font-size: 1.6rem;
+      text-align: center;
+    }
+  }
+}

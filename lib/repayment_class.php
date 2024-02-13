@@ -43,7 +43,7 @@ class repayment {
             }
 
             $_SESSION['updated'] = true;
-            header('Location: ./debt.php');
+            header('Location: ../index.php');
             exit();
         }
     }
