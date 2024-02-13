@@ -100,6 +100,15 @@ echo '</script>';
                 </b>
             </div>
         </div>
+        
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    ポイントノルマ：<p id="norma"></p>
+                    期限：<p id="norma_deadline"></p>
+                </b>
+            </div>
+        </div>
 
         <hr class="index_parent_hr">
 
@@ -221,6 +230,8 @@ echo '</script>';
     let day;
     let dayPoint;
     let allowance_amount;
+    let norma;
+    let norma_deadline;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -244,9 +255,11 @@ echo '</script>';
                         } else {
                             dayPoint = target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>;
                         }
-                    } else {
-                        dayPoint = 0;
-                    }
+                     } else {
+                         dayPoint = 0;
+                     };
+                    norma = <?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_amount']; ?>;
+                    norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_deadline']; ?>';
 
                 <?php } ?>
             }
@@ -258,6 +271,8 @@ echo '</script>';
         document.getElementById('points').innerHTML = points;
         //document.getElementById('have').innerHTML = have;
         document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
+        document.getElementById('norma').innerHTML = norma;
+        document.getElementById('norma_deadline').innerHTML = norma_deadline;
     });
 
 

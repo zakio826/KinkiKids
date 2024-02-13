@@ -189,8 +189,8 @@ class index_child_class {
     }
 
     public function getRequired_point() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id order by goal_deadline asc");
+        $stmt->bindParam(':goal_user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -250,8 +250,8 @@ class index_child_class {
     }
 
     public function getOnerequired_point() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id order by goal_deadline asc");
+        $stmt->bindParam(':goal_user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

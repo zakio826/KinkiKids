@@ -81,11 +81,12 @@ $user_id = $_SESSION['user_id'];
 
         <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
           <input type="hidden" name="editItem" value="">
-          <a href="./item-add.php" class="btn-1">追加</a>     
+          <!-- <a href="./item-add.php" class="btn-1">追加</a>      -->
           <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"> -->
         </form>
 
       </section>
+      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'" class="btn-1">項目を追加</button>
       </div>
 
       <h2 class="c-text c-text__subtitle">【収入カテゴリー編集】</h2>
