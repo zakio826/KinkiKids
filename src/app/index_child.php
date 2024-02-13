@@ -25,6 +25,11 @@ $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
 $repayment = $index_child_class->display_consent_repayment($user_id);
 
+if(isset($_SESSION['updated'])) {
+    echo '<script>alert("借金の返済をしました");</script>' ;
+    unset($_SESSION['updated']);
+}
+
 $index_child_class->message($db);
 ?>
 
@@ -49,7 +54,7 @@ $index_child_class->message($db);
             echo '<li>';
             echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
             echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
-            echo '<a href="repayment.php?debt_id=' . $repayment_data['debt_id'] . '">借金返済する</a>';
+            echo '<a href="./money/repayment.php?debt_id=' . $repayment_data['debt_id'] . '">借金返済する</a>';
             echo '</li>';
         }
         echo '</ul>';

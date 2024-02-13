@@ -16,10 +16,7 @@ if ($select !== 'child'):
     header("Location: ../index.php");
     exit();
 endif;
-if(isset($_SESSION['updated'])) {
-    echo '<script>alert("借金の返済をしました");</script>' ;
-    unset($_SESSION['updated']);
-}
+
 
 if(isset($_SESSION['debt'])) {
     echo '<script>alert("' . $_SESSION['debt'] . '円の借り入れを申請しました");</script>' ;
