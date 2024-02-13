@@ -48,7 +48,7 @@ class consent {
             $installments = $result['installments'];
 
             $repayment_amount = $debt_amount * (1 + $interest / 100);
-            $repayment_installments = $repayment_amount / $installments;
+            $repayment_installments = ceil($repayment_amount / $installments);
 
             $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = :repayment_amount, interest = :interest, repayment_installments = :repayment_installments WHERE debt_id = :debt_id");
             $stmt->bindParam(':repayment_amount', $repayment_amount);
