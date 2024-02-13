@@ -9,6 +9,11 @@ class setting_norma {
         $this->db = $db;
         $this->error = []; // 初期化
 
+        $user_id = $_SESSION["user_id"];
+
+        $family_id = $this->getFamilyId($user_id);
+        $_SESSION['join']['family_id'] = $family_id;
+
         if (!empty($_POST)) {
 
             // 入力情報に空白がないか検知
@@ -65,5 +70,26 @@ class setting_norma {
             }
         }
     }
+
+    public function getFamilyUsers($familyId) {
+        // データベースから家族IDが一致するユーザーを取得するクエリを実行する
+        $stmt = $this->db->prepare("SELECT user_id, first_name FROM user WHERE family_id = :family_id AND role_id NOT IN (21, 22, 23, 24)");
+        $stmt->bindParam(':family_id', $familyId);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // 空の配列を用意
+        $userIds = [];
+        $firstNames = [];
+
+        // 結果をループして取得
+        foreach ($result as $row) {
+            $userIds[] = $row['user_id'];
+            $firstNames[] = $row['first_name'];
+        }
+
+        // 配列を返す
+        return array($userIds, $firstNames);
+        }
 }
 ?>

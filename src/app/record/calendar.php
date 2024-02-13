@@ -331,6 +331,8 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
 <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart.js"></script>
 <!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart_sample.js"></script> -->
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
 <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script>
 <!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script> -->
 

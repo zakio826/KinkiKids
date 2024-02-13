@@ -1,6 +1,13 @@
 <?php
 $page_title = "お手伝い登録";
 $stylesheet_name = "help_add.css";
+// // require_once("../include/header.php");
+// $select = $_SESSION["select"];
+// if($select === "adult"){
+//     $stylesheet_name = "help_add_adult.css";
+// }else{
+//     $stylesheet_name = "help_add_child.css";
+// }
 require_once("../include/header.php");
 ?>
 
@@ -76,41 +83,34 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
             <p>お手伝いはありません。</p>
         <?php else: ?>
             <?php foreach ($helps as $help_data): ?>
-                    
-                        <!--<strong>お手伝い名:</strong>--> <?php echo $help_data['help_name']; ?>
-                        &ensp;
-                        <?php if ($select === 'child' and isset($help_data['help_detail'])) : ?>
-                        <strong>お手伝い詳細:</strong><?php $help->person_select($help_data['help_detail']); ?>
-                        <?php endif; ?>
-
-                        <!--<strong>獲得ポイント:</strong>--> <?php echo $help_data['get_point']; ?><strong>pt</strong>
-                        &ensp;  <?php $help->person_select($help_data['help_id']); ?>
-                    
-
-
-                    
+                <ul>
+                    <li>
+                        <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
+                        <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
+                        <strong>担当者</strong>
+                        <?php
+                            $help->person_select($help_data['help_id']);
+                        ?><br>
+                    </li>
                 <?php if ($select === 'adult'): ?>
                     <div class="btn-group">
                     <form action="help_edit.php" method="get">
                         <input type="hidden" name="edit_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-1">編集</button>
                     </form>
-                    
                     <form action="" method="post">
                         <input type="hidden" name="delete_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <button type="submit" class="btn-2">削除</button>
                     </form>
-
-                    <hr>
-                    </div>
-                <?php else : ?>
-                    <hr>
-
+                <?php endif; ?>
+                <?php if ($select === 'child'): ?>
                     <form action="" method="post">
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">
                         <?php $help->consent_button($help_data['help_id']); ?>
                     </form>
                 <?php endif; ?>
+                <hr>
+                </ul>
             <?php endforeach; ?>
         <?php endif; ?>
         </div>
@@ -119,5 +119,6 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
         
     </div>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
 <?php require_once("../include/footer.php"); ?>

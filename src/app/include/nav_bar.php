@@ -7,6 +7,17 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+
+    /* 全体の部分 */
+    body {
+        font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+    }
+
+    .nav_bar_moji {
+        font-size:18px;
+    }
+
     /* ナビゲーションバーの高さ分だけmainをずらす */
     main {
         padding-top: 4rem;
@@ -78,7 +89,7 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 </style>
 
-<nav class="position-absolute w-100" style="height: 4rem; background-color: lemonchiffon;">
+<nav class="position-absolute w-100 nav_bar_moji" style="height: 4rem; background-color: lemonchiffon;">
     <div class="container h-100 px-4">
         <div class="row align-items-center justify-content-between h-100">
             <div class="col">

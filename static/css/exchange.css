@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+
+/* 全体の部分 */
+body {
+    font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
+}
+
+.title h1 {
+    font-weight: bold;
+    color: #2862ff;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+    text-align: center;
+    margin-top: 50px;
+}
+
+form {
+    background-color: #C7EEEE;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 370px;
+    margin: 0 auto;
+    min-width: 370px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+.exchange_pointinput {
+    margin-top: 20px;
+}
+
+.btn-kankin{
+    background-color: #525ED2;
+    color: white;
+    padding: 3px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    width: 220px;
+    margin-top: 20px;
+}
+
+.btn-kankin:hover{
+    background-color : #9ba1de;
+    color: white;
+}

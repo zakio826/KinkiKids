@@ -18,7 +18,8 @@ require_once("./include/header.php");
     <a href="./point/help_add.php">お手伝い</a>
     <a href="./goal/goal.php">目標</a>
 </main>
-
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
 <!-- フッター -->
 <?php require_once("./include/footer.php"); ?>
 

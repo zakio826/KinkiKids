@@ -33,3 +33,6 @@ const hasChildSelect = (methodValue, parentElement) => {
   }
 }
 
+const deleteConfirm = (title) => {
+  const confirmText = confirm(title + "を本当に削除しますか？");
+}

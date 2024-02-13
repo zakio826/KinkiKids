@@ -30,12 +30,11 @@ function checkUser($db, $joinData) {
             error_log('Failed to get family_id in check.php');
         }
         
-        $firstlogin = date('Y-m-d');
 
         $statement = $db->prepare(
             "INSERT INTO user 
-            (username, password, first_name, last_name, birthday, gender_id, role_id, family_id, admin_flag, first_login)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            (username, password, first_name, last_name, birthday, gender_id, role_id, family_id, admin_flag)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
         $statement->execute(array(
@@ -47,8 +46,7 @@ function checkUser($db, $joinData) {
             $joinData['gender_id'],
             $joinData['role_id'],
             $family_id,
-            $admin_flag,
-            $firstlogin
+            $admin_flag
         ));
 
         unset($_SESSION['join']);  // セッションを破棄

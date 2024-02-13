@@ -28,11 +28,7 @@ class help {
                 } else {
                     $error['get_person'] = "blank";
                 }
-                if (isset($_POST['help_person'])) {
-                    $person = $_POST['help_person'];
-                } else {
-                    $error['get_person'] = "blank";
-                }
+
             
                 // エラーがなければ次のページへ
                 if (!isset($error)) {
@@ -52,6 +48,7 @@ class help {
                 }
             }
         }
+
     }
 
     // ユーザーのfamily_idを取得する関数
@@ -118,7 +115,7 @@ class help {
             $user_id = $_SESSION["user_id"];
             $dtime = date("Y-m-d H:i:s");
 
-            $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag) VALUES (:user_id, :help_id, :dtime, 1)");
+            $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag,receive_flag) VALUES (:user_id, :help_id, :dtime, 1,0)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':help_id', $help_id);
             $stmt->bindParam(':dtime', $dtime);
@@ -170,7 +167,7 @@ class help {
     }
 
     private function sendLineNotification($line_id, $message,$help_id) {
-        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 30 WHERE UID = :uid");
+        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 41 WHERE UID = :uid");
         $stmt->bindParam(':uid', $line_id);
         $stmt->execute();
 
@@ -248,7 +245,7 @@ class help {
     }
 
     public function person_select($help_id) {
-        $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id");
+        $stmt = $this->db->prepare("SELECT user_id FROM help_person WHERE help_id = :help_id ");
         $stmt->bindParam(':help_id', $help_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
