@@ -6,6 +6,14 @@ $stmt->execute();
 $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<?php
+$select = $_SESSION["select"];
+// 背景色の設定
+$backgroundColor = ($select === 'adult') ?  '#AADBFF':'lemonchiffon'; // 適切な条件を指定してください
+?>
+
+
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
@@ -32,8 +40,8 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         justify-content: center;
         align-items: center;
         z-index: 90;
-        background-color: #fff27e;
-        border: 3px solid orange;
+        background-color: <?php echo ($select === 'adult') ? '#89CDFF' : '#fff27e'; ?>;
+        border: 3px solid <?php echo ($select === 'adult') ? '#4F40FF' : '#ffa500'; ?>;
         border-radius: 10px;
     }
     .menu-btn span,
@@ -44,7 +52,7 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
         height: 3px;
         width: 25px;
         border-radius: 3px;
-        background-color: #ffa500;
+        background-color: <?php echo ($select === 'adult') ? '#4F40FF' : '#ffa500'; ?>;
         position: absolute;
     }
     .menu-btn span:before {
@@ -70,16 +78,19 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
     #menu-btn-check:checked ~ .menu-content {
         left: 0;/*メニューを画面内へ*/
     }
-    .menu-content {
+
+    /* ナビゲーションバーの全体部分 */
+    .menu-content{
         width: 100%;
         height: 100%;
         position: fixed;
         top: 0;
         left: 100%;/*leftの値を変更してメニューを画面外へ*/
         z-index: 80;
-        background-color: #fff27e;
+        background-color: <?php echo ($select === 'adult') ? '#AADBFF' : '#fff27e'; ?>;
         transition: all 0.5s;/*アニメーション設定*/
     }
+
     .menu-content ul {
         padding: 70px 10px 0;
     }
@@ -89,7 +100,7 @@ $usernames = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 </style>
 
-<nav class="position-absolute w-100 nav_bar_moji" style="height: 4rem; background-color: lemonchiffon;">
+<nav class="position-absolute w-100 nav_bar_moji" style="height: 4rem; background-color: <?php echo $backgroundColor; ?>">
     <div class="container h-100 px-4">
         <div class="row align-items-center justify-content-between h-100">
             <div class="col">
