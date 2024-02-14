@@ -15,7 +15,7 @@ main {
     height: 100vh;
 }
 
-/* ‘ål‚Ìê‡i˜g‘g‚İj */
+/* å¤§äººã®å ´åˆï¼ˆæ çµ„ã¿ï¼‰ */
 .content_adult {
     background-color: #D3DFFE;
     padding: 20px;
@@ -25,7 +25,7 @@ main {
     margin: 0 auto;
 }
 
-/* q‹Ÿ‚Ìê‡i˜g‘g‚İj */
+/* å­ä¾›ã®å ´åˆï¼ˆæ çµ„ã¿ï¼‰ */
 .content_child {
     background-color: #fff7ab;
     padding: 20px;
@@ -40,22 +40,22 @@ form {
     flex-direction: column;
 }
 
-/* ‘ål‚Ìê‡i•¶šj */
+/* å¤§äººã®å ´åˆï¼ˆæ–‡å­—ï¼‰ */
 .adult_font h1{
     text-align: center;
     color: #4F40FF;
     font-weight: bold;
     font-size: 30px;
-    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* ”’‚Å‰æ‚è */
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* ç™½ã§ç¸å–ã‚Š */
 }
 
-/* q‹Ÿ‚Ìê‡i•¶šj */
+/* å­ä¾›ã®å ´åˆï¼ˆæ–‡å­—ï¼‰ */
 .child_font h1 {
     text-align: center;
     color: #FFC83A;
     font-weight: bold;
     font-size: 30px;
-    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* ”’‚Å‰æ‚è */
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* ç™½ã§ç¸å–ã‚Š */
 }
 
 p {
@@ -90,7 +90,7 @@ label {
 
 input {
     width: 250px;
-    padding: 20px; /* ‚‚³‚ğ‘å‚«‚­‚·‚é */
+    padding: 20px; /* é«˜ã•ã‚’å¤§ããã™ã‚‹ */
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -101,7 +101,7 @@ input {
 }
 
 input::placeholder {
-    color: #a0a0a0; /* D‚İ‚ÌF‚É•ÏX‚µ‚Ä‚­‚¾‚³‚¢ */
+    color: #a0a0a0; /* å¥½ã¿ã®è‰²ã«å¤‰æ›´ã—ã¦ãã ã•ã„ */
   }
 
 .control-2 {
@@ -119,17 +119,17 @@ input::placeholder {
     font-weight: bold;
 }
 
-/* “ú•t“ü—ÍƒtƒH[ƒ€‚ÌƒXƒ^ƒCƒ‹ */
+/* æ—¥ä»˜å…¥åŠ›ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚¹ã‚¿ã‚¤ãƒ« */
 #goal_deadline {
-    width: 80%;  /* ”CˆÓ‚Ì•‚É•ÏX */
+    width: 80%;  /* ä»»æ„ã®å¹…ã«å¤‰æ›´ */
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 0 auto;  /* ’†‰›‚É”z’u */
+    margin: 0 auto;  /* ä¸­å¤®ã«é…ç½® */
 }
 
-/* ‘¼‚Ì“ü—ÍƒtƒH[ƒ€‚Æ“¯‚¶ƒXƒ^ƒCƒ‹ */
+/* ä»–ã®å…¥åŠ›ãƒ•ã‚©ãƒ¼ãƒ ã¨åŒã˜ã‚¹ã‚¿ã‚¤ãƒ« */
 input[type="int"],
 input[type="text"] {
     width: 80%;
@@ -137,10 +137,10 @@ input[type="text"] {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 0 auto;  /* ’†‰›‚É”z’u */
+    margin: 0 auto;  /* ä¸­å¤®ã«é…ç½® */
 }
 
 #target_amount {
-    width: calc(85% - 40px); /* 30px‚Ì—]”’‚ğœ‚¢‚½•‚É’²® */
-    padding-right: 20px; /* ‰E‘¤‚É—]”’‚ğì¬‚µ‚Ä‰~‚Ì’PˆÊ‚ğ”z’u */
+    width: calc(85% - 40px); /* 30pxã®ä½™ç™½ã‚’é™¤ã„ãŸå¹…ã«èª¿æ•´ */
+    padding-right: 20px; /* å³å´ã«ä½™ç™½ã‚’ä½œæˆã—ã¦å††ã®å˜ä½ã‚’é…ç½® */
 }
