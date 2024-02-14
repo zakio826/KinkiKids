@@ -5,12 +5,6 @@
 $page_title = "カレンダー";
 $stylesheet_name = "calendar.css";
 include("../include/header.php");
-
-// $_SESSION["user_id"] = 100;
-// $_SESSION["username"] = "myayoi";
-// $_SESSION["family_id"] = 100;
-// $_SESSION["role_id"] = 21;
-
 ?>
 
 <?php
@@ -57,7 +51,6 @@ $star_color = ["", "_green", "_blue", "_purple", "_red"];
 
 $monthlyDataset = array(
     "name" => ["in_ex_data", "help_data", ],
-    // "name" => ["monthly_data", ],
     "query" => [],
     "data" => [],
 );
@@ -66,119 +59,30 @@ $from = [
     ["income_expense"],
     ["help_log", "help"],
 ];
-// $from_union = array(
-//     "name" => ["all_date", ],
-//     "union" => [
-//         [
-//             "as" => "日付",
-//             "data" => [
-//                 "income_expense" => "DATE(income_expense_date)", 
-//                 "help_log" => "DATE(help_day)",
-//             ],
-//         ],
-//     ],
-// );
-
-// $union = [];
-// for ($i = 0; $i < count($from_union["name"]); $i++) {
-//     array_push($union, "(");
-//     $tmp = $from_union["union"][$i]["data"];
-//     foreach ($from_union["union"][$i]["data"] as $t => $c) {
-//         // $union[$i] .= "SELECT ". $c. " AS `". $from_union["union"][$i]["as"]. "` FROM ". $t;
-//         $union[$i] .= "SELECT ". $c. " FROM ". $t;
-//         if (next($tmp)) {
-//             $union[$i] .= " UNION ";
-//         } else {
-//             $union[$i] .= ") ". $from_union["name"][$i];
-//         }
-//     }
-// }
-
-// $from_join = array(
-//     // "from" => "income_expense",
-//     "from" => $union[0],
-//     "table" => ["income_expense", "help_log"],
-//     "column" => [
-//         [$from_union["name"][0], "income_expense_date"],
-//         [$from_union["name"][0], "help_day"],
-//     ],
-// );
 
 $columns = array(
-    // ["日付" => $from_join["from"].".income_expense_date"],
-    // [$from_union["union"][0]["as"] => $from_union["name"][0]],
-    // [$from_join["from"] => "COUNT(". $from_join["from"]. ".". $from_join["from"]. "_id)"],
-    // [$from_join["table"][0] => ("COUNT(". $from_join["table"][0]. ".". $from_join["table"][0]. "_id)")],
-    // [$column_as[1] => "income_expense_date"],
-    // [$column_as[1] => "help_day"],
     ["日付" => "income_expense_date"],
     ["日付" => "help_log.help_day"],
-    // ["合計金額" => "SUM(income_expense_amount)"],
 );
-
-// $from = $from_join["from"];
-// for ($i = 0; $i < count($from_join["table"]); $i++) {
-//     $from .= " LEFT JOIN ". $from_join["table"][$i].
-//         // " ON DATE(". $from_join["from"]. ".". $from_join["column"][$i][0].
-//         " ON ". $from_union["name"][0].
-//         " = DATE(". $from_join["table"][$i]. ".". $from_join["column"][$i][1]. ")";
-
-//     // $columns += [$from_join["table"][$i] => "COUNT(". $from_join["table"][$i]. ".". $from_join["table"][$i]. "_id)"];
-//     array_push($columns, [$from_join["table"][$i] => "COUNT(". $from_join["table"][$i]. ".". $from_join["table"][$i]. "_id)"]);
-// }
 
 $column = array();
 
-$this_ym = date("Y-m", $this_date);
-
 $wheres = array();
 
+$this_ym = date("Y-m", $this_date);
 for ($i = 0; $i < count($columns); $i++) {
     foreach ($columns[$i] as $key => $value) {
-        // $column .= $value. " AS `". $key. "`";
-        // $cols = ["DATE_FORMAT(". $value. ",'", "') AS `". $key. "`"];
-        // $col = "DATE_FORMAT(". $value. ",'%Y年%c月%e日') AS `". $column_as[0]. "`, ";
-        // $col = "";
-        // if ($i == 1) {
-        //     $col .= $from[$i]. ".";
-        // }
-        // $col = $from[$i]. "_id AS `id`, ";
-        // $col = "DATE_FORMAT(". $from[$i][1]. $value. ",'%e') AS `". $key. "`";
-        // $col = "DATE_FORMAT(". $value. ",'%e') AS `". $key. "`";
-        // array_push($column, $col);
         array_push($column, "DATE_FORMAT(". $value. ",'%e') AS `". $key. "`");
-
         array_push($wheres, "DATE(".$columns[$i]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'");
     }
-    // if ($i+1 < count($columns)) {
-    //     $column .= ", ";
-    // }
 }
 
-// $this_ym = date("Y-m", $this_date);
-
-// $wheres = array(
-//     "DATE(".$columns[0]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-//     "DATE(".$columns[1]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-//     // "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-//     // "DATE(".$from_union["name"][0].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-// );
 if (is_null($user_id)) {
     array_unshift($wheres, ("family_id = ". $_SESSION["family_id"]));
-    // $wheres = array(
-    //     "family_id = ". $_SESSION["family_id"],
-    //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-    // );
 } else {
     array_unshift($wheres, ("user_id = ". $user_id));
-    // $wheres = array(
-    //     "user_id = ". $user_id,
-    //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-    // );
 }
-$ttt = [];
 for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
-    // $sql = "SELECT ". $column[$i]. " FROM ". $from[$i]. " WHERE ";
     $sql = "SELECT ". $column[$i]. " FROM ". $from[$i][0];
     if (isset($from[$i][1])) {
         $sql .= " LEFT JOIN ". $from[$i][1]. " ON ". $from[$i][0]. ".". $from[$i][1]. "_id = ". $from[$i][1]. ".". $from[$i][1]. "_id";
@@ -186,48 +90,16 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
     } else {
         $sql .= " WHERE ";
     }
-
     $sql .= $wheres[0]. " AND ". $wheres[$i+1];
-    // $sql .= $wheres[$i+1];
-
-    // for ($j = 1; $j < count($wheres); $j++) {
-    //     $sql .= $wheres[$j];
-
-    //     if ($j+1 < count($wheres)) {
-    //         // $sql .= " AND DATE(". $columns[$i][$column_as[1]]. ") ";
-    //         $sql .= " AND ";
-    //     } else {
-    //         $sql .= " ";
-    //     }
-    // }
     $sql .= " GROUP BY `". key($columns[$i]). "`";
     $sql .= " ORDER BY `". key($columns[$i]). "` ASC;";
 
-    array_push($ttt, $sql);
-
-    // try {
-    //     $stmt = $db->prepare($sql);
-    //     $stmt->execute();
-    //     array_push($monthlyDataset["query"], ($stmt->fetchAll()));
-    // } catch (PDOException $e) {//PDOException（例外処理）をキャッチ
-    //     $e->getMessage();
-    //     // exit;
-    // }
-    // if ($stmt) {
-    // }
-
-    // array_push($monthlyDataset["query"], ($stmt->execute()->fetchAll()));
-    
     $stmt = $db->prepare($sql);
     $stmt->execute();
     array_push($monthlyDataset["query"], ($stmt->fetchAll()));
-
-    // array_push($monthlyDataset["query"], ($db->query($sql)));
-
     array_push($monthlyDataset["data"], array());
 
     if (!empty($monthlyDataset["query"][$i])) {
-    // if ($monthlyDataset["query"][$i]) {
         foreach ($monthlyDataset["query"][$i] as $index => $item) {
             foreach ($item as $key => $value) {
                 if (gettype($key) !== "integer") {
@@ -236,7 +108,6 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
                     } else {
                         array_push($monthlyDataset["data"][$i][$key], $value);
                     }
-                    // array_push($monthlyDataset["data"][$i], $value);
                 }
             }
         }
@@ -288,18 +159,8 @@ $wheres = array(
 );
 if (is_null($user_id)) {
     array_unshift($wheres, "family_id = ". $_SESSION["family_id"]);
-    // $wheres = array(
-    //     "family_id = ". $_SESSION["family_id"],
-    //     "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
-    //     "income_expense_flag =",
-    // );
 } else {
     array_unshift($wheres, "user_id = ". $user_id);
-    // $wheres = array(
-    //     "user_id = ". $user_id,
-    //     "DATE(income_expense_date) BETWEEN '".$start_ym."-01' AND '".$this_ym."-".$last_day."'",
-    //     "income_expense_flag =",
-    // );
 }
 
 for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
@@ -318,10 +179,8 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
     $stmt = $db->prepare($sql);
     $stmt->execute();
     array_push($in_exDataset["query"], ($stmt->fetchAll()));
-
-    // array_push($in_exDataset["query"], ($db->query($sql)));
-    
     array_push($in_exDataset["data"], array());
+
     if ($i != 0) {
         array_push($in_exDataset["data"], $in_exDataset["data"][0]);
     }
@@ -417,14 +276,11 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     $stmt = $db->prepare($sql);
     $stmt->execute();
     array_push($categoryDataset["query"], ($stmt->fetchAll()));
-
-    // array_push($categoryDataset["query"], ($db->query($sql)));
-    
     array_push($categoryDataset["data"], array());
+
     foreach ($categoryDataset["query"][$i] as $index => $item) {
         foreach ($item as $key => $value) {
             if (gettype($key) !== "integer") {
-                // $value = intval($value);
                 if ($index == 0) {
                     $categoryDataset["data"][$i] += [$key => [$value]];
                 } else {
@@ -443,27 +299,6 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
 <main>
     <section class="position-relative">
         <div class="container">
-
-            <?php
-            // echo "<br><br>";
-
-            // for ($i = 0; $i < count($ttt); $i++) {
-            //     echo $ttt[$i]. "<br><br>";
-            //     echo var_dump($monthlyDataset["query"][$i]). "<br><br>";
-            //     echo var_dump($monthlyDataset["data"][$i]). "<br><br>";
-            //     // echo var_dump($monthlyDataset["data"][$i]["日付"]). "<br><br>";
-            //     echo "<br><br>";
-            // }
-
-            // echo $ttt[0]. "<br><br>";
-            // echo $ttt[1]. "<br><br>";
-
-            // echo var_dump($monthlyDataset["data"][0]). "<br><br>";
-            // echo var_dump($monthlyDataset["data"][1]). "<br><br>";
-
-            // echo var_dump($monthlyDataset);
-            ?>
-
             <div class="row mx-auto mt-3 px-3">
                 <div class="position-relative mx-auto px-md-5">
                     <table class="w-100" style="caption-side: top;">
@@ -581,31 +416,6 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
                         </h4>
                     </div>
                 <?php endfor; ?>
-                
-
-                <!-- <h4 class="col-8 col-md-3 row row-cols-md-1 row-cols-lg-auto gx-2 gy-3 justify-content-around my-3 pb-3 money-grid">
-                    <span class="col-auto col-md-auto text-center">もらったお金</span>
-                    <span class="col-auto col-md-auto text-center">
-                        <?php
-                        if (isset($in_exDataset["data"][1]["合計金額"])) :
-                            echo end($in_exDataset["data"][1]["合計金額"]);
-                        else : echo 0;
-                        endif;
-                        ?>円
-                    </span>
-                </h4>
-
-                <h4 class="col-8 col-md-3 row row-cols-md-1 row-cols-lg-auto gx-2 gy-3 justify-content-around my-3 pb-3 money-grid">
-                    <span class="col-auto col-md-auto text-center">１か月の合計</span>
-                    <span class="col-auto col-md-auto text-center">
-                        <?php
-                        if (isset($in_exDataset["data"][2]["合計金額"])) :
-                            echo end($in_exDataset["data"][2]["合計金額"]);
-                        else : echo 0;
-                        endif;
-                        ?>円
-                    </span>
-                </h4> -->
             </div>
 
             <!-- 収支グラフ表示 -->
@@ -628,6 +438,9 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     </section>
 </main>
 
+<!-- ボトムナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+
 
 <script>
     <?php
@@ -643,15 +456,9 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     ?>
 </script>
 
-
 <!-- JavaScript -->
 <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart.js"></script>
-<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_in_ex_chart_sample.js"></script> -->
-
-<!-- ナビゲーションバー -->
-<?php include_once("../include/bottom_nav.php") ?>
 <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart.js"></script>
-<!-- <script src="<?php echo $absolute_path; ?>static/js/calendar_category_chart_sample.js"></script> -->
 
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
