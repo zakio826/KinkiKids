@@ -44,7 +44,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
-            <input type="int" name="debt_amount" required>
+            <input type="number" name="debt_amount" required>
             <?php 
             // if(isset($_SESSION['debt_error'])) {
             //     echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
