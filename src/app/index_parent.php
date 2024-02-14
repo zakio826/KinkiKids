@@ -105,10 +105,11 @@ echo '</script>';
                         目標：<p id="goal_detail"></p>
                         期限：<p id="goal_deadline"></p>
                         値段：<p id="target_amount"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                            ＋  
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                ＋  
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>
@@ -118,10 +119,11 @@ echo '</script>';
                     <b class="index_parent_mokuhyoumoji">
                         ポイントノルマ：<p id="norma"></p>
                         期限：<p id="norma_deadline"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
-                            ＋
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
+                                ＋
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>
@@ -133,10 +135,11 @@ echo '</script>';
                         報酬ポイント：<p id="reward_point"></p>
                         期限：<p id="behavioral_goal_deadline"></p>
                         <!-- 行動目標に飛ぶボタン -->
-                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php" class="btn-p">
-                            ＋
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                ＋
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>

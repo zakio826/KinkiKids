@@ -425,3 +425,20 @@ input[name="slideshow"]{
     justify-content: center;
     align-items: center;
 }
+
+.btn-p {
+    /* margin-bottom: 15px; */
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.btn-p a {
+    display: inline-block; /* ボタンをブロック要素に変更 */
+    color: #fff;
+    background-color: #e65d45;
+    border-radius: 50%; /* 丸い形状にするために半径を50%からピクセル値に変更 */
+    font-weight: 900;
+    border: none;
+    text-decoration: none; /* テキスト装飾を削除 */
+}

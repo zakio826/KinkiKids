@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php if(isset($errors['username'][0])){
                                     $family_add->username_error($errors['username'][0]);
                             } ?>
-                                
+                            <p class="note"><b>※半角英数字20文字以内</b></p>
+                            <p class="note"><b>※特殊文字（. - _）のみ使用可能</b></p>
                         </div>
                         
                         <div class="control">
@@ -52,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php if(isset($errors['password'][0])){
                                     $family_add->password_error($errors['password'][0]);
                             } ?>
+                            <p class="note"><b>※半角英数字8文字以上</b></p>
                         </div>
 
                         <div class="control">
