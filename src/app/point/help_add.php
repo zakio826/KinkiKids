@@ -86,7 +86,7 @@ if (isset($_GET["button1"])) {
     <?php endif; ?>
 
     
-        <div class="scroll_bar">
+        <div class= <?php echo ($select === 'adult') ? "scroll_bar_adult" : "scroll_bar_child" ;?>>
 
         <?php if (empty($helps)): ?>
             <p>お手伝いはありません。</p>
