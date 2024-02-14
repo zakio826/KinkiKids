@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="" method="POST">
             <h1>アカウント追加</h1>
             <p class="mb-3">当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
-            
+            <div class="control"><button type="submit" class="btn">確認する</button></div>
+            <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
             <div class="scrollable-container">
                 <?php
                     // 追加フォームに対応するためのループ
@@ -105,17 +106,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control">
                             <label for="admin_flag">管理者</label>
-                            <input type="checkbox" name="admin_flag[]"
-                            value="<?php echo (isset($savedData['admin_flag'][$i]) && !empty($savedData['admin_flag'][$i])) ? $savedData['admin_flag'][$i] : ''; ?>">
+                            <input type="checkbox" name="admin_flag[]">
                         </div>
+
+                        <?php if ($i > 0) { // 2番目以降のフォームにはマイナスボタンを表示 ?>
+                            <button type="button" class="removeUser">－</button>
+                        <?php } ?>
                     </div>
                 <?php
                     }
                 ?>
                 </div>
 
-                <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
-                <div class="control"><button type="submit" class="btn">確認する</button></div>
+                
             </div>
         </form>
     </div>
