@@ -14,17 +14,17 @@ class goal {
         if (!empty($_POST)) {
             /* 入力情報に空白がないか検知 */
             if ($_POST['target_amount'] === "") {
-                $error['target_amount'] = "blank";
+                $this->error['target_amount'] = "blank";
             }
             if ($_POST['goal_detail'] === "") {
-                $error['goal_detail'] = "blank";
+                $this->error['goal_detail'] = "blank";
             }
             if ($_POST['goal_deadline'] === "") {
-                $error['goal_deadline'] = "blank";
+                $this->error['goal_deadline'] = "blank";
             }
             
             // エラーがなければ次のページへ
-            if (!isset($error)) {
+            if (empty($this->error)) {
                 $_SESSION['join'] = $_POST;
 
                 $user_id = $_SESSION["user_id"];
@@ -39,12 +39,12 @@ class goal {
 
                 $this->saveGoalToDatabase();
 
-                $current_date = date("Y-m-d");
-                $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
-                $stmt = $this->db->prepare($query);
-                $stmt->bindParam(':family_id', $family_id);
-                $stmt->bindParam(':current_date', $current_date);
-                $stmt->execute();
+                // $current_date = date("Y-m-d");
+                // $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+                // $stmt = $this->db->prepare($query);
+                // $stmt->bindParam(':family_id', $family_id);
+                // $stmt->bindParam(':current_date', $current_date);
+                // $stmt->execute();
 
                 header('Location: ./goal_check.php'); 
                 exit();
@@ -119,14 +119,41 @@ class goal {
         return array($userIds, $firstNames);
         }
     
-    // public function deleteExpiredGoals($family_id) {
-    //     $current_date = date("Y-m-d");
-    //     $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->bindParam(':family_id', $family_id);
-    //     $stmt->bindParam(':current_date', $current_date);
-    //     $stmt->execute();
-    // }
+    public function deleteExpiredGoals($family_id) {
+        $current_date = date("Y-m-d");
+        $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':current_date', $current_date);
+        $stmt->execute();
+    }
+
+    public function amount_error() {
+        //金額が入力されてなければエラーを表示
+        if (!empty($this->error['target_amount'])) {
+            switch ($this->error['target_amount']) {
+                case 'blank': echo '*金額を入力してください。'; break;
+            }
+        }
+    }
+    
+    public function detail_error() {
+        //金額が入力されてなければエラーを表示
+        if (!empty($this->error['goal_detail'])) {
+            switch ($this->error['goal_detail']) {
+                case 'blank': echo '*詳細を入力してください。'; break;
+            }
+        }
+    }
+
+    public function deadline_error() {
+        //金額が入力されてなければエラーを表示
+        if (!empty($this->error['goal_deadline'])) {
+            switch ($this->error['goal_deadline']) {
+                case 'blank': echo '*期限を入力してください。'; break;
+            }
+        }
+    }
 }
 
 class goal_check{
