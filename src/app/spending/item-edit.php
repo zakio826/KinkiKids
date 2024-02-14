@@ -86,7 +86,7 @@ $user_id = $_SESSION['user_id'];
         </form>
 
       </section>
-      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'" class="btn-1">項目を追加</button>
+      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php?category=spend'" class="btn-1">項目を追加</button>
       </div>
 
       <h2 class="c-text c-text__subtitle">【収入カテゴリー編集】</h2>
@@ -136,7 +136,7 @@ $user_id = $_SESSION['user_id'];
           <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】">   -->
         </form>
       </section>
-      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'" class="btn-1">項目を追加</button>
+      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php?category=income'" class="btn-1">項目を追加</button>
       </div>
 
       <h2 class="c-text c-text__subtitle">【支出い方法編集】</h2>
@@ -186,7 +186,7 @@ $user_id = $_SESSION['user_id'];
             <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"> -->
           </form>
         </section>
-        <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php'" class="btn-1">項目を追加</button>  
+        <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php?category=payment'" class="btn-1">項目を追加</button>  
       </div>
 
       <section class="p-section p-section__back-home btn-iti">

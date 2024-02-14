@@ -4,6 +4,7 @@ $page_title = "カテゴリ編集";
 $stylesheet_name = "item_add.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
+
 $user_id = $_SESSION['user_id']; 
 ?>
 
@@ -32,7 +33,26 @@ $user_id = $_SESSION['user_id'];
   </header>
 
   <main class="l-main">
-    <h2 class="c-text c-text__subtitle">【支出カテゴリー編集】</h2>
+    <?php
+      if(isset($_GET['category'])) { 
+        $category = $_GET['category']; 
+      } else {
+        header("Location: ".$absolute_path."src/app/spending/item-edit.php"); exit;
+      }
+
+      switch ($category) {
+        case 'spend':
+          $subtitle = "支出カテゴリー";
+          break;
+        case 'income':
+          $subtitle = "収入カテゴリー";
+          break;
+        case 'payment':
+          $subtitle = "支払い方法";
+          break;
+      }
+    ?>
+    <h2 class="c-text c-text__subtitle">【<?php echo $subtitle?>編集】</h2>
 
 
     <section class="p-section p-section__category-edit">
