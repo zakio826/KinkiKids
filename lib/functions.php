@@ -36,7 +36,9 @@ function validation($datas,$confirm = true) {
 
     //ユーザー名のチェック
     if (empty($datas['username'])) {
-        $errors['username'] = 'ユーザー名が入力されていません。';
+        $errors['username'] = '*ユーザー名が入力されていません。';
+    }else if(!preg_match('/\A[a-zA-Z0-9._-]{1,20}\z/',$datas['username'])){
+        $errors['username'] = '*ユーザー名は半角英数字20字以内で入力してください。';
     }
     // else if(mb_strlen($datas['name']) > 20) {
     //     $errors['name'] = 'Please enter up to 20 characters.';
@@ -44,9 +46,9 @@ function validation($datas,$confirm = true) {
 
     //パスワードのチェック（正規表現）
     if (empty($datas["password"])) {
-        $errors['password']  = "パスワードが入力されていません。";
+        $errors['password']  = "*パスワードが入力されていません。";
     } else if (!preg_match('/\A[a-z\d]{8,100}+\z/i',$datas["password"])) {
-        $errors['password'] = "パスワードは8文字以上で入力して下さい。";
+        $errors['password'] = "*パスワードは8文字以上で入力して下さい。";
     }
 
     //パスワード入力確認チェック（ユーザー新規登録時のみ使用）

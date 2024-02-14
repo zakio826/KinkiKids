@@ -10,7 +10,7 @@ class entry {
 
         if (!empty($_POST)) {
             //ユーザー名が半角英数字で入力さているか判定
-            if(!preg_match('/\A[a-z\d]{1,100}+\z/i',$_POST['username'])){
+            if(!preg_match('/\A[a-zA-Z0-9._-]{1,20}\z/', $_POST['username'])){
                 $this->error['username'] = 'format_error';
             }
 
@@ -74,7 +74,7 @@ class entry {
                 case 'duplicate': echo '*そのユーザー名は既に使われています。'; break;
 
                 //ユーザー名が半角英数字でなければエラーを表示
-                case 'format_error': echo '*半角英数字で入力してください。'; break;
+                case 'format_error': echo '*半角英数字20字以内で入力してください。'; break;
             }
         }
     }
