@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1><ruby>アカウント<rt>追加</rt></ruby></h1>
+            <h1>アカウント<ruby>追加<rt>ついか</rt></ruby></h1>
             <p class="mb-3">当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
             
             <div class="scrollable-container">
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </main>
 
 <!-- ナビゲーションバー -->
-<?php include_once("./include/bottom_nav.php") ?>
+<?php include_once("../include/bottom_nav.php") ?>
 
 <!-- JavaScript -->
 <script src="<?php echo $absolute_path; ?>static/js/family_add.js"></script>
