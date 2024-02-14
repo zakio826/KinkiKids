@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>アカウント追加</h1>
+            <h1><ruby>アカウント<rt>追加</rt></ruby></h1>
             <p class="mb-3">当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
             
             <div class="scrollable-container">
