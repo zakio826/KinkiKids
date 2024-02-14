@@ -39,12 +39,12 @@ class goal {
 
                 $this->saveGoalToDatabase();
 
-                $current_date = date("Y-m-d");
-                $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
-                $stmt = $this->db->prepare($query);
-                $stmt->bindParam(':family_id', $family_id);
-                $stmt->bindParam(':current_date', $current_date);
-                $stmt->execute();
+                // $current_date = date("Y-m-d");
+                // $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+                // $stmt = $this->db->prepare($query);
+                // $stmt->bindParam(':family_id', $family_id);
+                // $stmt->bindParam(':current_date', $current_date);
+                // $stmt->execute();
 
                 header('Location: ./goal_check.php'); 
                 exit();
@@ -119,14 +119,14 @@ class goal {
         return array($userIds, $firstNames);
         }
     
-    // public function deleteExpiredGoals($family_id) {
-    //     $current_date = date("Y-m-d");
-    //     $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->bindParam(':family_id', $family_id);
-    //     $stmt->bindParam(':current_date', $current_date);
-    //     $stmt->execute();
-    // }
+    public function deleteExpiredGoals($family_id) {
+        $current_date = date("Y-m-d");
+        $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':current_date', $current_date);
+        $stmt->execute();
+    }
 }
 
 class goal_check{
