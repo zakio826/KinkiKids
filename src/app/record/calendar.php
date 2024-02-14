@@ -5,6 +5,12 @@
 $page_title = "カレンダー";
 $stylesheet_name = "calendar.css";
 include("../include/header.php");
+
+// $_SESSION["user_id"] = 100;
+// $_SESSION["username"] = "myayoi";
+// $_SESSION["family_id"] = 100;
+// $_SESSION["role_id"] = 21;
+
 ?>
 
 <?php
@@ -47,14 +53,16 @@ $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ".
 
 
 <?php  // afdsgfasdgfadgs
-// $monthlyDataset = array(
-//     // "name" => ["in_ex_data", "help_data", ],
-//     "name" => ["monthly_data", ],
-//     "query" => [],
-//     "data" => [],
-// );
+$star_color = ["", "_green", "_blue", "_purple", "_red"];
 
-// // $from = ["income_expense", "help_log"];
+$monthlyDataset = array(
+    "name" => ["in_ex_data", "help_data", ],
+    // "name" => ["monthly_data", ],
+    "query" => [],
+    "data" => [],
+);
+
+$from = ["income_expense", "help_log"];
 // $from_union = array(
 //     "name" => ["all_date", ],
 //     "union" => [
@@ -93,17 +101,17 @@ $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ".
 //     ],
 // );
 
-// $columns = array(
-//     // ["日付" => $from_join["from"].".income_expense_date"],
-//     [$from_union["union"][0]["as"] => $from_union["name"][0]],
-//     // [$from_join["from"] => "COUNT(". $from_join["from"]. ".". $from_join["from"]. "_id)"],
-//     // [$from_join["table"][0] => ("COUNT(". $from_join["table"][0]. ".". $from_join["table"][0]. "_id)")],
-//     // [$column_as[1] => "income_expense_date"],
-//     // [$column_as[1] => "help_day"],
-//     // [$column_as[0] => "income_expense_date"],
-//     // [$column_as[0] => "help_day"],
-//     // ["合計金額" => "SUM(income_expense_amount)"],
-// );
+$columns = array(
+    // ["日付" => $from_join["from"].".income_expense_date"],
+    // [$from_union["union"][0]["as"] => $from_union["name"][0]],
+    // [$from_join["from"] => "COUNT(". $from_join["from"]. ".". $from_join["from"]. "_id)"],
+    // [$from_join["table"][0] => ("COUNT(". $from_join["table"][0]. ".". $from_join["table"][0]. "_id)")],
+    // [$column_as[1] => "income_expense_date"],
+    // [$column_as[1] => "help_day"],
+    ["日付" => "income_expense_date"],
+    ["日付" => "help_day"],
+    // ["合計金額" => "SUM(income_expense_amount)"],
+);
 
 // $from = $from_join["from"];
 // for ($i = 0; $i < count($from_join["table"]); $i++) {
@@ -116,72 +124,79 @@ $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ".
 //     array_push($columns, [$from_join["table"][$i] => "COUNT(". $from_join["table"][$i]. ".". $from_join["table"][$i]. "_id)"]);
 // }
 
-// $column = "";
-// for ($i = 0; $i < count($columns); $i++) {
-//     foreach ($columns[$i] as $key => $value) {
-//         $column .= $value. " AS `". $key. "`";
-//         // $cols = ["DATE_FORMAT(". $value. ",'", "') AS `". $key. "`"];
-//         // $col = "DATE_FORMAT(". $value. ",'%Y年%c月%e日') AS `". $column_as[0]. "`, ";
-//         // $col = "";
-//         // $col .= "DATE_FORMAT(". $value. ",'%e') AS `". $column_as[1]. "`";
-//         // array_push($column, $col);
-//     }
-//     if ($i+1 < count($columns)) {
-//         $column .= ", ";
-//     }
-// }
+$column = [];
+for ($i = 0; $i < count($columns); $i++) {
+    foreach ($columns[$i] as $key => $value) {
+        // $column .= $value. " AS `". $key. "`";
+        // $cols = ["DATE_FORMAT(". $value. ",'", "') AS `". $key. "`"];
+        // $col = "DATE_FORMAT(". $value. ",'%Y年%c月%e日') AS `". $column_as[0]. "`, ";
+        // $col = "";
+        $col = "DATE_FORMAT(". $value. ",'%e') AS `". $key. "`";
+        array_push($column, $col);
+    }
+    // if ($i+1 < count($columns)) {
+    //     $column .= ", ";
+    // }
+}
 
-// $this_ym = date("Y-m", $this_date);
+$this_ym = date("Y-m", $this_date);
 
-// $wheres = array(
-//     // "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-//     "DATE(".$from_union["name"][0].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-// );
-// // if (is_null($user_id)) {
-// //     array_unshift($wheres, ("family_id = ". $_SESSION["family_id"]));
-// //     // $wheres = array(
-// //     //     "family_id = ". $_SESSION["family_id"],
-// //     //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-// //     // );
-// // } else {
-// //     array_unshift($wheres, ("user_id = ". $user_id));
-// //     // $wheres = array(
-// //     //     "user_id = ". $user_id,
-// //     //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
-// //     // );
-// // }
-// $ttt = "";
-// for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
-//     $sql = "SELECT ". $column. " FROM ". $from. " WHERE ";
-//     for ($j = 0; $j < count($wheres); $j++) {
-//         $sql .= $wheres[$j];
+$wheres = array(
+    "DATE(".$columns[0]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    "DATE(".$columns[1]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    // "DATE(".$from_join["from"].".income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    // "DATE(".$from_union["name"][0].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+);
+if (is_null($user_id)) {
+    array_unshift($wheres, ("family_id = ". $_SESSION["family_id"]));
+    // $wheres = array(
+    //     "family_id = ". $_SESSION["family_id"],
+    //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    // );
+} else {
+    array_unshift($wheres, ("user_id = ". $user_id));
+    // $wheres = array(
+    //     "user_id = ". $user_id,
+    //     "DATE(income_expense_date) BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'",
+    // );
+}
+$ttt = [];
+for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
+    $sql = "SELECT ". $column[$i]. " FROM ". $from[$i]. " WHERE ";
+    // $sql .= $wheres[0]. " AND ". $wheres[$i+1];
+    $sql .= $wheres[$i+1];
+    // for ($j = 1; $j < count($wheres); $j++) {
+    //     $sql .= $wheres[$j];
 
-//         if ($j+1 < count($wheres)) {
-//             // $sql .= " AND DATE(". $columns[$i][$column_as[1]]. ") ";
-//             $sql .= " AND ";
-//         } else {
-//             $sql .= " ";
-//         }
-//     }
-//     $sql .= " GROUP BY `". key($columns[0]). "`;";
-//     $ttt = $sql;
-//     array_push($monthlyDataset["query"], ($db->query($sql)));
+    //     if ($j+1 < count($wheres)) {
+    //         // $sql .= " AND DATE(". $columns[$i][$column_as[1]]. ") ";
+    //         $sql .= " AND ";
+    //     } else {
+    //         $sql .= " ";
+    //     }
+    // }
+    $sql .= " GROUP BY `". key($columns[$i]). "`";
+    $sql .= " ORDER BY `". key($columns[$i]). "` ASC;";
+
+    array_push($ttt, $sql);
+
+    array_push($monthlyDataset["query"], ($db->query($sql)));
     
-//     array_push($monthlyDataset["data"], array());
+    array_push($monthlyDataset["data"], array());
 
-//     foreach ($monthlyDataset["query"][$i] as $index => $item) {
-//         foreach ($item as $key => $value) {
-//             if (gettype($key) !== "integer") {
-//                 if ($index == 0) {
-//                     $monthlyDataset["data"][$i] += [$key => [$value]];
-//                 } else {
-//                     array_push($monthlyDataset["data"][$i][$key], $value);
-//                 }
-//                 // array_push($monthlyDataset["data"][$i], $value);
-//             }
-//         }
-//     }
-// }
+    foreach ($monthlyDataset["query"][$i] as $index => $item) {
+        foreach ($item as $key => $value) {
+            if (gettype($key) !== "integer") {
+                if ($index == 0) {
+                    $monthlyDataset["data"][$i] += [$key => [$value]];
+                } else {
+                    array_push($monthlyDataset["data"][$i][$key], $value);
+                }
+                // array_push($monthlyDataset["data"][$i], $value);
+            }
+        }
+    }
+}
 ?>
 
 
@@ -348,6 +363,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     foreach ($categoryDataset["query"][$i] as $index => $item) {
         foreach ($item as $key => $value) {
             if (gettype($key) !== "integer") {
+                // $value = intval($value);
                 if ($index == 0) {
                     $categoryDataset["data"][$i] += [$key => [$value]];
                 } else {
@@ -368,12 +384,19 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         <div class="container">
 
             <?php
-            //echo $ttt;
+            // echo "<br><br>";
+
+            // echo $ttt[0]. "<br><br>";
+            // echo $ttt[1]. "<br><br>";
+
+            // echo var_dump($monthlyDataset["data"][0]). "<br><br>";
+            // echo var_dump($monthlyDataset["data"][1]). "<br><br>";
+
             // echo var_dump($monthlyDataset);
             ?>
 
             <div class="row mx-auto mt-3 px-3">
-                <div class="position-relative mx-auto px-sm-5">
+                <div class="position-relative mx-auto px-md-5">
                     <table class="w-100" style="caption-side: top;">
                         <caption class="mx-sm-5 text-center">
                             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
@@ -431,25 +454,30 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
                                     <tr>
                                         <?php for ($j = 1; $j <= 7; $j++) : ?>
                                             <?php $day = $i * 7 + $j - $first_week; ?>
-                                            <td class="p-1" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?>>
+                                            <td class="p-0" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?> style="width: 12.5vw;">
                                                 <?php if ($day > 0 and $day <= $last_day) : ?>
                                                     <?php if (!$month_now or $day <= $today) : ?>
                                                         <input class="d-none" type="submit" id="pick_<?php echo $day; ?>" name="pick_date" value="<?php echo date($this_ym. "-". $day); ?>">
                                                     <?php endif; ?>
                                                     
                                                     <label class="w-100" for="pick_<?php echo $day; ?>">
-                                                        <p class="mb-1 ms-1"><?php echo $day; ?></p>
-                                                        <!-- <br> -->
+                                                        <p class="my-1 mx-sm-2 text-center text-sm-start"><?php echo $day; ?></p>
 
-                                                        <?php //if (isset($monthlyDataset["data"][0]) and is_array($day, $monthlyDataset["data"][0])) : ?>
-                                                            <!-- <img src="<?php echo $absolute_path; ?>static/assets/star.png" width="20px" height="20px"> -->
-                                                        <?php //endif; ?>
+                                                        <div class="row g-0 align-items-center justify-content-around" style="height: 1.5rem;">
+                                                            <?php $col_order = 0; ?>
+                                                            <?php for ($k = 0; $k < count($monthlyDataset["name"]); $k++) : ?>
+                                                                <?php if (isset($monthlyDataset["data"][$k]["日付"]) and in_array(strval($day), $monthlyDataset["data"][$k]["日付"])) : ?>
+                                                                    <img class="col-auto order-<?php echo $col_order++; ?>" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png" width="15px" height="15px">
+                                                                <?php endif; ?>
+                                                            <?php endfor; ?>
 
-                                                        &nbsp;
+                                                            <?php if ($col_order == 0) : ?>
+                                                                <span class="col-auto">&nbsp;</span>
+                                                            <?php endif; ?>
+                                                        </div>
                                                     </label>
                                                 <?php else : ?>
-                                                    &nbsp;<br>
-                                                    &nbsp;
+                                                    &nbsp;<br>&nbsp;
                                                 <?php endif; ?>
                                             </td>
                                         <?php endfor; ?>
