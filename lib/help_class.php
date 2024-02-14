@@ -14,7 +14,7 @@ class help {
                 $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
             } else if (isset($_POST["consent_help_id"])) {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
-            } else if($_POST["e_help_id"]){
+            }else if($_POST["e_help_id"]){
                 if ($_POST['e_help_name'] === "") {
                     $error['e_help_name'] = "blank";
                 }
@@ -203,7 +203,7 @@ class help {
         $bot->pushMessage($line_id, $linkMessage);
     }
 
-    public function child_select() {
+    public function child_select($allc) {
         if (isset($_SESSION["family_id"])) {
             $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
             $stmt->bindParam(':family_id', $_SESSION["family_id"]);
@@ -212,7 +212,7 @@ class help {
 
             foreach ($result as $person) {
                 if (floor($person['role_id'] / 10 ) == 3) {
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
+                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id']." ".$allc.">";
                     echo $person['first_name']."　";
                 }
             }
@@ -250,7 +250,7 @@ class help {
                 }
             }
         } else {
-            //TODO ログインしていない
+            //ログインしていない
         }
     }
 
