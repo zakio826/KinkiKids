@@ -115,27 +115,29 @@ class help {
         if(isset($_SESSION["user_id"])){
             $user_id = $_SESSION["user_id"];
             $dtime = date("Y-m-d H:i:s");
-
+    
             $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag,receive_flag) VALUES (:user_id, :help_id, :dtime, 1,0)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':help_id', $help_id);
             $stmt->bindParam(':dtime', $dtime);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             echo "<p>承認待ち</p>"; // TODO 承認待ちの処理
     
             // LINEBOTへの通知処理
             $line_id = $this->getLineId($help_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
-            $result = $this->MessageGet($user_id,$help_id);
-            $message = "お手伝いが完了しました。\n".$result;
-
-            $this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+            if($line_id){
+                $result = $this->MessageGet($user_id,$help_id);
+                $message = "お手伝いが完了しました。\n".$result;
+    
+                $this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+            } 
         } else {
             //TODO ログインしていない
         }
     }
-
+    
     private function getLineId($help_id) {
         // helpテーブルからuser_idを取得
         $stmt = $this->db->prepare("SELECT user_id FROM help WHERE help_id = :help_id");
@@ -149,8 +151,14 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         
-        return $result2['UID'];
+        if(isset($result2['UID'])) {
+            return $result2['UID'];
+        } else {
+            return null;
+        }
     }
+    
+    
 
     private function MessageGet($user_id, $help_id) {
         $stmt = $this->db->prepare("SELECT help_name,get_point FROM help WHERE help_id = :help_id");
