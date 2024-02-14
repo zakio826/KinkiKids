@@ -63,7 +63,7 @@
                         <input type="hidden" name="child_consent_get_point" value="'.$result2[0]["get_point"].'">  
                         <button type="submit">ポイント獲得</button>
                 </form>
-                ';
+                <hr>';
             }
             echo "</li>";
             if(empty($result)){
@@ -96,7 +96,7 @@
                         <input type="hidden" name="child_consent_get_point" value="'.$result2[0]["get_point"].'">  
                         <button type="submit">ポイント獲得</button>
                 </form>
-                ';
+                <hr>';
             }
             echo "</li>";
             if(empty($result)){
