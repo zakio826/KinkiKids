@@ -66,7 +66,21 @@ class index_parent_class {
             return array(
                 'allowance_amount'=>0,
             );
-
+        }
+    }
+    public function getBehavioral($i) {
+        $stmt = $this->db->prepare("SELECT * FROM behavioral_goal WHERE behavioral_goal_user_id = :user_id");
+        $stmt->bindParam(':user_id', $i);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return array(
+                'behavioral_goal'=>'',
+                'reward_point'=>'',
+                'behavioral_goal_deadline'=>'',
+            );
         }
     }
     public function getPointNorma($i) {
