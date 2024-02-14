@@ -15,6 +15,8 @@ class repayment {
 
             $updated_amount = $debt_info['repayment_amount'] - $debt_info['repayment_installments'];
 
+            
+
             $stmt = $this->db->prepare("UPDATE debt SET repayment_amount = :updated_amount WHERE debt_id = :debt_id");
             $stmt->bindParam(':debt_id', $debtid, PDO::PARAM_INT);
             $stmt->bindParam(':updated_amount', $updated_amount, PDO::PARAM_STR);
@@ -43,13 +45,7 @@ class repayment {
                 $stmt->execute();
             }
 
-            $_SESSION['updated'] = true;
-            if(isset($_SESSION['repaycount'][$debt_id])) {
-                $_SESSION['repaycount'][$debt_id] = $_SESSION['repaycount'][$debt_id] - 1;
-            } else {
-                $_SESSION['repaycount'][$debt_id] = $debt_info['installments'];
-                $_SESSION['repaycount'][$debt_id] = $_SESSION['repaycount'][$debt_id] - 1;
-            }           
+            $_SESSION['updated'] = true;     
             header('Location: ../index.php');
             exit();
         }
