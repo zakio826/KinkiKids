@@ -32,7 +32,7 @@ include("../include/header.php");
                     <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
-
+                <br>
                 <div class="control-1">
                     <label for="behavioral_user">子供</label>
                     <select id="behavioral_user" name="behavioral_user">
