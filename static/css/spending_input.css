@@ -228,10 +228,7 @@ p.long-name {
     margin-bottom: 20px;
 }
 
-/* 
-/* .p-form__flex-input.type {
-    margin-top: 20px;
-} */ */
+ */
 
 input {
     width: 70%;
@@ -244,16 +241,18 @@ input#date {
 }
 
 .p-form__flex-input.type {
-    display: flex;
     align-items: center;
+    margin-top: 15px;
 }
 
 .p-form__flex-input.type input[type="radio"] {
-    margin-right: 10px;
+    margin-right: 7px;
 }
 
 .p-form__flex-input.type label {
+    font-size: 15px;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 20px;
+    margin-bottom: 5px;
     writing-mode: horizontal-tb; /* ラベルのテキストを横書きにする */
 }
