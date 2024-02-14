@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "行動目標設定";
-$stylesheet_name = "setting_behavioral.css";
+$stylesheet_name = "setting_behavioral_all.css";
 include("../include/header.php");
 ?>
 
@@ -19,9 +19,11 @@ include("../include/header.php");
 
 <main>  <!-- ←一番外側はmainタグを指定する -->
     <section>
-        <div class="content">
+    <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
             <form action="" method="POST">
-                <h1>行動目標設定</h1>
+                <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
+                    <h1>行動目標設定</h1>
+                </div>
 
                 <br>
 

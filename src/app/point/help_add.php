@@ -32,6 +32,10 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
     $family_id = $_SESSION["family_id"];
     $helps = $help->display_help($family_id);
 }
+$allc = "";
+if (isset($_GET["button1"])) {
+    $allc = "checked";
+} 
 ?>
 
 <!-- ナビゲーションバー -->
@@ -40,12 +44,17 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 <main>
     <div class="mb-3 title"><h1>おてつだい</h1></div>
 
-    <div class ="mb-3 content">
+    <div <?php echo ($select === 'adult') ? 'class="content"' : 'class="content2"'; ?>>
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
+            <form method="get"> 
+            <p class="choice">子供の選択 
+                <input type="submit" name="button1" class="btn-1" value="全員"> 
+            </p>
+            </form> 
             <form action="" method="post" class="adult-form">
-                <p class="choice">子供の選択</p>
-                <?php $help->child_select(); ?><br>
+                
+                <?php $help->child_select($allc); ?><br>
                 <label for="help_name">お手伝い名</label>
                 <input type="text" name="help_name"><br>
                 <label for="get_point">獲得ポイント</label>

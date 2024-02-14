@@ -10,18 +10,6 @@ class family_add {
 
         if (!empty($_POST)) {
             $savedData = isset($_SESSION['join']) ? $_SESSION['join'] : [];
-
-            // $usernames = $_POST['username'];
-            // $passwords = $_POST['password'];
-            // $first_names = $_POST['first_name'];
-            // $last_names = $_POST['last_name'];
-            // $birthdays = $_POST['birthday'];
-            // $gender_ids = $_POST['gender_id'];
-            // $role_ids = $_POST['role_id'];
-            // $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array_fill(0, count($usernames), 0);
-            // $savings = $_POST['savings'];
-            // $allowances = $_POST['allowances'];
-            // $payments = $_POST['payments'];
             $savedData['username'] = $_POST['username'];
             $savedData['password'] = $_POST['password'];
             $savedData['first_name'] = $_POST['first_name'];
@@ -80,12 +68,13 @@ class family_add {
                 $record = $user->fetch();
 
                 if ($record['cnt'] > 0) {
-                    $error['username'][$i] = 'duplicate';
-                }
+                    $this->error['username'][$i] = 'duplicate';
+                }  
             }
             
             // エラーがなければ次のページへ
-            if (!isset($error)) {
+            if (empty($this->error)) {
+                $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理
                 for ($i = 0; $i < count($savedData['username']); $i++) {
