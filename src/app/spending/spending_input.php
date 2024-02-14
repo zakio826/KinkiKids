@@ -1,7 +1,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "収支";
-$stylesheet_name = "spending_input.css";
+$stylesheet_name = "spending_input2.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 
