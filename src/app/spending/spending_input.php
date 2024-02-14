@@ -2,24 +2,25 @@
 <?php
 $page_title = "収支";
 $stylesheet_name = "spending_input.css";
-$stylesheet_name = "spending_input2.css";
 include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
-require_once("db_entry.php"); //収支登録でデータベースに登録の際に使うもの(別の場所に移動可)
+
+require_once($absolute_path."lib/db_entry.php"); //収支登録でデータベースに登録の際に使うもの(別の場所に移動可)
+?>
+
+<?php
+if (isset($_GET["pick_date"])) {
+    $date = strtotime($_GET["pick_date"]);
+} else {
+    $date = strtotime((new DateTime("now"))->format("Y-m-d"));
+}
 ?>
 
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
-
-<!DOCTYPE html>
-<html lang="ja">
-
-
 <main class="l-main">
-
-
     <!-- 収支データ入力 -->
     <section class="p-section p-section__records-input">
         <form class="p-form p-form--input-record" name="recordInput" action="" method="POST">
@@ -29,7 +30,7 @@ require_once("db_entry.php"); //収支登録でデータベースに登録の際
             <!-- 基本データ -->
             <div class="p-form__flex-input">
                 <p class="long-name">日付</p>
-                <label for="date"><input type="date" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" required></label>
+                <label for="date"><input type="date" name="date" id="date" value="<?php echo  date("Y-m-d", $date); ?>" required></label>
             </div>
             <div class="p-form__flex-input">
                 <p class="long-name">タイトル</p>
@@ -115,6 +116,7 @@ require_once("db_entry.php"); //収支登録でデータベースに登録の際
         </form>
     </section>
 </main>
+
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
 
@@ -123,5 +125,6 @@ require_once("db_entry.php"); //収支登録でデータベースに登録の際
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/radio.js"></script>
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/import.js"></script>
 <script src="<?php echo $absolute_path; ?>static/js/spending_input/functions.js"></script>
+
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>

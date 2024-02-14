@@ -130,6 +130,17 @@ h1 {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.note p {
+    font-size: 13px;
+    color: #868585;
+}
+
+.form-group_entry p {
+    font-size: 13px;
+    color: #868585;
+    margin-bottom: 0;
+}
+
 
 /* ------------------------------------------------- */
 /* 入力情報の確認画面 */
