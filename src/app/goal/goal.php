@@ -2,7 +2,7 @@
 
 <?php
 $page_title = "目標設定";
-$stylesheet_name = "goal_adult.css";
+$stylesheet_name = "goal_all.css";
 require_once("../include/header.php");
 ?>
 
@@ -10,15 +10,19 @@ require_once("../include/header.php");
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 $familyId = $_SESSION['join']['family_id'];
+$select = $_SESSION["select"];
 ?>
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
-    <div class="content">
+    <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
         <form action="" method="POST">
-            <h1>こうにゅうもくひょうせってい</h1>
+            <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
+                <h1>こうにゅうもくひょうせってい</h1>
+            </div>
+            
 
             <br>
 
@@ -44,16 +48,20 @@ $familyId = $_SESSION['join']['family_id'];
                 <label for="target_amount">きんがく</label>
                 <input id="target_amount" type="number" name="target_amount"  placeholder="5,000">
                 <b>円</b>
+                <br>
+                <?php $goal->amount_error(); ?>
             </div>
  
             <div class="control-1">
                 <label for="goal_detail">しょうさい</label>
-                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい">
+                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい"><br>
+                <?php $goal->detail_error(); ?>
             </div>
 
             <div class="control-1">
                 <label for="goal_deadline">きげん</label>
-                <input id="goal_deadline" type="date" name="goal_deadline">
+                <input id="goal_deadline" type="date" name="goal_deadline"><br>
+                <?php $goal->deadline_error(); ?>
             </div>
 
             <div class="mt-3 control-2">
