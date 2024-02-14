@@ -132,6 +132,7 @@ echo '</script>';
                         行動目標：<p id="behavioral_goal"></p>
                         報酬ポイント：<p id="reward_point"></p>
                         期限：<p id="behavioral_goal_deadline"></p>
+                        <!-- 行動目標に飛ぶボタン -->
                         <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
                             ＋
                         </a>
@@ -143,7 +144,7 @@ echo '</script>';
         <form action="" method="post">
             <button type="submit" name="left"><</button>
             <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '目標'; ?></span>
+                <span><?php echo '購入目標'; ?></span>
             <?php } elseif($_SESSION['goal_select'] == 1){ ?>
                 <span><?php echo 'ポイントノルマ'; ?></span>
             <?php } elseif($_SESSION['goal_select'] == 2){ ?>
