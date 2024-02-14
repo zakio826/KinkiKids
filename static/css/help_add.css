@@ -69,6 +69,7 @@ input[type="checkbox"] {
     min-width: 370px; /* 最小幅を設定 */
 }
 
+/* 子供の場合 */
 .content2 {
     background-color: #FFF27E;
     padding: 20px;
