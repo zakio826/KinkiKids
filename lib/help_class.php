@@ -14,7 +14,26 @@ class help {
                 $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
             } else if (isset($_POST["consent_help_id"])) {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
-            } else if (!isset($_POST["narrow"])){
+            }else if($_POST["e_help_id"]){
+                if ($_POST['e_help_name'] === "") {
+                    $error['e_help_name'] = "blank";
+                }
+                if ($_POST['e_get_point'] === "") {
+                    $error['e_get_point'] = "blank";
+                }
+                if (isset($_POST['e_help_person'])) {
+                    $e_person = $_POST['e_help_person'];
+                } else {
+                    $error['e_help_person'] = "blank";
+                }
+            
+                // エラーがなければ処理
+                if (!isset($error)) {
+                    $this->updateHelp($_POST["e_help_id"],$_POST['e_help_name'],$_POST['e_get_point'],$e_person);
+                    header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
+                    exit();
+                }
+            }else if (!isset($_POST["narrow"])){
 
                 // 入力情報に空白がないか検知
                 if ($_POST['help_name'] === "") {
@@ -153,7 +172,7 @@ class help {
     }
 
     private function MessageGet($user_id, $help_id) {
-        $stmt = $this->db->prepare("SELECT help_name FROM help WHERE help_id = :help_id");
+        $stmt = $this->db->prepare("SELECT help_name,get_point FROM help WHERE help_id = :help_id");
         $stmt->bindParam(':help_id', $help_id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -164,41 +183,27 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                 
-        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']; 
+        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント".$result['get_point'].'pt'; 
     }
 
-    private function sendLineNotification($line_id, $message,$help_id) {
-        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 41 WHERE UID = :uid");
-        $stmt->bindParam(':uid', $line_id);
-        $stmt->execute();
-
+    private function sendLineNotification($line_id, $message, $help_id) {
         // LINE Messaging API SDKの読み込み
         require_once(__DIR__ . '/vendor/autoload.php');
     
         // LINE BOTの設定
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('bvUO7pMHtF+vhpf5OKz20kgcoO6Epwd/fYPljIuqA4GjL82Kw+Vt2+5OLKGAbauojY8/2Zaok5x9Fr6/pPPK6EbxZa6rSv9BCo+bbIsBcNuWPdHSYlyFuSVCw45efp68lEbENrfQDRu6ix+S3e/uFgdB04t89/1O/w1cDnyilFU=');
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'ae82ad82812d8d72b5662ccb43d232f8']);
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('Kze+ZgLB4x9rAdf5+UQ8Iv23kGgEWm+E3J13IuZY4KJ6SXkbR/6UE6UtcA5u7BLkvZI5Vo5654ZdzHs9DEuUJ/arEYPV7Saw/s+upXosGKuAYT3KtEq9itfyK60iBvAAJkkvF0CLPUP9YYG6c6aupQdB04t89/1O/w1cDnyilFU=');
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '78143eef9ac1707bb475fa8813339356']);
     
         // メッセージの送信
         $textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
         $bot->pushMessage($line_id, $textMessage);
     
-        // 確認ダイアログの送信
-        $confirmMessage = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-            '確認ダイアログ',
-            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(
-                '承認しますか？',
-                [
-                    new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('はい', $help_id),
-                    new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('いいえ', 'いいえ')
-                ]
-            )
-        );
-
-        $bot->pushMessage($line_id, $confirmMessage);
+        // リンクの直接メッセージとして送信
+        $linkMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("確認してね\n".'https://kinkikids.sub.jp/src/app/point/consent.php?id=' . $line_id);
+        $bot->pushMessage($line_id, $linkMessage);
     }
 
-    public function child_select() {
+    public function child_select($allc) {
         if (isset($_SESSION["family_id"])) {
             $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
             $stmt->bindParam(':family_id', $_SESSION["family_id"]);
@@ -207,7 +212,7 @@ class help {
 
             foreach ($result as $person) {
                 if (floor($person['role_id'] / 10 ) == 3) {
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
+                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id']." ".$allc.">";
                     echo $person['first_name']."　";
                 }
             }
@@ -239,13 +244,13 @@ class help {
                     if(in_array($person['user_id'], $checked_li)){
                         $checked = "checked";
                     }
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'];
+                    echo "<input type='checkbox' name='e_help_person[]' value=".$person['user_id'];
                     echo " ".$checked.">";
                     echo $person['first_name']."　";
                 }
             }
         } else {
-            //TODO ログインしていない
+            //ログインしていない
         }
     }
 
@@ -256,10 +261,7 @@ class help {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateHelp($data) {
-        $help_id = $data['help_id'];
-        $help_name = $data['help_name'];
-        $get_point = $data['get_point'];
+    public function updateHelp($help_id,$help_name,$get_point,$help_person) {
 
         $user_id = (int)$_SESSION['user_id'];
         $family_id = (int)$_SESSION['family_id'];
@@ -276,6 +278,9 @@ class help {
         $stmt2->bindParam(':help_id', $help_id);
         $stmt2->execute();
         $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+        //person追加処理
+        $this->saveHelppersonToDatabase($help_person);
     }
 
     public function person_select($help_id) {
