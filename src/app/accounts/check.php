@@ -19,7 +19,7 @@ checkUser($db, $_SESSION['join']);
                 <form action="" method="POST">
                     <input type="hidden" name="check" value="checked">
                     
-                    <h1>入力情報の確認</h1>
+                    <h1><ruby>入力情報<rt>にゅうりょくじょうほう</rt></ruby>の確認</h1>
                     <p>ご入力情報に変更が必要な場合、<br>下のボタンを押し、変更を行ってください。</p>
                     <p>登録情報はあとから変更することもできます。</p>
                     
