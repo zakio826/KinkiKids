@@ -15,11 +15,18 @@ class repayment {
 
             $updated_amount = $debt_info['repayment_amount'] - $debt_info['repayment_installments'];
 
-            
+            // ハイフンを除いた日付の取得
+            $post_date = str_replace('-', '', $debt_info['repayment_date']);
 
-            $stmt = $this->db->prepare("UPDATE debt SET repayment_amount = :updated_amount WHERE debt_id = :debt_id");
+            $next_schedule = $this->next_schedule_monthly($post_date);
+
+            // 結果の表示
+            $nextrepaymentday = date('Y-m-d', $next_schedule['utc_jp']);
+
+            $stmt = $this->db->prepare("UPDATE debt SET repayment_amount = :updated_amount, repayment_date = :repayment_date WHERE debt_id = :debt_id");
             $stmt->bindParam(':debt_id', $debtid, PDO::PARAM_INT);
             $stmt->bindParam(':updated_amount', $updated_amount, PDO::PARAM_STR);
+            $stmt->bindParam(':repayment_date', $nextrepaymentday, PDO::PARAM_STR);
             $stmt->execute();
 
             // income_expenseに新しいレコードを挿入
@@ -72,6 +79,48 @@ class repayment {
         }
 
         return null;
+    }
+
+    private function next_schedule_monthly($post_date) {
+        // 01234567
+        // YYYYMMDD
+        $datetime['year']   = (int) substr($post_date, 0, 4);
+        $datetime['month']  = (int) substr($post_date, 4, 2);
+        $datetime['day']    = (int) substr($post_date, 6, 2);
+        // 固定の時刻：00:00:00
+        $datetime['second'] = 0;
+        $datetime['minute'] = 0;
+        $datetime['hour']   = 0;
+
+        $check_month = $datetime['month'];
+
+        $check_flag = true;
+
+        for ($i = 1; $i < 13; $i++) {
+            // 翌月作成
+            $check_month++;
+
+            // 12月以内に変更する
+            if ($check_month >= 13) {
+                $check_month = $check_month - 12;
+
+                if ($check_flag) {
+                    $datetime['year'] = $datetime['year'] + 1;
+                    $check_flag        = false;
+                }
+            }
+
+            // 正しい日付かをチェックする
+            if (checkdate($check_month, $datetime['day'], $datetime['year'])) {
+                break;
+            }
+        }
+
+        // UTC+9とUTCに変換
+        $schedule_time['utc_jp'] = mktime($datetime['hour'], $datetime['minute'], $datetime['second'], $check_month, $datetime['day'], $datetime['year']);
+        // $schedule_time['utc']    = $schedule_time['utc_jp'] - 32400;
+
+        return $schedule_time;
     }
 }
 
