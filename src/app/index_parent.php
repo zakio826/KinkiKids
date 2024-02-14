@@ -141,18 +141,23 @@ echo '</script>';
                 </div>
             </div>
         <?php } ?>
-        <form action="" method="post">
-            <button type="submit" name="left"><</button>
-            <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '購入目標'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                <span><?php echo 'ポイントノルマ'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                <span><?php echo '行動目標'; ?></span>
-            <?php } ?>
+        <br>
+        <!-- メニュー移動 -->
+        <div class="slideshow">
 
-            <button type="submit" name="right">></button>
-        </form>
+            <form action="" method="post">
+                <button type="submit" name="left"><</button>
+                <?php if($_SESSION['goal_select'] == 0){ ?>
+                    <span><?php echo '購入目標'; ?></span>
+                <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                    <span><?php echo 'ポイントノルマ'; ?></span>
+                <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                    <span><?php echo '行動目標'; ?></span>
+                <?php } ?>
+
+                <button type="submit" name="right">></button>
+            </form>
+        </div>
 
 
         <hr class="index_parent_hr">
