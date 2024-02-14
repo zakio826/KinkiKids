@@ -117,6 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
+<!-- ナビゲーションバー -->
+<?php include_once("./include/bottom_nav.php") ?>
+
 <!-- JavaScript -->
 <script src="<?php echo $absolute_path; ?>static/js/family_add.js"></script>
 
