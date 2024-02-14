@@ -143,7 +143,7 @@ echo '</script>';
         <form action="" method="post">
             <button type="submit" name="left"><</button>
             <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '目標'; ?></span>
+                <span><?php echo '購入目標'; ?></span>
             <?php } elseif($_SESSION['goal_select'] == 1){ ?>
                 <span><?php echo 'ポイントノルマ'; ?></span>
             <?php } elseif($_SESSION['goal_select'] == 2){ ?>
