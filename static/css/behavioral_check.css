@@ -70,6 +70,7 @@ input[type="checkbox"] {
     font-size: 22px;
     font-weight: bold;
     width: 220px;
+    margin: auto;
 }
 
 .btn-touroku {

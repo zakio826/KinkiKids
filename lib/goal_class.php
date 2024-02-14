@@ -39,6 +39,13 @@ class goal {
 
                 $this->saveGoalToDatabase();
 
+                $current_date = date("Y-m-d");
+                $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindParam(':family_id', $family_id);
+                $stmt->bindParam(':current_date', $current_date);
+                $stmt->execute();
+
                 header('Location: ./goal_check.php'); 
                 exit();
             }
@@ -76,8 +83,8 @@ class goal {
 
     // ユーザーが登録した目標の情報を取得する関数
     public function getUserGoals($user_id) {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id");
+        $stmt->bindParam(':goal_user_id', $user_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -111,8 +118,15 @@ class goal {
         // 配列を返す
         return array($userIds, $firstNames);
         }
-
-
+    
+    // public function deleteExpiredGoals($family_id) {
+    //     $current_date = date("Y-m-d");
+    //     $query = "DELETE FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->bindParam(':family_id', $family_id);
+    //     $stmt->bindParam(':current_date', $current_date);
+    //     $stmt->execute();
+    // }
 }
 
 class goal_check{
