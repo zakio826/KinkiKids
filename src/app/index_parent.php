@@ -100,12 +100,28 @@ echo '</script>';
                 </b>
             </div>
         </div>
+
+        <hr class="index_parent_hr">
+
         
         <div class="index_parent_mokuhyoucss1">
             <div class="index_parent_mokuhyoucss2">
                 <b class="index_parent_mokuhyoumoji">
                     ポイントノルマ：<p id="norma"></p>
                     期限：<p id="norma_deadline"></p>
+                </b>
+            </div>
+        </div>
+
+        <hr class="index_parent_hr">
+
+
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    行動目標：<p id="behavioral_goal"></p>
+                    報酬ポイント：<p id="reward_point"></p>
+                    期限：<p id="behavioral_goal_deadline"></p>
                 </b>
             </div>
         </div>
@@ -203,7 +219,6 @@ echo '</script>';
                         <input type="text" name="message" required>
                         <button type="submit" class="btn">返信</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -225,6 +240,9 @@ echo '</script>';
     let allowance_amount;
     let norma;
     let norma_deadline;
+    let behavioral_goal;
+    let reward_point;
+    let behavioral_goal_deadline;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -239,6 +257,11 @@ echo '</script>';
                      target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
                      savings = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['savings'];?>;
                      points = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['have_points'];?>;
+
+                     behavioral_goal = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal'];?>';
+                     reward_point = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['reward_point'];?>';
+                     behavioral_goal_deadline = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal_deadline'];?>';
+
                      have = savings + points;
                      allowance_amount = <?php echo $index_parent_class->getChildAllowance($index_parent_class->getFamily()[$i]['user_id'])['allowance_amount']; ?>;
                      day = <?php echo $today->diff($deadline)->format('%a'); ?>;
@@ -266,6 +289,10 @@ echo '</script>';
         document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
         document.getElementById('norma').innerHTML = norma;
         document.getElementById('norma_deadline').innerHTML = norma_deadline;
+
+        document.getElementById('behavioral_goal').innerHTML = behavioral_goal;
+        document.getElementById('reward_point').innerHTML = reward_point;
+        document.getElementById('behavioral_goal_deadline').innerHTML = behavioral_goal_deadline;
     });
 
 
