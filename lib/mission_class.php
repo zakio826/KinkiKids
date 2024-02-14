@@ -12,8 +12,26 @@ class mission {
             $this->DeletemissionToDatabase($_POST["delete_mission_id"]);
         }elseif(isset($_POST['consent_mission_id'])){
             $this->consentmissionToDatabase($_POST["consent_mission_id"]);
-        }
-        if(isset($_POST["mission_name"]) && isset($_POST["mission_get_point"])){
+        }else if(isset($_POST["e_mission_id"])){
+            if ($_POST['e_mission_name'] === "") {
+                $error['e_mission_name'] = "blank";
+            }
+            if ($_POST['e_get_point'] === "") {
+                $error['e_get_point'] = "blank";
+            }
+            if (isset($_POST['e_mission_person'])) {
+                $e_person = $_POST['e_mission_person'];
+            } else {
+                $error['e_mission_person'] = "blank";
+            }
+        
+            // エラーがなければ処理
+            if (!isset($error)) {
+                $this->updatemission($_POST["e_mission_id"],$_POST['e_mission_name'],$_POST['e_get_point'],$e_person);
+                header('Location: ./mission_add.php'); 
+                exit();
+            }
+        }elseif(isset($_POST["mission_name"]) && isset($_POST["mission_get_point"])){
             //nullチェック
             if ($_POST['mission_name'] === "") {
                 $error['mission_name'] = "blank";
@@ -46,7 +64,7 @@ class mission {
         return $result;
     }
 
-    public function child_select() {
+    public function child_select($allc) {
         $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
         $stmt->bindParam(':family_id', $_SESSION["family_id"]);
         $stmt->execute();
@@ -54,7 +72,7 @@ class mission {
 
         foreach ($result as $person) {
             if (floor($person['role_id'] / 10 ) == 3) {
-                echo "<input type='checkbox' name='mission_person[]' value=".$person['user_id'].">";
+                echo "<input type='checkbox' name='mission_person[]' value=".$person['user_id']." ".$allc.">";
                 echo $person['first_name']."　";
             }
         }
@@ -155,6 +173,73 @@ class mission {
 
         }
     }
+    public function getmissionInfo($mission_id) {
+        $stmt = $this->db->prepare("SELECT * FROM mission WHERE mission_id = :mission_id");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function e_child_select($mission_id) {
+        if (isset($_SESSION["family_id"])) {
+            $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
+            $stmt->bindParam(':family_id', $_SESSION["family_id"]);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $stmt2 = $this->db->prepare("SELECT user_id FROM mission_person WHERE mission_id = :mission_id");
+            $stmt2->bindParam(':mission_id', $mission_id);
+            $stmt2->execute();
+            $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+            $checked_li = [];
+            foreach ($result2 as $id) {
+                array_push($checked_li,$id['user_id']);
+            }
+
+            foreach ($result as $person) {
+                if (floor($person['role_id'] / 10 ) == 3) {
+                    $checked = "";
+                    if(in_array($person['user_id'], $checked_li)){
+                        $checked = "checked";
+                    }
+                    echo "<input type='checkbox' name='e_mission_person[]' value=".$person['user_id'];
+                    echo " ".$checked.">";
+                    echo $person['first_name']."　";
+                }
+            }
+        } else {
+            //TODO ログインしていない
+        }
+    }
+    public function updatemission($mission_id,$mission_name,$get_point,$mission_person) {
+
+        $user_id = (int)$_SESSION['user_id'];
+        $family_id = (int)$_SESSION['family_id'];
+        
+        $stmt = $this->db->prepare("UPDATE mission SET mission_name = :mission_name , get_point = :get_point  WHERE mission_id = :mission_id");
+        $stmt->bindParam(':mission_name', $mission_name);
+        $stmt->bindParam(':get_point', $get_point);
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        //personの処理
+        //前に登録してたperson全部消す
+        $stmt2 = $this->db->prepare("DELETE FROM mission_person WHERE mission_id = :mission_id");
+        $stmt2->bindParam(':mission_id', $mission_id);
+        $stmt2->execute();
+        $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        //今回のperson登録
+        foreach ($mission_person as $person) {
+            $stmt = $this->db->prepare("INSERT INTO mission_person (mission_id,user_id) VALUES (:mission_id, :user_id)");
+            $stmt->bindParam(':mission_id', $mission_id);
+            $stmt->bindParam(':user_id', $person);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
 
     private function getLineId($mission_id) {
         // helpテーブルからuser_idを取得

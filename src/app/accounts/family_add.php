@@ -12,11 +12,13 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
-$errors = $family_add->getError();
-
 if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
     header("Location: ../index.php");
     exit;
+}
+
+if (isset($_SESSION['join'])) {
+    $savedData = $_SESSION['join'];
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,58 +34,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="" method="POST">
             <h1>アカウント追加</h1>
             <p class="mb-3">当サービスをご利用するために、<br>次のフォームに必要事項をご記入ください。</p>
-            
+            <div class="control"><button type="submit" class="btn">確認する</button></div>
+            <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
             <div class="scrollable-container">
+                <?php
+                    // 追加フォームに対応するためのループ
+                    $userCount = isset($savedData['username']) ? count($savedData['username']) : 0;
+                    for ($i = 0; $i < max(1, $userCount); $i++) {
+                ?>
                 <div id="userFormsContainer">
                     <div id="userForm" class="control">
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー名</label>
-                            <input type="text" name="username[]"><br>
-                            <?php if(isset($errors['username'][0])){
-                                    $family_add->username_error($errors['username'][0]);
-                            } ?>
-                                
+                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください"
+                            value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]"><br>
-                            <?php if(isset($errors['password'][0])){
-                                    $family_add->password_error($errors['password'][0]);
-                            } ?>
+                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください">
                         </div>
 
                         <div class="control">
                             <label for="last_name">名字</label>
-                            <input type="text" name="last_name[]"><br>
-                            <?php if(isset($errors['last_name'][0])){
-                                    $family_add->lastname_error($errors['last_name'][0]);
-                            } ?>
+                            <input type="text" name="last_name[]"
+                            value="<?php echo (isset($savedData['last_name'][$i]) && !empty($savedData['last_name'][$i])) ? $savedData['last_name'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="first_name">名前</label>
-                            <input type="text" name="first_name[]"><br>
-                            <?php if(isset($errors['first_name'][0])){
-                                    $family_add->firstname_error($errors['first_name'][0]);
-                            } ?>
+                            <input type="text" name="first_name[]"
+                            value="<?php echo (isset($savedData['first_name'][$i]) && !empty($savedData['first_name'][$i])) ? $savedData['first_name'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="birthday">誕生日</label>
-                            <input type="date" name="birthday[]"><br>
-                            <?php if(isset($errors['birthday'][0])){
-                                    $family_add->birthday_error($errors['birthday'][0]);
-                            } ?>
+                            <input type="date" name="birthday[]"
+                            value="<?php echo (isset($savedData['birthday'][$i]) && !empty($savedData['birthday'][$i])) ? $savedData['birthday'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="gender_id">性別</label>
                             <select name="gender_id[]">
-                                <option value="1">女性</option>
-                                <option value="2">男性</option>
-                                <option value="3">その他</option>
+                                <option value="1" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 1) ? 'selected' : ''; ?>>女性</option>
+                                <option value="2" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 2) ? 'selected' : ''; ?>>男性</option>
+                                <option value="3" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 3) ? 'selected' : ''; ?>>その他</option>
                             </select>
                         </div>
 
@@ -96,23 +92,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings">貯蓄</label>
-                            <input class="mb-3 savings-input" type="int" name="savings[]" value="0">
+                            <input class="mb-3 savings-input" type="int" name="savings[]" value="0"
+                            value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : ''; ?>">
 
                             <label for="allowances">お小遣い金額</label>
-                            <input class="allowance-input" type="int" name="allowances[]" value="0">
+                            <input class="allowance-input" type="int" name="allowances[]" value="0"
+                            value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : ''; ?>">
 
                             <label for="payments">受取日</label>
-                            <input class="payment-input" type="int" name="payments[]" value="0">
+                            <input class="payment-input" type="int" name="payments[]" value="0"
+                            value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="admin_flag">管理者</label>
                             <input type="checkbox" name="admin_flag[]">
                         </div>
+
+                        <?php if ($i > 0) { // 2番目以降のフォームにはマイナスボタンを表示 ?>
+                            <button type="button" class="removeUser">－</button>
+                        <?php } ?>
                     </div>
+                <?php
+                    }
+                ?>
                 </div>
-            <div class="btn-p"><button type="button" id="addUser" >＋</button></div>
-            <div class="control"><button type="submit" class="btn">確認する</button></div>
+
+                
+            </div>
         </form>
     </div>
 </main>

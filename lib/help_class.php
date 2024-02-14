@@ -14,7 +14,26 @@ class help {
                 $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
             } else if (isset($_POST["consent_help_id"])) {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
-            } else if (!isset($_POST["narrow"])){
+            }else if(isset($_POST["e_help_id"])){
+                if ($_POST['e_help_name'] === "") {
+                    $error['e_help_name'] = "blank";
+                }
+                if ($_POST['e_get_point'] === "") {
+                    $error['e_get_point'] = "blank";
+                }
+                if (isset($_POST['e_help_person'])) {
+                    $e_person = $_POST['e_help_person'];
+                } else {
+                    $error['e_help_person'] = "blank";
+                }
+            
+                // エラーがなければ処理
+                if (!isset($error)) {
+                    $this->updateHelp($_POST["e_help_id"],$_POST['e_help_name'],$_POST['e_get_point'],$e_person);
+                    header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
+                    exit();
+                }
+            }else if (!isset($_POST["narrow"])){
 
                 // 入力情報に空白がないか検知
                 if ($_POST['help_name'] === "") {
@@ -192,7 +211,7 @@ class help {
         $bot->pushMessage($line_id, $linkMessage);
     }
 
-    public function child_select() {
+    public function child_select($allc) {
         if (isset($_SESSION["family_id"])) {
             $stmt = $this->db->prepare("SELECT user_id,first_name,role_id FROM user WHERE family_id = :family_id");
             $stmt->bindParam(':family_id', $_SESSION["family_id"]);
@@ -201,7 +220,7 @@ class help {
 
             foreach ($result as $person) {
                 if (floor($person['role_id'] / 10 ) == 3) {
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'].">";
+                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id']." ".$allc.">";
                     echo $person['first_name']."　";
                 }
             }
@@ -233,13 +252,13 @@ class help {
                     if(in_array($person['user_id'], $checked_li)){
                         $checked = "checked";
                     }
-                    echo "<input type='checkbox' name='help_person[]' value=".$person['user_id'];
+                    echo "<input type='checkbox' name='e_help_person[]' value=".$person['user_id'];
                     echo " ".$checked.">";
                     echo $person['first_name']."　";
                 }
             }
         } else {
-            //TODO ログインしていない
+            //ログインしていない
         }
     }
 
@@ -250,10 +269,7 @@ class help {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateHelp($data) {
-        $help_id = $data['help_id'];
-        $help_name = $data['help_name'];
-        $get_point = $data['get_point'];
+    public function updateHelp($help_id,$help_name,$get_point,$help_person) {
 
         $user_id = (int)$_SESSION['user_id'];
         $family_id = (int)$_SESSION['family_id'];
@@ -270,6 +286,9 @@ class help {
         $stmt2->bindParam(':help_id', $help_id);
         $stmt2->execute();
         $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+        //person追加処理
+        $this->saveHelppersonToDatabase($help_person);
     }
 
     public function person_select($help_id) {
