@@ -427,11 +427,25 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
             </div>
             
             <!-- 月間収支別カテゴリ詳細グラフ表示 -->
-            <div class="row mx-3 mt-5 pt-2 money-grid">
-                <button class="w-75 mx-auto my-4 btn btn-primary" id="in_exSwitch">収支切り替え</button>
-                <div class="position-relative d-block px-5 pb-5">
-                    <!-- チャートの表示エリア -->
-                    <canvas class="w-100 h-100" id="categoryChart"></canvas>
+            <div class="mx-3 mt-5 py-5 money-grid">
+                <!-- <button class="w-75 mx-auto my-4 btn btn-primary" id="in_exSwitch">収支切り替え</button> -->
+                <div class="row justify-content-around mx-3 mb-3">
+                    <div class="col text-center">
+                        <h4>収入詳細</h4>
+                    </div>
+                    <div class="col text-center">
+                        <h4>支出詳細</h4>
+                    </div>
+                </div>
+                <div class="row justify-content-around mx-3">
+                    <div class="col text-center">
+                        <!-- チャートの表示エリア -->
+                        <canvas class="w-100 h-100" id="in_categoryChart"></canvas>
+                    </div>
+                    <div class="col text-center">
+                        <canvas class="w-100 h-100" id="ex_categoryChart"></canvas>
+                        <!-- チャートの表示エリア -->
+                    </div>
                 </div>
             </div>
         </div>
