@@ -73,7 +73,7 @@ class family_add {
             }
             
             // エラーがなければ次のページへ
-            if (empty($this->error)) {
+            if (empty($error)) {
                 $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理
