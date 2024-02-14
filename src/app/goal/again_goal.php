@@ -1,21 +1,19 @@
-振り返り
+<!-- 目標登録ページ -->
+
 <?php
-$page_title = "再目標設定";
+$page_title = "目標設定";
 $stylesheet_name = "goal_adult.css";
 require_once("../include/header.php");
 ?>
 
-<!--<?php 
+<?php 
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
-
-
-require($absolute_path."lib/index_parent_class.php");
-$index_parent_class = new index_parent_class($db);
-
-
+$familyId = $_SESSION['join']['family_id'];
 ?>
 
+<!-- ナビゲーションバー -->
+<?php include_once("../include/nav_bar.php") ?>
 
 <main>
     <div class="content">
@@ -23,6 +21,24 @@ $index_parent_class = new index_parent_class($db);
             <h1>こうにゅうもくひょうせってい</h1>
 
             <br>
+
+            <div class="control-1">
+                    <label for="goal_user">こども</label>
+                    <select id="goal_user" name="goal_user">
+                        <?php
+                        // セッションから家族IDを取得
+                        $familyId = $_SESSION['join']['family_id'];
+
+                        // 家族IDに基づいてユーザーを取得
+                        list($child_id, $child_first_name) = $goal->getFamilyUsers($familyId);
+                        $new_user = array_combine($child_id, $child_first_name);
+                        // プルダウンメニューにユーザーを表示
+                        foreach ($new_user as $key => $value) {
+                            echo  '<option value="' . $key . '">' . $value . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
 
             <div class="control-1">
                 <label for="target_amount">きんがく</label>
@@ -46,8 +62,7 @@ $index_parent_class = new index_parent_class($db);
         </form>
     </div>
 </main>
-
-<?php include_once("./include/bottom_nav.php") ?>
-
+<!-- ナビゲーションバー -->
+<?php include_once("../include/bottom_nav.php") ?>
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
-

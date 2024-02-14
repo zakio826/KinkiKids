@@ -16,17 +16,13 @@ if ($select !== 'child'):
     header("Location: ../index.php");
     exit();
 endif;
-if(isset($_SESSION['updated'])) {
-    echo '<script>alert("借金の返済をしました");</script>' ;
-    unset($_SESSION['updated']);
-}
+
 
 if(isset($_SESSION['debt'])) {
     echo '<script>alert("' . $_SESSION['debt'] . '円の借り入れを申請しました");</script>' ;
     unset($_SESSION['debt']);
 }
 
-$repayment = $debt->display_consent_repayment($user_id);
 ?>
 
 
@@ -66,43 +62,9 @@ $repayment = $debt->display_consent_repayment($user_id);
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
-
-    <?php 
-    if (!empty($repayment)) {
-        echo '<h2>借金返済</h2>';
-        echo '<ul>';
-        foreach ($repayment as $repayment_data) {
-            echo '<li>';
-            echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
-            echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
-            echo '<a href="repayment.php?debt_id=' . $repayment_data['debt_id'] . '">借金返済する</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-    }
-    ?>
 </div>
 </main>
 <script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
-<<<<<<< HEAD
 <!-- フッター -->
 <?php include_once("../include/footer.php"); ?>
-=======
-<!-- ナビゲーションバー -->
-<?php include_once("../include/bottom_nav.php") ?>
-
-<?php require_once("../include/footer.php"); ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var currentDateElement = document.getElementById('currentDate');
-        var currentDate = new Date();
-
-        var formattedDate = currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate();
-
-        currentDateElement.textContent = formattedDate;
-    });
-</script>
-<?php require_once("../include/footer.php"); ?>
->>>>>>> origin/UIgroup

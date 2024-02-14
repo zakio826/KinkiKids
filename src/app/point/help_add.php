@@ -40,7 +40,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 <main>
     <div class="mb-3 title"><h1>おてつだい</h1></div>
 
-    <div class ="mb-3 content">
+    <div <?php echo ($select === 'adult') ? 'class="content"' : 'class="content2"'; ?>>
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合のフォーム -->
             <form action="" method="post" class="adult-form">

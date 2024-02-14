@@ -78,9 +78,8 @@ $backgroundColor = ($select === 'adult') ?  '#AADBFF':'lemonchiffon'; // 適切�
     #menu-btn-check:checked ~ .menu-content {
         left: 0;/*メニューを画面内へ*/
     }
-
-    /* ナビゲーションバーの全体部分 */
-    .menu-content{
+    .menu-content {
+        max-width: 100vw;
         width: 100%;
         height: 100%;
         position: fixed;

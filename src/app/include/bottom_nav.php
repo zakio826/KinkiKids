@@ -4,6 +4,8 @@ $select = $_SESSION["select"];
 
 <style>
 nav {
+    max-width: 100vw;
+    width: 100%;
     text-align: center;
 }
 
@@ -146,42 +148,42 @@ a:hover {
 
 <nav class="bottom_nav_bar1">
     <ul>
-            <!-- <div class="bottom_nav_bar2">
-            </div> -->
+        <!-- <div class="bottom_nav_bar2">
+        </div> -->
 
-            <li class="bottom_nav_bar4">
-                <a href="<?php echo $absolute_path; ?>src/app/record/calendar.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/calendar_yellow.png" class="bottom_nav_img1">
-                </a>
-                <br><b class="bottom_nav_font1">カレンダー</b>
-            </li>
-            <li class="bottom_nav_bar4">
-                <a href="<?php echo $absolute_path; ?>src/app/point/help_add.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/help_mission.png" alt="お手伝い" class="bottom_nav_img1">
-                </a>
-                <br><b class="bottom_nav_font1">おてつだい</b>
-            </li>
-            <li class="bottom_nav_bar4">
-                <a href="<?php echo $absolute_path; ?>src/app/index.php">
-                    <img src="<?php echo $absolute_path; ?>static/assets/homeB.png" alt="ホーム" class="bottom_nav_img2">
-                </a>
-                <br><b class="bottom_nav_font1">ホーム</b>
-            </li>
-            <li class="bottom_nav_bar4">
-                <a href="<?php echo $absolute_path; ?>src/app/money/debt.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/bank_icon.png" alt="ぎんこう" class="bottom_nav_img1">
-                </a>
-                <br><b class="bottom_nav_font1">ぎんこう</b>
-            </li>
-            <li class="bottom_nav_bar4">
-                <a href="<?php echo $absolute_path; ?>src/app/spending/spending_input.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/okodukaityouA.png" alt="お小遣い帳" class="bottom_nav_img1">
-                </a>
-                <br><b class="bottom_nav_font1">おこづかい帳</b>
-            </li>
-            
-            <!-- <div class="bottom_nav_bar3">
-            </div> -->
+        <li class="bottom_nav_bar4">
+            <a href="<?php echo $absolute_path; ?>src/app/record/calendar.php">
+            <img src="<?php echo $absolute_path; ?>static/assets/calendar_yellow.png" class="bottom_nav_img1">
+            </a>
+            <br><b class="bottom_nav_font1">カレンダー</b>
+        </li>
+        <li class="bottom_nav_bar4">
+            <a href="<?php echo $absolute_path; ?>src/app/point/help_add.php">
+            <img src="<?php echo $absolute_path; ?>static/assets/help_mission.png" alt="お手伝い" class="bottom_nav_img1">
+            </a>
+            <br><b class="bottom_nav_font1">おてつだい</b>
+        </li>
+        <li class="bottom_nav_bar4">
+            <a href="<?php echo $absolute_path; ?>src/app/index.php">
+                <img src="<?php echo $absolute_path; ?>static/assets/homeB.png" alt="ホーム" class="bottom_nav_img2">
+            </a>
+            <br><b class="bottom_nav_font1">ホーム</b>
+        </li>
+        <li class="bottom_nav_bar4">
+            <a href="<?php echo $absolute_path; ?>src/app/money/debt.php">
+            <img src="<?php echo $absolute_path; ?>static/assets/bank_icon.png" alt="ぎんこう" class="bottom_nav_img1">
+            </a>
+            <br><b class="bottom_nav_font1">ぎんこう</b>
+        </li>
+        <li class="bottom_nav_bar4">
+            <a href="<?php echo $absolute_path; ?>src/app/spending/spending_input.php">
+            <img src="<?php echo $absolute_path; ?>static/assets/okodukaityouA.png" alt="お小遣い帳" class="bottom_nav_img1">
+            </a>
+            <br><b class="bottom_nav_font1">おこづかい帳</b>
+        </li>
+        
+        <!-- <div class="bottom_nav_bar3">
+        </div> -->
     </ul>
         
 </nav>

@@ -69,6 +69,16 @@ input[type="checkbox"] {
     min-width: 370px; /* 最小幅を設定 */
 }
 
+.content2 {
+    background-color: #f5d9a6;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 370px; /* 幅を固定 */
+    margin: 0 auto;
+    min-width: 370px; /* 最小幅を設定 */
+}
+
 /* スマートフォン用のスタイル */
 @media only screen and (max-width: 600px) {
     .content {
