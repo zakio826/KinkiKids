@@ -13,7 +13,7 @@ $select = $_SESSION["select"];
 
 
 if ($select !== 'child'):
-    header("Location: ../index.php");
+    header("Location: ../point/consent.php");
     exit();
 endif;
 
