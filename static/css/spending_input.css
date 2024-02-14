@@ -226,6 +226,7 @@ p.long-name {
 .spending_input_textarea {
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 90%;
 }
 
  */
@@ -255,4 +256,8 @@ input#date {
     margin-right: 20px;
     margin-bottom: 5px;
     writing-mode: horizontal-tb; /* ラベルのテキストを横書きにする */
+}
+
+input[type="text"] ,[type="number"] ,[type="int"]{
+    width: 90%;
 }
