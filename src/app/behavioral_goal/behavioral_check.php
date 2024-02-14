@@ -56,7 +56,8 @@ $behavioral_user_name = $behavioral_check->getusername();
                     <br>
                     
                     <a href="./setting_behavioral.php" class="btn btn-henkou">変更する</a>
-                    <br> <!-- ここに追加 -->
+                    <br>
+                    <br><!-- ここに追加 -->
                     <button type="submit" class="btn btn-touroku">登録する</button>
                     <div class="clear"></div>
                 </form>
