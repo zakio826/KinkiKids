@@ -204,13 +204,6 @@ echo '</script>';
                         <button type="submit" class="btn">返信</button>
                     </form>
 
-
-
-           
-
-
-
-
                 </div>
             </div>
         </div>
