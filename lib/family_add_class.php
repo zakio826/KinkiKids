@@ -30,7 +30,7 @@ class family_add {
                 // 入力情報に空白がないか検知
                 if ($usernames[$i] === "") {
                     $this->error['username'][$i] = "blank";
-                }else if(!preg_match('/\A[a-z\d]{1,100}+\z/i',$usernames[$i])){
+                }else if(!preg_match('/\A[a-zA-Z0-9._-]{1,20}\z/',$usernames[$i])){
                     $this->error['username'][$i] = 'format_error';
                 }
                 if ($passwords[$i] === "") {
@@ -69,12 +69,12 @@ class family_add {
                 $record = $user->fetch();
 
                 if ($record['cnt'] > 0) {
-                    $error['username'][$i] = 'duplicate';
+                    $this->error['username'][$i] = 'duplicate';
                 }  
             }
             
             // エラーがなければ次のページへ
-            if (!isset($error)) {
+            if (empty($this->error)) {
                 $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理

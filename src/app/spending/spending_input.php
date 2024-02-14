@@ -22,7 +22,7 @@ if (isset($_GET["pick_date"])) {
 
 <main class="l-main">
     <!-- 収支データ入力 -->
-    <section class="p-section p-section__records-input">
+    <section <?php echo ($select === 'adult') ? 'class="p-section p-section__records-input"': 'class="p-section2"' ; ?>>
         <form class="p-form p-form--input-record" name="recordInput" action="" method="POST">
             <input type="hidden" name="input_time" id="input_time" value="<?php echo date("Y/m/d-H:i:s"); ?>">
 
