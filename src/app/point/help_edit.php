@@ -22,13 +22,13 @@ if (isset($_GET['edit_help_id'])) {
 }
 
 // POSTされたデータを処理
-if (!empty($_POST)) {
+// if (!empty($_POST)) {
 
-    // フォームからの入力を受け取り、データベースを更新
-    $help->updateHelp($_POST);
-    header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
-    exit();
-}
+//     // フォームからの入力を受け取り、データベースを更新
+//     $help->updateHelp($_POST);
+//     header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
+//     exit();
+// }
 ?>
 
 <!-- ナビゲーションバー -->
@@ -36,16 +36,15 @@ if (!empty($_POST)) {
 
 <main>
     <h1>お手伝い編集</h1>
-    <h1>バグるのでまだ更新しないで！！！！</h1>
 
     <form action="" method="post">
-        <input type="hidden" name="help_id" value="<?php echo $edit_help_id; ?>">
-        <label for="help_name">お手伝い名：</label>
+        <input type="hidden" name="e_help_id" value="<?php echo $edit_help_id; ?>">
 
-        <input type="text" id="help_name" name="help_name" value="<?php echo htmlspecialchars($edit_help_info['help_name'], ENT_QUOTES, 'UTF-8'); ?>"><br>
-        <label for="get_point">獲得ポイント：</label>
+        <label for="help_name">お手伝い名：</label>
+        <input type="text" id="help_name" name="e_help_name" value="<?php echo htmlspecialchars($edit_help_info['help_name'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         
-        <input type="number" id="get_point" name="get_point" value="<?php echo htmlspecialchars($edit_help_info['get_point'], ENT_QUOTES, 'UTF-8'); ?>"><br>
+        <label for="get_point">獲得ポイント：</label>
+        <input type="number" id="e_get_point" name="e_get_point" value="<?php echo htmlspecialchars($edit_help_info['get_point'], ENT_QUOTES, 'UTF-8'); ?>"><br>
 
         <strong>担当者</strong>
         <?php $help->e_child_select($edit_help_id); ?><br>
