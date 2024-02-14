@@ -29,72 +29,7 @@ $user_id = $_SESSION['user_id'];
   <div class="item_edit_waku2">
     <h2 class="c-text c-text__subtitle">【支出カテゴリー編集】</h2>
 
-<<<<<<< HEAD
-  <main class="l-main">
-    <div class="item_edit_waku2">
-      <h2 class="c-text c-text__subtitle">【支出カテゴリー編集】</h2>
-
-      <div class="item_edit_waku">
-        <section class="p-section p-section__category-table">
-          <div class="item_edit_moji">
-            <table class="p-table p-table--category">
-              <tr class="p-table__head">
-                <th>項目</th>
-                <th>操作</th>
-              </tr>
-
-              <?php
-                // $table_list = ['spending_category', 'income_category', 'payment_method', 'creditcard', 'qr'];
-                // $table_name = $table_list[$editItem];
-                // if (in_array($table_name, $table_list) !== false) :
-                  $stmt = $db->prepare('SELECT user_id,income_expense_category_id, income_expense_category_name FROM income_expense_category WHERE (user_id = 31 OR user_id = :user_id) AND income_expense_flag = 1');
-                  $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-                  sql_check($stmt, $db);
-                  $stmt->execute();
-                  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
-                ?>
-                    <tr class="p-table__item">
-                      <td><?php echo h($row['income_expense_category_name']); ?></td>
-                      <td>
-                      <?php if ($row['user_id'] == 31) : ?>
-                        操作不可
-                      <?php else : ?>
-                        <!-- <a id="<?php echo 'item' . h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo 'item' . h($row['income_expense_category_id']); ?>');">削除</a> -->
-                        <a class='c-button c-button--bg-red delete' id="<?php echo h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>')" href=''>
-                        削除<i class="fa-regular fa-trash-can"></i></a>
-
-                        <?php endif; ?>
-                      </td>
-                    </tr>
-                <?php
-                  endwhile;
-                // else :
-                //   header('Location: ./index.php');
-                // endif;
-                ?>
-            </table>
-          </div>
-        </section>
-      
-
-      <section class="p-section p-section__category-edit">
-
-        <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
-          <input type="hidden" name="editItem" value="">
-          <!-- <a href="./item-add.php" class="btn-1">追加</a>      -->
-          <!-- <input class="c-button c-button--bg-blue" type="submit" name="add" value="【項目を追加】"> -->
-        </form>
-
-      </section>
-      <button onclick="location.href='https://kinkikids.sub.jp/src/app/spending/item-add.php?category=spend'" class="btn-1">項目を追加</button>
-      </div>
-
-      <h2 class="c-text c-text__subtitle">【収入カテゴリー編集】</h2>
-
-      <div class="item_edit_waku">
-=======
     <div class="item_edit_waku">
->>>>>>> origin/UIgroup
       <section class="p-section p-section__category-table">
         <div class="item_edit_moji">
           <table class="p-table p-table--category">
