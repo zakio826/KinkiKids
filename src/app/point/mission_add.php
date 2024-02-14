@@ -58,14 +58,14 @@ $missions = $mission->display_mission($family_id);
                         <strong>担当者:</strong> <?php $mission->person_select($mission_data['mission_id']); ?>
                     </li>
                     <?php if ($select === 'adult'): ?>
-                    <form action="" method="post">
-                        <!-- 編集　後回し！！ -->
-                        <button type="submit" class="">編集</button>
-                    </form>
-                    <form action="" method="post">
-                    <input type="hidden" name="delete_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
-                        <button type="submit" class="">削除</button>
-                    </form>
+                        <form action="mission_edit.php" method="get">
+                        <input type="hidden" name="edit_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
+                        <button type="submit" class="btn-1">編集</button>
+                        </form>
+                        <form action="" method="post">
+                        <input type="hidden" name="delete_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
+                            <button type="submit" class="btn-2">削除</button>
+                        </form>
                     <?php endif; ?>
                     <?php if ($select === 'child'): ?>
                         <form action="" method="post">
