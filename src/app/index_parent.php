@@ -25,21 +25,23 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     unset($_SESSION['family_success'], $_SESSION['family_count']);
 }
 
+$family_id = $_SESSION['family_id'];
+
 echo '<script>';
-$again_goal_passed = $index_parent_class->againgoalPassed();
+$again_goal_passed = $index_parent_class->againgoalPassed($family_id);
 if ($again_goal_passed) {
     echo 'alert("子供の目標の期限が過ぎています！");';
-    echo 'window.location.href = "./goal/goal.php";';  
+    echo 'window.location.href = "./goal/again_goal.php";';  
 }
 $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
 if ($point_norma_deadline_passed) {
     echo 'alert("ポイントノルマの期限が過ぎています！");';
-    echo 'window.location.href = "./point_norma/setting_norma.php";';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
 }
 $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
 if ($behavioral_goal_deadline_passed) {
     echo 'alert("行動目標の期限が過ぎています！");';
-    echo 'window.location.href = "./behavioral_goal/setting_behavioral.php";';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
 }
 echo '</script>';
 
@@ -95,6 +97,31 @@ echo '</script>';
                         </a>
                     </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
+                </b>
+            </div>
+        </div>
+
+        <hr class="index_parent_hr">
+
+        
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    ポイントノルマ：<p id="norma"></p>
+                    期限：<p id="norma_deadline"></p>
+                </b>
+            </div>
+        </div>
+
+        <hr class="index_parent_hr">
+
+
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    行動目標：<p id="behavioral_goal"></p>
+                    報酬ポイント：<p id="reward_point"></p>
+                    期限：<p id="behavioral_goal_deadline"></p>
                 </b>
             </div>
         </div>
@@ -192,7 +219,6 @@ echo '</script>';
                         <input type="text" name="message" required>
                         <button type="submit" class="btn">返信</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -212,7 +238,11 @@ echo '</script>';
     let day;
     let dayPoint;
     let allowance_amount;
-
+    let norma;
+    let norma_deadline;
+    let behavioral_goal;
+    let reward_point;
+    let behavioral_goal_deadline;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -227,6 +257,11 @@ echo '</script>';
                      target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
                      savings = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['savings'];?>;
                      points = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['have_points'];?>;
+
+                     behavioral_goal = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal'];?>';
+                     reward_point = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['reward_point'];?>';
+                     behavioral_goal_deadline = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal_deadline'];?>';
+
                      have = savings + points;
                      allowance_amount = <?php echo $index_parent_class->getChildAllowance($index_parent_class->getFamily()[$i]['user_id'])['allowance_amount']; ?>;
                      day = <?php echo $today->diff($deadline)->format('%a'); ?>;
@@ -236,9 +271,11 @@ echo '</script>';
                         } else {
                             dayPoint = target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>;
                         }
-                    } else {
-                        dayPoint = 0;
-                    }
+                     } else {
+                         dayPoint = 0;
+                     };
+                    norma = <?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_amount']; ?>;
+                    norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_deadline']; ?>';
 
                 <?php } ?>
             }
@@ -248,8 +285,14 @@ echo '</script>';
         document.getElementById('target_amount').innerHTML = target_amount;
         document.getElementById('savings').innerHTML = savings;
         document.getElementById('points').innerHTML = points;
-        document.getElementById('have').innerHTML = have;
-        document.getElementById('dayPoint').innerHTML = dayPoint;
+        //document.getElementById('have').innerHTML = have;
+        document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
+        document.getElementById('norma').innerHTML = norma;
+        document.getElementById('norma_deadline').innerHTML = norma_deadline;
+
+        document.getElementById('behavioral_goal').innerHTML = behavioral_goal;
+        document.getElementById('reward_point').innerHTML = reward_point;
+        document.getElementById('behavioral_goal_deadline').innerHTML = behavioral_goal_deadline;
     });
 
 

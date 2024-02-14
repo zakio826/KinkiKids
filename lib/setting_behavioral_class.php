@@ -108,7 +108,14 @@ class setting_behavioral {
         return array($userIds, $firstNames);
         }
 
-
+    public function deletebehavioralagain($family_id) {
+        $current_date = date("Y-m-d");
+        $query = "DELETE FROM behavioral_goal WHERE family_id = :family_id AND behavioral_goal_deadline < :current_date";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':current_date', $current_date);
+        $stmt->execute();
+    }
 }
 ?>
 

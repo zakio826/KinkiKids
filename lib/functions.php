@@ -36,7 +36,7 @@ function validation($datas,$confirm = true) {
 
     //ユーザー名のチェック
     if (empty($datas['username'])) {
-        $errors['username'] = 'Please enter username.';
+        $errors['username'] = 'ユーザー名が入力されていません。';
     }
     // else if(mb_strlen($datas['name']) > 20) {
     //     $errors['name'] = 'Please enter up to 20 characters.';
@@ -44,17 +44,17 @@ function validation($datas,$confirm = true) {
 
     //パスワードのチェック（正規表現）
     if (empty($datas["password"])) {
-        $errors['password']  = "Please enter a password.";
+        $errors['password']  = "パスワードが入力されていません。";
     } else if (!preg_match('/\A[a-z\d]{8,100}+\z/i',$datas["password"])) {
-        $errors['password'] = "Please set a password with at least 8 characters.";
+        $errors['password'] = "パスワードは8文字以上で入力して下さい。";
     }
 
     //パスワード入力確認チェック（ユーザー新規登録時のみ使用）
     if ($confirm) {
         if (empty($datas["confirm_password"])) {
-            $errors['confirm_password']  = "Please confirm password.";
+            $errors['confirm_password']  = "パスワードを確認してください。";
         } else if (empty($errors['password']) && ($datas["password"] != $datas["confirm_password"])) {
-            $errors['confirm_password'] = "Password did not match.";
+            $errors['confirm_password'] = "パスワードが間違っています。";
         }
     }
 

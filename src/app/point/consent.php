@@ -32,7 +32,7 @@ $debts = $consent->display_consent_debt($family_id);
 <main>
     <section>
     <div class="title">
-        <h1>承認</h1>
+        <h1>お手伝い承認</h1>
     </div>
     <br>
     <div class ="content">
@@ -49,12 +49,9 @@ $debts = $consent->display_consent_debt($family_id);
                         <button type="submit" class="btn-syounin">承認する</button>
                     </form>
                 </li>
+                <hr>
         <?php endforeach; ?>
-    </div>
-    <div class="title">
-        <h1>ミッション承認</h1>
-    </div>
-    <div class ="content">
+
         <?php foreach ($missions as $mission_data): ?>
                 <li>
                     <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
@@ -68,9 +65,9 @@ $debts = $consent->display_consent_debt($family_id);
                         <button type="submit" class="btn-syounin">承認する</button>
                     </form>
                 </li>
+                <hr>
         <?php endforeach; ?>
-    </div>
-    <div class ="content">
+
         <?php foreach ($debts as $debt_data): ?>
             <li>
                 <strong>内容:</strong> <?php echo $debt_data['contents']; ?><br>
@@ -87,7 +84,12 @@ $debts = $consent->display_consent_debt($family_id);
                     <button type="submit" class="btn-syounin">承認する</button>
                 </form>
             </li>
-        <?php endforeach; ?>
+            <hr>
+        <?php endforeach; 
+        if(empty($helps) && empty($missions) && empty($debts)){
+            echo "<p>承認まちはありません</p>";
+        }
+        ?>
     </div>
     </section>
         <!-- ボトムナビゲーションバー -->
