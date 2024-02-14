@@ -153,7 +153,7 @@ class help {
     }
 
     private function MessageGet($user_id, $help_id) {
-        $stmt = $this->db->prepare("SELECT help_name FROM help WHERE help_id = :help_id");
+        $stmt = $this->db->prepare("SELECT help_name,get_point FROM help WHERE help_id = :help_id");
         $stmt->bindParam(':help_id', $help_id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -164,38 +164,24 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                 
-        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']; 
+        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント".$result['get_point'].'pt'; 
     }
 
-    private function sendLineNotification($line_id, $message,$help_id) {
-        $stmt = $this->db->prepare("UPDATE LINEdatabase SET flag = 41 WHERE UID = :uid");
-        $stmt->bindParam(':uid', $line_id);
-        $stmt->execute();
-
+    private function sendLineNotification($line_id, $message, $help_id) {
         // LINE Messaging API SDKの読み込み
         require_once(__DIR__ . '/vendor/autoload.php');
     
         // LINE BOTの設定
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('bvUO7pMHtF+vhpf5OKz20kgcoO6Epwd/fYPljIuqA4GjL82Kw+Vt2+5OLKGAbauojY8/2Zaok5x9Fr6/pPPK6EbxZa6rSv9BCo+bbIsBcNuWPdHSYlyFuSVCw45efp68lEbENrfQDRu6ix+S3e/uFgdB04t89/1O/w1cDnyilFU=');
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'ae82ad82812d8d72b5662ccb43d232f8']);
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('Kze+ZgLB4x9rAdf5+UQ8Iv23kGgEWm+E3J13IuZY4KJ6SXkbR/6UE6UtcA5u7BLkvZI5Vo5654ZdzHs9DEuUJ/arEYPV7Saw/s+upXosGKuAYT3KtEq9itfyK60iBvAAJkkvF0CLPUP9YYG6c6aupQdB04t89/1O/w1cDnyilFU=');
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '78143eef9ac1707bb475fa8813339356']);
     
         // メッセージの送信
         $textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
         $bot->pushMessage($line_id, $textMessage);
     
-        // 確認ダイアログの送信
-        $confirmMessage = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-            '確認ダイアログ',
-            new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(
-                '承認しますか？',
-                [
-                    new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('はい', $help_id),
-                    new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('いいえ', 'いいえ')
-                ]
-            )
-        );
-
-        $bot->pushMessage($line_id, $confirmMessage);
+        // リンクの直接メッセージとして送信
+        $linkMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("確認してね\n".'https://kinkikids.sub.jp/src/app/point/consent.php?id=' . $line_id);
+        $bot->pushMessage($line_id, $linkMessage);
     }
 
     public function child_select() {
