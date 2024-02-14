@@ -9,78 +9,88 @@ class family_add {
         $this->error = [];
 
         if (!empty($_POST)) {
-            $usernames = $_POST['username'];
-            $passwords = $_POST['password'];
-            $first_names = $_POST['first_name'];
-            $last_names = $_POST['last_name'];
-            $birthdays = $_POST['birthday'];
-            $gender_ids = $_POST['gender_id'];
-            $role_ids = $_POST['role_id'];
-            $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array_fill(0, count($usernames), 0);
-            $savings = $_POST['savings'];
-            $allowances = $_POST['allowances'];
-            $payments = $_POST['payments'];
+            $savedData = isset($_SESSION['join']) ? $_SESSION['join'] : [];
+
+            // $usernames = $_POST['username'];
+            // $passwords = $_POST['password'];
+            // $first_names = $_POST['first_name'];
+            // $last_names = $_POST['last_name'];
+            // $birthdays = $_POST['birthday'];
+            // $gender_ids = $_POST['gender_id'];
+            // $role_ids = $_POST['role_id'];
+            // $admin_flags = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array_fill(0, count($usernames), 0);
+            // $savings = $_POST['savings'];
+            // $allowances = $_POST['allowances'];
+            // $payments = $_POST['payments'];
+            $savedData['username'] = $_POST['username'];
+            $savedData['password'] = $_POST['password'];
+            $savedData['first_name'] = $_POST['first_name'];
+            $savedData['last_name'] = $_POST['last_name'];
+            $savedData['birthday'] = $_POST['birthday'];
+            $savedData['gender_id'] = $_POST['gender_id'];
+            $savedData['role_id'] = $_POST['role_id'];
+            $savedData['admin_flag'] = isset($_POST['admin_flag']) ? $_POST['admin_flag'] : array_fill(0, count($_POST['username']), 0);
+            $savedData['savings'] = $_POST['savings'];
+            $savedData['allowances'] = $_POST['allowances'];
+            $savedData['payments'] = $_POST['payments'];
+
+            $_SESSION['join'] = $savedData;
 
             // 登録する家族のfamily_idを取得
             $family_id = $this->getFamilyId($_SESSION["user_id"]);
 
             // フォームから送信された各ユーザー情報をループ処理
-            for ($i = 0; $i < count($usernames); $i++) {
+            for ($i = 0; $i < count($savedData['username']); $i++) {
 
                 // 入力情報に空白がないか検知
-                if ($usernames[$i] === "") {
-                    $this->error['username'][$i] = "blank";
-                }else if(!preg_match('/\A[a-z\d]{1,100}+\z/i',$usernames[$i])){
-                    $this->error['username'][$i] = 'format_error';
+                if ($savedData['username'][$i] === "") {
+                    $error['username'][$i] = "blank";
                 }
-                if ($passwords[$i] === "") {
-                    $this->error['password'][$i] = "blank";
-                }else if(!preg_match('/\A[a-z\d]{8,100}+\z/i',$passwords[$i])){
-                    $this->error['password'][$i] = 'char_limit';
+                if ($savedData['password'][$i] === "") {
+                    $error['password'][$i] = "blank";
                 }
-                if ($first_names[$i] === "") {
-                    $this->error['first_name'][$i] = "blank";
+                if ($savedData['first_name'][$i] === "") {
+                    $error['first_name'][$i] = "blank";
                 }
-                if ($last_names[$i] === "") {
-                    $this->error['last_name'][$i] = "blank";
+                if ($savedData['last_name'][$i] === "") {
+                    $error['last_name'][$i] = "blank";
                 }
-                if ($birthdays[$i] === "") {
-                    $this->error['birthday'][$i] = "blank";
+                if ($savedData['birthday'][$i] === "") {
+                    $error['birthday'][$i] = "blank";
                 }
-                if ($gender_ids[$i] === "") {
-                    $this->error['gender_id'][$i] = "blank";
+                if ($savedData['gender_id'][$i] === "") {
+                    $error['gender_id'][$i] = "blank";
                 }
-                if ($role_ids[$i] === "") {
-                    $this->error['role_id'][$i] = "blank";
+                if ($savedData['role_id'][$i] === "") {
+                    $error['role_id'][$i] = "blank";
                 }
-                if (!is_numeric($savings[$i]) || $savings[$i] < 0 || $savings[$i] > 9999999999) {
-                    $this->error['savings'][$i] = "invalid";
+                if (!is_numeric($savedData['savings'][$i]) || $savedData['savings'][$i] < 0 || $savedData['savings'][$i] > 9999999999) {
+                    $error['savings'][$i] = "invalid";
                 }
-                if (!is_numeric($allowances[$i]) || $allowances[$i] < 0 || $allowances[$i] > 9999999999) {
-                    $this->error['allowances'][$i] = "invalid";
+                if (!is_numeric($savedData['allowances'][$i]) || $savedData['allowances'][$i] < 0 || $savedData['allowances'][$i] > 9999999999) {
+                    $error['allowances'][$i] = "invalid";
                 }
-                if (!is_numeric($payments[$i]) || $payments[$i] < 0 || $payments[$i] > 31) {
-                    $this->error['payments'][$i] = "invalid";
+                if (!is_numeric($savedData['payments'][$i]) || $savedData['payments'][$i] < 0 || $savedData['payments'][$i] > 31) {
+                    $error['payments'][$i] = "invalid";
                 }
 
                 // usernameの重複を検知
                 $user = $this->db->prepare('SELECT COUNT(*) as cnt FROM user WHERE username=?');
-                $user->execute(array($usernames[$i]));
+                $user->execute(array($savedData['username'][$i]));
                 $record = $user->fetch();
 
                 if ($record['cnt'] > 0) {
                     $error['username'][$i] = 'duplicate';
-                }  
+                }
             }
             
             // エラーがなければ次のページへ
             if (!isset($error)) {
-                $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理
-                for ($i = 0; $i < count($usernames); $i++) {
-                    $hash = password_hash($passwords[$i], PASSWORD_BCRYPT);
-                    $adminFlag = isset($admin_flags[$i]) ? 1 : 0;
+                for ($i = 0; $i < count($savedData['username']); $i++) {
+                    $hash = password_hash($savedData['password'][$i], PASSWORD_BCRYPT);
+                    $adminFlag = isset($savedData['admin_flag'][$i]) ? 1 : 0;
 
                     $statement = $this->db->prepare(
                         "INSERT INTO user (username, password, first_name, last_name, birthday, gender_id, role_id, admin_flag, family_id) ".
@@ -88,21 +98,21 @@ class family_add {
                     );
 
                     $statement->execute(array(
-                        $usernames[$i],
+                        $savedData['username'][$i],
                         $hash,
-                        $first_names[$i],
-                        $last_names[$i],
-                        $birthdays[$i],
-                        $gender_ids[$i],
-                        $role_ids[$i],
+                        $savedData['first_name'][$i],
+                        $savedData['last_name'][$i],
+                        $savedData['birthday'][$i],
+                        $savedData['gender_id'][$i],
+                        $savedData['role_id'][$i],
                         $adminFlag,
                         $family_id
                     ));
 
-                    $savedUserId = $this->getUserIdByUsername($usernames[$i]);
+                    $savedUserId = $this->getUserIdByUsername($savedData['username'][$i]);
 
                     $allowedRoleIds = [31, 32, 33, 34];
-                    if (in_array($role_ids[$i], $allowedRoleIds)) {
+                    if (in_array($savedData['role_id'][$i], $allowedRoleIds)) {
                         $allowanceStatement = $this->db->prepare(
                             "INSERT INTO allowance (user_id, family_id, allowance_amount, payment_day) ".
                             "VALUES (?, ?, ?, ?)"
@@ -116,8 +126,8 @@ class family_add {
                         $allowanceStatement->execute(array(
                             $savedUserId, // 保存されたユーザーのID
                             $family_id,
-                            $allowances[$i],
-                            $payments[$i]
+                            $savedData['allowances'][$i],
+                            $savedData['payments'][$i]
                         ));
                         
                         $savedAllowanceId = $this->getAllowanceIdByUserId($savedUserId);
@@ -128,14 +138,14 @@ class family_add {
                             0, // have_points
                             0, // max_lending
                             $savedAllowanceId,
-                            $savings[$i]
+                            $savedData['savings'][$i]
                         ));
                     }
                 }
 
                 unset($_SESSION['join']);   // セッションを破棄
                 $_SESSION['family_success'] = true;
-                $_SESSION['family_count'] = count($usernames);
+                $_SESSION['family_count'] = count($savedData['username']);
                 header('Location: ../index.php'); exit(); // thank.phpへ移動
             }
         }
@@ -176,59 +186,6 @@ class family_add {
             foreach($stmt as $record){
                 echo '<option value="' . $record[0] . '">' . $record[1] . "</option>";
             }
-        }
-    }
-
-    public function getError() {
-        return $this->error;
-    }
-
-    public function username_error($errorType) {
-        switch ($errorType) {
-            case 'blank':
-                echo '*ユーザー名を入力してください。';
-                break;
-            case 'duplicate':
-                echo '*そのユーザー名は既に使われています。';
-                break;
-            case 'format_error':
-                echo '*半角英数字で入力してください。';
-                break;
-        }
-    }
-
-    public function password_error($errorType) {
-        switch ($errorType) {
-            case 'blank':
-                echo '*パスワードを入力してください。';
-                break;
-            case 'char_limit':
-                echo '*半角英数字8文字以上で入力してください。';
-                break;
-        }
-    }
-
-    public function firstname_error($errorType) {
-        switch ($errorType) {
-            case 'blank':
-                echo '*名字を入力してください。';
-                break;
-        }
-    }
-
-    public function lastname_error($errorType) {
-        switch ($errorType) {
-            case 'blank':
-                echo '*名前を入力してください。';
-                break;
-        }
-    }
-
-    public function birthday_error($errorType) {
-        switch ($errorType) {
-            case 'blank':
-                echo '*誕生日を入力してください。';
-                break;
         }
     }
 }
