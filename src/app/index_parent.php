@@ -118,7 +118,7 @@ echo '</script>';
                     <b class="index_parent_mokuhyoumoji">
                         ポイントノルマ：<p id="norma"></p>
                         期限：<p id="norma_deadline"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
                             ＋
                         </a>
 
@@ -133,7 +133,7 @@ echo '</script>';
                         報酬ポイント：<p id="reward_point"></p>
                         期限：<p id="behavioral_goal_deadline"></p>
                         <!-- 行動目標に飛ぶボタン -->
-                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php" class="btn-p">
                             ＋
                         </a>
 
@@ -146,7 +146,7 @@ echo '</script>';
         <div class="slideshow">
 
             <form action="" method="post">
-                <button type="submit" name="left"><</button>
+                <button type="submit" name="left" class="btn-left"><</button>
                 <?php if($_SESSION['goal_select'] == 0){ ?>
                     <span><?php echo '購入目標'; ?></span>
                 <?php } elseif($_SESSION['goal_select'] == 1){ ?>
@@ -155,7 +155,7 @@ echo '</script>';
                     <span><?php echo '行動目標'; ?></span>
                 <?php } ?>
 
-                <button type="submit" name="right">></button>
+                <button type="submit" name="right" class="btn-right">></button>
             </form>
         </div>
 
@@ -182,25 +182,6 @@ echo '</script>';
         <input type="radio" name="slideshow" id="slide1" checked>
                 <input type="radio" name="slideshow" id="slide2">
                 <input type="radio" name="slideshow" id="slide3">
-            <div class="slideshow">
-                <div class="slides">
-                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouD.png" alt="購入目標">  
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
-                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouE.png" alt="ポイントノルマ">
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouF.png" alt="行動目標">
-                    </a>
-                </div>
-            </div>
-            <div class="slideshow-nav">
-                <label for="slide1" class="slides-nav"></label>
-                <label for="slide2" class="slides-nav"></label>
-                <label for="slide3" class="slides-nav"></label>
-            </div>
-            
 
         <hr class="index_parent_hr">
 
