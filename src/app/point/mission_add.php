@@ -77,7 +77,10 @@ $missions = $mission->display_mission($family_id);
             <?php endforeach; ?>
             </ul>
         <?php endif; ?>
+        <?php if ($select === 'adult'): ?><p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p><?php endif; ?>
+        <?php if ($select === 'child'): ?><p class="mt-3"><a href="child_consent.php" class="btn btn-primary">ポイント受け取り</a></p><?php endif; ?>
     </div>
+    
     </section>
 </main>
 <!-- ナビゲーションバー -->
