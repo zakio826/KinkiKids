@@ -91,5 +91,14 @@ class setting_norma {
         // 配列を返す
         return array($userIds, $firstNames);
         }
+
+        public function deletepointnorma($family_id) {
+            $current_date = date("Y-m-d");
+            $query = "DELETE FROM point_norma WHERE family_id = :family_id AND point_norma_deadline < :current_date";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':family_id', $family_id);
+            $stmt->bindParam(':current_date', $current_date);
+            $stmt->execute();
+        }
 }
 ?>

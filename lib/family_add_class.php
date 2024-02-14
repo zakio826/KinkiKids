@@ -29,34 +29,38 @@ class family_add {
 
                 // 入力情報に空白がないか検知
                 if ($usernames[$i] === "") {
-                    $error['username'][$i] = "blank";
+                    $this->error['username'][$i] = "blank";
+                }else if(!preg_match('/\A[a-zA-Z0-9._-]{1,20}\z/',$usernames[$i])){
+                    $this->error['username'][$i] = 'format_error';
                 }
                 if ($passwords[$i] === "") {
-                    $error['password'][$i] = "blank";
+                    $this->error['password'][$i] = "blank";
+                }else if(!preg_match('/\A[a-z\d]{8,100}+\z/i',$passwords[$i])){
+                    $this->error['password'][$i] = 'char_limit';
                 }
                 if ($first_names[$i] === "") {
-                    $error['first_name'][$i] = "blank";
+                    $this->error['first_name'][$i] = "blank";
                 }
                 if ($last_names[$i] === "") {
-                    $error['last_name'][$i] = "blank";
+                    $this->error['last_name'][$i] = "blank";
                 }
                 if ($birthdays[$i] === "") {
-                    $error['birthday'][$i] = "blank";
+                    $this->error['birthday'][$i] = "blank";
                 }
                 if ($gender_ids[$i] === "") {
-                    $error['gender_id'][$i] = "blank";
+                    $this->error['gender_id'][$i] = "blank";
                 }
                 if ($role_ids[$i] === "") {
-                    $error['role_id'][$i] = "blank";
+                    $this->error['role_id'][$i] = "blank";
                 }
                 if (!is_numeric($savings[$i]) || $savings[$i] < 0 || $savings[$i] > 9999999999) {
-                    $error['savings'][$i] = "invalid";
+                    $this->error['savings'][$i] = "invalid";
                 }
                 if (!is_numeric($allowances[$i]) || $allowances[$i] < 0 || $allowances[$i] > 9999999999) {
-                    $error['allowances'][$i] = "invalid";
+                    $this->error['allowances'][$i] = "invalid";
                 }
                 if (!is_numeric($payments[$i]) || $payments[$i] < 0 || $payments[$i] > 31) {
-                    $error['payments'][$i] = "invalid";
+                    $this->error['payments'][$i] = "invalid";
                 }
 
                 // usernameの重複を検知
@@ -65,12 +69,12 @@ class family_add {
                 $record = $user->fetch();
 
                 if ($record['cnt'] > 0) {
-                    $error['username'][$i] = 'duplicate';
-                }
+                    $this->error['username'][$i] = 'duplicate';
+                }  
             }
             
             // エラーがなければ次のページへ
-            if (!isset($error)) {
+            if (empty($this->error)) {
                 $_SESSION['join'] = $_POST;
 
                 // フォームから送信された各ユーザー情報をループ処理
@@ -172,6 +176,59 @@ class family_add {
             foreach($stmt as $record){
                 echo '<option value="' . $record[0] . '">' . $record[1] . "</option>";
             }
+        }
+    }
+
+    public function getError() {
+        return $this->error;
+    }
+
+    public function username_error($errorType) {
+        switch ($errorType) {
+            case 'blank':
+                echo '*ユーザー名を入力してください。';
+                break;
+            case 'duplicate':
+                echo '*そのユーザー名は既に使われています。';
+                break;
+            case 'format_error':
+                echo '*半角英数字で入力してください。';
+                break;
+        }
+    }
+
+    public function password_error($errorType) {
+        switch ($errorType) {
+            case 'blank':
+                echo '*パスワードを入力してください。';
+                break;
+            case 'char_limit':
+                echo '*半角英数字8文字以上で入力してください。';
+                break;
+        }
+    }
+
+    public function firstname_error($errorType) {
+        switch ($errorType) {
+            case 'blank':
+                echo '*名字を入力してください。';
+                break;
+        }
+    }
+
+    public function lastname_error($errorType) {
+        switch ($errorType) {
+            case 'blank':
+                echo '*名前を入力してください。';
+                break;
+        }
+    }
+
+    public function birthday_error($errorType) {
+        switch ($errorType) {
+            case 'blank':
+                echo '*誕生日を入力してください。';
+                break;
         }
     }
 }

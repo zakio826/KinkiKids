@@ -165,12 +165,11 @@ class mission {
 
             echo "<p>承認待ち</p>";
     
-            // TODO LINEBOTへの通知処理
-            // $line_id = $this->getLineId($help_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
-            // $result = $this->MessageGet($user_id,$help_id);
-            // $message = "お手伝いが完了しました。\n".$result;
+            $line_id = $this->getLineId($mission_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
+            $result = $this->MessageGet($user_id,$mission_id);
+            $message = "緊急ミッションが完了しました。\n".$result;
 
-            //$this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+            $this->sendLineNotification($line_id, $message,$mission_id); // LINEBOTに通知を送るメソッドを呼び出す
 
         }
     }
@@ -239,6 +238,55 @@ class mission {
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
+
+
+    private function getLineId($mission_id) {
+        // helpテーブルからuser_idを取得
+        $stmt = $this->db->prepare("SELECT user_id FROM mission WHERE mission_id = :mission_id");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // LINEdatabaseからUIDを取得
+        $stmt2 = $this->db->prepare("SELECT UID FROM LINEdatabase WHERE id = :user_id");
+        $stmt2->bindParam(':user_id', $result['user_id']);
+        $stmt2->execute();
+        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+        
+        return $result2['UID'];
+    }
+
+    private function MessageGet($user_id, $mission_id) {
+        $stmt = $this->db->prepare("SELECT mission_name FROM mission WHERE mission_id = :mission_id");
+        $stmt->bindParam(':mission_id', $mission_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        // LINEdatabaseからUIDを取得
+        $stmt2 = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+        $stmt2->bindParam(':user_id', $user_id);
+        $stmt2->execute();
+        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                
+        return "送信者:".$result2['first_name'] . "\n内容:" . $result['mission_name']; 
+    }
+
+    private function sendLineNotification($line_id, $message, $mission_id) {
+        // LINE Messaging API SDKの読み込み
+        require_once(__DIR__ . '/vendor/autoload.php');
+    
+        // LINE BOTの設定
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('Kze+ZgLB4x9rAdf5+UQ8Iv23kGgEWm+E3J13IuZY4KJ6SXkbR/6UE6UtcA5u7BLkvZI5Vo5654ZdzHs9DEuUJ/arEYPV7Saw/s+upXosGKuAYT3KtEq9itfyK60iBvAAJkkvF0CLPUP9YYG6c6aupQdB04t89/1O/w1cDnyilFU=');
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '78143eef9ac1707bb475fa8813339356']);
+    
+        // メッセージの送信
+        $textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
+        $bot->pushMessage($line_id, $textMessage);
+    
+        // リンクの直接メッセージとして送信
+        $linkMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("確認してね\n".'https://kinkikids.sub.jp/src/app/point/consent.php?id=' . $line_id);
+        $bot->pushMessage($line_id, $linkMessage);
     }
 
 }

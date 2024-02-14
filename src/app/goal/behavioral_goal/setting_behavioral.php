@@ -11,8 +11,6 @@ include("../include/header.php");
  require($absolute_path."lib/setting_behavioral_class.php");
  $setting_behavioral = new setting_behavioral($db);
  $familyId = $_SESSION['join']['family_id'];
-
- $setting_behavioral->deletebehavioralagain($familyId);
 ?>
 
 

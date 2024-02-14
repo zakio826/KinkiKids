@@ -66,7 +66,21 @@ class index_parent_class {
             return array(
                 'allowance_amount'=>0,
             );
-
+        }
+    }
+    public function getBehavioral($i) {
+        $stmt = $this->db->prepare("SELECT * FROM behavioral_goal WHERE behavioral_goal_user_id = :user_id");
+        $stmt->bindParam(':user_id', $i);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return array(
+                'behavioral_goal'=>'',
+                'reward_point'=>'',
+                'behavioral_goal_deadline'=>'',
+            );
         }
     }
     public function getPointNorma($i) {
@@ -76,8 +90,11 @@ class index_parent_class {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if(count($result) != 0){
             return $result[0];
-        } else {
-            return 0;
+        }else{
+            return array(
+                'point_norma_amount'=>0,
+                'point_norma_deadline'=>'ポイントノルマが設定されていません',
+            );
         }
     }
 
@@ -248,8 +265,8 @@ class index_parent_class {
     }
 
     public function getRequired_point() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id order by goal_deadline asc");
+        $stmt->bindParam(':goal_user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -304,8 +321,8 @@ class index_parent_class {
     }
 
     public function getOnerequired_point() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id order by goal_deadline asc");
+        $stmt->bindParam(':goal_user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -360,15 +377,18 @@ class index_parent_class {
             }
         }
     }
-    public function againgoalPassed()
+    public function againgoalPassed($family_id)
     {
         $current_date = date("Y-m-d");
-        $query = "SELECT COUNT(*) AS count FROM goal WHERE goal_deadline < '$current_date'";
+        $query = "SELECT COUNT(*) AS count FROM goal WHERE family_id = :family_id AND goal_deadline < :current_date";
         $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':family_id', $family_id);
+        $stmt->bindParam(':current_date', $current_date);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['count'] > 0;
     }
+
 
     public function checkPointNormaDeadlinePassed()
     {
