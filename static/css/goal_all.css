@@ -143,4 +143,5 @@ input[type="text"] {
 #target_amount {
     width: calc(85% - 40px); /* 30pxの余白を除いた幅に調整 */
     padding-right: 20px; /* 右側に余白を作成して円の単位を配置 */
+    padding: 9px;
 }
