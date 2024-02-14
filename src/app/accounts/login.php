@@ -112,14 +112,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
                 <div class="form-group_login">
                     <label>ユーザー名:</label>
-                    <input type="text" name="username" class="form-control <?php echo (!empty(h($errors['username']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
+                    <input type="text" name="username" class="form-control <?php echo (!empty($errors['username'])) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                     <!-- <span class="invalid-feedback"><?php echo h($errors['username']); ?></span> -->
+                    <?php 
+                    if(!empty($errors['username'])){
+                        echo $errors['username'];
+                    }
+                    ?>
                 </div>    
 
                 <div class="mb-3 form-group_login">
                     <label>パスワード:</label>
-                    <input type="password" name="password" class="form-control <?php echo (!empty(h($errors['password']))) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
+                    <input type="password" name="password" class="form-control <?php echo (!empty($errors['password'])) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['password']); ?>">
                     <!-- <span class="invalid-feedback"><?php echo h($errors['password']); ?></span> -->
+                    <?php
+                    if(!empty($errors['password'])){
+                        echo $errors['password'];
+                    }
+                    ?>
                 </div>
 
                 <div class="mb-3 form-group_login-login">
