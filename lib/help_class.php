@@ -14,7 +14,7 @@ class help {
                 $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
             } else if (isset($_POST["consent_help_id"])) {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
-            }else if($_POST["e_help_id"]){
+            }else if(isset($_POST["e_help_id"])){
                 if ($_POST['e_help_name'] === "") {
                     $error['e_help_name'] = "blank";
                 }
