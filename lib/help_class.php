@@ -191,7 +191,7 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                 
-        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント".$result['get_point'].'pt'; 
+        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント:".$result['get_point'].'pt'; 
     }
 
     private function sendLineNotification($line_id, $message, $help_id) {
