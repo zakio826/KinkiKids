@@ -15,13 +15,20 @@ $testpoint = new testpoint($db);
 
 
 require($absolute_path."lib/index_child_class.php");
-$index_child_class = new index_child_class($db);
+$user_id = $_SESSION["user_id"];
+$index_child_class = new index_child_class($db, $user_id);
 $have_points = $index_child_class->getHave_points();
 $savings = $index_child_class->getSavings();
 $have_money = $have_points+$savings;
 $goal_count = $index_child_class->getGoalCount();
 $help_count = $index_child_class->getHelpCount();
 $message_count = $index_child_class->getMessageCount();
+$repayment = $index_child_class->display_consent_repayment($user_id);
+
+if(isset($_SESSION['updated'])) {
+    echo '<script>alert("借金の返済をしました");</script>' ;
+    unset($_SESSION['updated']);
+}
 
 $index_child_class->message($db);
 ?>
@@ -38,6 +45,21 @@ $index_child_class->message($db);
     
     <section class="position-relative h-75">
     <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php" class="index_child_mokuhyouitiran">目標一覧</a>
+
+    <?php 
+    if (!empty($repayment)) {
+        echo '<h2>借金返済</h2>';
+        echo '<ul>';
+        foreach ($repayment as $repayment_data) {
+            echo '<li>';
+            echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
+            echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
+            echo '<button><a href="./money/repayment.php?debt_id=' . $repayment_data['debt_id'] . '"/button>借金返済する</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+    ?>
 
         <div class="index_child_mokuhyoucss1">
             <div class="index_child_mokuhyoucss2">
@@ -120,6 +142,15 @@ $index_child_class->message($db);
 
         
         <hr class="index_child_hr">
+        <div class="index_child_mokuhyoucss1">
+        <div class="index_child_mokuhyoucss2">
+
+        <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php">
+                <img src="<?php echo $absolute_path; ?>static/assets/kinkyuumi.png" height="50">
+                
+        </a>
+            </div>
+        </div>
         <br>
 
         <!-- <hr class="index_child_hr"> -->

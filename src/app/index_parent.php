@@ -25,8 +25,10 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
     unset($_SESSION['family_success'], $_SESSION['family_count']);
 }
 
+$family_id = $_SESSION['family_id'];
+
 echo '<script>';
-$again_goal_passed = $index_parent_class->againgoalPassed();
+$again_goal_passed = $index_parent_class->againgoalPassed($family_id);
 if ($again_goal_passed) {
     echo 'alert("子供の目標の期限が過ぎています！");';
     echo 'window.location.href = "./goal/again_goal.php";';  
@@ -34,12 +36,12 @@ if ($again_goal_passed) {
 $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
 if ($point_norma_deadline_passed) {
     echo 'alert("ポイントノルマの期限が過ぎています！");';
-    echo 'window.location.href = "./point_norma/setting_norma.php";';
+    echo 'window.location.href = "./point_norma/norma_again.php";';
 }
 $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
 if ($behavioral_goal_deadline_passed) {
     echo 'alert("行動目標の期限が過ぎています！");';
-    echo 'window.location.href = "./behavioral_goal/setting_behavioral.php";';
+    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
 }
 echo '</script>';
 
@@ -95,6 +97,15 @@ echo '</script>';
                         </a>
                     </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
+                </b>
+            </div>
+        </div>
+        
+        <div class="index_parent_mokuhyoucss1">
+            <div class="index_parent_mokuhyoucss2">
+                <b class="index_parent_mokuhyoumoji">
+                    ポイントノルマ：<p id="norma"></p>
+                    期限：<p id="norma_deadline"></p>
                 </b>
             </div>
         </div>
@@ -193,13 +204,6 @@ echo '</script>';
                         <button type="submit" class="btn">返信</button>
                     </form>
 
-
-
-           
-
-
-
-
                 </div>
             </div>
         </div>
@@ -219,6 +223,8 @@ echo '</script>';
     let day;
     let dayPoint;
     let allowance_amount;
+    let norma;
+    let norma_deadline;
     select.addEventListener('change', (e) => {
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
@@ -242,9 +248,11 @@ echo '</script>';
                         } else {
                             dayPoint = target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>;
                         }
-                    } else {
-                        dayPoint = 0;
-                    }
+                     } else {
+                         dayPoint = 0;
+                     };
+                    norma = <?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_amount']; ?>;
+                    norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_deadline']; ?>';
 
                 <?php } ?>
             }
@@ -254,8 +262,10 @@ echo '</script>';
         document.getElementById('target_amount').innerHTML = target_amount;
         document.getElementById('savings').innerHTML = savings;
         document.getElementById('points').innerHTML = points;
-        document.getElementById('have').innerHTML = have;
-        document.getElementById('dayPoint').innerHTML = dayPoint;
+        //document.getElementById('have').innerHTML = have;
+        document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
+        document.getElementById('norma').innerHTML = norma;
+        document.getElementById('norma_deadline').innerHTML = norma_deadline;
     });
 
 

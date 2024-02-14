@@ -1,0 +1,63 @@
+@use "../global" as g;
+@use "../foundation/mixin" as m;
+
+.p-section {
+  &__bank {
+    margin: 4rem 0 0;
+    text-align: center;
+    font-size: 2rem;
+
+    .debt,
+    .debt_book {
+      @include m.base;
+
+      &:hover {
+        background-color: gold;
+      }
+
+      h3 {
+        border: none;
+      }
+
+      &-box:not(:last-child) {
+        padding: 3px 25rem;
+      }
+
+      &-box {
+        padding: 3px 25rem;
+        display: inline-block;
+      }
+
+      &-box__overview {
+        justify-content: space-between;
+        .name {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .amount {
+      @include m.base;
+
+      &-box:not(:last-child) {
+        padding: 3px 25rem;
+      }
+
+      &-box {
+        padding: 3px 25rem;
+        display: inline-block;
+      }
+
+      &-box__overview {
+        justify-content: space-between;
+        .name {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    &.hide {
+      display: none;
+    }
+  }
+}

@@ -42,7 +42,7 @@ $familyId = $_SESSION['join']['family_id'];
 
             <div class="control-1">
                 <label for="target_amount">きんがく</label>
-                <input id="target_amount" type="int" name="target_amount"  placeholder="5,000">
+                <input id="target_amount" type="number" name="target_amount"  placeholder="5,000">
                 <b>円</b>
             </div>
  

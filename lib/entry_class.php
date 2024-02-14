@@ -95,7 +95,7 @@ class entry {
         //苗字が入力されてなければエラーを表示
         if (!empty($this->error['first_name'])) {
             switch ($this->error['first_name']) {
-                case 'blank': echo '＊苗字を入力してください。'; break;
+                case 'blank': echo '＊名字を入力してください。'; break;
             }
         }
     }
