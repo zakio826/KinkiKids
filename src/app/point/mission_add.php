@@ -20,6 +20,11 @@ $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 $missions = $mission->display_mission($family_id);
+
+$allc = "";
+if (isset($_GET["button1"])) {
+    $allc = "checked";
+} 
 ?>
 
 
@@ -35,9 +40,13 @@ $missions = $mission->display_mission($family_id);
     <div class ="content">
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合の入力フォーム -->
+            <form method="get">
+            <p class="choice">子供の選択 
+            <input type="submit" name="button1" class="btn-1" value="全員"> 
+            </p>
+            </form>
             <form action="" method="post" class="">
-                <p class="choice">子供の選択</p>
-                <?php $mission->child_select(); ?><br>
+                <?php $mission->child_select($allc); ?><br>
                 <label for="">ミッション名</label>
                 <input type="text" name="mission_name"><br>
                 <label for="">獲得ポイント</label>
