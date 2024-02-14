@@ -47,13 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー名</label>
-                            <input type="text" name="username[]"
+                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください"
                             value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]">
+                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください">
                         </div>
 
                         <div class="control">
