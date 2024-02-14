@@ -44,7 +44,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
-            <input type="int" name="debt_amount" required>
+            <input type="number" name="debt_amount" required>
             <?php 
             // if(isset($_SESSION['debt_error'])) {
             //     echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
@@ -54,11 +54,11 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
-            <input type="text" name="installments" required>
+            <input type="number" name="installments" required>
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
-            <input type="int" name="repayment_date" placeholder="日付をにゅうりょく" required>
+            <input type="number" name="repayment_date" placeholder="日付をにゅうりょく" required>
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
