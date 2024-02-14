@@ -27,7 +27,6 @@ if (isset($_GET['edit_mission_id'])) {
 
 <main>
     <h1>ミッション編集</h1>
-    <h1>バグるのでまだ更新しないで！！！！</h1>
 
     <form action="" method="post">
         <input type="hidden" name="e_mission_id" value="<?php echo $edit_mission_id; ?>">
