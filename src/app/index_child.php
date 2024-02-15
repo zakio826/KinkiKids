@@ -30,6 +30,8 @@ if(isset($_SESSION['updated'])) {
     unset($_SESSION['updated']);
 }
 
+
+
 $index_child_class->message($db);
 ?>
 
@@ -80,6 +82,7 @@ $index_child_class->message($db);
     }
     ?>
 
+<<<<<<< HEAD
 
 
             <div class="index_child_mokuhyoucss1">
@@ -139,6 +142,65 @@ $index_child_class->message($db);
 
 
 
+=======
+<div class="index_child_mokuhyoucss1">
+    <div class="index_child_mokuhyoucss2">
+        <?php if ($goal_count != 0) : ?>
+            <a href="./goal/goal_detail.php">
+                ちかぢかせまっているもくひょう<br>
+                <span>
+                    <?php
+                        $goalDetail = htmlspecialchars($index_child_class->getGoal_detail());
+                        echo '<span class="shortened-text">' . substr($goalDetail, 0, 15) . '</span>';
+                    ?>
+
+                    
+
+                    <!-- 全文表示用のspan -->
+                    <span class="full-text" style="display: none;">
+                        <?php 
+                        //echo $goalDetail; 
+                        echo substr($goalDetail, 0, 20)."<br>";
+                        echo substr($goalDetail, 21, 20)."<br>";
+                        echo substr($goalDetail, 41, 20)."<br>";
+                        ?>
+                    </span>
+
+                    <!-- 続きを読むチェックボックス -->
+                    <label class="expand-checkbox-label">
+                        <input type="checkbox" class="expand-checkbox"/>
+                        ...もっと見る
+                    </label>
+
+                    <br>
+
+                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                </span>
+            </a>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var checkbox = document.querySelector('.expand-checkbox');
+                    var shortenedText = document.querySelector('.shortened-text');
+                    var fullText = document.querySelector('.full-text');
+
+                    checkbox.addEventListener('change', function () {
+                        if (checkbox.checked) {
+                            shortenedText.style.display = 'none';
+                            fullText.style.display = 'inline';
+                        } else {
+                            shortenedText.style.display = 'inline';
+                            fullText.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+        <?php else : ?>
+            <span><p>目標がないので設定してください</p></span>
+        <?php endif; ?>
+    </div>
+</div>
+>>>>>>> origin/UIgroup
 
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">

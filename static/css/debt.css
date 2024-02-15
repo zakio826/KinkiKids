@@ -24,7 +24,7 @@ input {
     text-align: center;
 }
 
-input[type="text"] ,[type="number"]{
+input[type="text"] ,[type="number"] ,[type="int"]{
     width: 90%;
 }
 
