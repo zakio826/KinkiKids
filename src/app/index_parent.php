@@ -102,7 +102,7 @@ echo '</script>';
                 <div class="index_parent_mokuhyoucss2">
                     <br>
                     <b class="index_parent_mokuhyoumoji">
-                        目標：<p id="goal_detail"></p>
+                        購入目標：<p id="goal_detail"></p>
                         期限：<p id="goal_deadline"></p>
                         値段：<p id="target_amount"></p>
                         <div class="btn-p">
@@ -144,10 +144,7 @@ echo '</script>';
                 </div>
             </div>
         <?php } ?>
-        <br>
-        <!-- メニュー移動 -->
-        <div class="slideshow">
-
+        <form action="" method="post">
             <form action="" method="post">
                 <button type="submit" name="left" class="btn-left"><</button>
                 <?php if($_SESSION['goal_select'] == 0){ ?>

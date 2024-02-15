@@ -54,7 +54,8 @@ $select = $_SESSION["select"];
  
             <div class="control-1">
                 <label for="goal_detail">しょうさい</label>
-                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい"><br>
+                <p>※　50文字以内　※</p>
+                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい" maxlength="50"><br>
                 <?php $goal->detail_error(); ?>
             </div>
 
