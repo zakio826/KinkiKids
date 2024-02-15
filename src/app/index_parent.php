@@ -141,7 +141,6 @@ echo '</script>';
                 </div>
             </div>
         <?php } ?>
-<<<<<<< HEAD
         <form action="" method="post">
             <button type="submit" name="left"><</button>
             <?php if($_SESSION['goal_select'] == 0){ ?>
@@ -151,11 +150,6 @@ echo '</script>';
             <?php } elseif($_SESSION['goal_select'] == 2){ ?>
                 <span><?php echo '行動目標'; ?></span>
             <?php } ?>
-=======
-        <br>
-        <!-- メニュー移動 -->
-        <div class="slideshow">
->>>>>>> origin/UIgroup
 
             <form action="" method="post">
                 <button type="submit" name="left" class="btn-left"><</button>
