@@ -22,7 +22,7 @@ class help {
                     $this->error['e_get_point'] = "blank";
                 }
                 if (isset($_POST['e_help_person'])) {
-                    $this->e_person = $_POST['e_help_person'];
+                    $e_person = $_POST['e_help_person'];
                 } else {
                     $this->error['e_help_person'] = "blank";
                 }
@@ -388,6 +388,33 @@ class help {
     public function point_error() {
         if (!empty($this->error['get_point'])) {
             switch ($this->error['get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_person_error() {
+        if (!empty($this->error['e_help_person'])) {
+            switch ($this->error['e_help_person']) {
+                //子供が選択されていなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function e_helpname_error() {
+        if (!empty($this->error['e_help_name'])) {
+            switch ($this->error['e_help_name']) {
+                //お手伝い名が入力されていなければエラーを表示
+                case 'blank': echo '*お手伝い名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_point_error() {
+        if (!empty($this->error['e_get_point'])) {
+            switch ($this->error['e_get_point']) {
                 //獲得ポイントが入力されていなければエラーを表示
                 case 'blank': echo '*獲得ポイントを入力してください。'; break;
             }
