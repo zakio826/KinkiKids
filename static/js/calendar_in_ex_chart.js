@@ -21,8 +21,11 @@ let in_exChartData = {
             borderColor : "rgba(75, 192, 192, 0.8)",
             pointBackgroundColor : "rgba(75, 192, 192, 0.8)",
             pointRadius: 1.5,
-            // pointHitRadius: 0,
+            pointHoverRadius: 1.5,
+            pointHitRadius: 0,
+            lineCap: "round",
             borderWidth: 1.5,
+            intersect: false,
         },
         {
             type: 'bar',
@@ -31,7 +34,7 @@ let in_exChartData = {
             backgroundColor : "rgba(75, 192, 192, 0.2)",
             borderColor : "rgba(75, 192, 192, 1.0)",
             hoverBackgroundColor : "rgba(75, 192, 192, 0.5)",
-            borderWidth: 1,
+            borderWidth: 1.0,
             barPercentage: 1.0,
             barThickness: 30,
             // stack: 'Stack 0',
@@ -44,7 +47,7 @@ let in_exChartData = {
             borderColor : "rgba(54, 164, 235, 0.8)",
             hoverBackgroundColor : "rgba(54, 164, 235, 0.5)",
             hoverBorderColor : "rgba(54, 164, 235, 1.0)",
-            borderWidth: 1,
+            borderWidth: 1.0,
             barPercentage: 1.0,
             barThickness: 30,
             // stack: 'Stack 1',
@@ -57,7 +60,7 @@ let in_exChartData = {
             borderColor : "rgba(254, 97, 132, 0.8)",
             hoverBackgroundColor : "rgba(254, 97, 132, 0.5)",
             hoverBorderColor : "rgba(254, 97, 132, 1.0)",
-            borderWidth: 1,
+            borderWidth: 1.0,
             barPercentage: 1.0,
             barThickness: 30,
             // stack: 'Stack 1',
@@ -75,10 +78,10 @@ let in_exChartOption = {
         y: {
             type: "linear",
             ticks: {
-                suggestedMin: -5000,
-                suggestedMax: 5000,
-                min: -1000,
-                max: 1000,
+                suggestedMin: -1000,
+                suggestedMax: 1000,
+                min: -5000,
+                max: 5000,
                 stepSize: 500,
             },
         },
@@ -87,11 +90,29 @@ let in_exChartOption = {
         legend:{
             display: true,
             labels: {
-                filter: function(items) { 
-                  return items.datasetIndex != 0;  // data配列の0番目の凡例を非表示
+                filter: function(a, data) { 
+                  return (a.datasetIndex != 0);  // data配列の0番目の凡例を非表示
                 },
             }
-        }
+        },
+        tooltip: {
+            callbacks: {
+                label: function(context) { 
+                    var label = context.dataset.label || '';
+
+                    if (label) {
+                        label += '：';
+                    }
+                    if (context.formattedValue !== null) {
+                        label += context.formattedValue + '円';	// 単位
+                    }
+                    return label;
+                },
+            },
+            filter: function(a, data) {
+                return (a.datasetIndex != 0);
+            },
+        },
     }
 };
 
