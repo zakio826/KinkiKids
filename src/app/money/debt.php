@@ -54,11 +54,11 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
-            <input type="text" name="installments" required placeholder="※24回以内">
+            <input type="number" name="installments" required placeholder="※24回以内">
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
-            <input type="text" name="repayment_date" placeholder="日付をにゅうりょく" required>
+            <input type="date" name="repayment_date" placeholder="日付をにゅうりょく" required>
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
