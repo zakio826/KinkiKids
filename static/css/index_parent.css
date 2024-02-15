@@ -449,12 +449,13 @@ input[name="slideshow"]{
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #000000;
-    color: #FFF;
+    background: #C7EEEE;
+    color: #4f40ff;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
-    border: none;
+    border-color: #4f40ff;
+    border: 2px solid #4f40ff; /* ボーダースタイルを追加 */
 }
 
 /* 左ボタン */
@@ -464,12 +465,13 @@ input[name="slideshow"]{
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #000000;
-    color: #FFF;
+    background: #C7EEEE;
+    color: #4f40ff;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
-    border: none;
+    border-color: #4f40ff;
+    border: 2px solid #4f40ff; /* ボーダースタイルを追加 */
 }
 
 .select_user {
