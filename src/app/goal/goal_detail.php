@@ -12,7 +12,8 @@ require($absolute_path."lib/testpoint_class.php");
 $testpoint = new testpoint($db);
 
 require($absolute_path."lib/index_child_class.php");
-$index_child_class = new index_child_class($db);
+$user_id = $_SESSION["user_id"];
+$index_child_class = new index_child_class($db, $user_id);
 $have_points = $index_child_class->getHave_points();
 $savings = $index_child_class->getSavings();
 $have_money = $have_points+$savings;

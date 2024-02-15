@@ -35,6 +35,25 @@ if(isset($_SESSION['updated'])) {
 $index_child_class->message($db);
 ?>
 
+<?php
+    // セッション変数aが設定されていない場合は0で初期化
+    if (!isset($_SESSION['goal_select'])) {
+        $_SESSION['goal_select'] = 0;
+    }
+    // 右ボタンが押された場合
+    if (isset($_POST['right'])) {
+        $_SESSION['goal_select'] = ($_SESSION['goal_select'] + 1) % 3;
+        
+    }
+    // 左ボタンが押された場合
+    if (isset($_POST['left'])) {
+        $_SESSION['goal_select'] = ($_SESSION['goal_select'] - 1 + 3) % 3; // マイナス値を防ぐために3を加える
+    }
+    // 現在の値を取得
+    $goal_select = $_SESSION['goal_select'];
+?>
+
+
 
 <!-- ナビゲーションバー -->
 <?php include_once("./include/nav_bar.php") ?>
@@ -63,63 +82,65 @@ $index_child_class->message($db);
     }
     ?>
 
-<div class="index_child_mokuhyoucss1">
-    <div class="index_child_mokuhyoucss2">
-        <?php if ($goal_count != 0) : ?>
-            <a href="./goal/goal_detail.php">
-                ちかぢかせまっているもくひょう<br>
-                <span>
-                    <?php
-                        $goalDetail = htmlspecialchars($index_child_class->getGoal_detail());
-                        echo '<span class="shortened-text">' . substr($goalDetail, 0, 15) . '</span>';
-                    ?>
 
-                    
 
-                    <!-- 全文表示用のspan -->
-                    <span class="full-text" style="display: none;">
-                        <?php 
-                        //echo $goalDetail; 
-                        echo substr($goalDetail, 0, 20)."<br>";
-                        echo substr($goalDetail, 21, 20)."<br>";
-                        echo substr($goalDetail, 41, 20)."<br>";
-                        ?>
-                    </span>
+            <div class="index_child_mokuhyoucss1">
+                <div class="index_child_mokuhyoucss2">
+                    <?php if($_SESSION['goal_select'] == 0){ ?>
+                        <?php if ($goal_count != 0) { ?>
+                            <span>
+                                <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                                <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                                <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                                <br>
+                                <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                    ＋  
+                                </a>
+                            <span>
+                        <?php } else { ?>
+                            <span><p>目標がないので設定してください</p></span>
+                        <?php } ?>
 
-                    <!-- 続きを読むチェックボックス -->
-                    <label class="expand-checkbox-label">
-                        <input type="checkbox" class="expand-checkbox"/>
-                        ...もっと見る
-                    </label>
+                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                        <b class="index_parent_mokuhyoumoji">
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?><br>
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
+                            <br>
+                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                                ＋
+                            </a>
+                        </b>
+                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                        <b class="index_parent_mokuhyoumoji">
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']); ?><br>
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> 
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?> 円
+                            <br>
+                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                ＋
+                            </a>
 
-                    <br>
+                        </b>
+                    <?php } ?>
 
-                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
-                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
-                </span>
-            </a>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    var checkbox = document.querySelector('.expand-checkbox');
-                    var shortenedText = document.querySelector('.shortened-text');
-                    var fullText = document.querySelector('.full-text');
+                </div>
+            </div>
+        <form action="" method="post">
+            <button type="submit" name="left"><</button>
+            <?php if($_SESSION['goal_select'] == 0){ ?>
+                <span><?php echo '購入目標'; ?></span>
+            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                <span><?php echo 'ポイントノルマ'; ?></span>
+            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                <span><?php echo '行動目標'; ?></span>
+            <?php } ?>
 
-                    checkbox.addEventListener('change', function () {
-                        if (checkbox.checked) {
-                            shortenedText.style.display = 'none';
-                            fullText.style.display = 'inline';
-                        } else {
-                            shortenedText.style.display = 'inline';
-                            fullText.style.display = 'none';
-                        }
-                    });
-                });
-            </script>
-        <?php else : ?>
-            <span><p>目標がないので設定してください</p></span>
-        <?php endif; ?>
-    </div>
-</div>
+            <button type="submit" name="right">></button>
+        </form>
+
+
+
+
 
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
