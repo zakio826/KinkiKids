@@ -37,7 +37,14 @@ class consent {
             
         } elseif (isset($_POST["consent_debt_id"])){
             $debt_id = $_POST["consent_debt_id"];
-            $interest = $_POST["interest"];
+            if(!empty($_POST["interest"])){
+                $interest = $_POST["interest"];         
+            }else if(empty($_POST["interest"])){
+                $_SESSION["interest_error"] = "*利率を入力してください。";
+                header('Location: consent.php'); 
+                exit();
+            }
+            
 
             $query = "SELECT debt_amount, installments FROM debt WHERE debt_id = :debt_id";
             $stmt = $this->db->prepare($query);
