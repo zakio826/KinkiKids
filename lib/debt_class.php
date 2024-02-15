@@ -47,12 +47,12 @@ class debt {
     }
 
     private function getChildDataInfo($user_id) {
-        $stmt = $this->db->prepare("SELECT child_data_id, max_lending FROM child_data WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT child_data_id FROM child_data WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return [$result['child_data_id'], $result['max_lending']];
+        return [$result['child_data_id']];
     }
 }
 
