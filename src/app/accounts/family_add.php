@@ -12,10 +12,10 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
- if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
-     header("Location: ../index.php");
-     exit;
- }
+// if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+//     header("Location: ../index.php");
+//     exit;
+// }
 
 if (isset($_SESSION['join'])) {
     $savedData = $_SESSION['join'];
@@ -92,15 +92,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings">貯蓄</label>
-                            <input class="mb-3 savings-input" type="int" name="savings[]" value="0"
+                            <input class="mb-3 savings-input" type="number" name="savings[]" value="0"
                             value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : ''; ?>">
 
                             <label for="allowances">お小遣い金額</label>
-                            <input class="allowance-input" type="int" name="allowances[]" value="0"
+                            <input class="allowance-input" type="number" name="allowances[]" value="0"
                             value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : ''; ?>">
 
                             <label for="payments">受取日</label>
-                            <input class="payment-input" type="int" name="payments[]" value="0"
+                            <input class="payment-input" type="number" name="payments[]" value="0"
                             value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : ''; ?>">
                         </div>
 

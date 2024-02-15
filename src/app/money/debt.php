@@ -25,11 +25,7 @@ if(isset($_SESSION['debt'])) {
 
 ?>
 
-
-<!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
-
-<main>
 
 <main>
 <div class="mb-3 title"><h1>ぎんこう</h1></div>
@@ -44,7 +40,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
-            <input type="text" name="debt_amount" required>
+            <input type="number" name="debt_amount" required>
             <?php 
             // if(isset($_SESSION['debt_error'])) {
             //     echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
@@ -54,11 +50,11 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
-            <input type="text" name="installments" required placeholder="※24回以内">
+            <input type="number" name="installments" required placeholder="※24回以内">
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
-            <input type="text" name="repayment_date" placeholder="日付をにゅうりょく" required>
+            <input type="date" name="repayment_date" placeholder="日付をにゅうりょく" required>
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
@@ -67,4 +63,5 @@ if(isset($_SESSION['debt'])) {
 <script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
 <!-- フッター -->
-<?php include_once("../include/footer.php"); ?>
+<?php include_once("../include/bottom_nav.php") ?>
+<?php require_once("../include/footer.php"); ?>

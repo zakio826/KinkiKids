@@ -402,7 +402,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
                             <span class="col-auto my-1 text-center"><?php echo $in_ex_title[$i]; ?></span>
                             <span class="col-auto my-1 text-center">
                                 <?php
-                                if (isset($in_exDataset["data"][$i]["合計金額"])) :
+                                if (!empty($in_exDataset["data"][$i]["合計金額"])) :
                                     if ($i == 0) :
                                         echo end($in_exDataset["data"][$i]["合計金額"])*-1;
                                     else :
