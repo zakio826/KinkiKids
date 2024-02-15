@@ -151,6 +151,7 @@ class mission {
             echo "<button type='submit'>やりました！</button>";
         }   
     }
+
     public function consentmissionToDatabase($mission_id) {
         if(isset($_SESSION["user_id"])){
             $user_id = $_SESSION["user_id"];
@@ -164,15 +165,15 @@ class mission {
             $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<p>承認待ち</p>";
-    
             $line_id = $this->getLineId($mission_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
-            $result = $this->MessageGet($user_id,$mission_id);
-            $message = "緊急ミッションが完了しました。\n".$result;
-
-            $this->sendLineNotification($line_id, $message,$mission_id); // LINEBOTに通知を送るメソッドを呼び出す
-
+            if($line_id){
+                $result = $this->MessageGet($user_id,$mission_id);
+                $message = "緊急ミッションが完了しました。\n".$result;
+                $this->sendLineNotification($line_id, $message,$mission_id); // LINEBOTに通知を送るメソッドを呼び出す
+            } 
         }
     }
+
     public function getmissionInfo($mission_id) {
         $stmt = $this->db->prepare("SELECT * FROM mission WHERE mission_id = :mission_id");
         $stmt->bindParam(':mission_id', $mission_id);
@@ -254,9 +255,12 @@ class mission {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         
-        return $result2['UID'];
+        if(isset($result2['UID'])) {
+            return $result2['UID'];
+        } else {
+            return null;
+        }
     }
-
     private function MessageGet($user_id, $mission_id) {
         $stmt = $this->db->prepare("SELECT mission_name FROM mission WHERE mission_id = :mission_id");
         $stmt->bindParam(':mission_id', $mission_id);

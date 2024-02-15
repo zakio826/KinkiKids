@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <img src="<?php echo $absolute_path; ?>static/assets/logo_hiyoko.png" class="login_hiyoko" alt="ロゴとひよこ">
             
             <h1>ログイン</h1>
-            <p>ログイン情報を入力してください</p>
+            <p>ログイン<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>入力<rt>にゅうりょく</rt></ruby>してください</p>
 
             <?php if(!empty($login_err)) : ?>
                 <div class="alert alert-danger"><?php echo $login_err; ?></div>
@@ -111,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
                 <div class="form-group_login">
-                    <label>ユーザー名:</label>
+                    <label>ユーザー<ruby>名<rt>めい</rt></ruby>:</label>
                     <input type="text" name="username" class="form-control <?php echo (!empty($errors['username'])) ? 'is-invalid' : ''; ?>" value="<?php echo h($datas['username']); ?>">
                     <!-- <span class="invalid-feedback"><?php echo h($errors['username']); ?></span> -->
                     <?php 
@@ -137,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="submit" class="btn btn-primary" value="ログイン">
                 </div>
 
-                <p>アカウントがない場合 <br><a href="./entry.php">ここからサインアップしてください</a></p>
+                <p>アカウントがない<ruby>場合<rt>ばい</rt></ruby><br><a href="./entry.php">ここからサインアップしてください</a></p>
             </form>
         </div>
     </div>
