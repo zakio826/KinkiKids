@@ -10,7 +10,10 @@ $family_id = $_SESSION["family_id"];
 $repayment = new repayment($db, $user_id, $family_id);
 $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
 $debt_info = $repayment->getDebtInfo($debt_id);
-
+if($debt_info['repayment_date'] !== date('Y-m-d')) {
+    header("Location: ../index.php");
+    exit;
+}
 ?>
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>

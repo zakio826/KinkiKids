@@ -39,16 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <div class="form-group_entry">
                             <label for="username">ユーザー<ruby>名<rt>めい</rt></ruby></label>
-                            <input id="username" type="text" name="username" class="form-control_entry" placeholder="※半角英数字で入力してください"
+                            <input id="username" type="text" name="username" class="form-control_entry"
                             value="<?php echo isset($_SESSION['join']['username']) ? htmlspecialchars($_SESSION['join']['username'], ENT_QUOTES) : ''; ?>">
                             <?php $entry->username_error(); ?>
+                            <p class="note"><b>※半角英数字20文字以内</b></p>
+                            <p class="note"><b>※特殊文字（. - _）のみ使用可能</b></p>
                         </div>
 
                         <div class="form-group_entry">
                             <label for="password">パスワード</label>
-                            <input id="password" type="password" name="password" class="form-control_entry" placeholder="※半角英数字で入力してください"
+                            <input id="password" type="password" name="password" class="form-control_entry"
                             value="<?php echo isset($_SESSION['join']['password']) ? htmlspecialchars($_SESSION['join']['password'], ENT_QUOTES) : ''; ?>">
                             <?php $entry->password_error(); ?>
+                            <p class="note"><b>※半角英数字8文字以上</b></p>
                         </div>
 
                         <div class="form-group_entry">

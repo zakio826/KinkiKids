@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+@import url('https://fonts.目標がgoogleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
 /* 全体の部分 */
 body {
@@ -6,6 +6,9 @@ body {
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
+.full-text{
+    color: blueviolet;
+}
 .action-btn {
 background-color: lemonchiffon;
 border-radius: 2rem;
@@ -149,6 +152,8 @@ display: none;
 }
 
 
+
+
 /* ------------------------------------------------- */
 /* 目標の部分 */
 /* ------------------------------------------------- */
@@ -191,6 +196,16 @@ display: none;
     font-size: 20px;
 
 }
+
+.expand-checkbox {
+    display: none;
+}
+.expand-checkbox-label:hover {
+    /* ホバー時のスタイルを指定 */
+    color: red;
+    /* 他のスタイルも必要に応じて追加 */
+}
+
 
 /* ------------------------------------------------- */
 /* ただの線 */

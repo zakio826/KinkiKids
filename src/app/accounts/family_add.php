@@ -12,10 +12,10 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
-if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
-    header("Location: ../index.php");
-    exit;
-}
+// if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+//     header("Location: ../index.php");
+//     exit;
+// }
 
 if (isset($_SESSION['join'])) {
     $savedData = $_SESSION['join'];
@@ -47,24 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー<ruby>名<rt>めい</rt></ruby></label>
-                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください"
+                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください" required
                             value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください">
+                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください" required>
                         </div>
 
                         <div class="control">
                             <label for="last_name"><ruby>名字<rt>みょうじ</rt></ruby></label>
-                            <input type="text" name="last_name[]"
+                            <input type="text" name="last_name[]" required
                             value="<?php echo (isset($savedData['last_name'][$i]) && !empty($savedData['last_name'][$i])) ? $savedData['last_name'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="first_name"><ruby>名前<rt>なまえ</rt></ruby></label>
-                            <input type="text" name="first_name[]"
+                            <input type="text" name="first_name[]" required
                             value="<?php echo (isset($savedData['first_name'][$i]) && !empty($savedData['first_name'][$i])) ? $savedData['first_name'][$i] : ''; ?>">
                         </div>
 
@@ -92,16 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings"><ruby>貯蓄<rt>ちょちく</rt></ruby></label>
-                            <input class="mb-3 savings-input" type="int" name="savings[]" value="0"
-                            value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : ''; ?>">
+                            <input class="mb-3 savings-input" type="int" name="savings[]" required
+                            value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : '0'; ?>">
 
                             <label for="allowances">お<ruby>小遣<rt>こづか</rt></ruby>い<ruby>金額<rt>きんがく</rt></ruby></label>
-                            <input class="allowance-input" type="int" name="allowances[]" value="0"
-                            value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : ''; ?>">
+                            <input class="allowance-input" type="int" name="allowances[]" required
+                            value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : '0'; ?>">
 
                             <label for="payments"><ruby>受取日<rt>うけとりび</rt></ruby></label>
-                            <input class="payment-input" type="int" name="payments[]" value="0"
-                            value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : ''; ?>">
+                            <input class="payment-input" type="int" name="payments[]" required
+                            value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : '0'; ?>">
                         </div>
 
                         <div class="control">

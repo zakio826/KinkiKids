@@ -103,3 +103,6 @@ ul {
     color: #525ED2;
     margin-top: 0;
 }
+input [type="int"]{
+    width: 90%;
+}

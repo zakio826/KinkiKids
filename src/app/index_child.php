@@ -30,6 +30,8 @@ if(isset($_SESSION['updated'])) {
     unset($_SESSION['updated']);
 }
 
+
+
 $index_child_class->message($db);
 ?>
 

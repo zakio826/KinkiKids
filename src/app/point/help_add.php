@@ -55,10 +55,13 @@ if (isset($_GET["button1"])) {
             <form action="" method="post" class="adult-form">
                 
                 <?php $help->child_select($allc); ?><br>
+                <?php $help->person_error(); ?>
                 <label for="help_name">お手伝い名</label>
                 <input type="text" name="help_name"><br>
+                <?php $help->helpname_error(); ?>
                 <label for="get_point">獲得ポイント</label>
                 <input type="number" name="get_point"><br>
+                <?php $help->point_error(); ?>
 
                 <button type="submit" class="btn-touroku">登録</button>
             </form>
@@ -86,7 +89,7 @@ if (isset($_GET["button1"])) {
     <?php endif; ?>
 
     
-        <div class="scroll_bar">
+        <div class= <?php echo ($select === 'adult') ? "scroll_bar_adult" : "scroll_bar_child" ;?>>
 
         <?php if (empty($helps)): ?>
             <p>お手伝いはありません。</p>

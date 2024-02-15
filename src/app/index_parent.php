@@ -87,7 +87,6 @@ echo '</script>';
         ?>
 
         <select id="user">
-            <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
 
@@ -102,7 +101,7 @@ echo '</script>';
                 <div class="index_parent_mokuhyoucss2">
                     <br>
                     <b class="index_parent_mokuhyoumoji">
-                        目標：<p id="goal_detail"></p>
+                        購入目標：<p id="goal_detail"></p>
                         期限：<p id="goal_deadline"></p>
                         値段：<p id="target_amount"></p>
                         <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
@@ -118,7 +117,7 @@ echo '</script>';
                     <b class="index_parent_mokuhyoumoji">
                         ポイントノルマ：<p id="norma"></p>
                         期限：<p id="norma_deadline"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
                             ＋
                         </a>
 
@@ -132,7 +131,8 @@ echo '</script>';
                         行動目標：<p id="behavioral_goal"></p>
                         報酬ポイント：<p id="reward_point"></p>
                         期限：<p id="behavioral_goal_deadline"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                        <!-- 行動目標に飛ぶボタン -->
+                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php" class="btn-p">
                             ＋
                         </a>
 
@@ -141,17 +141,19 @@ echo '</script>';
             </div>
         <?php } ?>
         <form action="" method="post">
-            <button type="submit" name="left"><</button>
-            <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '購入目標'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                <span><?php echo 'ポイントノルマ'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                <span><?php echo '行動目標'; ?></span>
-            <?php } ?>
+            <form action="" method="post">
+                <button type="submit" name="left" class="btn-left"><</button>
+                <?php if($_SESSION['goal_select'] == 0){ ?>
+                    <span><?php echo '購入目標'; ?></span>
+                <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                    <span><?php echo 'ポイントノルマ'; ?></span>
+                <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                    <span><?php echo '行動目標'; ?></span>
+                <?php } ?>
 
-            <button type="submit" name="right">></button>
-        </form>
+                <button type="submit" name="right" class="btn-right">></button>
+            </form>
+        </div>
 
 
         <hr class="index_parent_hr">
@@ -176,25 +178,6 @@ echo '</script>';
         <input type="radio" name="slideshow" id="slide1" checked>
                 <input type="radio" name="slideshow" id="slide2">
                 <input type="radio" name="slideshow" id="slide3">
-            <div class="slideshow">
-                <div class="slides">
-                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouD.png" alt="購入目標">  
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
-                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouE.png" alt="ポイントノルマ">
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouF.png" alt="行動目標">
-                    </a>
-                </div>
-            </div>
-            <div class="slideshow-nav">
-                <label for="slide1" class="slides-nav"></label>
-                <label for="slide2" class="slides-nav"></label>
-                <label for="slide3" class="slides-nav"></label>
-            </div>
-            
 
         <hr class="index_parent_hr">
 
@@ -377,6 +360,92 @@ echo '</script>';
         let str = message.join('<br>');
         document.getElementById('order-string').innerHTML = str;
     });
+
+
+
+
+
+
+let selected_value = document.getElementById('user').value;
+<?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
+    if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['user_id'] ?>){
+        <?php 
+            $today = new DateTime('now');
+            $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
+        ?>
+        <?php if($today->format('Y-m-d') <= $deadline->format('Y-m-d')){ ?>
+                goal_detail = '<?php echo $index_parent_class->getFamily()[$i]['goal_detail'];?>';
+                goal_deadline = '<?php echo $index_parent_class->getFamily()[$i]['goal_deadline'];?>';
+                target_amount = '<?php echo $index_parent_class->getFamily()[$i]['target_amount'];?>';
+                savings = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['savings'];?>;
+                points = <?php echo $index_parent_class->getChildSavings($index_parent_class->getFamily()[$i]['user_id'])['have_points'];?>;
+
+                behavioral_goal = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal'];?>';
+                reward_point = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['reward_point'];?>';
+                behavioral_goal_deadline = '<?php echo $index_parent_class->getBehavioral($index_parent_class->getFamily()[$i]['user_id'])['behavioral_goal_deadline'];?>';
+
+                have = savings + points;
+                allowance_amount = <?php echo $index_parent_class->getChildAllowance($index_parent_class->getFamily()[$i]['user_id'])['allowance_amount']; ?>;
+                day = <?php echo $today->diff($deadline)->format('%a'); ?>;
+                if(target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?> >= 0){
+                    if(day != 0){
+                        dayPoint = (target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>) / day;
+                } else {
+                    dayPoint = target_amount - have - allowance_amount * <?php echo date_diff($today, $deadline)->m; ?>;
+                }
+                } else {
+                    dayPoint = 0;
+                };
+            norma = <?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_amount']; ?>;
+            norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['user_id'])['point_norma_deadline']; ?>';
+
+        <?php } ?>
+    }
+<?php } ?>
+
+document.getElementById('savings').innerHTML = savings;
+document.getElementById('points').innerHTML = points;
+document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
+
+
+<?php if($_SESSION['goal_select'] == 0){ ?>
+    document.getElementById('goal_detail').innerHTML = goal_detail;
+    document.getElementById('goal_deadline').innerHTML = goal_deadline;
+    document.getElementById('target_amount').innerHTML = target_amount;
+<?php } elseif($_SESSION['goal_select'] == 1){ ?>
+    document.getElementById('norma').innerHTML = norma;
+    document.getElementById('norma_deadline').innerHTML = norma_deadline;
+<?php } elseif($_SESSION['goal_select'] == 2){ ?>
+    document.getElementById('behavioral_goal').innerHTML = behavioral_goal;
+    document.getElementById('reward_point').innerHTML = reward_point;
+    document.getElementById('behavioral_goal_deadline').innerHTML = behavioral_goal_deadline;
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 <!-- ナビゲーションバー -->

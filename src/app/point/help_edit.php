@@ -42,12 +42,15 @@ if (isset($_GET['edit_help_id'])) {
 
         <label for="help_name">お手伝い名：</label>
         <input type="text" id="help_name" name="e_help_name" value="<?php echo htmlspecialchars($edit_help_info['help_name'], ENT_QUOTES, 'UTF-8'); ?>"><br>
+        <?php $help->e_helpname_error(); ?>
         
         <label for="get_point">獲得ポイント：</label>
         <input type="number" id="e_get_point" name="e_get_point" value="<?php echo htmlspecialchars($edit_help_info['get_point'], ENT_QUOTES, 'UTF-8'); ?>"><br>
+        <?php $help->e_point_error(); ?>
 
         <strong>担当者</strong>
         <?php $help->e_child_select($edit_help_id); ?><br>
+        <?php $help->e_person_error(); ?>
         <button type="submit">更新</button>
     </form>
 </main>
