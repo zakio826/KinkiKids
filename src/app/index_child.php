@@ -74,15 +74,15 @@ $index_child_class->message($db);
                         echo '<span class="shortened-text">' . substr($goalDetail, 0, 15) . '</span>';
                     ?>
 
-                    
+                                            
 
                     <!-- 全文表示用のspan -->
                     <span class="full-text" style="display: none;">
                         <?php 
                         //echo $goalDetail; 
                         echo substr($goalDetail, 0, 20)."<br>";
-                        echo substr($goalDetail, 21, 20)."<br>";
-                        echo substr($goalDetail, 41, 20)."<br>";
+                        echo substr($goalDetail, 20, 20)."<br>";
+                        echo substr($goalDetail, 40, 20)."<br>";
                         ?>
                     </span>
 
