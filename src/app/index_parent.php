@@ -86,10 +86,13 @@ echo '</script>';
         $goal_select = $_SESSION['goal_select'];
         ?>
 
+        <div class="select_user">
         <select id="user">
             <option value=""></option>
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
+        </div>
+
 
 
 

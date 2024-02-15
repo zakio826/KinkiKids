@@ -426,6 +426,7 @@ input[name="slideshow"]{
     align-items: center;
 }
 
+/* プラスボタン */
 .btn-p a {
     border-radius: 50%;
     display: flex;
@@ -439,4 +440,38 @@ input[name="slideshow"]{
     text-align: center;
     margin: 0 auto;
     font-weight: 900;
+}
+
+/* 右ボタン */
+.btn-right {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #000000;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border: none;
+}
+
+/* 左ボタン */
+.btn-left {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #000000;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border: none;
+}
+
+.select_user {
+    text-align: center;
 }
