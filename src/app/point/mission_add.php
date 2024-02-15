@@ -47,10 +47,13 @@ if (isset($_GET["button1"])) {
             </form>
             <form action="" method="post" class="">
                 <?php $mission->child_select($allc); ?><br>
+                <?php $mission->person_error(); ?>
                 <label for="">ミッション名</label>
                 <input type="text" name="mission_name"><br>
+                <?php $mission->missionname_error(); ?>
                 <label for="">獲得ポイント</label>
                 <input type="number" name="mission_get_point"><br>
+                <?php $mission->point_error(); ?>
 
                 <button type="submit" class="">登録</button>
             </form>
