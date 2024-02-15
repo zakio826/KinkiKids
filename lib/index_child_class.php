@@ -263,7 +263,7 @@ class index_child_class {
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if(count($result) != 0){
-                    $allowance_amount = $result['allowance_amount'];
+                    $allowance_amount = $result[0]['allowance_amount'];
                 } else {
                     $allowance_amount = 0;
                 }
@@ -327,7 +327,7 @@ class index_child_class {
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if(count($result) != 0){
-                    $allowance_amount = $result['allowance_amount'];
+                    $allowance_amount = $result[0]['allowance_amount'];
                 } else {
                     $allowance_amount = 0;
                 }
