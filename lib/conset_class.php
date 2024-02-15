@@ -12,10 +12,10 @@ class consent {
         if (isset($_POST["consent_help_id"])){
             $help_id = $_POST["consent_help_id"];
 
-        $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
-        $stmt->bindParam(':help_id', $help_id);
-        $stmt->execute();
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "承認しました";
             
