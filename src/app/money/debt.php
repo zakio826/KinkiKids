@@ -25,11 +25,7 @@ if(isset($_SESSION['debt'])) {
 
 ?>
 
-
-<!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
-
-<main>
 
 <main>
 <div class="mb-3 title"><h1>ぎんこう</h1></div>
@@ -67,4 +63,5 @@ if(isset($_SESSION['debt'])) {
 <script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
 <!-- フッター -->
-<?php include_once("../include/footer.php"); ?>
+<?php include_once("../include/bottom_nav.php") ?>
+<?php require_once("../include/footer.php"); ?>
