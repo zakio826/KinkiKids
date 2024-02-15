@@ -89,7 +89,29 @@ $index_child_class->message($db);
                     <?php if($_SESSION['goal_select'] == 0){ ?>
                         <?php if ($goal_count != 0) { ?>
                             <span>
-                                <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
+                                <?php
+                                echo htmlspecialchars(substr($index_child_class->getGoal_detail(), 0, 15));
+
+                                ?>
+
+                                <!-- 全文表示用のspan -->
+                                <span class="full-text" style="display: none;">
+                                <?php 
+                                //echo $goalDetail; 
+                                echo substr($goalDetail, 0, 20)."<br>";
+                                echo substr($goalDetail, 21, 20)."<br>";
+                                echo substr($goalDetail, 41, 20)."<br>";
+                                ?>
+                                </span>
+
+                                <!-- 続きを読むチェックボックス -->
+                                <label class="expand-checkbox-label">
+                                <input type="checkbox" class="expand-checkbox"/>
+                                ...もっと見る
+                                </label>
+
+                                <br>
+
                                 <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                                 <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
                                 <br>

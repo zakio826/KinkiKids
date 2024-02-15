@@ -28,8 +28,9 @@ include("../include/header.php");
                 <br>
 
                 <div class="control-1">
+                    
                     <label for="behavioral_goal">行動目標</label>
-                    <p>※　50文字以内　※</p>
+                    
                     <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>" maxlength="50">
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
