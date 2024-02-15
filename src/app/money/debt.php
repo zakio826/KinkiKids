@@ -54,7 +54,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
-            <input type="date" name="repayment_date" placeholder="日付をにゅうりょく" required>
+            <input type="date" min="2020-04-01" max="2020-04-07" id="repayment_date" name="repayment_date" placeholder="日付をにゅうりょく" required onchange="validateDate()">
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
