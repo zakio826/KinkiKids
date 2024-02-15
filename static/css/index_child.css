@@ -481,4 +481,9 @@ button{
 
 .menyu{
     text-align: center;
+    font-weight: bold;
+}
+
+.migiyose{
+    margin-right: initial;
 }
