@@ -47,24 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー名</label>
-                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください"
+                            <input type="text" name="username[]" placeholder="※半角英数字で入力してください" required
                             value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください">
+                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください" required>
                         </div>
 
                         <div class="control">
                             <label for="last_name">名字</label>
-                            <input type="text" name="last_name[]"
+                            <input type="text" name="last_name[]" required
                             value="<?php echo (isset($savedData['last_name'][$i]) && !empty($savedData['last_name'][$i])) ? $savedData['last_name'][$i] : ''; ?>">
                         </div>
 
                         <div class="control">
                             <label for="first_name">名前</label>
-                            <input type="text" name="first_name[]"
+                            <input type="text" name="first_name[]" required
                             value="<?php echo (isset($savedData['first_name'][$i]) && !empty($savedData['first_name'][$i])) ? $savedData['first_name'][$i] : ''; ?>">
                         </div>
 
@@ -92,16 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings">貯蓄</label>
-                            <input class="mb-3 savings-input" type="number" name="savings[]" value="0"
-                            value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : ''; ?>">
+                            <input class="mb-3 savings-input" type="number" name="savings[]" required
+                            value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : '0'; ?>">
 
                             <label for="allowances">お小遣い金額</label>
-                            <input class="allowance-input" type="number" name="allowances[]" value="0"
-                            value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : ''; ?>">
+                            <input class="allowance-input" type="number" name="allowances[]" required
+                            value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : '0'; ?>">
 
                             <label for="payments">受取日</label>
-                            <input class="payment-input" type="number" name="payments[]" value="0"
-                            value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : ''; ?>">
+                            <input class="payment-input" type="number" name="payments[]" required
+                            value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : '0'; ?>">
                         </div>
 
                         <div class="control">

@@ -41,20 +41,15 @@ if(isset($_SESSION['debt'])) {
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
             <input type="number" name="debt_amount" required>
-            <?php 
-            // if(isset($_SESSION['debt_error'])) {
-            //     echo '<p class="debt_error">' . $_SESSION['debt_error'] . '</p>';
-            //     unset($_SESSION['debt_error']);
-            // } 
-            ?>
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
-            <input type="number" name="installments" required placeholder="※24回以内">
+            <input type="number" min="1" max="24" name="installments" required placeholder="※24回以内">
         </div>
         <div class="control">
             <label for="repayment_date">いつかえす？</label>
-            <input type="date" min="2020-04-01" max="2020-04-07" id="repayment_date" name="repayment_date" placeholder="日付をにゅうりょく" required onchange="validateDate()">
+            <input type="date" name="repayment_date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d',strtotime('last day of next month')); ?>" required>
+            <p class="note"><b>※来月末以内</b></p>
         </div>
         <button type="submit" class="btn-kariru">お金をかりる</button>
     </form>
