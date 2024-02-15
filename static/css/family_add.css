@@ -138,7 +138,7 @@ a.z-1.col-auto {
 
 /* バリデーションの説明 */
 .note {
-    margin-top: 0;
+    margin-top: 0 !important;
     color: #8a8a8a;
     font-size: 13px;
 }
