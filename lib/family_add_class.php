@@ -37,6 +37,14 @@ class family_add {
                 if ($savedData['password'][$i] === "") {
                     $error['password'][$i] = "blank";
                 }
+                if(!preg_match('/\A[a-zA-Z0-9._-]{1,20}\z/', $savedData['username'][$i])){
+                    $error['username'][$i] = 'format_error';
+                }
+    
+                //パスワードが半角英数字８文字以上で入力さているか判定
+                if(!preg_match('/\A[a-z\d]{8,100}+\z/i',$savedData['password'][$i])){
+                    $error['password'][$i] = 'char_limit';
+                }
                 if ($savedData['first_name'][$i] === "") {
                     $error['first_name'][$i] = "blank";
                 }
@@ -177,5 +185,8 @@ class family_add {
             }
         }
     }
+
+
+
 }
 ?>
