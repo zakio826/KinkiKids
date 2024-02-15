@@ -186,31 +186,7 @@ $index_child_class->message($db);
             </div>
         </div>
 
-        <hr class="index_child_hr">
-
-                <input type="radio" name="slideshow" id="slide1" checked>
-                <input type="radio" name="slideshow" id="slide2">
-                <input type="radio" name="slideshow" id="slide3">
-            <div class="slideshow">
-                <div class="slides">
-                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouA.png" alt="購入目標">  
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
-                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouB.png" alt="ポイントノルマ">
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouC.png" alt="行動目標">
-                    </a>
-                </div>
-            </div>
-            <div class="slideshow-nav">
-                <label for="slide1" class="slides-nav"></label>
-                <label for="slide2" class="slides-nav"></label>
-                <label for="slide3" class="slides-nav"></label>
-            </div>
-
-
+        
         
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss1">
