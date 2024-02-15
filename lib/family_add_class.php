@@ -116,8 +116,8 @@ class family_add {
                         );
                         
                         $childStatement = $this->db->prepare(
-                            "INSERT INTO child_data (user_id, have_points, max_lending, allowance_id, savings) ".
-                            "VALUES (?, ?, ?, ?, ?)"
+                            "INSERT INTO child_data (user_id, have_points, allowance_id, savings) ".
+                            "VALUES (?, ?, ?, ?)"
                         );
                         
                         $allowanceStatement->execute(array(
@@ -133,7 +133,6 @@ class family_add {
                         $childStatement->execute(array(
                             $savedUserId, // 保存されたユーザーのID
                             0, // have_points
-                            0, // max_lending
                             $savedAllowanceId,
                             $savedData['savings'][$i]
                         ));
