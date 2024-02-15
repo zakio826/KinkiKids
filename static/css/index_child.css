@@ -407,3 +407,51 @@ input[name="slideshow"]{
     background-color : #ffa500;
     border-color: #fff689;
 }
+
+/* プラスボタン */
+.btn-p a {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #e65d45;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 900;
+}
+
+/* 右ボタン */
+.btn-right {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #fff689;
+    color: orange;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border-color: orange;
+    border: 2px solid orange; /* ボーダースタイルを追加 */
+}
+
+/* 左ボタン */
+.btn-left {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #fff689;
+    color: orange;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border-color: orange;
+    border: 2px solid orange; /* ボーダースタイルを追加 */
+}

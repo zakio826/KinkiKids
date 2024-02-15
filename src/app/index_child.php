@@ -93,9 +93,11 @@ $index_child_class->message($db);
                                 <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
                                 <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
                                 <br>
-                                <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                                    ＋  
-                                </a>
+                                <div class="btn-p">
+                                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                        ＋  
+                                    </a>
+                                </div>
                             <span>
                         <?php } else { ?>
                             <span><p>目標がないので設定してください</p></span>
@@ -106,9 +108,11 @@ $index_child_class->message($db);
                                 <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?><br>
                                 <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
                             <br>
-                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
-                                ＋
-                            </a>
+                            <div class="btn-p">
+                                <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                                    ＋
+                                </a>
+                            </div>
                         </b>
                     <?php } elseif($_SESSION['goal_select'] == 2){ ?>
                         <b class="index_parent_mokuhyoumoji">
@@ -116,17 +120,18 @@ $index_child_class->message($db);
                             <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> 
                             <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?> 円
                             <br>
-                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                                ＋
-                            </a>
-
+                            <div class="btn-p">
+                                <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                    ＋
+                                </a>
+                            </div>
                         </b>
                     <?php } ?>
 
                 </div>
             </div>
         <form action="" method="post">
-            <button type="submit" name="left"><</button>
+            <button type="submit" name="left" class="btn-left"><</button>
             <?php if($_SESSION['goal_select'] == 0){ ?>
                 <span><?php echo '購入目標'; ?></span>
             <?php } elseif($_SESSION['goal_select'] == 1){ ?>
@@ -135,7 +140,7 @@ $index_child_class->message($db);
                 <span><?php echo '行動目標'; ?></span>
             <?php } ?>
 
-            <button type="submit" name="right">></button>
+            <button type="submit" name="right" class="btn-right">></button>
         </form>
 
 
