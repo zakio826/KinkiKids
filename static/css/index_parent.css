@@ -500,3 +500,13 @@ input[name="slideshow"]{
 .select_user {
     text-align: center;
 }
+
+#behavioral_goal {
+    font-size: 30px;
+    color: #4f40ff;
+}
+
+#behavioral_goal_deadline, #reward_point {
+    display: inline-block;
+    margin-right: 10px; /* 適切なマージンを設定して間隔を調整 */
+}

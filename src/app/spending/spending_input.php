@@ -110,7 +110,7 @@ if (isset($_GET["pick_date"])) {
             <div>
                 <textarea name="memo" id="" cols="30" rows="5" class="spending_input_textarea" placeholder="入力収支の詳細"></textarea>
             </div>
-
+            <br>
 
             <input class="button btn-touroku" type="submit" value="登録">
         </form>
