@@ -503,6 +503,23 @@ input[name="slideshow"]{
     text-align: center;
 }
 
+.select_user_child {
+    background: #AADBFF;
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    width: 200px;
+    height: auto;
+}
+
+.select_user_child p {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
 /* 行動目標 */
 #behavioral_goal {
     font-size: 35px;
