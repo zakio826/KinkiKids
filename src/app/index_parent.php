@@ -86,9 +86,12 @@ echo '</script>';
         $goal_select = $_SESSION['goal_select'];
         ?>
 
+        <div class="select_user">
         <select id="user">
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
+        </div>
+
 
 
 
@@ -104,10 +107,11 @@ echo '</script>';
                         購入目標：<p id="goal_detail"></p>
                         期限：<p id="goal_deadline"></p>
                         値段：<p id="target_amount"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                            ＋  
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                ＋  
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>
@@ -117,10 +121,11 @@ echo '</script>';
                     <b class="index_parent_mokuhyoumoji">
                         ポイントノルマ：<p id="norma"></p>
                         期限：<p id="norma_deadline"></p>
-                        <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
-                            ＋
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
+                                ＋
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>
@@ -132,23 +137,33 @@ echo '</script>';
                         報酬ポイント：<p id="reward_point"></p>
                         期限：<p id="behavioral_goal_deadline"></p>
                         <!-- 行動目標に飛ぶボタン -->
-                        <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php" class="btn-p">
-                            ＋
-                        </a>
-
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                ＋
+                            </a>
+                        </div>
                     </b>
                 </div>
             </div>
         <?php } ?>
-        <form action="" method="post">
-            <form action="" method="post">
+        <div class="select_user">
+            <form action="" method="post"  class="slideshow">
                 <button type="submit" name="left" class="btn-left"><</button>
                 <?php if($_SESSION['goal_select'] == 0){ ?>
-                    <span><?php echo '購入目標'; ?></span>
+                    <span>
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouD2.png" height=50 alt="購入目標">
+                        <?php echo ''; ?>
+                    </span>
                 <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                    <span><?php echo 'ポイントノルマ'; ?></span>
+                    <span>
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouE2.png" height=50 alt="ポイントノルマ">
+                        <?php echo ''; ?>
+                    </span>
                 <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                    <span><?php echo '行動目標'; ?></span>
+                    <span>
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouF2.png" height=50 alt="行動目標">
+                        <?php echo ''; ?>
+                    </span>
                 <?php } ?>
 
                 <button type="submit" name="right" class="btn-right">></button>

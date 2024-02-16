@@ -55,8 +55,10 @@ if(isset($_SESSION['debt'])) {
     </form>
 </div>
 </main>
-<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
-<!-- フッター -->
+
+<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
+<!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>

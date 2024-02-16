@@ -79,6 +79,7 @@ $debts = $consent->display_consent_debt($family_id);
                     $consent->debt_select($debt_data['debt_id']);
                 ?><br>
                 <form action="" method="post">
+<<<<<<< HEAD
                     <input type="number" name="interest" placeholder="利率を入力してください"><span>%</span><br>
                     <?php
                     if(isset($_SESSION['interest_error'])){
@@ -86,6 +87,9 @@ $debts = $consent->display_consent_debt($family_id);
                         unset($_SESSION['interest_error']);
                     }
                     ?>
+=======
+                    <input type="int" name="interest" placeholder="利率を入力してください" required class="input-type"><span>%</span><br>
+>>>>>>> origin/UIgroup
                     <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
                     <button type="submit" class="btn-syounin">承認する</button>
                 </form>

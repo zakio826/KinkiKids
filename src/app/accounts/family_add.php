@@ -12,10 +12,10 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
-// if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
-//     header("Location: ../index.php");
-//     exit;
-// }
+ if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+     header("Location: ../index.php");
+     exit;
+ }
 
 if (isset($_SESSION['join'])) {
     $savedData = $_SESSION['join'];
@@ -47,13 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー<ruby>名<rt>めい</rt></ruby></label>
-                            <input type="text" name="username[]" maxlength="20" placeholder="※半角英数字で入力してください" required
-                            value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
+                            <input type="text" name="username[]" maxlength="20"><br> required
+                            <?php if(isset($errors['username'][0])){
+                                    $family_add->username_error($errors['username'][0]);
+                            } ?>
+                            <p class="note"><b>※半角英数字20文字以内<br>
+                                               ※特殊文字（. - _）のみ使用可能</b></p>
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" minlength="8" placeholder="※半角英数字で8文字以上入力してください" required>
+                            <input type="password" name="password[]" placeholder="※半角英数字で8文字以上入力してください">
                         </div>
 
                         <div class="control">
@@ -108,7 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="admin_flag"><ruby>管理者<rt>かんりしゃ</rt></ruby></label>
                             <input type="checkbox" name="admin_flag[]">
                         </div>
-
                         <?php if ($i > 0) { // 2番目以降のフォームにはマイナスボタンを表示 ?>
                             <button type="button" class="removeUser">－</button>
                         <?php } ?>

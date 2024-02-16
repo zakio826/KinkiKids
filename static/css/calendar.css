@@ -2,6 +2,72 @@ thead, tbody, tr, th, td {
     border-collapse: collapse;
     border: 2.5px solid #333;
 }
+
+.daily-cel {
+    height: 4.5rem;
+    border-bottom: 1px solid silver;
+    /* margin-bottom: 4px; */
+}
+.daily-info {
+    height: 9rem;
+}
+
+.daily-star {
+    width: 26px;
+    height: 26px;
+}
+
+@media screen and (max-width: 1400px) {
+    .daily-cel {
+        height: 4.2rem;
+    }
+    .daily-star {
+        width: 24px;
+        height: 24px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .daily-cel {
+        height: 3.8rem;
+    }
+    .daily-star {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media screen and (max-width: 992px) {
+    .daily-cel {
+        height: 5.2rem;
+    }
+    .daily-star {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .daily-cel {
+        height: 5.2rem;
+    }
+}
+@media screen and (max-width: 500px) {
+    .daily-cel {
+        height: 4.5rem;
+    }
+    .daily-star {
+        width: 15px;
+        height: 15px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .daily-cel {
+        height: 4.2rem;
+    }
+    .daily-star {
+        width: 12px;
+        height: 12px;
+    }
+}
+
 .money-grid {
     background-color: white;
     border-radius: 1rem;
