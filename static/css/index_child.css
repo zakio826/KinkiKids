@@ -9,6 +9,12 @@ body {
 .full-text{
     color: blueviolet;
 }
+
+.shortened-text{
+    font-size: 35px;
+}
+
+
 .action-btn {
 background-color: lemonchiffon;
 border-radius: 2rem;
@@ -219,6 +225,7 @@ display: none;
     height: 4px;
     border: none;
     opacity: initial;
+    width: 100%;
 }
 
 

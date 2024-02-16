@@ -165,63 +165,63 @@ let n = 0;
 for (let i = 0; i < chart_color.length; i++) {
     if (i < chart_color.length - x) n = i + x;
     else n = i - chart_color.length + x;
-    console.log(n);
+    // console.log(n);
 
     chart_color_background.unshift("rgba(" + chart_color[n] + ", 0.25)");
     chart_color_border.unshift("rgba(" + chart_color[n] + ", 0.80)");
     chart_color_hover_background.unshift("rgba(" + chart_color[n] + ", 0.40)");
     chart_color_hover_border.unshift("rgba(" + chart_color[n] + ", 1.00)");
 }
-console.log(chart_color_background);
+// console.log(chart_color_background);
 // console.log(chart_color_border);
 // console.log(chart_color_hover_background);
 // console.log(chart_color_hover_border);
 
 
-let categoryChartData = {
-    labels: ex_category_data["カテゴリ名"].concat(["いろはにほへと", "ちりぬるを", "わかよたれそ", "つねならむ", "うひのおくやま"]),
-    datasets: [
-        {
-            label: '合計金額',
-            data: ["20000", "1600", "1000", "900", "800", "700", "600", "500", "440", "320", "300", "240"],
-            backgroundColor: chart_color_background,
-            borderColor: chart_color_border,
-            hoverBackgroundColor: chart_color_hover_background,
-            hoverBorderColor: chart_color_hover_border,
-            borderWidth: 1,
-            hoverBorderWidth: 2,
-        }
-    ]
-    // labels: ex_category_data["カテゴリ名"],
-    // datasets: [
-    //     {
-    //         label: '収入合計',
-    //         data: in_category_data["合計金額"],
-    //         backgroundColor: in_chart_color_background,
-    //         borderColor: in_chart_color_border,
-    //         hoverBackgroundColor: in_chart_color_hover_background,
-    //         hoverBorderColor: in_chart_color_hover_border,
-    //         borderWidth: 1,
-    //         hoverBorderWidth: 2,
-    //     },
-    //     {
-    //         label: '支出合計',
-    //         data: ex_category_data["合計金額"],
-    //         backgroundColor: ex_chart_color_background,
-    //         borderColor: ex_chart_color_border,
-    //         hoverBackgroundColor: ex_chart_color_hover_background,
-    //         hoverBorderColor: ex_chart_color_hover_border,
-    //         borderWidth: 1,
-    //         hoverBorderWidth: 2,
-    //     }
-    // ]
-};
-const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-let categoryChart = new Chart(categoryCtx, {
-    type: 'pie',  // 円グラフ
-    data: categoryChartData,
-    options: categoryChartOption
-});
+// let categoryChartData = {
+//     labels: ex_category_data["カテゴリ名"].concat(["いろはにほへと", "ちりぬるを", "わかよたれそ", "つねならむ", "うひのおくやま"]),
+//     datasets: [
+//         {
+//             label: '合計金額',
+//             data: ["20000", "1600", "1000", "900", "800", "700", "600", "500", "440", "320", "300", "240"],
+//             backgroundColor: chart_color_background,
+//             borderColor: chart_color_border,
+//             hoverBackgroundColor: chart_color_hover_background,
+//             hoverBorderColor: chart_color_hover_border,
+//             borderWidth: 1,
+//             hoverBorderWidth: 2,
+//         }
+//     ]
+//     // labels: ex_category_data["カテゴリ名"],
+//     // datasets: [
+//     //     {
+//     //         label: '収入合計',
+//     //         data: in_category_data["合計金額"],
+//     //         backgroundColor: in_chart_color_background,
+//     //         borderColor: in_chart_color_border,
+//     //         hoverBackgroundColor: in_chart_color_hover_background,
+//     //         hoverBorderColor: in_chart_color_hover_border,
+//     //         borderWidth: 1,
+//     //         hoverBorderWidth: 2,
+//     //     },
+//     //     {
+//     //         label: '支出合計',
+//     //         data: ex_category_data["合計金額"],
+//     //         backgroundColor: ex_chart_color_background,
+//     //         borderColor: ex_chart_color_border,
+//     //         hoverBackgroundColor: ex_chart_color_hover_background,
+//     //         hoverBorderColor: ex_chart_color_hover_border,
+//     //         borderWidth: 1,
+//     //         hoverBorderWidth: 2,
+//     //     }
+//     // ]
+// };
+// const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+// let categoryChart = new Chart(categoryCtx, {
+//     type: 'pie',  // 円グラフ
+//     data: categoryChartData,
+//     options: categoryChartOption
+// });
 
 
 
