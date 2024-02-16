@@ -94,21 +94,24 @@ $index_child_class->message($db);
                     <?php if($_SESSION['goal_select'] == 0){ ?>
                         <?php if ($goal_count != 0) { ?>
                             <span>
+                                <span class="shortened-text" style="display: inline;">
                                 <?php
                                 echo htmlspecialchars(substr($index_child_class->getGoal_detail(), 0, 15));
 
                                 ?>
+                                </span>
 
                                 <!-- 全文表示用のspan -->
                                 <span class="full-text" style="display: none;">
                                 <?php 
                                 //echo $goalDetail; 
-                                echo substr($goalDetail, 0, 20)."<br>";
-                                echo substr($goalDetail, 21, 20)."<br>";
-                                echo substr($goalDetail, 41, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 0, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 21, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 41, 20)."<br>";
                                 ?>
                                 </span>
 
+                        
                                 <!-- 続きを読むチェックボックス -->
                                 <label class="expand-checkbox-label">
                                 <input type="checkbox" class="expand-checkbox"/>
@@ -127,7 +130,19 @@ $index_child_class->message($db);
                                 </div>
                             <span>
                         <?php } else { ?>
-                            <span><p>目標がないので設定してください</p></span>
+                            <span>
+                                <p>目標がないので設定してください</p>
+                                <div class="btn-p">
+                                        <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                            ＋  
+                                        </a>
+                                </div>
+                            </span>
+                            <div class="btn-p">
+                                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                        ＋  
+                                    </a>
+                            </div>
                         <?php } ?>
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>
@@ -143,9 +158,39 @@ $index_child_class->message($db);
                         </b>
                     <?php } elseif($_SESSION['goal_select'] == 2){ ?>
                         <b class="index_parent_mokuhyoumoji">
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']); ?><br>
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> 
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?> 円
+
+                        <span class="shortened-text" style="display: inline;">
+                            <?php 
+                            echo htmlspecialchars(substr($index_child_class->getBehavioral()['behavioral_goal'],0,15)); 
+                            ?><br>
+                        </span>
+                        <!-- 全文表示用のspan -->
+                        <span class="full-text" style="display: none;">
+                                <?php 
+                                //echo $goalDetail; 
+                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 0, 20)."<br>";
+                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 21, 20)."<br>";
+                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 41, 20)."<br>";
+                                ?>
+                        </span>
+                        <!-- 続きを読むチェックボックス -->
+                        <label class="expand-checkbox-label">
+                                <input type="checkbox" class="expand-checkbox"/>
+                                ...もっと見る
+                        </label>
+                        <br>  
+
+                        <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?>
+                        <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> ポイント
+                             
+                          
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             <br>
                             <div class="btn-p">
                                 <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
@@ -157,6 +202,23 @@ $index_child_class->message($db);
 
                 </div>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var checkbox = document.querySelector('.expand-checkbox');
+                    var shortenedText = document.querySelector('.shortened-text');
+                    var fullText = document.querySelector('.full-text');
+
+                    checkbox.addEventListener('change', function () {
+                        if (checkbox.checked) {
+                            shortenedText.style.display = 'none';
+                            fullText.style.display = 'inline';
+                        } else {
+                            shortenedText.style.display = 'inline';
+                            fullText.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
 
 
             <div class="menyu select_user">
