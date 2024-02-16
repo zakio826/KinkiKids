@@ -31,6 +31,7 @@ $family_id = $_SESSION['family_id'];
       $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
       $stmt->bindParam(':family_id', $family_id, PDO::PARAM_INT);
       $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+      sql_check($stmt, $db);
       if ($stmt->execute()) {
         echo "データが正常に登録されました。";
       } else {
