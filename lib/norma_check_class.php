@@ -16,6 +16,13 @@ class norma_check {
     }
 
     private function saveNormaToDatabase() {
+
+        $existingData = $this->getExistingNormaData($_SESSION['join']['norma_user']);
+
+        if ($existingData) {
+            $this->deleteExistingNormaData($_SESSION['join']['norma_user']);
+        }
+
         $statement = $this->db->prepare(
             "INSERT INTO point_norma (user_id, family_id, point_norma_user_id, point_norma_amount, point_norma_deadline, point_norma_created_date) ".
             "VALUES (?, ?, ?, ?, ?, ?)"
@@ -51,6 +58,21 @@ class norma_check {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result['family_id'];
+    }
+
+    // 同じuser_idのデータが存在するか確認するメソッド
+    private function getExistingNormaData($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE point_norma_user_id = :point_norma_user_id");
+        $stmt->bindParam(':point_norma_user_id', $userId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 同じuser_idのデータを削除するメソッド
+    private function deleteExistingNormaData($userId) {
+        $stmt = $this->db->prepare("DELETE FROM point_norma WHERE point_norma_user_id = :point_norma_user_id");
+        $stmt->bindParam(':point_norma_user_id', $userId);
+        $stmt->execute();
     }
 }
 ?>
