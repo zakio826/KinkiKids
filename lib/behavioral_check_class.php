@@ -18,6 +18,12 @@ class behavioral_check{
     }
 
     private function saveBehavioralToDatabase() {
+
+        $existingData = $this->getExistingNormaData($_SESSION['join']['behavioral_user']);
+
+        if ($existingData) {
+            $this->deleteExistingNormaData($_SESSION['join']['behavioral_user']);
+        }
         $statement = $this->db->prepare(
             "INSERT INTO behavioral_goal 
             (user_id, family_id, behavioral_goal_user_id, behavioral_goal, reward_point,approval_flag, behavioral_goal_deadline, point_norma_created_date)
@@ -54,6 +60,22 @@ class behavioral_check{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result['family_id'];
+    }
+
+    
+    // 同じuser_idのデータが存在するか確認するメソッド
+    private function getExistingNormaData($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM behavioral_goal WHERE behavioral_goal_user_id = :behavioral_goal_user_id");
+        $stmt->bindParam(':behavioral_goal_user_id', $userId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 同じuser_idのデータを削除するメソッド
+    private function deleteExistingNormaData($userId) {
+        $stmt = $this->db->prepare("DELETE FROM behavioral_goal WHERE behavioral_goal_user_id = :behavioral_goal_user_id");
+        $stmt->bindParam(':behavioral_goal_user_id', $userId);
+        $stmt->execute();
     }
 
 }
