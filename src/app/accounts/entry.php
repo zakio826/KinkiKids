@@ -80,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="gender_id"><ruby>性別<rt>せいかく</rt></ruby></label>
                             <select name="gender_id" id="gender_id" class="form-control_entry"
                             value="<?php echo isset($_SESSION['join']['gender_id']) ? htmlspecialchars($_SESSION['join']['gender_id'], ENT_QUOTES) : ''; ?>">
-                                <option value="1"><ruby>女性<rt>じょせい</rt></ruby></option>
-                                <option value="2"><ruby>男性<rt>だんせい</rt></ruby></option>
-                                <option value="3">その<ruby>他<rt>た</rt></ruby></option>
+                                <option value="1">女性</option>
+                                <option value="2">男性</option>
+                                <option value="3">その他</option>
                             </select>
                         </div>
 
