@@ -137,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="submit" class="btn btn-primary" value="ログイン">
                 </div>
 
-                <p>アカウントがない<ruby>場合<rt>ばい</rt></ruby><br><a href="./entry.php">ここからサインアップしてください</a></p>
+                <p>アカウントがない<ruby>場合<rt>ばあい</rt></ruby><br><a href="./entry.php">ここからサインアップしてください</a></p>
             </form>
         </div>
     </div>

@@ -40,7 +40,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
-            <input type="number" name="debt_amount" required>
+            <input type="number" name="debt_amount" min="1" max="100000" required placeholder="※10万円以内">
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
