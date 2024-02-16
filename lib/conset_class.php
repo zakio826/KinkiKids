@@ -39,7 +39,7 @@ class consent {
             $debt_id = $_POST["consent_debt_id"];
             if(!empty($_POST["interest"])){
                 $interest = $_POST["interest"];         
-            }else if(empty($_POST["interest"])){
+            } else {
                 $_SESSION["interest_error"] = "*利率を入力してください。";
                 header('Location: consent.php'); 
                 exit();
@@ -54,7 +54,7 @@ class consent {
             $debt_amount = $result['debt_amount'];
             $installments = $result['installments'];
 
-            $repayment_amount = $debt_amount * (1 + $interest / 100);
+            $repayment_amount = $debt_amount * (1 + ($interest / 100));
             $repayment_installments = ceil($repayment_amount / $installments);
 
             $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = :repayment_amount, interest = :interest, repayment_installments = :repayment_installments WHERE debt_id = :debt_id");
