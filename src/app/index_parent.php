@@ -87,66 +87,14 @@ echo '</script>';
         ?>
 
         <div class="select_user">
+            <p>子供を選択してください</p>
         <select id="user">
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
-            <p>の目標</p>
+            
         </div>
 
 
-
-
-        <hr class="index_parent_hr">
-
-
-
-        <?php if($_SESSION['goal_select'] == 0){ ?>
-            <div class="index_parent_mokuhyoucss1">
-                <div class="index_parent_mokuhyoucss2">
-                    <br>
-                    <b class="index_parent_mokuhyoumoji">
-                        購入目標：<p id="goal_detail"></p>
-                        期限：<p id="goal_deadline"></p>
-                        値段：<p id="target_amount"></p>
-                        <div class="btn-p">
-                            <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                                ＋  
-                            </a>
-                        </div>
-                    </b>
-                </div>
-            </div>
-        <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-            <div class="index_parent_mokuhyoucss1">
-                <div class="index_parent_mokuhyoucss2">
-                    <b class="index_parent_mokuhyoumoji">
-                        ポイントノルマ：<p id="norma"></p>
-                        期限：<p id="norma_deadline"></p>
-                        <div class="btn-p">
-                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
-                                ＋
-                            </a>
-                        </div>
-                    </b>
-                </div>
-            </div>
-        <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-            <div class="index_parent_mokuhyoucss1">
-                <div class="index_parent_mokuhyoucss2">
-                    <b class="index_parent_mokuhyoumoji">
-                        行動目標：<p id="behavioral_goal"></p>
-                        <p id="behavioral_goal_deadline">pt</p>
-                        <p id="reward_point"></p>
-                        <!-- 行動目標に飛ぶボタン -->
-                        <div class="btn-p">
-                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                                ＋
-                            </a>
-                        </div>
-                    </b>
-                </div>
-            </div>
-        <?php } ?>
         <div class="select_user">
             <form action="" method="post"  class="slideshow">
                 <button type="submit" name="left" class="btn-left"><</button>
@@ -172,14 +120,69 @@ echo '</script>';
         </div>
 
 
-        <hr class="index_parent_hr">
+        <?php if($_SESSION['goal_select'] == 0){ ?>
+            <div class="index_parent_mokuhyoucss1">
+                <div class="index_parent_mokuhyoucss2">
+                    <br>
+                    <b class="index_parent_mokuhyoumoji">
+                        <p id="goal_detail"></p>
+                        <p id="goal_deadline"></p>  
+                        <p id="target_amount"></p>
+                        <p class="en">円</p>
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                ＋  
+                            </a>
+                        </div>
+                    </b>
+                </div>
+            </div>
+        <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+            <div class="index_parent_mokuhyoucss1">
+                <div class="index_parent_mokuhyoucss2">
+                    <b class="index_parent_mokuhyoumoji">
+                        <br>
+                        <p id="norma"></p>
+                        <p class="pt">pt</p>
+                        <p id="norma_deadline"></p>
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php" class="btn-p">
+                                ＋
+                            </a>
+                        </div>
+                    </b>
+                </div>
+            </div>
+        <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+            <div class="index_parent_mokuhyoucss1">
+                <div class="index_parent_mokuhyoucss2">
+                    <b class="index_parent_mokuhyoumoji">
+                        <br>
+                        <p id="behavioral_goal"></p>
+                        <p id="behavioral_goal_deadline"></p>
+                        <p id="reward_point"></p>
+                        <p class="pt">pt</p>
+                        <!-- 行動目標に飛ぶボタン -->
+                        <div class="btn-p">
+                            <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                ＋
+                            </a>
+                        </div>
+                    </b>
+                </div>
+            </div>
+        <?php } ?>
 
+        <hr class="index_parent_hr">
+        <br>
         <div class="index_parent_mokuhyoucss1">
             <div class="index_parent_mokuhyoucss2">
-                <b class="index_parent_mokuhyoumoji">
+                <b class="index_parent_mokuhyoumoji"> 
                     貯金：<p id="savings"></p>
+                    <p class="en">円</p>
                     手持ち：
                     <p id="points" class="btn-kankin_iti">
+                    <p class="pt">pt</p>
                         <a href="<?php echo $absolute_path; ?>src/app/money/exchange.php" class="btn-kankin">
                             換金
                         </a>
