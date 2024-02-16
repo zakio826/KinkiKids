@@ -1,4 +1,4 @@
-@import url('https://fonts.目標がgoogleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
 /* 全体の部分 */
 body {
@@ -264,7 +264,7 @@ p.index_child_moji {
 /* 文字 */
 .index_child_mokuhyoumoji {
     color: black;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 
@@ -322,17 +322,22 @@ p.index_child_moji {
 }
 
 /* 返信ボタン部分 */
-.btn {
+.btn_hensin {
     background-color: #8fc31f;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+    padding: 5px 10px;
 }
 
+/* 返信ボタン部分押したとき */
+.btn_hensin:hover {
+    background-color: #8ab91c;
+}
 
 /* ------------------------------------------------- */
 /* 目標部分*/
@@ -358,7 +363,7 @@ input[name="slideshow"]{
 
 
 .slideshow{
-    max-width: 210px;
+    max-width: 250px;
     width: 100%;
     height: 60px;
     overflow: hidden;

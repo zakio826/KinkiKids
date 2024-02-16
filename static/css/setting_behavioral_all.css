@@ -69,6 +69,7 @@ input::placeholder {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 350px;
     margin: 0 auto;
+    margin-top: 100px;
 }
 
 /* 大人の枠組み */
@@ -79,12 +80,18 @@ input::placeholder {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 350px;
     margin: 0 auto;
+    margin-top: 100px;
 }
 
 
 .control-1, .control-2 {
     text-align: center;
 }
+
+.control-1 {
+    margin-bottom: 10px;
+}
+
 
 .btn {
     background-color: #525ED2;
@@ -131,4 +138,8 @@ select#behavioral_user {
     padding: 10px;
     width: 100px;
     text-align: center;
+}
+
+.setting_behavioral_textA {
+    display: initial;
 }

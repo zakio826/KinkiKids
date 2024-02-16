@@ -25,7 +25,7 @@ class repayment {
 
             $stmt = $this->db->prepare("UPDATE debt SET repayment_amount = :updated_amount, repayment_date = :repayment_date WHERE debt_id = :debt_id");
             $stmt->bindParam(':debt_id', $debtid, PDO::PARAM_INT);
-            $stmt->bindParam(':updated_amount', $updated_amount, PDO::PARAM_STR);
+            $stmt->bindParam(':updated_amount', $updated_amount, PDO::PARAM_INT);
             $stmt->bindParam(':repayment_date', $nextrepaymentday, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -35,14 +35,14 @@ class repayment {
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':family_id', $family_id, PDO::PARAM_INT);
             $stmt->bindParam(':detail', $debt_info['contents'], PDO::PARAM_STR);
-            $stmt->bindParam(':amount', $debt_info['repayment_installments'], PDO::PARAM_STR);
+            $stmt->bindParam(':amount', $debt_info['repayment_installments'], PDO::PARAM_INT);
             $stmt->bindParam(':date', date('Y-m-d'), PDO::PARAM_STR);
             $stmt->execute();
 
             $child_data_id = $this->getChildDataId($user_id);
 
             $stmt = $this->db->prepare("UPDATE child_data SET savings = savings - :amount WHERE child_data_id = :child_data_id");
-            $stmt->bindParam(':amount', $debt_info['repayment_installments'], PDO::PARAM_STR);
+            $stmt->bindParam(':amount', $debt_info['repayment_installments'], PDO::PARAM_INT);
             $stmt->bindParam(':child_data_id', $child_data_id, PDO::PARAM_INT);
             $stmt->execute();
 
@@ -82,7 +82,6 @@ class repayment {
     }
 
     private function next_schedule_monthly($post_date) {
-        // 01234567
         // YYYYMMDD
         $datetime['year']   = (int) substr($post_date, 0, 4);
         $datetime['month']  = (int) substr($post_date, 4, 2);
@@ -116,9 +115,8 @@ class repayment {
             }
         }
 
-        // UTC+9とUTCに変換
+        // UTC+9に変換
         $schedule_time['utc_jp'] = mktime($datetime['hour'], $datetime['minute'], $datetime['second'], $check_month, $datetime['day'], $datetime['year']);
-        // $schedule_time['utc']    = $schedule_time['utc_jp'] - 32400;
 
         return $schedule_time;
     }

@@ -145,8 +145,8 @@ $index_child_class->message($db);
                         <?php } ?>
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                        <b class="index_parent_mokuhyoumoji">
-                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?><br>
+                        <b class="index_child_mokuhyoumoji">
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?> pt<br>
                                 <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
                             <br>
                             <div class="btn-p">
@@ -156,7 +156,7 @@ $index_child_class->message($db);
                             </div>
                         </b>
                     <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                        <b class="index_parent_mokuhyoumoji">
+                        <b class="index_child_mokuhyoumoji">
 
                         <span class="shortened-text" style="display: inline;">
                             <?php 
@@ -348,7 +348,7 @@ $index_child_class->message($db);
                     <?php $index_child_class->getFamilyUser(); ?>
                 </select>
                 <input type="text" name="message" required>
-                <button type="submit" class="btn">返信</button>
+                <button type="submit" class="btn_hensin">返信</button>
             </form>
                 
             </div>
