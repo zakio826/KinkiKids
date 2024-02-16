@@ -169,6 +169,7 @@ display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-top: -25px;
 }
 
 /* 枠組みと文字スタイル */
@@ -501,14 +502,52 @@ input[name="slideshow"]{
     text-align: center;
 }
 
+/* 行動目標 */
 #behavioral_goal {
-    font-size: 30px;
+    font-size: 35px;
     color: #4f40ff;
 }
 
-#behavioral_goal_deadline, #reward_point {
+#behavioral_goal_deadline, #reward_point,.pt{
     font-size: 25px;
     color: #383838;
     display: inline-block;
     margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
+}
+
+/* ノルマポイント */
+#norma_deadline {
+    font-size: 25px;
+    color: #383838;
+}
+
+#norma {
+    font-size: 35px;
+    color: #4f40ff;
+}
+
+#norma,.pt{
+    display: inline-block;
+}
+
+/* 購入目標 */
+#goal_detail {
+    font-size: 35px;
+    color: #4f40ff;
+}
+
+#goal_deadline, #target_amount,.en{
+    font-size: 25px;
+    color: #383838;
+    display: inline-block;
+    margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
+}
+
+/* 貯金 */
+.en, #savings {
+    display: inline-block;
+}
+
+.pt, #points {
+    display: inline-block;
 }
