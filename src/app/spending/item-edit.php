@@ -25,7 +25,7 @@ $user_id = $_SESSION['user_id'];
     </div>
   </header>
   
-  <div class="item_edit_waku2" style="width: 414px";>
+  <div class="item_edit_waku2" style="width: initial";>
     <h2 class="c-text c-text__subtitle">【支出カテゴリー編集】</h2>
 
     <div class="item_edit_waku">
