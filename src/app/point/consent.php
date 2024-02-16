@@ -79,7 +79,7 @@ $debts = $consent->display_consent_debt($family_id);
                     $consent->debt_select($debt_data['debt_id']);
                 ?><br>
                 <form action="" method="post">
-                    <input type="number" name="interest" min="1" max="100" placeholder="利率を入力してください"><span>%</span><br>
+                    <input type="number" name="interest" min="0" max="100" placeholder="利率を入力してください"><span>%</span><br>
                     <?php
                     if(isset($_SESSION['interest_error'])){
                         echo '<p class="interest-error">' . $_SESSION['interest_error'] . '</p>';
