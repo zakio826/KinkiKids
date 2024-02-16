@@ -87,7 +87,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
             <br>
             <?php
@@ -113,7 +113,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['payment_id']); ?>"><?php echo h($row['payment_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
             <br>
             <?php
@@ -139,7 +139,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
             <br>
             <?php
@@ -148,6 +148,8 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['income_category_error']);
             }
             ?>
+
+
 
             <input class="button btn-touroku" type="submit" value="登録">
         </form>
