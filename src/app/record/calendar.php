@@ -420,25 +420,27 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
                                         <?php for ($j = 1; $j <= 7; $j++) : ?>
                                             <?php $day = $i * 7 + $j - $first_week; ?>
 
-                                            <td class="position-relative p-0" name="week_<?php echo $i; ?>" style="width: 12.5vw;<?php if ($month_now and $day == $today) { echo ' background-color: lemonchiffon;'; } ?>">
+                                            <!-- <td class="position-relative p-0" name="week_<?php echo $i; ?>" style="width: 12.5vw;<?php if ($month_now and $day == $today) { echo ' background-color: lemonchiffon;'; } ?>"> -->
+                                            <td class="position-relative p-0" style="width: 12.5vw;<?php if ($month_now and $day == $today) { echo ' background-color: lemonchiffon;'; } ?>">
                                                 <?php if ($day > 0 and $day <= $last_day) : ?>
                                                     <?php if (!$month_now or $day <= $today) : ?>
                                                         <input class="d-none" type="submit" id="pick_<?php echo $day; ?>" name="pick_date" value="<?php echo date($this_ym. "-". $day); ?>">
                                                     <?php endif; ?>
 
-                                                    <!-- <div class="w-100 daily-col" name="week_<?php echo $i; ?>"> -->
-                                                    <div class="w-100 daily-col">
+                                                    <!-- <div class="w-100 daily-col"> -->
+                                                    <div class="w-100 daily-col" name="week_<?php echo $i; ?>">
                                                         <p class="mb-1 mx-sm-2 pt-1 text-center text-sm-start"><?php echo $day; ?></p>
 
                                                         <div class="row row-cols-2 row-cols-sm-auto gx-0 gy-1 ps-1 ps-md-2 ps-lg-1 ps-xl-2 ps-xxl-1 align-items-center justify-content-around">
                                                             <?php for ($k = 0; $k < count($monthlyDataset["name"]); $k++) : ?>
                                                                 <?php if (isset($monthlyDataset["data"][$k]["日付"]) and in_array($day, $monthlyDataset["data"][$k]["日付"])) : ?>
                                                                     <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png">
-                                                                    <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
                                                                 <?php endif; ?>
                                                             <?php endfor; ?>
+                                                            <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png">
                                                         </div>
                                                     </div>
+
 
                                                     <!-- <label class="d-none w-100 daily-info" for="pick_<?php echo $day; ?>" name="week_info_<?php echo $i; ?>">
                                                         <p class="my-1 mx-sm-2 text-center text-sm-start"><?php echo $day; ?></p>
@@ -466,8 +468,8 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
                                     
                                     <!-- <tr class="d-none w-100 daily-info" id="week_info_<?php echo $i; ?>"> -->
                                     <tr class="d-none w-100" name="week_info">
-                                        <td class="px-0 py-2" colspan="7">
-                                            <div class="row row-cols-3 g-0 align-items-center justify-content-around w-100 mb-2">
+                                        <td class="p-2" colspan="7">
+                                            <div class="row row-cols-3 g-0 align-items-center justify-content-around w-100 my-2">
                                                 <div class="col"><h6 class="w-100 m-0 text-center">収入<span class="d-inline-block">記録</span></h6></div>
                                                 <div class="col"><h6 class="w-100 m-0 text-center">支出<span class="d-inline-block">記録</span></h6></div>
                                                 <div class="col"><h6 class="w-100 m-0 text-center">お手伝い<span class="d-inline-block">記録</span></h6></div>

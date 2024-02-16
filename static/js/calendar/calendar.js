@@ -41,15 +41,15 @@ const info_array = [
 // 新しいHTML要素を作成
 function info_tag_create(name, val, unit) {
     let tag = document.createElement('div');
-    tag.className = "mb-2 ps-2 text-center";
+    tag.className = "mb-2 text-center";
 
     let nameTxt = document.createElement('span');
-    nameTxt.className = "d-inline-block pe-2 text-nowrap";
+    nameTxt.className = "text-nowrap";
     nameTxt.textContent = name;
     tag.appendChild(nameTxt);
 
     let val_unitTxt = document.createElement('span');
-    val_unitTxt.className = "d-inline-block pe-2";
+    val_unitTxt.className = "d-block d-sm-inline-block mx-2";
     val_unitTxt.textContent = String(val) + unit;
     tag.appendChild(val_unitTxt);
 
@@ -133,8 +133,8 @@ for (let week = 0; week < week_array.length; week++) {
             if (week > 0) this_day -= week_shift;
             
             console.log(this_day+1);
-            console.log(last_day+1);
-            console.log(day+1);
+            // console.log(last_day+1);
+            // console.log(day+1);
 
             if (this_day != last_day) {
                 if (week_info[week].classList[0] == "d-none") {
