@@ -151,7 +151,6 @@ if (isset($_GET["pick_date"])) {
 
 
 
-
             <input class="button btn-touroku" type="submit" value="登録">
         </form>
     </section>
