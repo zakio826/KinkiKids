@@ -157,19 +157,30 @@ $index_child_class->message($db);
 
                 </div>
             </div>
-            <div class="menyu">
-        <form action="" method="post">
-            <button type="submit" name="left" class="btn-left"><</button>
-            <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '購入目標'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                <span><?php echo 'ポイントノルマ'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                <span><?php echo '行動目標'; ?></span>
-            <?php } ?>
 
-            <button type="submit" name="right" class="btn-right">></button>
-        </form>
+
+            <div class="menyu select_user">
+                <form action="" method="post"  class="slideshow">
+                    <button type="submit" name="left" class="btn-left"><</button>
+                    <?php if($_SESSION['goal_select'] == 0){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouA2.png" height=50 alt="購入目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouB2.png" height=50 alt="ポイントノルマ">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouC2.png" height=50 alt="行動目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } ?>
+
+                    <button type="submit" name="right" class="btn-right">></button>
+                </form>
             </div>
 
 
