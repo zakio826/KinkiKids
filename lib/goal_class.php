@@ -144,7 +144,7 @@ class goal {
     }
     
     public function detail_error() {
-        //金額が入力されてなければエラーを表示
+        //詳細が入力されてなければエラーを表示
         if (!empty($this->error['goal_detail'])) {
             switch ($this->error['goal_detail']) {
                 case 'blank': echo '*詳細を入力してください。'; break;
@@ -153,7 +153,7 @@ class goal {
     }
 
     public function deadline_error() {
-        //金額が入力されてなければエラーを表示
+        //期限が入力されてなければエラーを表示
         if (!empty($this->error['goal_deadline'])) {
             switch ($this->error['goal_deadline']) {
                 case 'blank': echo '*期限を入力してください。'; break;
