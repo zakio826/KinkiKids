@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" minlength="8" placeholder="※半角英数字で8文字以上入力してください" required>
+                            <input type="password" name="password[]" minlength="8" maxlength="100" placeholder="※半角英数字で8文字以上入力してください" required>
                         </div>
 
                         <div class="control">
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="control">
-                            <label for="gender_id"><ruby>性別<rt>せいかく</rt></ruby></label>
+                            <label for="gender_id"><ruby>性別<rt>せいべつ</rt></ruby></label>
                             <select name="gender_id[]">
                                 <option value="1" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 1) ? 'selected' : ''; ?>>女性</option>
                                 <option value="2" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 2) ? 'selected' : ''; ?>>男性</option>

@@ -16,7 +16,6 @@ if (isset($_GET["pick_date"])) {
 }
 ?>
 
-
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
@@ -46,7 +45,7 @@ if (isset($_GET["pick_date"])) {
                 <input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
                 <label for="income" class="spinradio">収入 </label>
             </div>
-       
+
             <!-- セレクトボックス(支出カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
                 <p class="long-name">支出カテゴリー</p>
@@ -85,7 +84,7 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
             </div>
-       
+
             <!-- セレクトボックス(収入カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
                 <p class="long-name">収入カテゴリー</p>
@@ -104,14 +103,6 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
             </div>
-
-
-            <!-- 入力したデータの詳細情報 -->
-            <!-- <div>
-                <textarea name="memo" id="" cols="30" rows="5" class="spending_input_textarea" placeholder="入力収支の詳細"></textarea>
-            </div> -->
-
-
             <input class="button btn-touroku" type="submit" value="登録">
         </form>
     </section>
