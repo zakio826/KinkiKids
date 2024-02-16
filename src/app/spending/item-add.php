@@ -35,6 +35,7 @@ $family_id = $_SESSION['family_id'];
       sql_check($stmt, $db);
       if ($stmt->execute()) {
         echo "データが正常に登録されました。";
+        header("Location: ".$absolute_path."src/app/spending/item-edit.php"); exit;
       } else {
           echo "データの登録中にエラーが発生しました。";
       }
