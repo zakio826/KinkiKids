@@ -19,6 +19,16 @@ class consent {
 
             echo "承認しました";
             
+        }elseif (isset($_POST["consent_help_N"])){
+            $help_id = $_POST["consent_help_id"];
+
+            $stmt = $this->db->prepare("DELETE FROM help_log WHERE help_id = :help_id and consent_flag = 1 ORDER BY help_log_id DESC LIMIT 1");
+            $stmt->bindParam(':help_id', $help_id);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "拒否しました";
+            
         }elseif (isset($_POST["consent_mission_Y"])){
             $mission_id = $_POST["consent_mission_id"];
 
@@ -35,11 +45,21 @@ class consent {
 
             echo "承認しました";
             
-        } elseif (isset($_POST["consent_debt_Y"])){
+        }elseif (isset($_POST["consent_mission_N"])){
+            $mission_id = $_POST["consent_mission_id"];
+
+            $stmt = $this->db->prepare("DELETE FROM mission_log WHERE mission_id = :mission_id and consent_flag = 1 ORDER BY mission_log_id DESC LIMIT 1");
+            $stmt->bindParam(':mission_id', $mission_id);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "拒否しました";
+            
+        }elseif (isset($_POST["consent_debt_Y"])){
             $debt_id = $_POST["consent_debt_id"];
             if(!empty($_POST["interest"])){
                 $interest = $_POST["interest"];         
-            }else if(empty($_POST["interest"])){
+            } else {
                 $_SESSION["interest_error"] = "*利率を入力してください。";
                 header('Location: consent.php'); 
                 exit();
@@ -54,7 +74,7 @@ class consent {
             $debt_amount = $result['debt_amount'];
             $installments = $result['installments'];
 
-            $repayment_amount = $debt_amount * (1 + $interest / 100);
+            $repayment_amount = $debt_amount * (1 + ($interest / 100));
             $repayment_installments = ceil($repayment_amount / $installments);
 
             $stmt = $this->db->prepare("UPDATE debt SET approval_flag = 1, repayment_amount = :repayment_amount, interest = :interest, repayment_installments = :repayment_installments WHERE debt_id = :debt_id");

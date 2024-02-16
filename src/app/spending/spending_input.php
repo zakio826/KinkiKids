@@ -38,6 +38,7 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['date_error']);
             }
             ?>
+
             <div class="p-form__flex-input">
                 <p class="long-name">タイトル</p>
                 <input type="text" name="title" id="title" maxlength="15">
@@ -49,6 +50,7 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['title_error']);
             }
             ?>
+
             <div class="p-form__flex-input">
                 <p class="long-name">金額</p>
                 <input type="number" name="amount" id="amount" step="1" maxlength="5">
@@ -60,6 +62,8 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['amount_error']);
             }
             ?>
+
+            <!-- [支出][収入]ラジオボタン切り替え -->
             <div class="p-form__flex-input type">
                 <input id="spending" type="radio" name="type" value="0" onchange="onRadioChangeType(0);" required>
                 <label for="spending" class="spinradio">支出 </label>
@@ -85,7 +89,6 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
-
             <br>
             <?php
             if(isset($_SESSION['spending_category_error'])){
@@ -93,7 +96,6 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['spending_category_error']);
             }
             ?>
-
 
             <!-- セレクトボックス(支払方法) -->
             <div id="paymentMethodBox" class="u-js__show-switch flex p-form__flex-input sp-change-order">
@@ -113,7 +115,6 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
-
             <br>
             <?php
             if(isset($_SESSION['payment_error'])){
@@ -121,7 +122,7 @@ if (isset($_GET["pick_date"])) {
                 unset($_SESSION['payment_error']);
             }
             ?>
-       
+
             <!-- セレクトボックス(収入カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
                 <p class="long-name">収入カテゴリー</p>
@@ -140,7 +141,6 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
-
             <br>
             <?php
             if(isset($_SESSION['income_category_error'])){
