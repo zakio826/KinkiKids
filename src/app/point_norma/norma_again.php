@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ポイントノルマ設定";
-$stylesheet_name = "setting_norma_adult.css";
+$stylesheet_name = "setting_norma.css";
 include("../include/header.php");
 ?>
 
@@ -22,8 +22,8 @@ include("../include/header.php");
 
 <main>  <!-- ←一番外側はmainタグを指定する -->
     <section>
-        <div class="content">
-            <form action="" method="POST">
+        <div class="content_adult">
+            <form action="" method="POST" class="adult_font">
                 <h1>ポイントノルマ設定</h1>
 
                 <div class="control-1">
