@@ -85,14 +85,17 @@ echo '</script>';
         // 現在の値を取得
         $goal_select = $_SESSION['goal_select'];
         ?>
-
-        <div class="select_user_child">
-            <p>子供選択:</p>
-            <select id="user">
-                <?php $index_parent_class->getFamilyUser(); ?>
-            </select>
-                
+        
+        <div class="select_user_child_iti">
+            <div class="select_user_child">
+                <p>子供選択:
+                    <select id="user">
+                        <?php $index_parent_class->getFamilyUser(); ?>
+                    </select>
+                </p>
+            </div>
         </div>
+
         <br>
 
         <div class="select_user">
