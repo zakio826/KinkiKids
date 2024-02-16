@@ -77,14 +77,14 @@ class index_parent_class {
             return $result[0];
         } else {
             return array(
-                'behavioral_goal'=>'',
-                'reward_point'=>'',
+                'behavioral_goal'=>'行動目標を設定してください',
+                'reward_point'=>0,
                 'behavioral_goal_deadline'=>'',
             );
         }
     }
     public function getPointNorma($i) {
-        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE point_norma_user_id = :user_id");
         $stmt->bindParam(':user_id', $i);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
