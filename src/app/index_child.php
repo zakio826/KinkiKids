@@ -127,7 +127,14 @@ $index_child_class->message($db);
                                 </div>
                             <span>
                         <?php } else { ?>
-                            <span><p>目標がないので設定してください</p></span>
+                            <span>
+                                <p>目標がないので設定してください</p>
+                                <div class="btn-p">
+                                        <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                            ＋  
+                                        </a>
+                                </div>
+                            </span>
                         <?php } ?>
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>
