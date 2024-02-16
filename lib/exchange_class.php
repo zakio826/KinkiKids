@@ -11,9 +11,26 @@ class Exchange {
             $points = $_POST['points'];
 
             list($childDataId, $savings, $havePoints) = $this->getChildDataInfo($selectedUserId);
+
+            if (empty($selectedUserId)) {
+                $_SESSION['child_error'] = '*子供を選択してください。';
+                // header('Location: exchange.php');
+                // exit();
+            }
+
+            if (empty($points)) {
+                $_SESSION['point_error'] = '*交換するポイントを入力してください。';
+                // header('Location: exchange.php');
+                // exit();
+            }
             
             if ($points > $havePoints) {
-                $_SESSION['exchange_error'] = '入力されたポイントが所持ポイントを超えています。';
+                $_SESSION['exchange_error'] = '*入力されたポイントが所持ポイントを超えています。';
+                // header('Location: exchange.php');
+                // exit();
+            }
+
+            if(isset($_SESSION['child_error']) || isset($_SESSION['point_error']) || isset($_SESSION['exchange_error'])){
                 header('Location: exchange.php');
                 exit();
             }

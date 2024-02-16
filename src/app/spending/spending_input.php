@@ -16,7 +16,6 @@ if (isset($_GET["pick_date"])) {
 }
 ?>
 
-
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
@@ -30,23 +29,44 @@ if (isset($_GET["pick_date"])) {
             <!-- 基本データ -->
             <div class="p-form__flex-input">
                 <p class="long-name">日付</p>
-                <label for="date"><input type="date" name="date" id="date" value="<?php echo  date("Y-m-d", $date); ?>" required></label>
+                <label for="date"><input type="date" name="date" id="date" value="<?php echo  date("Y-m-d", $date); ?>"></label>
             </div>
+            <br>
+            <?php
+            if(isset($_SESSION['date_error'])){
+                echo '<p class="date-error">' . $_SESSION['date_error'] . '</p>';
+                unset($_SESSION['date_error']);
+            }
+            ?>
             <div class="p-form__flex-input">
                 <p class="long-name">タイトル</p>
-                <input type="text" name="title" id="title" maxlength="15" required>
+                <input type="text" name="title" id="title" maxlength="15">
             </div>
+            <br>
+            <?php
+            if(isset($_SESSION['title_error'])){
+                echo '<p class="title-error">' . $_SESSION['title_error'] . '</p>';
+                unset($_SESSION['title_error']);
+            }
+            ?>
             <div class="p-form__flex-input">
                 <p class="long-name">金額</p>
-                <input type="number" name="amount" id="amount" step="1" maxlength="5" required>
+                <input type="number" name="amount" id="amount" step="1" maxlength="5">
             </div>
+            <br>
+            <?php
+            if(isset($_SESSION['amount_error'])){
+                echo '<p class="amount-error">' . $_SESSION['amount_error'] . '</p>';
+                unset($_SESSION['amount_error']);
+            }
+            ?>
             <div class="p-form__flex-input type">
                 <input id="spending" type="radio" name="type" value="0" onchange="onRadioChangeType(0);" required>
                 <label for="spending" class="spinradio">支出 </label>
                 <input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
                 <label for="income" class="spinradio">収入 </label>
             </div>
-       
+
             <!-- セレクトボックス(支出カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
                 <p class="long-name">支出カテゴリー</p>
@@ -65,6 +85,14 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
             </div>
+
+            <br>
+            <?php
+            if(isset($_SESSION['spending_category_error'])){
+                echo '<p class="spending_category_error">' . $_SESSION['spending_category_error'] . '</p>';
+                unset($_SESSION['spending_category_error']);
+            }
+            ?>
 
 
             <!-- セレクトボックス(支払方法) -->
@@ -85,6 +113,14 @@ if (isset($_GET["pick_date"])) {
                 </select>
                 <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
             </div>
+
+            <br>
+            <?php
+            if(isset($_SESSION['payment_error'])){
+                echo '<p class="payment_error">' . $_SESSION['payment_error'] . '</p>';
+                unset($_SESSION['payment_error']);
+            }
+            ?>
        
             <!-- セレクトボックス(収入カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="incomeCategoryBox">
@@ -105,12 +141,15 @@ if (isset($_GET["pick_date"])) {
                 <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
             </div>
 
-
-            <!-- 入力したデータの詳細情報 -->
-            <div>
-                <textarea name="memo" id="" cols="30" rows="5" class="spending_input_textarea" placeholder="入力収支の詳細"></textarea>
-            </div>
             <br>
+            <?php
+            if(isset($_SESSION['income_category_error'])){
+                echo '<p class="income_category_error">' . $_SESSION['income_category_error'] . '</p>';
+                unset($_SESSION['income_category_error']);
+            }
+            ?>
+
+
 
             <input class="button btn-touroku" type="submit" value="登録">
         </form>
