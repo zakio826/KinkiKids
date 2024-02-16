@@ -186,33 +186,38 @@ echo '</script>';
                         
                     </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
+                    <p class="pt">pt</p>
+                    <br>
                     <a href="<?php echo $absolute_path; ?>src/app/money/exchange.php" class="btn-kankin">
-                            換金
+                            換金しますか？
                     </a>
                 </b>
             </div>
         </div>
 
 
+      
 
         <input type="radio" name="slideshow" id="slide1" checked>
                 <input type="radio" name="slideshow" id="slide2">
                 <input type="radio" name="slideshow" id="slide3">
 
         <hr class="index_parent_hr">
-
+        <br>
         <!-- <hr class="index_parent_hr"> -->
         <div class="index_parent_mokuhyoucss1">
-            <div class="index_parent_mokuhyoucss2">
+            <!-- <div class="index_parent_mokuhyoucss2"> -->
         <!-- <div class="index_parent_kinkyuu"> -->
-            <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/kinkyuumi.png" height="50">
-                
-            </a>
-            <a href="<?php echo $absolute_path; ?>src/app/point/consent.php">
-                <img src="<?php echo $absolute_path; ?>static/assets/syouninnmati.png" height="50">
-                
-            </a>
+                <div class="mission">
+                    <a href="<?php echo $absolute_path; ?>src/app/point/mission_add.php">
+                        <img src="<?php echo $absolute_path; ?>static/assets/kinkyuumi.png" height="50">
+                        
+                    </a>
+                    <a href="<?php echo $absolute_path; ?>src/app/point/consent.php">
+                        <img src="<?php echo $absolute_path; ?>static/assets/syouninnmati.png" height="50">
+                        
+                    </a>  
+                </div>
             </div>
         </div>
 
@@ -265,7 +270,7 @@ echo '</script>';
                             <?php $index_parent_class->getFamilyUser(); ?>
                         </select>
                         <input type="text" name="message" required>
-                        <button type="submit" class="btn">返信</button>
+                        <button type="submit" class="btn_hensin">返信</button>
                     </form>
                 </div>
             </div>
