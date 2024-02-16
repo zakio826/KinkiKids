@@ -83,7 +83,7 @@ input[type="checkbox"] {
 /* スマートフォン用のスタイル */
 @media only screen and (max-width: 600px) {
     .content, .content2 {
-        width: 100%; /* スマートフォン画面に合わせて幅を調整 */
+        width: 90%; /* スマートフォン画面に合わせて幅を調整 */
         min-width: auto; /* 最小幅を解除 */
         font-size: 100%;
         height: 70%;
