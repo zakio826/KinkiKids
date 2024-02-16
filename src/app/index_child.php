@@ -65,32 +65,33 @@ $index_child_class->message($db);
     </header>
     
     <section class="position-relative h-75">
-    <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php" class="index_child_mokuhyouitiran">目標一覧</a>
-    <hr class="index_child_hr">
-    <?php 
-    if (!empty($repayment)) {
-        echo '<div class="syakkin">';
-        echo '<h2>借金返済</h2>';
-        echo '<ul>';
-        foreach ($repayment as $repayment_data) {
-            echo '<li class="migiyose">';
-            echo '<div class="naiyou">';
-            echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
-            echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
-            echo '<br>';
-            echo '<button><a href="./money/repayment.php?debt_id=' . $repayment_data['debt_id'] . '"/button>借金返済する</a>';
-            echo '</div>';
-            echo '</li>';
-        }
-        echo '</ul>';
-        echo '</div>';
-    }
-    ?>
-    <hr class="index_child_hr">
-
-
+    <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php" class="index_child_mokuhyouitiran"><ruby>目標一覧<rt>もくひょういちらん</rt></ruby></a>
+    <hr class="index_child_hr"><br>
             <div class="index_child_mokuhyoucss1">
                 <div class="index_child_mokuhyoucss2">
+                <div class="menyu select_user">
+                <form action="" method="post"  class="slideshow">
+                    <button type="submit" name="left" class="btn-left"><</button>
+                    <?php if($_SESSION['goal_select'] == 0){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouA2.png" height=50 alt="購入目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouB2.png" height=50 alt="ポイントノルマ">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouC2.png" height=50 alt="行動目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } ?>
+
+                    <button type="submit" name="right" class="btn-right">></button>
+                </form>
+            </div>
                     <?php if($_SESSION['goal_select'] == 0){ ?>
                         <?php if ($goal_count != 0) { ?>
                             <span>
@@ -146,7 +147,7 @@ $index_child_class->message($db);
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>
                         <b class="index_child_mokuhyoumoji">
-                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?> pt<br>
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?> ポイント<br>
                                 <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
                             <br>
                             <div class="btn-p">
@@ -215,65 +216,57 @@ $index_child_class->message($db);
                     });
                 });
             </script>
-
-
-            <div class="menyu select_user">
-                <form action="" method="post"  class="slideshow">
-                    <button type="submit" name="left" class="btn-left"><</button>
-                    <?php if($_SESSION['goal_select'] == 0){ ?>
-                        <span>
-                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouA2.png" height=50 alt="購入目標">
-                            <?php echo ''; ?>
-                        </span>
-                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                        <span>
-                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouB2.png" height=50 alt="ポイントノルマ">
-                            <?php echo ''; ?>
-                        </span>
-                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                        <span>
-                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouC2.png" height=50 alt="行動目標">
-                            <?php echo ''; ?>
-                        </span>
-                    <?php } ?>
-
-                    <button type="submit" name="right" class="btn-right">></button>
-                </form>
-            </div>
-
-
-
+    
+    <hr class="index_child_hr">
+    <?php 
+    if (!empty($repayment)) {
+        echo '<div class="syakkin">';
+        echo '<h2>借金返済</h2>';
+        echo '<ul>';
+        foreach ($repayment as $repayment_data) {
+            echo '<li class="migiyose">';
+            echo '<div class="naiyou">';
+            echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
+            echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
+            echo '<br>';
+            echo '<button><a href="./money/repayment.php?debt_id=' . $repayment_data['debt_id'] . '"/button>借金返済する</a>';
+            echo '</div>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+    ?>
 
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
                 <p class="row">
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                            しょじきん:
                         <span>
-                            <?php echo htmlspecialchars($savings); ?>
-                        </span>えん
-                        </b>
-                    </span>
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                        てもち:
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>所持金<rt>しょじきん</rt></ruby>:
+                            <span>
+                                <?php echo htmlspecialchars($savings); ?>
+                            </span>えん
+                            </b>
+                        </span>
                         <span>
-                            <?php echo htmlspecialchars($have_points); ?>
-                        </span>ポイント
-                        </b>
-                    </span>
-                </p>
-            <?php if($goal_count != 0) : ?>
-                <p>
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                        きょうかせぐポイント:
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>手持<rt>ても</rt></ruby>ち:
+                            <span>
+                                <?php echo htmlspecialchars($have_points); ?>
+                            </span>ポイント
+                            </b>
+                        </span>               
+                    <?php if($goal_count != 0) : ?>
                         <span>
-                            <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
-                        </span>ポイント
-                        </b>
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>今日稼<rt>きょうかせ</rt></ruby>ぐポイント:
+                            <span>
+                                <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                            </span>ポイント
+                            </b>
+                        </span>
                 </p>
             <?php else : ?>
                 <p class="index_child_moji">

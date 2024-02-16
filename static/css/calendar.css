@@ -3,13 +3,15 @@ thead, tbody, tr, th, td {
     border: 2.5px solid #333;
 }
 
-.daily-cel {
+.daily-col {
     height: 4.5rem;
     border-bottom: 1px solid silver;
-    /* margin-bottom: 4px; */
 }
-.daily-info {
-    height: 9rem;
+.info-col {
+    max-height: 6rem;
+    height: 6rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .daily-star {
@@ -18,7 +20,7 @@ thead, tbody, tr, th, td {
 }
 
 @media screen and (max-width: 1400px) {
-    .daily-cel {
+    .daily-col {
         height: 4.2rem;
     }
     .daily-star {
@@ -27,7 +29,7 @@ thead, tbody, tr, th, td {
     }
 }
 @media screen and (max-width: 1200px) {
-    .daily-cel {
+    .daily-col {
         height: 3.8rem;
     }
     .daily-star {
@@ -36,7 +38,7 @@ thead, tbody, tr, th, td {
     }
 }
 @media screen and (max-width: 992px) {
-    .daily-cel {
+    .daily-col {
         height: 5.2rem;
     }
     .daily-star {
@@ -45,12 +47,12 @@ thead, tbody, tr, th, td {
     }
 }
 @media screen and (max-width: 768px) {
-    .daily-cel {
+    .daily-col {
         height: 5.2rem;
     }
 }
 @media screen and (max-width: 500px) {
-    .daily-cel {
+    .daily-col {
         height: 4.5rem;
     }
     .daily-star {
@@ -59,7 +61,7 @@ thead, tbody, tr, th, td {
     }
 }
 @media screen and (max-width: 400px) {
-    .daily-cel {
+    .daily-col {
         height: 4.2rem;
     }
     .daily-star {

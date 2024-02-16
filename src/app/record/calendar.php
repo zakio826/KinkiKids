@@ -5,15 +5,10 @@
 $page_title = "カレンダー";
 $stylesheet_name = "calendar.css";
 include("../include/header.php");
-
-// $_SESSION["user_id"] = "100";
-// $_SESSION["username"] = "myayoi";
-// $_SESSION["family_id"] = "100";
-// $_SESSION["role_id"] = "21";
-$ttt = array();
 ?>
 
-<?php // 現在の時間を取得
+
+<?php  // 現在の時間を取得
 $date_now = new DateTime("now");
 $month_now = true;  // カレンダーが今月であるか
 
@@ -37,6 +32,7 @@ $first_week = date("w", strtotime("first day of", $this_date));  // 表示月の
 $last_day   = date("d", strtotime("last day of", $this_date));  // 表示月の最終日
 ?>
 
+
 <?php  // 大人であれば子どもの情報、子どもであれば、自分の情報を取得
 if ($_SESSION["select"] === "child") {
     $user_id = $_SESSION["user_id"];
@@ -49,17 +45,15 @@ $familys = $db->query("SELECT user_id, first_name FROM user WHERE family_id = ".
 ?>
 
 
-
-
 <?php  // 表示月の各記録を日付単位で取得
 $calendar_info = array(
-    "name" => ["収入記録", "支出記録", "お手伝い記録", ],
+    "name" => ["収入記録", "支出記録", "ポイント記録", ],
     "star_color" => ["", "_blue", "_green", "_purple", "_red"],
 );
 $star_color = ["", "_blue", "_green", "_purple", "_red"];
 
 $monthlyDataset = array(
-    "name" => ["in_data", "ex_data", "help_data", ],
+    "name" => ["dayly_in_data", "dayly_ex_data", "dayly_pt_data", ],
     "query" => [],
     "data" => [],
 );
@@ -71,11 +65,11 @@ $from = [
 ];
 
 $columns = array(
-    "name" => ["日付", "記録情報"],
+    "name" => ["日付", "記録内容", "記録情報"],
     "column" => [
-        ["income_expense_date", "income_expense_amount"],
-        ["income_expense_date", "income_expense_amount"],
-        ["help_log.help_day", "help.get_point"],
+        ["income_expense_date", "income_expense_name", "income_expense_amount"],
+        ["income_expense_date", "income_expense_name", "income_expense_amount"],
+        ["help_log.help_day", "help.help_name", "help.get_point"],
     ],
 );
 
@@ -87,8 +81,8 @@ $this_ym = date("Y-m", $this_date);
 for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
     array_push($column, "");
     $column[$i] .= "DATE_FORMAT(". $columns["column"][$i][0]. ",'%e') AS `". $columns["name"][0]. "`";
-    $column[$i] .= ", ";
-    $column[$i] .= "SUM(". $columns["column"][$i][1]. ") AS `". $columns["name"][1]. "`";
+    $column[$i] .= ", ". $columns["column"][$i][1]. " AS `". $columns["name"][1]. "`";
+    $column[$i] .= ", ". $columns["column"][$i][2]. " AS `". $columns["name"][2]. "`";
 
     array_push($where, "");
     $where[$i] .= "DATE(". $columns["column"][$i][0]. ") BETWEEN '". $this_ym. "-01' AND '". $this_ym. "-". $last_day. "'";
@@ -97,19 +91,11 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
     }
 }
 
-// for ($i = 0; $i < count($columns); $i++) {
-//     foreach ($columns[$i] as $key => $value) {
-//         array_push($column, "DATE_FORMAT(". $value. ",'%e') AS `". $key. "`");
-//         array_push($wheres, "DATE(".$columns[$i]["日付"].") BETWEEN '".$this_ym."-01' AND '".$this_ym."-".$last_day."'");
-//     }
-// }
-
 if (is_null($user_id)) {
     array_unshift($where, "family_id = ". $_SESSION["family_id"]);
 } else {
     array_unshift($where, "user_id = ". $user_id);
 }
-
 
 for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
     $sql = "SELECT ". $column[$i]. " FROM ". $from[$i][0];
@@ -120,10 +106,7 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
         $sql .= " WHERE ";
     }
     $sql .= $where[0]. " AND ". $where[$i+1];
-
-
-    $sql .= " GROUP BY `". $columns["name"][0]. "`";
-    $sql .= " ORDER BY `". $columns["name"][0]. "` ASC;";
+    $sql .= " ORDER BY ". $columns["column"][$i][0]. " ASC;";
 
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -135,6 +118,9 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
         foreach ($monthlyDataset["query"][$i] as $index => $item) {
             foreach ($item as $key => $value) {
                 if (gettype($key) !== "integer") {
+                    if ($key == $columns["name"][0]) {
+                        $value = intval($value);
+                    }
                     if ($index == 0) {
                         $monthlyDataset["data"][$i] += [$key => [$value]];
                     } else {
@@ -143,16 +129,9 @@ for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
                 }
             }
         }
-
-        array_push($ttt, [$sql, $monthlyDataset["query"][$i], $monthlyDataset["data"][$i]]);
-
     }
 }
 ?>
-
-
-
-
 
 
 <?php  // 表示月のカテゴリ別月間収支データを取得
@@ -238,6 +217,7 @@ for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
     }
 }
 ?>
+
 
 <?php  // 表示月以前5か月分の月間収支データを取得
 $in_exDataset = array(
@@ -329,28 +309,7 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
     <section class="position-relative">
         <div class="container">
 
-            <?php
-            // echo "<br>";
-
-            // for ($i = 0; $i < count($ttt); $i++) {
-            //     echo $monthlyDataset["name"][$i]. "<br><br>";
-
-            //     // if (isset($ttt[$i][0])) { echo $ttt[$i][0]. "<br><br>"; }
-            //     // if (isset($ttt[$i][1])) { echo var_dump($ttt[$i][1]). "<br><br>"; }
-            //     // if (isset($ttt[$i][2])) { echo var_dump($ttt[$i][2]). "<br><br>"; }
-
-            //     // if (isset($ttt[$i][2])) { echo json_encode($ttt[$i][2], JSON_UNESCAPED_UNICODE). "<br><br>"; }
-
-            //     if (isset($ttt[$i][2]["日付"])) { echo "日付". json_encode($ttt[$i][2]["日付"]). "<br>"; }
-            //     if (isset($ttt[$i][2]["記録情報"])) { echo "記録情報". json_encode($ttt[$i][2]["記録情報"]). "<br>"; }
-            //     // echo "<br>";
-
-            //     echo "<br><br>";
-            // }
-
-            // echo "<br>";
-            ?>
-
+            <!-- カレンダー表示 -->
             <div class="row mx-auto mt-3 px-3">
                 <div class="position-relative mx-auto px-md-5">
                     <table class="w-100" style="caption-side: top;">
@@ -411,73 +370,42 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
                                         <?php for ($j = 1; $j <= 7; $j++) : ?>
                                             <?php $day = $i * 7 + $j - $first_week; ?>
 
-                                            <td class="position-relative p-0" <?php if ($month_now and $day == $today) { echo 'style="background-color: lemonchiffon;"'; } ?> style="width: 12.5vw;">
+                                            <td class="position-relative p-0" style="width: 12.5vw;<?php if ($month_now and $day == $today) { echo ' background-color: lemonchiffon;'; } ?>">
                                                 <?php if ($day > 0 and $day <= $last_day) : ?>
                                                     <?php if (!$month_now or $day <= $today) : ?>
                                                         <input class="d-none" type="submit" id="pick_<?php echo $day; ?>" name="pick_date" value="<?php echo date($this_ym. "-". $day); ?>">
                                                     <?php endif; ?>
 
-                                                    <div class="w-100 daily-cel" name="week_<?php echo $i; ?>">
+                                                    <div class="w-100 daily-col" name="week_<?php echo $i; ?>">
                                                         <p class="mb-1 mx-sm-2 pt-1 text-center text-sm-start"><?php echo $day; ?></p>
 
                                                         <div class="row row-cols-2 row-cols-sm-auto gx-0 gy-1 ps-1 ps-md-2 ps-lg-1 ps-xl-2 ps-xxl-1 align-items-center justify-content-around">
-                                                            <?php //$col_order = 0; ?>
                                                             <?php for ($k = 0; $k < count($monthlyDataset["name"]); $k++) : ?>
-                                                                <?php if (isset($monthlyDataset["data"][$k]["日付"]) and in_array(strval($day), $monthlyDataset["data"][$k]["日付"])) : ?>
-                                                                    <!-- <img class="col daily-star mx-sm-1 order-<?php echo $col_order++; ?>" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png"> -->
+                                                                <?php if (isset($monthlyDataset["data"][$k]["日付"]) and in_array($day, $monthlyDataset["data"][$k]["日付"])) : ?>
                                                                     <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png">
-                                                                    <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
                                                                 <?php endif; ?>
                                                             <?php endfor; ?>
-
-                                                            <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[3]; ?>.png">
-                                                            <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
-
-                                                            <?php //if ($col_order == 0) : ?>
-                                                                <!-- <span class="col-auto">&nbsp;</span> -->
-                                                                <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[3]; ?>.png"> -->
-                                                                <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
-                                                            <?php //else: ?>
-                                                                <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[3]; ?>.png"> -->
-                                                                <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
-                                                            <?php //endif; ?>
                                                         </div>
                                                     </div>
-
-                                                    <!-- <hr class="m-0"> -->
-
-                                                    <label class="d-none w-100 daily-info" for="pick_<?php echo $day; ?>" name="week_info_<?php echo $i; ?>">
-
-                                                        <p class="my-1 mx-sm-2 text-center text-sm-start"><?php echo $day; ?></p>
-
-                                                        <div class="row g-0 align-items-center justify-content-around" style="height: 1.5rem;">
-                                                            <?php $col_order = 0; ?>
-                                                            <?php for ($k = 0; $k < count($monthlyDataset["name"]); $k++) : ?>
-                                                                <?php if (isset($monthlyDataset["data"][$k]["日付"]) and in_array(strval($day), $monthlyDataset["data"][$k]["日付"])) : ?>
-                                                                    <img class="col daily-star mx-sm-1 order-<?php echo $col_order++; ?>" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png">
-                                                                <?php endif; ?>
-                                                            <?php endfor; ?>
-
-                                                            <?php if ($col_order == 0) : ?>
-                                                                <span class="col-auto">&nbsp;</span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </label>
-                                                <?php else : ?>
-                                                    <!-- <span class="position-absolute top-0 daily-cel">
-                                                        &nbsp;<br>&nbsp;
-                                                    </span> -->
-
-                                                    <div class="position-absolute top-0 w-100 daily-cel" name="week_<?php echo $i; ?>">
-                                                        <!-- <hr class="position-absolute bottom-0 w-100 m-0"> -->
-                                                    </div>
-
-                                                    
-                                                    <!-- <span class="d-none w-100 daily-info" name="week_info_<?php echo $i; ?>">
-                                                    </span> -->
                                                 <?php endif; ?>
                                             </td>
                                         <?php endfor; ?>
+                                    </tr>
+                                    
+                                    <tr class="d-none w-100" name="week_info">
+                                        <td class="p-2" colspan="7">
+                                            <div class="row row-cols-3 g-0 align-items-center justify-content-around w-100 my-2">
+                                                <div class="col"><h6 class="w-100 m-0 text-center">収入<span class="d-inline-block">記録</span></h6></div>
+                                                <div class="col"><h6 class="w-100 m-0 text-center">支出<span class="d-inline-block">記録</span></h6></div>
+                                                <div class="col"><h6 class="w-100 m-0 text-center">お手伝い<span class="d-inline-block">記録</span></h6></div>
+                                            </div>
+
+                                            <div class="row row-cols-3 g-0 justify-content-around w-100">
+                                                <div class="col info-col" name="in_info"></div>
+                                                <div class="col info-col" name="ex_info"></div>
+                                                <div class="col info-col" name="pt_info"></div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 <?php endfor; ?>
                             </form>
@@ -512,42 +440,28 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
             </div>
 
             
-            <!-- 月間収支別カテゴリ詳細グラフ表示 -->
+            <!-- 収支別月間カテゴリ詳細グラフ表示 -->
             <div class="mx-3 mt-5 money-grid">
-                <!-- <button class="w-75 mx-auto my-4 btn btn-primary" id="in_exSwitch">収支切り替え</button> -->
-
                 <div class="row gx-2 justify-content-around mx-3 pt-4">
+
+                    <!-- 収入詳細グラフ -->
                     <div class="position-relative col text-center">
                         <h4 class="position-absolute w-100">収入詳細</h4>
-
-                        <!-- チャートの表示エリア -->
                         <canvas class="w-100 h-auto mt-4 ps-3" id="in_categoryChart"></canvas>
                     </div>
+
+                    <!-- 支出詳細グラフ -->
                     <div class="position-relative col text-center">
                         <h4 class="position-absolute w-100">支出詳細</h4>
-
-                        <!-- チャートの表示エリア -->
                         <canvas class="w-100 h-auto mt-4 ps-3" id="ex_categoryChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- 収支グラフ表示 -->
+            <!-- 表示月以前５か月間の収支グラフ表示 -->
             <div class="row mx-3 mt-5 money-grid">
                 <div class="position-relative d-block p-4 p-md-5">
-                    <!-- チャートの表示エリア -->
                     <canvas class="w-100 h-100" id="in_exChart"></canvas>
-                </div>
-            </div>
-
-            <!-- 月間収支別カテゴリ詳細グラフ表示（色テスト用） -->
-            <div class="mx-3 mt-5 money-grid">
-                <div class="row gx-2 justify-content-around mx-3 pt-4">
-                    <div class="position-relative col text-center">
-                        <h4 class="position-absolute w-100">収支詳細</h4>
-                        <!-- チャートの表示エリア -->
-                        <canvas class="w-100 h-auto mt-4 ps-3" id="categoryChart"></canvas>
-                    </div>
                 </div>
             </div>
         </div>
@@ -559,16 +473,40 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
 
 
 <script>
+    /*
+     * データベースから取得した情報をjson形式で渡す
+     */
+
     <?php
+    // 日付単位の記録情報
+    echo "const info_data = [";
+    for ($i = 0; $i < count($monthlyDataset["name"]); $i++) {
+        echo "JSON.parse('". json_encode($monthlyDataset["data"][$i], JSON_UNESCAPED_UNICODE). "'),";
+    }
+    echo "];";
+    // echo "console.log(info_data);";
+
+
+    // 収支別月間カテゴリ詳細
     for ($i = 0; $i < count($categoryDataset["name"]); $i++) {
         echo "const ". $categoryDataset["name"][$i]. " = JSON.parse('". json_encode($categoryDataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
-        echo "console.log(". $categoryDataset["name"][$i]. ");";
     }
+    // echo "console.log(". $categoryDataset["name"][0];
+    // for ($i = 1; $i < count($categoryDataset["name"]); $i++) {
+    //     echo ", ". $categoryDataset["name"][$i];
+    // }
+    // echo ");";
 
+
+    // 表示月以前５か月間の収支
     for ($i = 0; $i < count($in_exDataset["name"]); $i++) {
         echo "const ". $in_exDataset["name"][$i]. " = JSON.parse('". json_encode($in_exDataset["data"][$i], JSON_UNESCAPED_UNICODE). "');";
-        echo "console.log(". $in_exDataset["name"][$i]. ");";
     }
+    // echo "console.log(". $in_exDataset["name"][0];
+    // for ($i = 1; $i < count($in_exDataset["name"]); $i++) {
+    //     echo ", ". $in_exDataset["name"][$i];
+    // }
+    // echo ");";
     ?>
 </script>
 
