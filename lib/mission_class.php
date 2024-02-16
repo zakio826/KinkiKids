@@ -49,7 +49,8 @@ class mission {
                 $m_get_point = $_POST['mission_get_point'];
                 $m_persons = $_POST['mission_person'];
                 $this->missionToDatabase($m_name,$m_get_point);
-                $this->missionpersonToDatabase($m_persons);
+                //LINEメッセージ登録も↓でします
+                $this->missionpersonToDatabase($m_name,$m_persons);
             }else{
                 //TODO エラー処理
             }
@@ -92,9 +93,9 @@ class mission {
 
         echo "登録完了";
     }
-    public function missionpersonToDatabase($m_persons){
+    public function missionpersonToDatabase($m_name,$m_persons){
         $user_id = $_SESSION["user_id"];
-        $family_id = $_SESSION["family_id"];
+        $dtime = date("Y-m-d H:i:s");
 
         $stmt2 = $this->db->prepare("SELECT mission_id FROM mission ORDER BY mission_id DESC LIMIT 1");
         $stmt2->execute();
@@ -105,6 +106,14 @@ class mission {
             $stmt = $this->db->prepare("INSERT INTO mission_person (mission_id,user_id) VALUES (:mission_id, :user_id)");
             $stmt->bindParam(':mission_id', $mission_id);
             $stmt->bindParam(':user_id', $person);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $stmt = $this->db->prepare("INSERT INTO line_message (sender_id,receiver_id,messagetext,sent_time) VALUES (:sender_id, :receiver_id,:messagetext,:sent_time)");
+            $stmt->bindParam(':sender_id', $user_id);
+            $stmt->bindParam(':receiver_id', $person);
+            $stmt->bindParam(':messagetext', $m_name);
+            $stmt->bindParam(':sent_time', $dtime);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
