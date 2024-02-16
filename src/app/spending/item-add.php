@@ -15,12 +15,13 @@ $family_id = $_SESSION['family_id'];
 <?php
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
+      $category = $_GET['category']; 
       switch ($category) {
         case 'spend':
-          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 0)";
+          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 1)";
           break;
         case 'income':
-          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 1)";
+          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 0)";
           break;
         case 'payment':
           $sql = "INSERT INTO payment(user_id,family_id,payment_name) VALUES (:user_id, :family_id, :name)";
@@ -31,9 +32,9 @@ $family_id = $_SESSION['family_id'];
       $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
       $stmt->bindParam(':family_id', $family_id, PDO::PARAM_INT);
       $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-      sql_check($stmt, $db);
       if ($stmt->execute()) {
         echo "データが正常に登録されました。";
+        header("Location: ".$absolute_path."src/app/spending/item-edit.php"); exit;
       } else {
           echo "データの登録中にエラーが発生しました。";
       }
