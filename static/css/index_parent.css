@@ -515,6 +515,10 @@ input[name="slideshow"]{
     margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
 }
 
+#reward_point {
+    font-weight: bold;
+}
+
 /* ノルマポイント */
 #norma_deadline {
     font-size: 25px;
@@ -551,5 +555,19 @@ input[name="slideshow"]{
 
 .pt, #points {
     font-size: 25px;
+    display: inline-block;
+}
+
+/* 今日稼ぐポイント */
+#dayPoint {
+    font-size: 35px;
+    color: #4f40ff;
+}
+#dayPoint,.pt{
+    display: inline-block;
+}
+
+/* 緊急ミッション、承認待ち */
+.mission a {
     display: inline-block;
 }
