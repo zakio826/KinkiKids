@@ -63,7 +63,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
 
 
@@ -83,7 +83,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['payment_id']); ?>"><?php echo h($row['payment_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
        
             <!-- セレクトボックス(収入カテゴリ) -->
@@ -102,7 +102,7 @@ if (isset($_GET["pick_date"])) {
                     <option value="<?php echo h($row['income_expense_category_id']); ?>"><?php echo h($row['income_expense_category_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
-                <a class="c-button c-button--bg-gray" href="./item-edit.php">編集</a>
+                <a class="btn-1" href="./item-edit.php">編集</a>
             </div>
 
 
