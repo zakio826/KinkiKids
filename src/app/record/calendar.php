@@ -489,14 +489,14 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
 
             <!-- 月間収支表示 -->
             <div class="row row-cols-1 row-cols-md-3 gy-4 gx-0 gx-xl-5 justify-content-around w-100 mx-auto mt-4">
-                <?php $in_ex_title = ["つかったお金", "もらったお金", "一か月の合計"]; ?>
+                <?php $in_ex_title = ["もらったお金", "つかったお金", "一か月の合計"]; ?>
                 <?php for ($i = 0; $i < count($in_exDataset["name"]); $i++) : ?>
                     <div class="col-8 col-md-3 col-lg-5 col-xl-4 mt-4">
                         <h4 class="row row-cols-md-1 row-cols-lg-auto gy-0 gx-md-2 justify-content-around py-3 py-lg-4 px-xl-2 money-grid">
                             <span class="col-auto my-1 text-center"><?php echo $in_ex_title[$i]; ?></span>
                             <span class="col-auto my-1 text-center">
                                 <?php
-                                if (isset($in_exDataset["data"][$i]["合計金額"])) :
+                                if (!empty($in_exDataset["data"][$i]["合計金額"])) :
                                     if ($i == 0) :
                                         echo end($in_exDataset["data"][$i]["合計金額"])*-1;
                                     else :

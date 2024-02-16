@@ -16,19 +16,19 @@ class help {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
             }else if(isset($_POST["e_help_id"])){
                 if ($_POST['e_help_name'] === "") {
-                    $error['e_help_name'] = "blank";
+                    $this->error['e_help_name'] = "blank";
                 }
                 if ($_POST['e_get_point'] === "") {
-                    $error['e_get_point'] = "blank";
+                    $this->error['e_get_point'] = "blank";
                 }
                 if (isset($_POST['e_help_person'])) {
                     $e_person = $_POST['e_help_person'];
                 } else {
-                    $error['e_help_person'] = "blank";
+                    $this->error['e_help_person'] = "blank";
                 }
             
                 // エラーがなければ処理
-                if (!isset($error)) {
+                if (empty($this->error)) {
                     $this->updateHelp($_POST["e_help_id"],$_POST['e_help_name'],$_POST['e_get_point'],$e_person);
                     header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
                     exit();
@@ -37,21 +37,21 @@ class help {
 
                 // 入力情報に空白がないか検知
                 if ($_POST['help_name'] === "") {
-                    $error['help_name'] = "blank";
+                    $this->error['help_name'] = "blank";
                 }
                 if ($_POST['get_point'] === "") {
-                    $error['get_point'] = "blank";
+                    $this->error['get_point'] = "blank";
                 }
-                if (isset($_POST['help_person'])) {
+                if (!empty($_POST['help_person'])) {
                     $person = $_POST['help_person'];
                 } else {
-                    $error['get_person'] = "blank";
+                    $this->error['get_person'] = "blank";
                 }
                 
 
             
                 // エラーがなければ次のページへ
-                if (!isset($error)) {
+                if (empty($this->error)) {
                     $_SESSION['join'] = $_POST;
 
                     $user_id = $_SESSION["user_id"];
@@ -364,6 +364,60 @@ class help {
             echo "Error: " . $e->getMessage();
             
             return false;
+        }
+    }
+
+    public function person_error() {
+        if (!empty($this->error['get_person'])) {
+            switch ($this->error['get_person']) {
+                //子供が選択されていなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function helpname_error() {
+        if (!empty($this->error['help_name'])) {
+            switch ($this->error['help_name']) {
+                //お手伝い名が入力されていなければエラーを表示
+                case 'blank': echo '*お手伝い名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function point_error() {
+        if (!empty($this->error['get_point'])) {
+            switch ($this->error['get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_person_error() {
+        if (!empty($this->error['e_help_person'])) {
+            switch ($this->error['e_help_person']) {
+                //子供が選択されていなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function e_helpname_error() {
+        if (!empty($this->error['e_help_name'])) {
+            switch ($this->error['e_help_name']) {
+                //お手伝い名が入力されていなければエラーを表示
+                case 'blank': echo '*お手伝い名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_point_error() {
+        if (!empty($this->error['e_get_point'])) {
+            switch ($this->error['e_get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
         }
     }
 

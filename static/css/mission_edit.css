@@ -8,11 +8,12 @@ body {
     padding: 0;
 }
 
-.title h1{
+h1{
     font-weight: bold;
     color: #2862ff;
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
+
 main{
     text-align: center;
     display: flex;
@@ -35,78 +36,32 @@ main{
     margin: 0 auto;
 }
 
-.btn-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 20px;
-}
-
 .btn-1 {
     background-color: #525ED2;
     color: white;
-    padding: 10px;
+    padding: 7px 20px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+
+input#mission_name, #e_get_point {
+    width: 250px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto;
+    background-color: #fff;
     font-size: 20px;
-    font-weight: bold;
-    width: 110px;
-}
-
-.btn-2 {
-    background-color: #ce3f3f;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    width: 110px;
-}
-
-.btn-syounin{
-    background-color: #525ED2;
-    color: white;
-    padding: 3px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 22px;
-    font-weight: bold;
-    width: 220px;
-}
-
-/* ul要素のマージンやパディングをリセット */
-ul {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* リストアイテムのスタイル */
-  li {
-    list-style: none; /* デフォルトのリストスタイルを非表示にする */
-  }
-
-  .consent_li {
-    margin-right: initial;
-  }
-
-.mt-1 {
-    font-size: 28px;
     text-align: center;
-    color: black;
-    font-weight: bold;
-    margin-bottom: 0;
-}
-
-.mt-2 {
-    font-weight: bold;
-    text-align: right;
-    color: #525ED2;
-    margin-top: 0;
-}
-.input-type{
-    width: 90%;
+    margin-bottom: 5px;
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.目標がgoogleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
 /* 全体の部分 */
 body {
@@ -164,8 +164,10 @@ display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 18px;
     font-weight: bold;
+    color: #ff993b;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+    font-size: calc(1.375rem + 1.5vw);
 }
 
 /* 配置調整 */
@@ -227,6 +229,9 @@ display: none;
 /* 配置調整 */
 .index_child_mokuhyoucss3 {
     margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
@@ -240,19 +245,23 @@ display: none;
                 -6px     0px    6px #fff,
                  0px     6px    6px #fff,
                  0px    -6px    6px #fff; */
-    display: flex;
+    background-color: #fff689;
+    border: 3px solid orange;
+    border-radius: 15px;
+    padding: 10px 30px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    /* 文字太さ */
     font-weight: 1000;
-    -webkit-text-stroke: 0.5px #fff;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    /* 文字白枠 */
+    /* -webkit-text-stroke: 0.5px #fff; */
+    text-align: center;
     /* white-space: nowrap; */
 }
 
 /* 数字だけ別スタイル指定 */
 .index_child_mokuhyoucss4 span {
-    color: #ff7c00;
-    font-size: 25px;
+    color: #ffa500;
+    font-size: 35px;
 }
 
 /* 一部の行の配置調整 */
@@ -264,7 +273,7 @@ p.index_child_moji {
 /* 文字 */
 .index_child_mokuhyoumoji {
     color: black;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 
@@ -322,17 +331,22 @@ p.index_child_moji {
 }
 
 /* 返信ボタン部分 */
-.btn {
+.btn_hensin {
     background-color: #8fc31f;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+    padding: 5px 10px;
 }
 
+/* 返信ボタン部分押したとき */
+.btn_hensin:hover {
+    background-color: #8ab91c;
+}
 
 /* ------------------------------------------------- */
 /* 目標部分*/
@@ -357,19 +371,21 @@ input[name="slideshow"]{
 }
 
 
-
 .slideshow{
-    max-width: 192px;
+    max-width: 250px;
     width: 100%;
     height: 60px;
     overflow: hidden;
-    border: 4px solid #ffa500;
+    border: 3px solid #ffa500;
     background-color: #fff689;
     border-radius: 15px;
     margin: 0px auto;
-    /* margin-top: 40px; */
     position: relative;
+    margin-top: 10px;
+    padding-top: 3px;
     box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    margin-top: -45px;
+    margin-bottom: 10px;
 }
 
 .slides{
@@ -426,34 +442,60 @@ input[name="slideshow"]{
 
 /* 右ボタン */
 .btn-right {
-    border-radius: 50%;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #fff689;
-    color: orange;
+    padding-bottom: 28px;
+    /* background: #C7EEEE; */
+    background: #fffcd5;
+    color: #ffa500;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
-    border-color: orange;
-    border: 2px solid orange; /* ボーダースタイルを追加 */
+    border-color: #ffa500;
+    border: 2px solid #ffa500;
+    box-shadow: 0px 2px 0px 0px rgb(255 165 0);
+    padding-top: 0px;
+}
+
+.btn-right:hover {
+    -webkit-transform: translate(0,2px);
+	-moz-transform: translate(0,2px);
+	transform: translate(0,2px);
+	border-bottom:none;
 }
 
 /* 左ボタン */
 .btn-left {
-    border-radius: 50%;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #fff689;
-    color: orange;
+    padding-bottom: 28px;
+    /* background: #C7EEEE; */
+    background: #fffcd5;
+    color: #ffa500;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
-    border-color: orange;
-    border: 2px solid orange; /* ボーダースタイルを追加 */
+    border-color: #ffa500;
+    border: 2px solid #ffa500;
+    box-shadow: 0px 2px 0px 0px rgb(255 165 0);
+    padding-top: 0px;
+}
+
+.btn-left:hover {
+    -webkit-transform: translate(0,2px);
+	-moz-transform: translate(0,2px);
+	transform: translate(0,2px);
+	border-bottom:none;
+}
+
+.select_user {
+    text-align: center;
 }
 
 .syakkin{

@@ -14,19 +14,19 @@ class mission {
             $this->consentmissionToDatabase($_POST["consent_mission_id"]);
         }else if(isset($_POST["e_mission_id"])){
             if ($_POST['e_mission_name'] === "") {
-                $error['e_mission_name'] = "blank";
+                $this->error['e_mission_name'] = "blank";
             }
             if ($_POST['e_get_point'] === "") {
-                $error['e_get_point'] = "blank";
+                $this->error['e_get_point'] = "blank";
             }
             if (isset($_POST['e_mission_person'])) {
                 $e_person = $_POST['e_mission_person'];
             } else {
-                $error['e_mission_person'] = "blank";
+                $this->error['e_mission_person'] = "blank";
             }
         
             // エラーがなければ処理
-            if (!isset($error)) {
+            if (empty($this->error)) {
                 $this->updatemission($_POST["e_mission_id"],$_POST['e_mission_name'],$_POST['e_get_point'],$e_person);
                 header('Location: ./mission_add.php'); 
                 exit();
@@ -34,17 +34,17 @@ class mission {
         }elseif(isset($_POST["mission_name"]) && isset($_POST["mission_get_point"])){
             //nullチェック
             if ($_POST['mission_name'] === "") {
-                $error['mission_name'] = "blank";
+                $this->error['mission_name'] = "blank";
             }
             if ($_POST['mission_get_point'] === "") {
-                $error['mission_get_point'] = "blank";
+                $this->error['mission_get_point'] = "blank";
             }
             if (!isset($_POST['mission_person'])) {
-                $error['mission_person'] = "blank";
+                $this->error['mission_person'] = "blank";
             } 
             
 
-            if (!isset($error)) {
+            if (empty($this->error)) {
                 $m_name =$_POST['mission_name'];
                 $m_get_point = $_POST['mission_get_point'];
                 $m_persons = $_POST['mission_person'];
@@ -151,6 +151,7 @@ class mission {
             echo "<button type='submit'>やりました！</button>";
         }   
     }
+
     public function consentmissionToDatabase($mission_id) {
         if(isset($_SESSION["user_id"])){
             $user_id = $_SESSION["user_id"];
@@ -164,15 +165,15 @@ class mission {
             $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<p>承認待ち</p>";
-    
             $line_id = $this->getLineId($mission_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
-            $result = $this->MessageGet($user_id,$mission_id);
-            $message = "緊急ミッションが完了しました。\n".$result;
-
-            $this->sendLineNotification($line_id, $message,$mission_id); // LINEBOTに通知を送るメソッドを呼び出す
-
+            if($line_id){
+                $result = $this->MessageGet($user_id,$mission_id);
+                $message = "緊急ミッションが完了しました。\n".$result;
+                $this->sendLineNotification($line_id, $message,$mission_id); // LINEBOTに通知を送るメソッドを呼び出す
+            } 
         }
     }
+
     public function getmissionInfo($mission_id) {
         $stmt = $this->db->prepare("SELECT * FROM mission WHERE mission_id = :mission_id");
         $stmt->bindParam(':mission_id', $mission_id);
@@ -254,9 +255,12 @@ class mission {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         
-        return $result2['UID'];
+        if(isset($result2['UID'])) {
+            return $result2['UID'];
+        } else {
+            return null;
+        }
     }
-
     private function MessageGet($user_id, $mission_id) {
         $stmt = $this->db->prepare("SELECT mission_name FROM mission WHERE mission_id = :mission_id");
         $stmt->bindParam(':mission_id', $mission_id);
@@ -287,6 +291,33 @@ class mission {
         // リンクの直接メッセージとして送信
         $linkMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("確認してね\n".'https://kinkikids.sub.jp/src/app/point/consent.php?id=' . $line_id);
         $bot->pushMessage($line_id, $linkMessage);
+    }
+
+    public function person_error() {
+        if (!empty($this->error['mission_person'])) {
+            switch ($this->error['mission_person']) {
+                //子供が選択されてなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function missionname_error() {
+        if (!empty($this->error['mission_name'])) {
+            switch ($this->error['mission_name']) {
+                //ミッション名が入力されていなければエラーを表示
+                case 'blank': echo '*ミッション名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function point_error() {
+        if (!empty($this->error['mission_get_point'])) {
+            switch ($this->error['mission_get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
+        }
     }
 
 }

@@ -22,19 +22,20 @@ include("../include/header.php");
     <div  <?php echo ($select === 'adult') ? 'class="content_adult"' : 'class="content_child"' ;?>>
             <form action="" method="POST">
             <div <?php echo ($select === 'adult') ? 'class="adult_font"' : 'class="child_font"' ;?>>
-                <h1>行動目標設定</h1>
+                <h1><ruby>行動目標設定<rt>こうどうもくひょうせってい</rt></ruby></h1>
             </div>
                 <br>
 
                 <div class="control-1">
-                    <label for="behavioral_goal">行動目標</label>
-                    <p>※　50文字以内　※</p>
+                    <label for="behavioral_goal"><ruby>行動目標<rt>こうどうもくひょう</rt></ruby></label>
+                    <p>※　50<ruby>文字以内<rt>もじいない</rt></ruby></label>　※</p>
                     <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>"maxlength="50">
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
 
                 <div class="control-1">
-                    <label for="behavioral_user">子供</label>
+                    <label for="behavioral_user"><ruby>子供<rt>こども</rt></ruby></label>
+                    <br>
                     <select id="behavioral_user" name="behavioral_user">
                         <?php
                         // セッションから家族IDを取得
@@ -52,14 +53,14 @@ include("../include/header.php");
                 </div>
 
                 <div class="control-1">
-                    <label for="reward_point">報酬ポイント</label>
-                    <input id="reward_point" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
+                    <label for="reward_point"><ruby>報酬<rt>ほうしゅう</rt></ruby>ポイント</label>
+                    <input id="reward_point" class="setting_behavioral_textA" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
                     <b>pt</b>
                     <?php $setting_behavioral->reward_error(); ?>
                 </div>
 
                 <div class="control-1">
-                    <label for="behavioral_deadline">期限</label>
+                    <label for="behavioral_deadline"><ruby>期限<rt>きげん</rt></ruby></label>
                     <input id="behavioral_deadline" type="date" name="behavioral_deadline" value="<?php echo isset($_SESSION['join']['behavioral_deadline']) ? htmlspecialchars($_SESSION['join']['behavioral_deadline'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_behavioral->deadline_error(); ?>
                 </div>
@@ -67,7 +68,7 @@ include("../include/header.php");
                 <br>
 
                 <div class="control-2">
-                    <button type="submit" class="btn">登録</button>
+                    <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></button>
                 </div>
             </form>
         </div>

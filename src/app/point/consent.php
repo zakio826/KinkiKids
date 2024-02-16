@@ -37,7 +37,7 @@ $debts = $consent->display_consent_debt($family_id);
     <br>
     <div class ="content">
         <?php foreach ($helps as $help_data): ?>
-                <li>
+                <li class="consent_li">
                     <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                     <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
                     <strong>担当者</strong>
@@ -46,14 +46,15 @@ $debts = $consent->display_consent_debt($family_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
-                        <button type="submit" class="btn-syounin">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_help_Y" style="margin:10px";>承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_help_N" style="background-color: #ce3f3f;">拒否する</button>
                     </form>
                 </li>
                 <hr>
         <?php endforeach; ?>
 
         <?php foreach ($missions as $mission_data): ?>
-                <li>
+                <li class="consent_li">
                     <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
                     <strong>獲得ポイント:</strong> <?php echo $mission_data['get_point']; ?><br>
                     <strong>担当者</strong>
@@ -62,14 +63,15 @@ $debts = $consent->display_consent_debt($family_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_mission_id" value="<?php echo $mission_data['mission_id']; ?>">    
-                        <button type="submit" class="btn-syounin">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_mission_Y" style="margin:10px";>承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_mission_N" style="background-color: #ce3f3f;">拒否する</button>
                     </form>
                 </li>
                 <hr>
         <?php endforeach; ?>
 
         <?php foreach ($debts as $debt_data): ?>
-            <li>
+            <li class="consent_li">
                 <strong>内容:</strong> <?php echo $debt_data['contents']; ?><br>
                 <strong>金額:</strong> <?php echo $debt_data['debt_amount']; ?><br>
                 <strong>返済日:</strong> <?php echo $debt_data['repayment_date']; ?><br>
@@ -79,9 +81,16 @@ $debts = $consent->display_consent_debt($family_id);
                     $consent->debt_select($debt_data['debt_id']);
                 ?><br>
                 <form action="" method="post">
-                    <input type="int" name="interest" placeholder="利率を入力してください" required class="input-type"><span>%</span><br>
+                    <input type="number" name="interest" min="0" max="100" placeholder="利率を入力してください"  style="width: 75%";><span>%</span><br>
+                    <?php
+                    if(isset($_SESSION['interest_error'])){
+                        echo '<p class="interest-error">' . $_SESSION['interest_error'] . '</p>';
+                        unset($_SESSION['interest_error']);
+                    }
+                    ?>
                     <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
-                    <button type="submit" class="btn-syounin">承認する</button>
+                    <button type="submit" class="btn-syounin" name="consent_debt_Y" style="margin:10px";>承認する</button>
+                    <button type="submit" class="btn-syounin" name="consent_debt_N" style="background-color: #ce3f3f;">拒否する</button>
                 </form>
             </li>
             <hr>

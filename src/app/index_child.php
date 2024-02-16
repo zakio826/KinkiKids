@@ -91,24 +91,49 @@ $index_child_class->message($db);
 
             <div class="index_child_mokuhyoucss1">
                 <div class="index_child_mokuhyoucss2">
+                <div class="menyu select_user">
+                <form action="" method="post"  class="slideshow">
+                    <button type="submit" name="left" class="btn-left"><</button>
+                    <?php if($_SESSION['goal_select'] == 0){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouA2.png" height=50 alt="購入目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouB2.png" height=50 alt="ポイントノルマ">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                        <span>
+                            <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouC2.png" height=50 alt="行動目標">
+                            <?php echo ''; ?>
+                        </span>
+                    <?php } ?>
+
+                    <button type="submit" name="right" class="btn-right">></button>
+                </form>
+            </div>
                     <?php if($_SESSION['goal_select'] == 0){ ?>
                         <?php if ($goal_count != 0) { ?>
                             <span>
+                                <span class="shortened-text" style="display: inline;">
                                 <?php
-                                echo htmlspecialchars(substr($index_child_class->getGoal_detail(), 0, 15));
-
+                                echo htmlspecialchars($index_child_class->getGoal_detail());
                                 ?>
+                                </span>
 
                                 <!-- 全文表示用のspan -->
                                 <span class="full-text" style="display: none;">
                                 <?php 
                                 //echo $goalDetail; 
-                                echo substr($goalDetail, 0, 20)."<br>";
-                                echo substr($goalDetail, 21, 20)."<br>";
-                                echo substr($goalDetail, 41, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 0, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 21, 20)."<br>";
+                                echo substr($index_child_class->getGoal_detail(), 41, 20)."<br>";
                                 ?>
                                 </span>
 
+                        
                                 <!-- 続きを読むチェックボックス -->
                                 <label class="expand-checkbox-label">
                                 <input type="checkbox" class="expand-checkbox"/>
@@ -127,12 +152,24 @@ $index_child_class->message($db);
                                 </div>
                             <span>
                         <?php } else { ?>
-                            <span><p>目標がないので設定してください</p></span>
+                            <span>
+                                <p>目標がないので設定してください</p>
+                                <div class="btn-p">
+                                        <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                            ＋  
+                                        </a>
+                                </div>
+                            </span>
+                            <div class="btn-p">
+                                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                        ＋  
+                                    </a>
+                            </div>
                         <?php } ?>
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                        <b class="index_parent_mokuhyoumoji">
-                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?><br>
+                        <b class="index_child_mokuhyoumoji">
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?> ポイント<br>
                                 <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
                             <br>
                             <div class="btn-p">
@@ -142,10 +179,37 @@ $index_child_class->message($db);
                             </div>
                         </b>
                     <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                        <b class="index_parent_mokuhyoumoji">
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']); ?><br>
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> 
-                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?> 円
+                        <b class="index_child_mokuhyoumoji">
+
+                        <span class="shortened-text" style="display: inline;">
+                            <?php 
+                            echo htmlspecialchars(substr($index_child_class->getBehavioral()['behavioral_goal'],0,15)); 
+                            //$gtext = htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']);
+                            // $text =  mb_convert_encoding($gtext, 'UTF-8', 'auto');
+                            //$text = mb_convert_encoding(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']));
+                            // echo mb_detect_encoding($text,  ['ASCII', 'ISO-2022-JP', 'UTF-8', 'EUC-JP', 'SJIS'], true);
+                            //var_dump($gtext);
+                            ?><br>
+                        </span>
+                        <!-- 全文表示用のspan -->
+                        <span class="full-text" style="display: none;">
+                                <?php 
+                                //echo $goalDetail; 
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 0, 20)."<br>";
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 21, 20)."<br>";
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 41, 20)."<br>";
+                                ?>
+                        </span>
+                        <!-- 続きを読むチェックボックス -->
+                        <label class="expand-checkbox-label">
+                                <input type="checkbox" class="expand-checkbox"/>
+                                ...もっと見る
+                        </label>
+                        <br>  
+
+                        <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?>
+                        <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> ポイント
+                            
                             <br>
                             <div class="btn-p">
                                 <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
@@ -157,20 +221,26 @@ $index_child_class->message($db);
 
                 </div>
             </div>
-            <div class="menyu">
-        <form action="" method="post">
-            <button type="submit" name="left" class="btn-left"><</button>
-            <?php if($_SESSION['goal_select'] == 0){ ?>
-                <span><?php echo '購入目標'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
-                <span><?php echo 'ポイントノルマ'; ?></span>
-            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
-                <span><?php echo '行動目標'; ?></span>
-            <?php } ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var checkbox = document.querySelector('.expand-checkbox');
+                    var shortenedText = document.querySelector('.shortened-text');
+                    var fullText = document.querySelector('.full-text');
 
-            <button type="submit" name="right" class="btn-right">></button>
-        </form>
-            </div>
+                    checkbox.addEventListener('change', function () {
+                        if (checkbox.checked) {
+                            shortenedText.style.display = 'none';
+                            fullText.style.display = 'inline';
+                        } else {
+                            shortenedText.style.display = 'inline';
+                            fullText.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+
+
+
 
 
 
@@ -179,32 +249,31 @@ $index_child_class->message($db);
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
                 <p class="row">
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                            しょじきん:
                         <span>
-                            <?php echo htmlspecialchars($savings); ?>
-                        </span>えん
-                        </b>
-                    </span>
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                        てもち:
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>所持金<rt>しょじきん</rt></ruby>:
+                            <span>
+                                <?php echo htmlspecialchars($savings); ?>
+                            </span>えん
+                            </b>
+                        </span>
                         <span>
-                            <?php echo htmlspecialchars($have_points); ?>
-                        </span>ポイント
-                        </b>
-                    </span>
-                </p>
-            <?php if($goal_count != 0) : ?>
-                <p>
-                    <span>
-                        <b class="index_child_mokuhyoumoji">
-                        きょうかせぐポイント:
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>手持<rt>ても</rt></ruby>ち:
+                            <span>
+                                <?php echo htmlspecialchars($have_points); ?>
+                            </span>ポイント
+                            </b>
+                        </span>               
+                    <?php if($goal_count != 0) : ?>
                         <span>
-                            <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
-                        </span>ポイント
-                        </b>
+                            <b class="index_child_mokuhyoumoji">
+                            <ruby>今日稼<rt>きょうかせ</rt></ruby>ぐポイント:
+                            <span>
+                                <?php echo htmlspecialchars($index_child_class->getOnerequired_point()); ?>
+                            </span>ポイント
+                            </b>
+                        </span>
                 </p>
             <?php else : ?>
                 <p class="index_child_moji">
@@ -279,7 +348,7 @@ $index_child_class->message($db);
                     <?php $index_child_class->getFamilyUser(); ?>
                 </select>
                 <input type="text" name="message" required>
-                <button type="submit" class="btn">返信</button>
+                <button type="submit" class="btn_hensin">返信</button>
             </form>
                 
             </div>

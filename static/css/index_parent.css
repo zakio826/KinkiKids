@@ -169,6 +169,7 @@ display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-top: -25px;
 }
 
 /* 枠組みと文字スタイル */
@@ -183,6 +184,7 @@ display: none;
     /* 文字白枠 */
     /* -webkit-text-stroke: 0.5px #fff; */
     text-align: center;
+    width: 340px;
 }
 
 /* 目標の内容文字だけ別スタイル指定 */
@@ -330,15 +332,21 @@ p.index_parent_moji {
 }
 
 /* 返信ボタン部分 */
-.btn {
+.btn_hensin {
     background-color: #8fc31f;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+    padding: 5px 10px;
+}
+
+/* 返信ボタン部分押したとき */
+.btn_hensin:hover {
+    background-color: #8ab91c;
 }
 
 
@@ -367,16 +375,17 @@ input[name="slideshow"]{
 
 
 .slideshow{
-    max-width: 190px;
+    max-width: 250px;
     width: 100%;
     height: 60px;
     overflow: hidden;
-    border: 4px solid #4f40ff;
+    border: 3px solid #4f40ff;
     background-color: #C7EEEE;
     border-radius: 15px;
     margin: 0px auto;
-    /* margin-top: 40px; */
     position: relative;
+    margin-top: 2px;
+    padding-top: 3px;
     box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
 }
 
@@ -444,36 +453,159 @@ input[name="slideshow"]{
 
 /* 右ボタン */
 .btn-right {
-    border-radius: 50%;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #C7EEEE;
+    padding-bottom: 28px;
+    /* background: #C7EEEE; */
+    background: #ecffff;
     color: #4f40ff;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
     border-color: #4f40ff;
-    border: 2px solid #4f40ff; /* ボーダースタイルを追加 */
+    border: 2px solid #4f40ff;
+    box-shadow: 0px 2px 0px 0px rgb(79 64 255);
+    padding-top: 0px;
+}
+
+.btn-right:hover {
+    -webkit-transform: translate(0,2px);
+	-moz-transform: translate(0,2px);
+	transform: translate(0,2px);
+	border-bottom:none;
 }
 
 /* 左ボタン */
 .btn-left {
-    border-radius: 50%;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
     width: 30px;
     height: 30px;
-    background: #C7EEEE;
+    padding-bottom: 28px;
+    /* background: #C7EEEE; */
+    background: #ecffff;
     color: #4f40ff;
     text-decoration: none;
     text-align: center;
     font-weight: 900;
     border-color: #4f40ff;
-    border: 2px solid #4f40ff; /* ボーダースタイルを追加 */
+    border: 2px solid #4f40ff;
+    box-shadow: 0px 2px 0px 0px rgb(79 64 255);
+    padding-top: 0px;
+}
+
+.btn-left:hover {
+    -webkit-transform: translate(0,2px);
+	-moz-transform: translate(0,2px);
+	transform: translate(0,2px);
+	border-bottom:none;
 }
 
 .select_user {
     text-align: center;
+}
+
+/* 子供選択部分の配置 */
+.select_user_child_iti {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+/* 子供選択部分の枠組み */
+.select_user_child {
+    background: #AADBFF;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    width: 200px;
+    height: auto;
+}
+
+/* 子供選択部分の文 */
+.select_user_child p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* セレクトのやつのスタイル */
+select {
+    word-wrap: normal;
+    /* border: 1px solid #c7eeee; */
+    border-radius: 5px;
+}
+
+/* 行動目標 */
+#behavioral_goal {
+    font-size: 35px;
+    color: #4f40ff;
+}
+
+#behavioral_goal_deadline, #reward_point,.pt{
+    font-size: 25px;
+    color: #383838;
+    display: inline-block;
+    margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
+}
+
+#reward_point {
+    font-weight: bold;
+}
+
+/* ノルマポイント */
+#norma_deadline {
+    font-size: 25px;
+    color: #383838;
+}
+
+#norma {
+    font-size: 35px;
+    color: #4f40ff;
+}
+
+#norma,.pt{
+    display: inline-block;
+}
+
+/* 購入目標 */
+#goal_detail {
+    font-size: 35px;
+    color: #4f40ff;
+}
+
+#goal_deadline, #target_amount,.en{
+    font-size: 25px;
+    color: #383838;
+    display: inline-block;
+    margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
+}
+
+/* 貯金 */
+.en, #savings {
+    font-size: 25px;
+    display: inline-block;
+}
+
+.pt, #points {
+    font-size: 25px;
+    display: inline-block;
+}
+
+/* 今日稼ぐポイント */
+#dayPoint {
+    font-size: 35px;
+    color: #4f40ff;
+}
+#dayPoint,.pt{
+    display: inline-block;
+}
+
+/* 緊急ミッション、承認待ち */
+.mission a {
+    display: inline-block;
 }
