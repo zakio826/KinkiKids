@@ -14,21 +14,21 @@ class help {
                 $this->DeleteHelpToDatabase($_POST["delete_help_id"]);
             } else if (isset($_POST["consent_help_id"])) {
                 $this->consentHelpToDatabase($_POST["consent_help_id"]);
-            }else if($_POST["e_help_id"]){
+            }else if(isset($_POST["e_help_id"])){
                 if ($_POST['e_help_name'] === "") {
-                    $error['e_help_name'] = "blank";
+                    $this->error['e_help_name'] = "blank";
                 }
                 if ($_POST['e_get_point'] === "") {
-                    $error['e_get_point'] = "blank";
+                    $this->error['e_get_point'] = "blank";
                 }
                 if (isset($_POST['e_help_person'])) {
                     $e_person = $_POST['e_help_person'];
                 } else {
-                    $error['e_help_person'] = "blank";
+                    $this->error['e_help_person'] = "blank";
                 }
             
                 // エラーがなければ処理
-                if (!isset($error)) {
+                if (empty($this->error)) {
                     $this->updateHelp($_POST["e_help_id"],$_POST['e_help_name'],$_POST['e_get_point'],$e_person);
                     header('Location: ./help_add.php'); // 編集後にお手伝い一覧ページにリダイレクト
                     exit();
@@ -37,21 +37,21 @@ class help {
 
                 // 入力情報に空白がないか検知
                 if ($_POST['help_name'] === "") {
-                    $error['help_name'] = "blank";
+                    $this->error['help_name'] = "blank";
                 }
                 if ($_POST['get_point'] === "") {
-                    $error['get_point'] = "blank";
+                    $this->error['get_point'] = "blank";
                 }
-                if (isset($_POST['help_person'])) {
+                if (!empty($_POST['help_person'])) {
                     $person = $_POST['help_person'];
                 } else {
-                    $error['get_person'] = "blank";
+                    $this->error['get_person'] = "blank";
                 }
                 
 
             
                 // エラーがなければ次のページへ
-                if (!isset($error)) {
+                if (empty($this->error)) {
                     $_SESSION['join'] = $_POST;
 
                     $user_id = $_SESSION["user_id"];
@@ -134,27 +134,29 @@ class help {
         if(isset($_SESSION["user_id"])){
             $user_id = $_SESSION["user_id"];
             $dtime = date("Y-m-d H:i:s");
-
+    
             $stmt = $this->db->prepare("INSERT INTO help_log (user_id, help_id, help_day, consent_flag,receive_flag) VALUES (:user_id, :help_id, :dtime, 1,0)");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':help_id', $help_id);
             $stmt->bindParam(':dtime', $dtime);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             echo "<p>承認待ち</p>"; // TODO 承認待ちの処理
     
             // LINEBOTへの通知処理
             $line_id = $this->getLineId($help_id); // ユーザーのLINE IDを取得するメソッドを呼び出す
-            $result = $this->MessageGet($user_id,$help_id);
-            $message = "お手伝いが完了しました。\n".$result;
-
-            $this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+            if($line_id){
+                $result = $this->MessageGet($user_id,$help_id);
+                $message = "お手伝いが完了しました。\n".$result;
+    
+                $this->sendLineNotification($line_id, $message,$help_id); // LINEBOTに通知を送るメソッドを呼び出す
+            } 
         } else {
             //TODO ログインしていない
         }
     }
-
+    
     private function getLineId($help_id) {
         // helpテーブルからuser_idを取得
         $stmt = $this->db->prepare("SELECT user_id FROM help WHERE help_id = :help_id");
@@ -168,8 +170,14 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         
-        return $result2['UID'];
+        if(isset($result2['UID'])) {
+            return $result2['UID'];
+        } else {
+            return null;
+        }
     }
+    
+    
 
     private function MessageGet($user_id, $help_id) {
         $stmt = $this->db->prepare("SELECT help_name,get_point FROM help WHERE help_id = :help_id");
@@ -183,7 +191,7 @@ class help {
         $stmt2->execute();
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                 
-        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント".$result['get_point'].'pt'; 
+        return "送信者:".$result2['first_name'] . "\n内容:" . $result['help_name']."\nポイント:".$result['get_point'].'pt'; 
     }
 
     private function sendLineNotification($line_id, $message, $help_id) {
@@ -356,6 +364,60 @@ class help {
             echo "Error: " . $e->getMessage();
             
             return false;
+        }
+    }
+
+    public function person_error() {
+        if (!empty($this->error['get_person'])) {
+            switch ($this->error['get_person']) {
+                //子供が選択されていなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function helpname_error() {
+        if (!empty($this->error['help_name'])) {
+            switch ($this->error['help_name']) {
+                //お手伝い名が入力されていなければエラーを表示
+                case 'blank': echo '*お手伝い名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function point_error() {
+        if (!empty($this->error['get_point'])) {
+            switch ($this->error['get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_person_error() {
+        if (!empty($this->error['e_help_person'])) {
+            switch ($this->error['e_help_person']) {
+                //子供が選択されていなければエラーを表示
+                case 'blank': echo '*子供を選択してください。'; break;
+            }
+        }
+    }
+
+    public function e_helpname_error() {
+        if (!empty($this->error['e_help_name'])) {
+            switch ($this->error['e_help_name']) {
+                //お手伝い名が入力されていなければエラーを表示
+                case 'blank': echo '*お手伝い名を入力してください。'; break;
+            }
+        }
+    }
+
+    public function e_point_error() {
+        if (!empty($this->error['e_get_point'])) {
+            switch ($this->error['e_get_point']) {
+                //獲得ポイントが入力されていなければエラーを表示
+                case 'blank': echo '*獲得ポイントを入力してください。'; break;
+            }
         }
     }
 

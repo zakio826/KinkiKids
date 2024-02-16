@@ -13,10 +13,10 @@ require_once("../include/header.php");
             <div class="wrapper1">
                 <img src="<?php echo $absolute_path; ?>static/assets/registration_completedC.png" height="100" class="registration_completedC">
                 
-                <h1>ユーザー登録が完了しました。</h1>
-                <p class="mb-3">下のボタンよりログインページに移動してください。</p>
+                <h1>ユーザー<ruby>登録<rt>とうろく</rt></ruby>が<ruby>完了<rt>かんりょう</rt></ruby>しました。</h1>
+                <p class="mb-3"><ruby>下<rt>した</rt></ruby>のボタンよりログインページに<ruby>移動<rt>いどう</rt></ruby>してください。</p>
 
-                <p><a href="./login.php"><button class="btn btn-primary">ログインページに移動する</button></a></p>
+                <p><a href="./login.php"><button class="btn btn-primary">ログインページに<ruby>移動<rt>いどう</rt></ruby>する</button></a></p>
             </div>
         </div>
     </div>

@@ -16,10 +16,7 @@ if ($select !== 'adult'):
 endif;
 
 
-if(isset($_SESSION['exchange_error'])) {
-    echo '<p class="exchange-error">' . $_SESSION['exchange_error'] . '</p>';
-    unset($_SESSION['exchange_error']);
-}
+
 
 // セッションからメッセージがある場合に表示し、セッションをクリア
 if(isset($_SESSION['exchange_points'])) {
@@ -38,7 +35,23 @@ if(isset($_SESSION['exchange_points'])) {
             <?php $exchange->getFamilyUser(); ?>
         </select>
         <br>
-        <input type="int" name="points" class="exchange_pointinput" placeholder="ポイントを入力" required>
+        <?php
+        if(isset($_SESSION['child_error'])){
+            echo '<p class="child-error">' . $_SESSION['child_error'] . '</p>';
+            unset($_SESSION['child_error']);
+        }
+        ?>
+        <input type="number" name="points" class="exchange_pointinput" placeholder="ポイントを入力">
+        <?php
+        if(isset($_SESSION['exchange_error'])) {
+            echo '<p class="exchange-error">' . $_SESSION['exchange_error'] . '</p>';
+            unset($_SESSION['exchange_error']);
+        }else if(isset($_SESSION['point_error'])){
+            echo '<p class="point-error">' . $_SESSION['point_error'] . '</p>';
+            unset($_SESSION['point_error']);
+        }
+
+        ?>
         <button type="submit" class="btn-kankin">ポイント交換</button>
     </form>
 <main>

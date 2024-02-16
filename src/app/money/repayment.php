@@ -10,11 +10,9 @@ $family_id = $_SESSION["family_id"];
 $repayment = new repayment($db, $user_id, $family_id);
 $debt_id = isset($_GET['debt_id']) ? $_GET['debt_id'] : null;
 $debt_info = $repayment->getDebtInfo($debt_id);
-
-if(isset($_SESSION['repaycount'][$debt_id])) {
-    $repaycount = $_SESSION['repaycount'][$debt_id];
-} else {
-    $repaycount = $debt_info['installments'];
+if($debt_info['repayment_date'] !== date('Y-m-d')) {
+    header("Location: ../index.php");
+    exit;
 }
 ?>
 <!-- ナビゲーションバー -->
@@ -29,7 +27,7 @@ if(isset($_SESSION['repaycount'][$debt_id])) {
             if ($debt_info) {
                 echo '<strong>内容:</strong> ' . $debt_info['contents'] . '<br>';
                 echo '<strong>最低返済金額:</strong> ' . $debt_info['repayment_installments'] . "円<br>";
-                echo '<strong>残り支払い回数:</strong> ' . $repaycount . "回<br>";
+                echo '<strong>総支払い回数:</strong> ' . $debt_info['installments'] . "回<br>";
                 echo '<strong>借金残額:</strong> ' . $debt_info['repayment_amount'] . "円<br>";
                 echo '<form action="" method="post">';
                 echo '<input type="hidden" name="consent_repayment" value="' . $debt_id . '">';

@@ -28,12 +28,14 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="behavioral_goal">行動目標</label>
-                    <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>">
+                    <p>※　50文字以内　※</p>
+                    <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>"maxlength="50">
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
 
                 <div class="control-1">
                     <label for="behavioral_user">子供</label>
+                    <br>
                     <select id="behavioral_user" name="behavioral_user">
                         <?php
                         // セッションから家族IDを取得
@@ -52,7 +54,7 @@ include("../include/header.php");
 
                 <div class="control-1">
                     <label for="reward_point">報酬ポイント</label>
-                    <input id="reward_point" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
+                    <input id="reward_point" class="setting_behavioral_textA" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
                     <b>pt</b>
                     <?php $setting_behavioral->reward_error(); ?>
                 </div>
