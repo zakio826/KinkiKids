@@ -13,7 +13,6 @@ $family_id = $_SESSION['family_id'];
 <?php include_once("../include/nav_bar.php") ?>
 
 <?php
-  $name_error = "";
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(empty($_POST['name'])){
       switch($_GET['category']){
