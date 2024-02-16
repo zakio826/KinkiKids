@@ -55,12 +55,20 @@ $debts = $consent->display_consent_debt($family_id);
 
         <?php foreach ($missions as $mission_data): ?>
                 <li class="consent_li">
-                    <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
-                    <strong>獲得ポイント:</strong> <?php echo $mission_data['get_point']; ?><br>
+                <b class="consent_mojiA">
+                    <strong>ミッション名:</strong>
+                     <?php echo $mission_data['mission_name']; ?><br>
+                </b>
+                <b class="consent_mojiA">
+                    <strong>獲得ポイント:</strong>
+                     <?php echo $mission_data['get_point']; ?><br>
+                </b>
+                <b class="consent_mojiA">
                     <strong>担当者</strong>
                     <?php
                         $consent->m_person_select($mission_data['mission_id']);
                     ?><br>
+                </b>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_mission_id" value="<?php echo $mission_data['mission_id']; ?>">    
                         <button type="submit" class="btn-syounin" name="consent_mission_Y" style="margin:10px";>承認する</button>
