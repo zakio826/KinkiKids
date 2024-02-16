@@ -509,6 +509,37 @@ input[name="slideshow"]{
     text-align: center;
 }
 
+/* 子供選択部分の配置 */
+.select_user_child_iti {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+/* 子供選択部分の枠組み */
+.select_user_child {
+    background: #AADBFF;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    width: 200px;
+    height: auto;
+}
+
+/* 子供選択部分の文 */
+.select_user_child p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* セレクトのやつのスタイル */
+select {
+    word-wrap: normal;
+    /* border: 1px solid #c7eeee; */
+    border-radius: 5px;
+}
+
 /* 行動目標 */
 #behavioral_goal {
     font-size: 35px;

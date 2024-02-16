@@ -85,15 +85,18 @@ echo '</script>';
         // 現在の値を取得
         $goal_select = $_SESSION['goal_select'];
         ?>
-
-        <div class="select_user">
-            <p>子供を選択してください</p>
-        <select id="user">
-            <?php $index_parent_class->getFamilyUser(); ?>
-        </select>
-            
+        
+        <div class="select_user_child_iti">
+            <div class="select_user_child">
+                <p>子供選択:
+                    <select id="user">
+                        <?php $index_parent_class->getFamilyUser(); ?>
+                    </select>
+                </p>
+            </div>
         </div>
 
+        <br>
 
         <div class="select_user">
             <form action="" method="post"  class="slideshow">
@@ -180,10 +183,10 @@ echo '</script>';
                 <b class="index_parent_mokuhyoumoji"> 
                     貯金：<p id="savings"></p>
                     <p class="en">円</p>
+                    <br>
                     手持ち：
                     <p id="points" class="btn-kankin_iti">
                     <p class="pt">pt</p>
-                        
                     </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
                     <p class="pt">pt</p>

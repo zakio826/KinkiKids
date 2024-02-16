@@ -1,126 +1,179 @@
 
-// const last_month = document.getElementById('last_month');
-// const next_month = document.getElementById('next_month');
+const week_array = [
+    document.getElementsByName("week_0"),
+    document.getElementsByName("week_1"),
+    document.getElementsByName("week_2"),
+    document.getElementsByName("week_3"),
+    document.getElementsByName("week_4"),
+];
 
-// for (let i = 0; i < 5; i++) {}
+const week_info = document.getElementsByName("week_info");
+
+const info_array = [
+    document.getElementsByName("in_info"),
+    document.getElementsByName("ex_info"),
+    document.getElementsByName("pt_info"),
+]
+
+// const in_info = document.getElementsByName("in_info");
+// const ex_info = document.getElementsByName("ex_info");
+// const pt_info = document.getElementsByName("pt_info");
 
 
+// console.log("dayly_in_data.length: ", dayly_in_data.length);
+// console.log("dayly_ex_data.length: ", dayly_ex_data.length);
+// console.log("dayly_pt_data.length: ", dayly_pt_data.length);
 
-// function week_info_appear(week, week_info) {
-//     for (let i = 0; i < week.length; i++) {
-//         week[i].addEventListener("click", function() {
-//             if (week_info[i].classList[0] == "d-none") {
-//                 week_info[i].classList[0].splice(0, 1);
-//             } else {
-//                 week_info[i].classList.unshift("d-none");
-//             }
-//             // console.log(week_info[i].classList[0]);
-//         });
-//     }
+// console.log("dayly_in_data: ", typeof(dayly_in_data));
+// console.log("dayly_ex_data: ", typeof(dayly_ex_data));
+// console.log("dayly_pt_data: ", typeof(dayly_pt_data));
+
+// console.log("dayly_in_data: ", ("日付" in dayly_in_data));
+// console.log("dayly_ex_data: ", ("日付" in dayly_ex_data));
+// console.log("dayly_pt_data: ", ("日付" in dayly_pt_data));
+
+
+// for (const info of info_array) {
+//     console.log(info);
 // }
 
-const week_array = {
-    "week": [
-        document.getElementsByName("week_0"),
-        document.getElementsByName("week_1"),
-        document.getElementsByName("week_2"),
-        document.getElementsByName("week_3"),
-        document.getElementsByName("week_4"),
-    ],
-    "week_info": [
-        document.getElementsByName("week_info_0"),
-        document.getElementsByName("week_info_1"),
-        document.getElementsByName("week_info_2"),
-        document.getElementsByName("week_info_3"),
-        document.getElementsByName("week_info_4"),
-    ],
-};
 
-for (let w = 0; w < week_array["week"].length; w++) {
-    for (let d = 0; d < week_array["week"][w].length; d++) {
-        week_array["week"][w][d].addEventListener("click", function() {
-            week_array["week_info"][w].forEach(week_info => {
-                if (week_info.classList[0] == "d-none") {
-                    week_info.className = "d-inline-block w-100 daily-info";
-                    // week_array["week_info"][w][d].classList[0] = "d-inline-block";
-                    // week_array["week_info"][w][d].classList.splice(0, 1);
-                } else {
-                    week_info.className = "d-none w-100 daily-info";
-                    // week_array["week_info"][w][d].classList[0] = "d-none";
-                    // week_array["week_info"][w][d].classList.unshift("d-none");
+// 新しいHTML要素を作成
+function info_tag_create(name, val, unit) {
+    let tag = document.createElement('div');
+    tag.className = "mb-2 ps-2 text-center";
+
+    let nameTxt = document.createElement('span');
+    nameTxt.className = "d-inline-block pe-2 text-nowrap";
+    nameTxt.textContent = name;
+    tag.appendChild(nameTxt);
+
+    let val_unitTxt = document.createElement('span');
+    val_unitTxt.className = "d-inline-block pe-2";
+    val_unitTxt.textContent = String(val) + unit;
+    tag.appendChild(val_unitTxt);
+
+    return(tag);
+}
+
+function daily_info_appear(w, d) {
+    for (let i = 0; i < info_data.length; i++) {
+        info_array[i][w].innerHTML = null;
+        // if (!("日付" in info_data[i])) continue;
+        // console.log("fff: " + i);
+        
+        // let info_tag = null;
+        if ("日付" in info_data[i] && info_data[i]["日付"].some(value => value == d)) {
+            // info_array[i][w].style.display = "block";
+            // info_array[i][w].style.alignItems = "start";
+
+            for (let j = 0; j < info_data[i]["日付"].length; j++) {
+                if (info_data[i]["日付"][j] == d) {
+                    let info_unit = "";
+                    switch (i) {
+                        case 0:
+                        case 1:
+                            info_unit = "円"; break;
+                        case 2:
+                            info_unit = "pt"; break;
+                        // default:
+                        //     break;
+                    }
+
+                    // var info_tag = info_tag_create(info_data[i]["記録内容"][j], info_data[i]["記録情報"][j], info_unit);
+    
+                    // var info_tag = document.createElement('div');
+
+                    // var info = info_data[i]["記録内容"][j] + ": " + String(info_data[i]["記録情報"][j]);
+                    // if (i == 2) info += "pt";
+                    // else info += "円";
+    
+                    // info_tag.textContent = info;
+    
+                    // info_tag.textContent = info_data[i]["記録内容"][j] + "";
+                    // info_tag.textContent = info_data[i]["記録情報"][j] + "";
+                
+                    // 指定した要素の中の末尾に挿入
+                    info_array[i][w].appendChild(info_tag_create(info_data[i]["記録内容"][j], info_data[i]["記録情報"][j], info_unit));
+                    // info_array[i][w].appendChild(info_tag);
                 }
-                console.log(week_info.classList[0]);
-                // console.log(week_info.className);
-            });
+            }
+        } else {
+            // info_array[i][w].style.display = "flex";
+            // info_array[i][w].style.alignItems = "center";
 
-            // if (week_array["week_info"][w][d].classList[0] == "d-none") {
-            //     week_array["week_info"][w][d].className = "d-inline-block w-100";
-            //     // week_array["week_info"][w][d].classList[0] = "d-inline-block";
-            //     // week_array["week_info"][w][d].classList.splice(0, 1);
-            // } else {
-            //     week_array["week_info"][w][d].className = "d-none w-100";
-            //     // week_array["week_info"][w][d].classList[0] = "d-none";
-            //     // week_array["week_info"][w][d].classList.unshift("d-none");
-            // }
-            // console.log(week_array["week_info"][w][d].classList[0]);
-            // console.log(week_array["week_info"][w][d].className);
-        });
+            // var info_tag = info_tag_create();
+            var info_tag = document.createElement('div');
+            info_tag.className = "text-center mt-3 text-secondary";
+            // info_tag.style.color += "gray";
+            // info_tag.style.fontSize += "smaller";
+
+            info_tag.textContent = "記録なし";
+
+            // 指定した要素の中の末尾に挿入
+            info_array[i][w].appendChild(info_tag);
+        }
     }
 }
 
 
-// const week_0 = document.getElementsByName("week_0");
-// const week_1 = document.getElementsByName("week_1");
-// const week_2 = document.getElementsByName("week_2");
-// const week_3 = document.getElementsByName("week_3");
-// const week_4 = document.getElementsByName("week_4");
+const week_shift = 7 - week_array[0].length;
+let this_day = -1;
+let last_day = -1;
 
-// const week_info_0 = document.getElementsByName("week_info_0");
-// const week_info_1 = document.getElementsByName("week_info_1");
-// const week_info_2 = document.getElementsByName("week_info_2");
-// const week_info_3 = document.getElementsByName("week_info_3");
-// const week_info_4 = document.getElementsByName("week_info_4");
-
-
-
-
-
-// for (let i = 0; i < week_0.length; i++) {
-//     week_0[i].addEventListener("click", function() {
+for (let week = 0; week < week_array.length; week++) {
+    for (let day = 0; day < week_array[week].length; day++) {
         
-//         week_info_0[i].classList[0].splice(0, 1);
-//         // console.log(week_info_0[i].classList[0]);
-//     });
-// }
+        week_array[week][day].addEventListener("click", function() {
+            // week_info.forEach(info_area => {
+            //     info_area.className = "d-none w-100";
+            // });
 
-// for (let i = 0; i < week_1.length; i++) {
-//     week_1[i].addEventListener("click", function() {
-        
-//         week_info_1[i].classList[0].splice(0, 1);
-//         // console.log(week_info_1[i].classList[0]);
-//     });
-// }
+            this_day = week * 7 + day;
+            if (week > 0) this_day -= week_shift;
+            
+            console.log(this_day+1);
+            console.log(last_day+1);
+            console.log(day+1);
 
-// for (let i = 0; i < week_2.length; i++) {
-//     week_2[i].addEventListener("click", function() {
-        
-//         week_info_2[i].classList[0].splice(0, 1);
-//         // console.log(week_info_2[i].classList[0]);
-//     });
-// }
+            if (this_day != last_day) {
+                if (week_info[week].classList[0] == "d-none") {
+                    week_info.forEach(info_area => {
+                        info_area.className = "d-none w-100";
+                    });
+                    week_info[week].className = "d-table-row w-100";
+                }
+                // if (this_day != day) 
 
-// for (let i = 0; i < week_3.length; i++) {
-//     week_3[i].addEventListener("click", function() {
-        
-//         week_info_3[i].classList[0].splice(0, 1);
-//         // console.log(week_info_3[i].classList[0]);
-//     });
-// }
+                daily_info_appear(week, this_day+1);
 
-// for (let i = 0; i < week_4.length; i++) {
-//     week_4[i].addEventListener("click", function() {
-        
-//         week_info_4[i].classList[0].splice(0, 1);
-//         // console.log(week_info_4[i].classList[0]);
-//     });
-// }
+            } else if (week_info[week].classList[0] == "d-none") {
+                week_info[week].className = "d-table-row w-100";
+            } else {
+                week_info[week].className = "d-none w-100";
+            }
+
+            last_day = this_day;
+
+
+
+            // if (week_info[week].classList[0] == "d-table-row") {
+            //     week_info.forEach(info_area => {
+            //         info_area.className = "d-none w-100";
+            //     });
+            // }
+
+
+
+            // if (week_info[week].classList[0] == "d-none") {
+            //     week_info[week].className = "d-table-row w-100";
+            //     console.log(this_day);
+            // } else {
+            //     week_info[week].className = "d-none w-100";
+            // }
+            
+            // console.log(week_info[w].classList[0]);
+            // console.log(week_info[w].className);
+        });
+    }
+}
