@@ -46,7 +46,8 @@ $debts = $consent->display_consent_debt($family_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
-                        <button type="submit" class="btn-syounin">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_help_Y">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_help_N">承認する</button>
                     </form>
                 </li>
                 <hr>
@@ -62,7 +63,8 @@ $debts = $consent->display_consent_debt($family_id);
                     ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_mission_id" value="<?php echo $mission_data['mission_id']; ?>">    
-                        <button type="submit" class="btn-syounin">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_mission_Y">承認する</button>
+                        <button type="submit" class="btn-syounin" name="consent_mission_N">承認する</button>
                     </form>
                 </li>
                 <hr>
@@ -87,7 +89,8 @@ $debts = $consent->display_consent_debt($family_id);
                     }
                     ?>
                     <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
-                    <button type="submit" class="btn-syounin">承認する</button>
+                    <button type="submit" class="btn-syounin" name="consent_debt_Y">承認する</button>
+                    <button type="submit" class="btn-syounin" name="consent_debt_N">拒否する</button>
                 </form>
             </li>
             <hr>
