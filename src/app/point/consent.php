@@ -88,7 +88,7 @@ $debts = $consent->display_consent_debt($family_id);
                     ?>
                     <input type="hidden" name="consent_debt_id" value="<?php echo $debt_data['debt_id']; ?>">    
                     <button type="submit" class="btn-syounin" name="consent_debt_Y" style="margin:10px";>承認する</button>
-                    <button type="submit" class="btn-syounin" name="consent_debt_N">拒否する</button>
+                    <button type="submit" class="btn-syounin" name="consent_debt_N" style="background-color: #ce3f3f;">拒否する</button>
                 </form>
             </li>
             <hr>
