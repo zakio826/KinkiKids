@@ -12,10 +12,10 @@ require_once("../include/header.php");
 require($absolute_path."lib/family_add_class.php");
 $family_add = new family_add($db);
 
-// if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
-//     header("Location: ../index.php");
-//     exit;
-// }
+ if (!isset($_SESSION["admin_flag"]) || $_SESSION["admin_flag"] !== 1) {
+     header("Location: ../index.php");
+     exit;
+ }
 
 if (isset($_SESSION['join'])) {
     $savedData = $_SESSION['join'];
@@ -47,13 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- ユーザー情報の入力フォーム -->
                         <div class="control">
                             <label for="username">ユーザー<ruby>名<rt>めい</rt></ruby></label>
-                            <input type="text" name="username[]" maxlength="20" placeholder="※半角英数字で入力してください" required
-                            value="<?php echo (isset($savedData['username'][$i]) && !empty($savedData['username'][$i])) ? $savedData['username'][$i] : ''; ?>">
+                            <input type="text" name="username[]" maxlength="20"><br> required
+                            <?php if(isset($errors['username'][0])){
+                                    $family_add->username_error($errors['username'][0]);
+                            } ?>
+                            <p class="note"><b>※半角英数字20文字以内<br>
+                                               ※特殊文字（. - _）のみ使用可能</b></p>
                         </div>
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" minlength="8" placeholder="※半角英数字で8文字以上入力してください" required>
+                            <input type="password" name="password[]" minlength="8" maxlength="100" placeholder="※半角英数字で8文字以上入力してください" required>
                         </div>
 
                         <div class="control">
@@ -75,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="control">
-                            <label for="gender_id"><ruby>性別<rt>せいかく</rt></ruby></label>
+                            <label for="gender_id"><ruby>性別<rt>せいべつ</rt></ruby></label>
                             <select name="gender_id[]">
                                 <option value="1" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 1) ? 'selected' : ''; ?>>女性</option>
                                 <option value="2" <?php echo (isset($savedData['gender_id'][$i]) && $savedData['gender_id'][$i] == 2) ? 'selected' : ''; ?>>男性</option>
@@ -92,15 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="control" style="display: none;">
                             <label for="savings"><ruby>貯蓄<rt>ちょちく</rt></ruby></label>
-                            <input class="mb-3 savings-input" type="int" name="savings[]" required
+                            <input class="mb-3 savings-input" type="number" name="savings[]" min="0" max="9999999999" required
                             value="<?php echo (isset($savedData['savings'][$i]) && !empty($savedData['savings'][$i])) ? $savedData['savings'][$i] : '0'; ?>">
 
                             <label for="allowances">お<ruby>小遣<rt>こづか</rt></ruby>い<ruby>金額<rt>きんがく</rt></ruby></label>
-                            <input class="allowance-input" type="int" name="allowances[]" required
+                            <input class="allowance-input" type="number" name="allowances[]" min="0" max="9999999999" required
                             value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : '0'; ?>">
 
                             <label for="payments"><ruby>受取日<rt>うけとりび</rt></ruby></label>
-                            <input class="payment-input" type="int" name="payments[]" required
+                            <input class="payment-input" type="number" name="payments[]" min="0" max="31" required
                             value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : '0'; ?>">
                         </div>
 
@@ -108,7 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="admin_flag"><ruby>管理者<rt>かんりしゃ</rt></ruby></label>
                             <input type="checkbox" name="admin_flag[]">
                         </div>
-
                         <?php if ($i > 0) { // 2番目以降のフォームにはマイナスボタンを表示 ?>
                             <button type="button" class="removeUser">－</button>
                         <?php } ?>

@@ -40,7 +40,7 @@ if(isset($_SESSION['debt'])) {
         </div>
         <div class="control">
             <label for="debt_amount">どれだけかりる？</label>
-            <input type="number" name="debt_amount" required>
+            <input type="number" name="debt_amount" min="1" max="100000" required placeholder="※10万円以内">
         </div>
         <div class="control">
             <label for="installments">何回にわけてかえす？</label>
@@ -55,8 +55,10 @@ if(isset($_SESSION['debt'])) {
     </form>
 </div>
 </main>
-<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
 
-<!-- フッター -->
+
+<script src="<?php echo $absolute_path; ?>static/js/debt.js"></script>
+<!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
+<!-- フッター -->
 <?php require_once("../include/footer.php"); ?>
