@@ -96,8 +96,7 @@ $index_child_class->message($db);
                             <span>
                                 <span class="shortened-text" style="display: inline;">
                                 <?php
-                                echo htmlspecialchars(substr($index_child_class->getGoal_detail(), 0, 15));
-
+                                echo htmlspecialchars($index_child_class->getGoal_detail());
                                 ?>
                                 </span>
 
@@ -162,15 +161,20 @@ $index_child_class->message($db);
                         <span class="shortened-text" style="display: inline;">
                             <?php 
                             echo htmlspecialchars(substr($index_child_class->getBehavioral()['behavioral_goal'],0,15)); 
+                            //$gtext = htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']);
+                            // $text =  mb_convert_encoding($gtext, 'UTF-8', 'auto');
+                            //$text = mb_convert_encoding(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']));
+                            // echo mb_detect_encoding($text,  ['ASCII', 'ISO-2022-JP', 'UTF-8', 'EUC-JP', 'SJIS'], true);
+                            //var_dump($gtext);
                             ?><br>
                         </span>
                         <!-- 全文表示用のspan -->
                         <span class="full-text" style="display: none;">
                                 <?php 
                                 //echo $goalDetail; 
-                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 0, 20)."<br>";
-                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 21, 20)."<br>";
-                                echo substr($index_child_class->getBehavioral()['behavioral_goal'], 41, 20)."<br>";
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 0, 20)."<br>";
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 21, 20)."<br>";
+                                echo substr(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']), 41, 20)."<br>";
                                 ?>
                         </span>
                         <!-- 続きを読むチェックボックス -->
@@ -182,14 +186,6 @@ $index_child_class->message($db);
 
                         <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?>
                         <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> ポイント
-                             
-                          
-                            
-                            
-                            
-                            
-                            
-                            
                             
                             <br>
                             <div class="btn-p">
