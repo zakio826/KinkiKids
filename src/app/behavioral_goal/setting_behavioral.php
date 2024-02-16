@@ -27,24 +27,15 @@ include("../include/header.php");
                 <br>
 
                 <div class="control-1">
-<<<<<<< HEAD
                     <label for="behavioral_goal"><ruby>行動目標<rt>こうどうもくひょう</rt></ruby></label>
-                    <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>">
-=======
-                    <label for="behavioral_goal">行動目標</label>
                     <p>※　50文字以内　※</p>
                     <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>"maxlength="50">
->>>>>>> 778472ccd71bd457a444c71f81b943d3b1d37b21
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
 
                 <div class="control-1">
-<<<<<<< HEAD
                     <label for="behavioral_user"><ruby>子供<rt>こども</rt></ruby></label>
-=======
-                    <label for="behavioral_user">子供</label>
                     <br>
->>>>>>> 778472ccd71bd457a444c71f81b943d3b1d37b21
                     <select id="behavioral_user" name="behavioral_user">
                         <?php
                         // セッションから家族IDを取得
@@ -62,13 +53,8 @@ include("../include/header.php");
                 </div>
 
                 <div class="control-1">
-<<<<<<< HEAD
                     <label for="reward_point"><ruby>報酬<rt>ほうしゅう</rt></ruby>ポイント</label>
-                    <input id="reward_point" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
-=======
-                    <label for="reward_point">報酬ポイント</label>
                     <input id="reward_point" class="setting_behavioral_textA" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
->>>>>>> 778472ccd71bd457a444c71f81b943d3b1d37b21
                     <b>pt</b>
                     <?php $setting_behavioral->reward_error(); ?>
                 </div>
