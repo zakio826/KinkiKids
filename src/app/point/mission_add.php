@@ -64,10 +64,19 @@ if (isset($_GET["button1"])) {
         <?php else: ?>
             <ul>
             <?php foreach ($missions as $mission_data): ?>
-                    <li>
-                        <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
-                        <strong>獲得ポイント:</strong> <?php echo $mission_data['get_point']; ?><br>
-                        <strong>担当者:</strong> <?php $mission->person_select($mission_data['mission_id']); ?>
+                    <li class="mission_add_li">
+                        <b class="mission_add_moji">
+                            <strong>ミッション名:</strong>
+                             <?php echo $mission_data['mission_name']; ?><br>
+                        </b>
+                        <b class="mission_add_moji">
+                            <strong>獲得ポイント:</strong>
+                             <?php echo $mission_data['get_point']; ?> pt<br>
+                        </b>
+                        <b class="mission_add_moji">
+                            <strong>担当者:</strong>
+                             <?php $mission->person_select($mission_data['mission_id']); ?>
+                        </b>
                     </li>
                     <?php if ($select === 'adult'): ?>
                         <form action="mission_edit.php" method="get">

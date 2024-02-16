@@ -122,9 +122,9 @@ input[type="checkbox"] {
 .btn-1 {
     background-color: #525ED2;
     color: white;
-    padding: 5px;
+    padding: 5px 10px;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
@@ -212,7 +212,7 @@ strong {
 
 p.long-name {
     margin-bottom: 0px;
-    margin-top: 15px;
+    margin-top: 0px;
     font-size: 18px;
 }
 
