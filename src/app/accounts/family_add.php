@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <div class="control">
                             <label for="password">パスワード</label>
-                            <input type="password" name="password[]" minlength="8" placeholder="※半角英数字で8文字以上入力してください" required>
+                            <input type="password" name="password[]" minlength="8" maxlength="100" placeholder="※半角英数字で8文字以上入力してください" required>
                         </div>
 
                         <div class="control">
