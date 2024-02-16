@@ -6,12 +6,43 @@ include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 
 $user_id = $_SESSION['user_id']; 
+$family_id = $_SESSION['family_id'];
 ?>
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
-
+<?php
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    try {
+      $category = $_GET['category']; 
+      switch ($category) {
+        case 'spend':
+          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 1)";
+          break;
+        case 'income':
+          $sql = "INSERT INTO income_expense_category(user_id,family_id,income_expense_category_name,income_expense_flag) VALUES (:user_id, :family_id, :name, 0)";
+          break;
+        case 'payment':
+          $sql = "INSERT INTO payment(user_id,family_id,payment_name) VALUES (:user_id, :family_id, :name)";
+          break;
+      }
+      $name = $_POST['name'];
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+      $stmt->bindParam(':family_id', $family_id, PDO::PARAM_INT);
+      $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+      if ($stmt->execute()) {
+        echo "データが正常に登録されました。";
+        header("Location: ".$absolute_path."src/app/spending/item-edit.php"); exit;
+      } else {
+          echo "データの登録中にエラーが発生しました。";
+      }
+    } catch (PDOException $e) {
+      echo "データの登録に発生しました。";
+    }
+  }
+?>
 <main class="l-main">
   <header class="l-header">
     <h1 class="l-header__title"><a href="./index.php">家計簿アプリ</a></h1>
@@ -55,9 +86,9 @@ $user_id = $_SESSION['user_id'];
 
     <form class="p-form p-form--cat-add" id="itemAddElement" action="" method="POST">
       <h2 class="c-text c-text__subtitle">【カテゴリーを追加】</h2>
-      <input type="hidden" name="editItem" value="">
       <div class="p-form__vertical-input">
         <p>項目名<span>※スペースのみ不可</span></p>
+        <input type="hidden" name="category" value="<?php echo $category ?>">
         <input type="text" class="item-operate-name" id="name" name="name" value="" pattern="\S|\S.*?\S" required>
       </div>
       
