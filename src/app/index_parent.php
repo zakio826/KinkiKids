@@ -90,6 +90,7 @@ echo '</script>';
         <select id="user">
             <?php $index_parent_class->getFamilyUser(); ?>
         </select>
+            <p>の目標</p>
         </div>
 
 
@@ -134,8 +135,8 @@ echo '</script>';
                 <div class="index_parent_mokuhyoucss2">
                     <b class="index_parent_mokuhyoumoji">
                         行動目標：<p id="behavioral_goal"></p>
-                        報酬ポイント：<p id="reward_point"></p>
-                        期限：<p id="behavioral_goal_deadline"></p>
+                        <p id="behavioral_goal_deadline">pt</p>
+                        <p id="reward_point"></p>
                         <!-- 行動目標に飛ぶボタン -->
                         <div class="btn-p">
                             <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
