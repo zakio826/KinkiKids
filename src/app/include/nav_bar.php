@@ -115,7 +115,7 @@ $backgroundColor = ($select === 'adult') ?  '#AADBFF':'lemonchiffon'; // 適切�
                         </span>
                     <?php else : ?>
                         <span class="col-auto">ユーザー名：</span>
-                        <br>
+                        <?php echo "\n"; ?>
                         <span class="col-auto">
                             <span class="mx-2">
                                 <?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?>
