@@ -507,6 +507,8 @@ input[name="slideshow"]{
 }
 
 #behavioral_goal_deadline, #reward_point {
+    font-size: 25px;
+    color: #383838;
     display: inline-block;
-    margin-right: 10px; /* 適切なマージンを設定して間隔を調整 */
+    margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
 }
