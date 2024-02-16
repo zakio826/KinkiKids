@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             value="<?php echo (isset($savedData['allowances'][$i]) && !empty($savedData['allowances'][$i])) ? $savedData['allowances'][$i] : '0'; ?>">
 
                             <label for="payments"><ruby>受取日<rt>うけとりび</rt></ruby></label>
-                            <input class="payment-input" type="number" name="payments[]" min="0" required
+                            <input class="payment-input" type="number" name="payments[]" min="0" max="31" required
                             value="<?php echo (isset($savedData['payments'][$i]) && !empty($savedData['payments'][$i])) ? $savedData['payments'][$i] : '0'; ?>">
                         </div>
 
