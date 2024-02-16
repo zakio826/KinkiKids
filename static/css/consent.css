@@ -89,6 +89,10 @@ ul {
     list-style: none; /* デフォルトのリストスタイルを非表示にする */
   }
 
+  .consent_li {
+    margin-right: initial;
+  }
+
 .mt-1 {
     font-size: 28px;
     text-align: center;
