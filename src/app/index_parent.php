@@ -148,21 +148,21 @@ echo '</script>';
             </div>
         <?php } ?>
         <div class="select_user">
-            <form action="" method="post">
+            <form action="" method="post"  class="slideshow">
                 <button type="submit" name="left" class="btn-left"><</button>
                 <?php if($_SESSION['goal_select'] == 0){ ?>
                     <span>
-                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouD.png" height=40 alt="購入目標" class="slideshow">
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouD2.png" height=50 alt="購入目標">
                         <?php echo ''; ?>
                     </span>
                 <?php } elseif($_SESSION['goal_select'] == 1){ ?>
                     <span>
-                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouE.png" height=40 alt="ポイントノルマ" class="slideshow">
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouE2.png" height=50 alt="ポイントノルマ">
                         <?php echo ''; ?>
                     </span>
                 <?php } elseif($_SESSION['goal_select'] == 2){ ?>
                     <span>
-                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouF.png" height=40 alt="行動目標" class="slideshow">
+                        <img src="<?php echo $absolute_path; ?>static/assets/mokuhyouF2.png" height=50 alt="行動目標">
                         <?php echo ''; ?>
                     </span>
                 <?php } ?>
