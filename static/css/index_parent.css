@@ -332,15 +332,21 @@ p.index_parent_moji {
 }
 
 /* 返信ボタン部分 */
-.btn {
+.btn_hensin {
     background-color: #8fc31f;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+    padding: 5px 10px;
+}
+
+/* 返信ボタン部分押したとき */
+.btn_hensin:hover {
+    background-color: #8ab91c;
 }
 
 

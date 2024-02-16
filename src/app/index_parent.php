@@ -270,7 +270,7 @@ echo '</script>';
                             <?php $index_parent_class->getFamilyUser(); ?>
                         </select>
                         <input type="text" name="message" required>
-                        <button type="submit" class="btn">返信</button>
+                        <button type="submit" class="btn_hensin">返信</button>
                     </form>
                 </div>
             </div>

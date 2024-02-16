@@ -68,7 +68,7 @@ include("../include/header.php");
                 <br>
 
                 <div class="control-2">
-                    <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></label></button>
+                    <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></button>
                 </div>
             </form>
         </div>
