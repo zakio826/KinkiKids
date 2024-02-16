@@ -16,7 +16,6 @@ if (isset($_GET["pick_date"])) {
 }
 ?>
 
-
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
@@ -67,7 +66,7 @@ if (isset($_GET["pick_date"])) {
                 <input type="radio" name="type" id="income" value="1" onchange="onRadioChangeType(1);">
                 <label for="income" class="spinradio">収入 </label>
             </div>
-       
+
             <!-- セレクトボックス(支出カテゴリ) -->
             <div class="u-js__show-switch flex p-form__flex-input sp-change-order" id="spendingCategoryBox">
                 <p class="long-name">支出カテゴリー</p>

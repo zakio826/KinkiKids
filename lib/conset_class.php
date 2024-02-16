@@ -9,7 +9,7 @@ class consent {
         $this->db = $db;
         $this->error = []; // 初期化
 
-        if (isset($_POST["consent_help_id"])){
+        if (isset($_POST["consent_help_Y"])){
             $help_id = $_POST["consent_help_id"];
 
             $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
@@ -19,7 +19,7 @@ class consent {
 
             echo "承認しました";
             
-        }elseif (isset($_POST["consent_mission_id"])){
+        }elseif (isset($_POST["consent_mission_Y"])){
             $mission_id = $_POST["consent_mission_id"];
 
             $stmt = $this->db->prepare("UPDATE mission_log SET receive_flag = 1,consent_flag = 0 WHERE mission_id = :mission_id and consent_flag = 1");
@@ -35,7 +35,7 @@ class consent {
 
             echo "承認しました";
             
-        } elseif (isset($_POST["consent_debt_id"])){
+        } elseif (isset($_POST["consent_debt_Y"])){
             $debt_id = $_POST["consent_debt_id"];
             if(!empty($_POST["interest"])){
                 $interest = $_POST["interest"];         
@@ -73,6 +73,16 @@ class consent {
 
 
             echo "承認しました";
+
+        //銀行拒否
+        } elseif (isset($_POST["consent_debt_N"])){
+            $debt_id = $_POST["consent_debt_id"];
+            $stmt = $this->db->prepare("DELETE FROM debt WHERE debt_id = :debt_id");
+            $stmt->bindParam(':debt_id', $debt_id);
+            $stmt->execute();
+
+            echo "拒否しました";
+
         }
     }      
 
