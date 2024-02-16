@@ -192,4 +192,13 @@ strong {
 .mission_add_li {
     margin-right: initial;
     font-size: 18px;
+    margin-bottom: 10px;
+    background-color: #ebf4fc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.mission_add_moji {
+    font-weight: bold;
+    pointer-events: none; /*スマホで数字タップして電話がかからないように*/
 }
