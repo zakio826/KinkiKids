@@ -437,7 +437,7 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
                                                                     <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[$k]; ?>.png">
                                                                 <?php endif; ?>
                                                             <?php endfor; ?>
-                                                            <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png">
+                                                            <!-- <img class="col daily-star me-1 me-md-2 me-lg-1 me-xl-2 me-xxl-1" src="<?php echo $absolute_path; ?>static/assets/star<?php echo $star_color[4]; ?>.png"> -->
                                                         </div>
                                                     </div>
 
