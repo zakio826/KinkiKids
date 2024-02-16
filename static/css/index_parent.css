@@ -184,6 +184,7 @@ display: none;
     /* 文字白枠 */
     /* -webkit-text-stroke: 0.5px #fff; */
     text-align: center;
+    width: 340px;
 }
 
 /* 目標の内容文字だけ別スタイル指定 */
@@ -331,15 +332,21 @@ p.index_parent_moji {
 }
 
 /* 返信ボタン部分 */
-.btn {
+.btn_hensin {
     background-color: #8fc31f;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
     margin: 5px;
+    padding: 5px 10px;
+}
+
+/* 返信ボタン部分押したとき */
+.btn_hensin:hover {
+    background-color: #8ab91c;
 }
 
 
@@ -515,6 +522,10 @@ input[name="slideshow"]{
     margin-right: 15px; /* 適切なマージンを設定して間隔を調整 */
 }
 
+#reward_point {
+    font-weight: bold;
+}
+
 /* ノルマポイント */
 #norma_deadline {
     font-size: 25px;
@@ -551,5 +562,19 @@ input[name="slideshow"]{
 
 .pt, #points {
     font-size: 25px;
+    display: inline-block;
+}
+
+/* 今日稼ぐポイント */
+#dayPoint {
+    font-size: 35px;
+    color: #4f40ff;
+}
+#dayPoint,.pt{
+    display: inline-block;
+}
+
+/* 緊急ミッション、承認待ち */
+.mission a {
     display: inline-block;
 }
