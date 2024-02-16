@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
+@import url('https://fonts.目標がgoogleapis.com/css2?family=Zen+Maru+Gothic&display=swap'); /*フォントの特定 */
 
 /* 全体の部分 */
 body {
@@ -6,6 +6,9 @@ body {
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
+.full-text{
+    color: blueviolet;
+}
 .action-btn {
 background-color: lemonchiffon;
 border-radius: 2rem;
@@ -149,6 +152,8 @@ display: none;
 }
 
 
+
+
 /* ------------------------------------------------- */
 /* 目標の部分 */
 /* ------------------------------------------------- */
@@ -191,6 +196,16 @@ display: none;
     font-size: 20px;
 
 }
+
+.expand-checkbox {
+    display: none;
+}
+.expand-checkbox-label:hover {
+    /* ホバー時のスタイルを指定 */
+    color: red;
+    /* 他のスタイルも必要に応じて追加 */
+}
+
 
 /* ------------------------------------------------- */
 /* ただの線 */
@@ -391,4 +406,84 @@ input[name="slideshow"]{
 .slides-nav:hover{
     background-color : #ffa500;
     border-color: #fff689;
+}
+
+/* プラスボタン */
+.btn-p a {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #e65d45;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 900;
+}
+
+/* 右ボタン */
+.btn-right {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #fff689;
+    color: orange;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border-color: orange;
+    border: 2px solid orange; /* ボーダースタイルを追加 */
+}
+
+/* 左ボタン */
+.btn-left {
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: #fff689;
+    color: orange;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    border-color: orange;
+    border: 2px solid orange; /* ボーダースタイルを追加 */
+}
+
+.syakkin{
+    text-align: center;
+}
+
+button{
+    background-color: #ffcc23;
+    color: white;
+    border: none;
+    border-radius: 30px;
+}
+
+.naiyou{
+    background-color: #fff689;
+    border: 3px solid orange;
+    border-radius: 15px;
+    padding: 10px 30px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    font-weight: 1000;
+    /* -webkit-text-stroke: 0.5px #fff; */
+    text-align: center;
+    
+}
+
+.menyu{
+    text-align: center;
+    font-weight: bold;
+}
+
+.migiyose{
+    margin-right: initial;
 }

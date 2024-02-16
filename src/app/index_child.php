@@ -30,8 +30,29 @@ if(isset($_SESSION['updated'])) {
     unset($_SESSION['updated']);
 }
 
+
+
 $index_child_class->message($db);
 ?>
+
+<?php
+    // セッション変数aが設定されていない場合は0で初期化
+    if (!isset($_SESSION['goal_select'])) {
+        $_SESSION['goal_select'] = 0;
+    }
+    // 右ボタンが押された場合
+    if (isset($_POST['right'])) {
+        $_SESSION['goal_select'] = ($_SESSION['goal_select'] + 1) % 3;
+        
+    }
+    // 左ボタンが押された場合
+    if (isset($_POST['left'])) {
+        $_SESSION['goal_select'] = ($_SESSION['goal_select'] - 1 + 3) % 3; // マイナス値を防ぐために3を加える
+    }
+    // 現在の値を取得
+    $goal_select = $_SESSION['goal_select'];
+?>
+
 
 
 <!-- ナビゲーションバー -->
@@ -45,37 +66,115 @@ $index_child_class->message($db);
     
     <section class="position-relative h-75">
     <a href="<?php echo $absolute_path; ?>src/app/goal/goal_list.php" class="index_child_mokuhyouitiran">目標一覧</a>
-
+    <hr class="index_child_hr">
     <?php 
     if (!empty($repayment)) {
+        echo '<div class="syakkin">';
         echo '<h2>借金返済</h2>';
         echo '<ul>';
         foreach ($repayment as $repayment_data) {
-            echo '<li>';
+            echo '<li class="migiyose">';
+            echo '<div class="naiyou">';
             echo '<strong>内容:</strong> ' . $repayment_data['contents'] . '<br>';
             echo '<strong>借りた金額:</strong> ' . $repayment_data['debt_amount'] . '<br>';
+            echo '<br>';
             echo '<button><a href="./money/repayment.php?debt_id=' . $repayment_data['debt_id'] . '"/button>借金返済する</a>';
+            echo '</div>';
             echo '</li>';
         }
         echo '</ul>';
+        echo '</div>';
     }
     ?>
+    <hr class="index_child_hr">
 
-        <div class="index_child_mokuhyoucss1">
-            <div class="index_child_mokuhyoucss2">
-            <?php if ($goal_count != 0) : ?>
-                <a href="./goal/goal_detail.php">ちかぢかせまっているもくひょう<br>
-                <span>
-                    <?php echo htmlspecialchars($index_child_class->getGoal_detail()); ?><br>
-                    <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
-                    <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
-                <span>
-                </a>
-            <?php else : ?>
-                <span><p>目標がないので設定してください</p></span>
-            <?php endif; ?>
+
+            <div class="index_child_mokuhyoucss1">
+                <div class="index_child_mokuhyoucss2">
+                    <?php if($_SESSION['goal_select'] == 0){ ?>
+                        <?php if ($goal_count != 0) { ?>
+                            <span>
+                                <?php
+                                echo htmlspecialchars(substr($index_child_class->getGoal_detail(), 0, 15));
+
+                                ?>
+
+                                <!-- 全文表示用のspan -->
+                                <span class="full-text" style="display: none;">
+                                <?php 
+                                //echo $goalDetail; 
+                                echo substr($goalDetail, 0, 20)."<br>";
+                                echo substr($goalDetail, 21, 20)."<br>";
+                                echo substr($goalDetail, 41, 20)."<br>";
+                                ?>
+                                </span>
+
+                                <!-- 続きを読むチェックボックス -->
+                                <label class="expand-checkbox-label">
+                                <input type="checkbox" class="expand-checkbox"/>
+                                ...もっと見る
+                                </label>
+
+                                <br>
+
+                                <?php echo htmlspecialchars($index_child_class->getGoal_deadline()); ?> 
+                                <?php echo htmlspecialchars($index_child_class->getTarget_amount()); ?> 円
+                                <br>
+                                <div class="btn-p">
+                                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
+                                        ＋  
+                                    </a>
+                                </div>
+                            <span>
+                        <?php } else { ?>
+                            <span><p>目標がないので設定してください</p></span>
+                        <?php } ?>
+
+                    <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                        <b class="index_parent_mokuhyoumoji">
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_amount']); ?><br>
+                                <?php echo htmlspecialchars($index_child_class->getPointNorma()['point_norma_deadline']); ?> 
+                            <br>
+                            <div class="btn-p">
+                                <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
+                                    ＋
+                                </a>
+                            </div>
+                        </b>
+                    <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                        <b class="index_parent_mokuhyoumoji">
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']); ?><br>
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['reward_point']); ?> 
+                            <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?> 円
+                            <br>
+                            <div class="btn-p">
+                                <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
+                                    ＋
+                                </a>
+                            </div>
+                        </b>
+                    <?php } ?>
+
+                </div>
             </div>
-        </div>
+            <div class="menyu">
+        <form action="" method="post">
+            <button type="submit" name="left" class="btn-left"><</button>
+            <?php if($_SESSION['goal_select'] == 0){ ?>
+                <span><?php echo '購入目標'; ?></span>
+            <?php } elseif($_SESSION['goal_select'] == 1){ ?>
+                <span><?php echo 'ポイントノルマ'; ?></span>
+            <?php } elseif($_SESSION['goal_select'] == 2){ ?>
+                <span><?php echo '行動目標'; ?></span>
+            <?php } ?>
+
+            <button type="submit" name="right" class="btn-right">></button>
+        </form>
+            </div>
+
+
+
+
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss3">
             <div class="index_child_mokuhyoucss4">
@@ -115,31 +214,7 @@ $index_child_class->message($db);
             </div>
         </div>
 
-        <hr class="index_child_hr">
-
-                <input type="radio" name="slideshow" id="slide1" checked>
-                <input type="radio" name="slideshow" id="slide2">
-                <input type="radio" name="slideshow" id="slide3">
-            <div class="slideshow">
-                <div class="slides">
-                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                        <img class="slide slide1" src="<?php echo $absolute_path; ?>static/assets/mokuhyouA.png" alt="購入目標">  
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/point_norma/setting_norma.php">
-                        <img class="slide slide2" src="<?php echo $absolute_path; ?>static/assets/mokuhyouB.png" alt="ポイントノルマ">
-                    </a>
-                    <a href="<?php echo $absolute_path; ?>src/app/behavioral_goal/setting_behavioral.php">
-                        <img class="slide slide3" src="<?php echo $absolute_path; ?>static/assets/mokuhyouC.png" alt="行動目標">
-                    </a>
-                </div>
-            </div>
-            <div class="slideshow-nav">
-                <label for="slide1" class="slides-nav"></label>
-                <label for="slide2" class="slides-nav"></label>
-                <label for="slide3" class="slides-nav"></label>
-            </div>
-
-
+        
         
         <hr class="index_child_hr">
         <div class="index_child_mokuhyoucss1">
