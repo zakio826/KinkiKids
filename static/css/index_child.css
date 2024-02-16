@@ -227,6 +227,9 @@ display: none;
 /* 配置調整 */
 .index_child_mokuhyoucss3 {
     margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
@@ -240,12 +243,16 @@ display: none;
                 -6px     0px    6px #fff,
                  0px     6px    6px #fff,
                  0px    -6px    6px #fff; */
-    display: flex;
+    background-color: #fff689;
+    border: 3px solid orange;
+    border-radius: 15px;
+    padding: 10px 30px;
+    box-shadow: 0px 4px 3px 0px rgb(5 5 5 / 20%);
+    /* 文字太さ */
     font-weight: 1000;
-    -webkit-text-stroke: 0.5px #fff;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    /* 文字白枠 */
+    /* -webkit-text-stroke: 0.5px #fff; */
+    text-align: center;
     /* white-space: nowrap; */
 }
 
