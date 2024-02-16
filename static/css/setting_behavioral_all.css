@@ -86,6 +86,11 @@ input::placeholder {
     text-align: center;
 }
 
+.control-1 {
+    margin-bottom: 10px;
+}
+
+
 .btn {
     background-color: #525ED2;
     color: white;
@@ -131,4 +136,8 @@ select#behavioral_user {
     padding: 10px;
     width: 100px;
     text-align: center;
+}
+
+.setting_behavioral_textA {
+    display: initial;
 }
