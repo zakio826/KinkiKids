@@ -184,6 +184,7 @@ display: none;
     /* 文字白枠 */
     /* -webkit-text-stroke: 0.5px #fff; */
     text-align: center;
+    width: 340px;
 }
 
 /* 目標の内容文字だけ別スタイル指定 */
