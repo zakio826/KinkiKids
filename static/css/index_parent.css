@@ -545,9 +545,11 @@ input[name="slideshow"]{
 
 /* 貯金 */
 .en, #savings {
+    font-size: 25px;
     display: inline-block;
 }
 
 .pt, #points {
+    font-size: 25px;
     display: inline-block;
 }

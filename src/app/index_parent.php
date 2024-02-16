@@ -183,11 +183,12 @@ echo '</script>';
                     手持ち：
                     <p id="points" class="btn-kankin_iti">
                     <p class="pt">pt</p>
-                        <a href="<?php echo $absolute_path; ?>src/app/money/exchange.php" class="btn-kankin">
-                            換金
-                        </a>
+                        
                     </p>
                     今日稼ぐポイント：<p id="dayPoint"></p>
+                    <a href="<?php echo $absolute_path; ?>src/app/money/exchange.php" class="btn-kankin">
+                            換金
+                    </a>
                 </b>
             </div>
         </div>
