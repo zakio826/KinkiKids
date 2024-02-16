@@ -9,35 +9,42 @@ class consent {
         $this->db = $db;
         $this->error = []; // 初期化
 
-            if (isset($_POST["consent_help_id"])){
-                $help_id = $_POST["consent_help_id"];
+        if (isset($_POST["consent_help_Y"])){
+            $help_id = $_POST["consent_help_id"];
 
             $stmt = $this->db->prepare("UPDATE help_log SET receive_flag = 1,consent_flag = 0 WHERE help_id = :help_id and consent_flag = 1");
             $stmt->bindParam(':help_id', $help_id);
             $stmt->execute();
             $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                echo "承認しました";
-                
-            }elseif (isset($_POST["consent_mission_id"])){
-                $mission_id = $_POST["consent_mission_id"];
-
-                $stmt = $this->db->prepare("UPDATE mission_log SET receive_flag = 1,consent_flag = 0 WHERE mission_id = :mission_id and consent_flag = 1");
-                $stmt->bindParam(':mission_id', $mission_id);
-                $stmt->execute();
-                $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                //拒否の場合はdisplayflag戻して
-                $stmt2 = $this->db->prepare("UPDATE mission SET display_flag = 0 WHERE mission_id = :mission_id");
-                $stmt2->bindParam(':mission_id', $mission_id);
-                $stmt2->execute();
-                $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-                echo "承認しました";
+            echo "承認しました";
             
-        } elseif (isset($_POST["consent_debt_id"])){//ポイント追加処理
+        }elseif (isset($_POST["consent_mission_Y"])){
+            $mission_id = $_POST["consent_mission_id"];
+
+            $stmt = $this->db->prepare("UPDATE mission_log SET receive_flag = 1,consent_flag = 0 WHERE mission_id = :mission_id and consent_flag = 1");
+            $stmt->bindParam(':mission_id', $mission_id);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            //拒否の場合はdisplayflag戻して
+            $stmt2 = $this->db->prepare("UPDATE mission SET display_flag = 0 WHERE mission_id = :mission_id");
+            $stmt2->bindParam(':mission_id', $mission_id);
+            $stmt2->execute();
+            $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "承認しました";
+            
+        } elseif (isset($_POST["consent_debt_Y"])){
             $debt_id = $_POST["consent_debt_id"];
-            $interest = $_POST["interest"];
+            if(!empty($_POST["interest"])){
+                $interest = $_POST["interest"];         
+            }else if(empty($_POST["interest"])){
+                $_SESSION["interest_error"] = "*利率を入力してください。";
+                header('Location: consent.php'); 
+                exit();
+            }
+            
 
             $query = "SELECT debt_amount, installments FROM debt WHERE debt_id = :debt_id";
             $stmt = $this->db->prepare($query);
@@ -66,6 +73,16 @@ class consent {
 
 
             echo "承認しました";
+
+        //銀行拒否
+        } elseif (isset($_POST["consent_debt_N"])){
+            $debt_id = $_POST["consent_debt_id"];
+            $stmt = $this->db->prepare("DELETE FROM debt WHERE debt_id = :debt_id");
+            $stmt->bindParam(':debt_id', $debt_id);
+            $stmt->execute();
+
+            echo "拒否しました";
+
         }
     }      
 
