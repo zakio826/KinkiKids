@@ -108,7 +108,7 @@ class consent {
 
 
     public function display_consent_help($user_id) {
-        $stmt = $this->db->prepare("SELECT help.help_name,help.get_point,help.help_id FROM help
+        $stmt = $this->db->prepare("SELECT help.help_name,help.get_point,help.help_id,help_log.user_id,help_log.help_day FROM help
                                     INNER JOIN help_log ON help.help_id = help_log.help_id 
                                     WHERE help_log.consent_flag = 1 and help.user_id = :user_id and help.stop_flag = 1");
         $stmt->bindParam(':user_id', $user_id);
@@ -118,7 +118,7 @@ class consent {
     }
 
         public function display_consent_mission($user_id) {
-            $stmt = $this->db->prepare("SELECT mission.mission_name,mission.get_point,mission.mission_id FROM mission
+            $stmt = $this->db->prepare("SELECT mission.mission_name,mission_log.mission_day,mission.get_point,mission.mission_id,mission_log.user_id FROM mission
                                         INNER JOIN mission_log ON mission.mission_id = mission_log.mission_id 
                                         WHERE mission_log.consent_flag = 1 and mission.user_id = :user_id and mission.display_flag = 1");
             $stmt->bindParam(':user_id', $user_id);
@@ -230,6 +230,13 @@ class consent {
         } else {
             return "データが見つかりません";
         }
+    }
+    public function person_name($user_id) {
+        $stmt = $this->db->prepare("SELECT first_name FROM user WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo $result[0]["first_name"];
     }
 }
 ?>
