@@ -366,7 +366,7 @@ $family_id = $_SESSION['family_id'];
 
     select.addEventListener('change', (e) => {
 
-        goal_detail = ' ';
+        goal_detail = '目標を設定してください';
         goal_deadline = ' ';
         target_amount = ' ';
         savings = ' ';
@@ -375,9 +375,9 @@ $family_id = $_SESSION['family_id'];
         day = ' ';
         dayPoint = ' ';
         allowance_amount = ' ';
-        norma = ' ';
+        norma = 'ポイントノルマを設定してください';
         norma_deadline = ' ';
-        behavioral_goal = ' ';
+        behavioral_goal = '行動目標を設定してください';
         reward_point = ' ';
         behavioral_goal_deadline = ' ';
 
