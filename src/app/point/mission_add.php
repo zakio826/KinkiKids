@@ -20,6 +20,11 @@ $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 $missions = $mission->display_mission($family_id);
+
+$allc = "";
+if (isset($_GET["button1"])) {
+    $allc = "checked";
+} 
 ?>
 
 
@@ -35,13 +40,20 @@ $missions = $mission->display_mission($family_id);
     <div class ="content">
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合の入力フォーム -->
+            <form method="get">
+            <p class="choice">子供の選択 
+            <input type="submit" name="button1" class="btn-1" value="全員"> 
+            </p>
+            </form>
             <form action="" method="post" class="">
-                <p class="choice">子供の選択</p>
-                <?php $mission->child_select(); ?><br>
+                <?php $mission->child_select($allc); ?><br>
+                <?php $mission->person_error(); ?>
                 <label for="">ミッション名</label>
                 <input type="text" name="mission_name"><br>
+                <?php $mission->missionname_error(); ?>
                 <label for="">獲得ポイント</label>
                 <input type="number" name="mission_get_point"><br>
+                <?php $mission->point_error(); ?>
 
                 <button type="submit" class="">登録</button>
             </form>
@@ -52,20 +64,29 @@ $missions = $mission->display_mission($family_id);
         <?php else: ?>
             <ul>
             <?php foreach ($missions as $mission_data): ?>
-                    <li>
-                        <strong>ミッション名:</strong> <?php echo $mission_data['mission_name']; ?><br>
-                        <strong>獲得ポイント:</strong> <?php echo $mission_data['get_point']; ?><br>
-                        <strong>担当者:</strong> <?php $mission->person_select($mission_data['mission_id']); ?>
+                    <li class="mission_add_li">
+                        <b class="mission_add_moji">
+                            <strong>ミッション名:</strong>
+                             <?php echo $mission_data['mission_name']; ?><br>
+                        </b>
+                        <b class="mission_add_moji">
+                            <strong>獲得ポイント:</strong>
+                             <?php echo $mission_data['get_point']; ?> pt<br>
+                        </b>
+                        <b class="mission_add_moji">
+                            <strong>担当者:</strong>
+                             <?php $mission->person_select($mission_data['mission_id']); ?>
+                        </b>
                     </li>
                     <?php if ($select === 'adult'): ?>
-                    <form action="" method="post">
-                        <!-- 編集　後回し！！ -->
-                        <button type="submit" class="">編集</button>
-                    </form>
-                    <form action="" method="post">
-                    <input type="hidden" name="delete_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
-                        <button type="submit" class="">削除</button>
-                    </form>
+                        <form action="mission_edit.php" method="get">
+                        <input type="hidden" name="edit_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
+                        <button type="submit" class="btn-1">編集</button>
+                        </form>
+                        <form action="" method="post">
+                        <input type="hidden" name="delete_mission_id" value="<?php echo $mission_data['mission_id']; ?>">
+                            <button type="submit" class="btn-2">削除</button>
+                        </form>
                     <?php endif; ?>
                     <?php if ($select === 'child'): ?>
                         <form action="" method="post">
@@ -77,7 +98,10 @@ $missions = $mission->display_mission($family_id);
             <?php endforeach; ?>
             </ul>
         <?php endif; ?>
+        <?php if ($select === 'adult'): ?><p class="mt-3"><a href="consent.php" class="btn btn-primary">承認ページ</a></p><?php endif; ?>
+        <?php if ($select === 'child'): ?><p class="mt-3"><a href="child_consent.php" class="btn btn-primary">ポイント受け取り</a></p><?php endif; ?>
     </div>
+    
     </section>
 </main>
 <!-- ナビゲーションバー -->

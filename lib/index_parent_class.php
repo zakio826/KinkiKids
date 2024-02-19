@@ -77,14 +77,14 @@ class index_parent_class {
             return $result[0];
         } else {
             return array(
-                'behavioral_goal'=>'',
-                'reward_point'=>'',
+                'behavioral_goal'=>'行動目標を設定してください',
+                'reward_point'=>0,
                 'behavioral_goal_deadline'=>'',
             );
         }
     }
     public function getPointNorma($i) {
-        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE point_norma_user_id = :user_id");
         $stmt->bindParam(':user_id', $i);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -208,7 +208,7 @@ class index_parent_class {
     }
 
     public function getGoalCount() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -217,7 +217,7 @@ class index_parent_class {
     }
 
     public function getTarget_amount() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :user_id order by goal_deadline asc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -233,7 +233,7 @@ class index_parent_class {
     }
 
     public function getGoal_deadline() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :user_id order by goal_deadline asc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -249,7 +249,7 @@ class index_parent_class {
     }
 
     public function getGoal_detail() {
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE user_id = :user_id order by goal_deadline asc");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :user_id order by goal_deadline asc");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

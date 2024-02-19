@@ -23,18 +23,22 @@ include("../include/header.php");
     <section>
         <div class="content">
             <form action="" method="POST">
+<<<<<<< HEAD
                 <h1>新しい行動目標 設定</h1>
+=======
+                <h1><ruby>行動目標設定<rt>こうどうもくひょうせってい</rt></ruby></h1>
+>>>>>>> d97ffe05c1fa68324ee2d839a3c5460170b5595f
 
                 <br>
 
                 <div class="control-1">
-                    <label for="behavioral_goal">行動目標</label>
+                    <label for="behavioral_goal"><ruby>行動目標<rt>こうどうもくひょう</rt></ruby></label>
                     <input id="behavioral_goal" type="text" name="behavioral_goal" value="<?php echo isset($_SESSION['join']['behavioral_goal']) ? htmlspecialchars($_SESSION['join']['behavioral_goal'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_behavioral->behavioral_error(); ?>
                 </div>
 
                 <div class="control-1">
-                    <label for="behavioral_user">子供</label>
+                    <label for="behavioral_user"><ruby>子供<rt>こども</rt></ruby></label>
                     <select id="behavioral_user" name="behavioral_user">
                         <?php
                         // セッションから家族IDを取得
@@ -52,14 +56,14 @@ include("../include/header.php");
                 </div>
 
                 <div class="control-1">
-                    <label for="reward_point">報酬ポイント</label>
+                    <label for="reward_point"><ruby>報酬<rt>ほうしゅう</rt></ruby>ポイント</label>
                     <input id="reward_point" type="number" name="reward_point" value="<?php echo isset($_SESSION['join']['reward_point']) ? htmlspecialchars($_SESSION['join']['reward_point'], ENT_QUOTES) : ''; ?>">
                     <b>pt</b>
                     <?php $setting_behavioral->reward_error(); ?>
                 </div>
 
                 <div class="control-1">
-                    <label for="behavioral_deadline">期限</label>
+                    <label for="behavioral_deadline"><ruby>期限<rt>きげん</rt></ruby></label>
                     <input id="behavioral_deadline" type="date" name="behavioral_deadline" value="<?php echo isset($_SESSION['join']['behavioral_deadline']) ? htmlspecialchars($_SESSION['join']['behavioral_deadline'], ENT_QUOTES) : ''; ?>">
                     <?php $setting_behavioral->deadline_error(); ?>
                 </div>
@@ -67,7 +71,7 @@ include("../include/header.php");
                 <br>
 
                 <div class="control-2">
-                    <button type="submit" class="btn">登録</button>
+                    <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></button>
                 </div>
             </form>
         </div>

@@ -27,7 +27,7 @@ main{
 }
 
 .content {
-    background-color: #D3DFFE;
+    background-color: #C7EEEE;
     padding: 20px;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -89,6 +89,10 @@ ul {
     list-style: none; /* デフォルトのリストスタイルを非表示にする */
   }
 
+  .consent_li {
+    margin-right: initial;
+  }
+
 .mt-1 {
     font-size: 28px;
     text-align: center;
@@ -102,4 +106,23 @@ ul {
     text-align: right;
     color: #525ED2;
     margin-top: 0;
+}
+.input-type{
+    width: 90%;
+}
+
+/* 項目部分 */
+.consent_mojiA {
+    font-weight: bold;
+    pointer-events: none;
+}
+
+/* 項目タイトル部分 */
+strong {
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0;
+    margin-bottom: 5px;
+    color: #525ED2;
+    font-size: 18px;
 }

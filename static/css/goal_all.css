@@ -15,7 +15,18 @@ main {
     height: 100vh;
 }
 
-.content {
+/* 大人の場合（枠組み） */
+.content_adult {
+    background-color: #D3DFFE;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    margin: 0 auto;
+}
+
+/* 子供の場合（枠組み） */
+.content_child {
     background-color: #fff7ab;
     padding: 20px;
     border-radius: 30px;
@@ -29,7 +40,17 @@ form {
     flex-direction: column;
 }
 
-h1 {
+/* 大人の場合（文字） */
+.adult_font h1{
+    text-align: center;
+    color: #4F40FF;
+    font-weight: bold;
+    font-size: 30px;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
+}
+
+/* 子供の場合（文字） */
+.child_font h1 {
     text-align: center;
     color: #FFC83A;
     font-weight: bold;
@@ -68,7 +89,7 @@ label {
 }
 
 input {
-    width: 70%;
+    width: 250px;
     padding: 20px; /* 高さを大きくする */
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -122,4 +143,5 @@ input[type="text"] {
 #target_amount {
     width: calc(85% - 40px); /* 30pxの余白を除いた幅に調整 */
     padding-right: 20px; /* 右側に余白を作成して円の単位を配置 */
+    padding: 9px;
 }

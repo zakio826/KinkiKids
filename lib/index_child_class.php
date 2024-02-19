@@ -73,6 +73,37 @@ class index_child_class {
         );
     }
 
+    public function getBehavioral() {
+        $stmt = $this->db->prepare("SELECT * FROM behavioral_goal WHERE behavioral_goal_user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return array(
+                'behavioral_goal'=>'行動目標を設定してください',
+                'reward_point'=>'',
+                'behavioral_goal_deadline'=>'',
+            );
+        }
+    }
+    public function getPointNorma() {
+        $stmt = $this->db->prepare("SELECT * FROM point_norma WHERE point_norma_user_id = :user_id");
+        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) != 0){
+            return $result[0];
+        } else {
+            return array(
+                'point_norma_amount'=>'ポイントノルマを設定してください',
+                'point_norma_deadline'=>'',
+            );
+        }
+    }
+
+
     public function getHelp($i) {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $_SESSION["user_id"]);
@@ -232,7 +263,7 @@ class index_child_class {
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if(count($result) != 0){
-                    $allowance_amount = $result['allowance_amount'];
+                    $allowance_amount = $result[0]['allowance_amount'];
                 } else {
                     $allowance_amount = 0;
                 }
@@ -296,7 +327,7 @@ class index_child_class {
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if(count($result) != 0){
-                    $allowance_amount = $result['allowance_amount'];
+                    $allowance_amount = $result[0]['allowance_amount'];
                 } else {
                     $allowance_amount = 0;
                 }
@@ -317,11 +348,11 @@ class index_child_class {
     }
 
     public function display_consent_repayment($user_id) {
-        $currentDate = date("d");
+        $currentDate = date("Y-m-d");
         $query = "SELECT * FROM debt WHERE user_id = :user_id AND approval_flag = 1 AND repayment_date = :current_date";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_INT);
+        $stmt->bindParam(':current_date', $currentDate, PDO::PARAM_STR);
         $stmt->execute();
         
         // データを連想配列として取得

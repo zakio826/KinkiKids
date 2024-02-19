@@ -106,6 +106,7 @@ $backgroundColor = ($select === 'adult') ?  '#AADBFF':'lemonchiffon'; // 適切�
                 <h3 class="row row-cols-2 g-0 justify-content-start">
                     <?php if ($usernames[0]["role_id"] > 30) : ?>
                         <span class="col-auto">おなまえ：</span>
+                        <br>
                         <span class="col-auto">
                             <span class="mx-2">
                                 <?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?>
@@ -114,6 +115,7 @@ $backgroundColor = ($select === 'adult') ?  '#AADBFF':'lemonchiffon'; // 適切�
                         </span>
                     <?php else : ?>
                         <span class="col-auto">ユーザー名：</span>
+                        <?php echo "\n"; ?>
                         <span class="col-auto">
                             <span class="mx-2">
                                 <?php echo $usernames[0]["last_name"]." ".$usernames[0]["first_name"]; ?>

@@ -2,7 +2,7 @@
 
 <?php
 $page_title = "目標設定";
-$stylesheet_name = "goal_adult.css";
+$stylesheet_name = "goal_all.css";
 require_once("../include/header.php");
 ?>
 
@@ -10,15 +10,19 @@ require_once("../include/header.php");
 require($absolute_path."lib/goal_class.php");
 $goal = new goal($db);
 $familyId = $_SESSION['join']['family_id'];
+$select = $_SESSION["select"];
 ?>
 
 <!-- ナビゲーションバー -->
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
-    <div class="content">
+    <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
         <form action="" method="POST">
-            <h1>こうにゅうもくひょうせってい</h1>
+            <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
+                <h1>こうにゅうもくひょうせってい</h1>
+            </div>
+            
 
             <br>
 
@@ -50,7 +54,8 @@ $familyId = $_SESSION['join']['family_id'];
  
             <div class="control-1">
                 <label for="goal_detail">しょうさい</label>
-                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい"><br>
+                <p>※　50文字以内　※</p>
+                <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい" maxlength="50"><br>
                 <?php $goal->detail_error(); ?>
             </div>
 

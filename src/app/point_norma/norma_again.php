@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ポイントノルマ設定";
-$stylesheet_name = "setting_norma_adult.css";
+$stylesheet_name = "setting_norma.css";
 include("../include/header.php");
 ?>
 
