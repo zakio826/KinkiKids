@@ -25,30 +25,30 @@ $goals = $goal->getUserGoals($user_id);
 
 <main>
     <div class="content">
-        <h1>もくひょういちらん</h1>
-
+        <h1><ruby>目標一覧<rt>もくひょういちらん</rt></ruby></h1>
+        <br>
         <?php if (empty($goals)): ?>
             <p>もくひょうがないよ！</p>
         <?php else: ?>
-            <ul>
+            <ul class ="syousaizentai">
                 <?php foreach ($goals as $goal): ?>
                     <?php $goal_child_name = $goal_check->getchildname($db, $goal['goal_user_id']); ?> 
-                    <li>
-                        <strong>こども:</strong> <?php echo $goal_child_name; ?> <br>
-                        <strong>もくひょうきんがく:</strong> <?php echo $goal['target_amount']; ?> 円<br>
-                        <strong>しょうさい:</strong> <?php echo $goal['goal_detail']; ?><br>
-                        <strong>きげん:</strong> <?php echo $goal['goal_deadline']; ?><br>
-                        <strong>さくせいび:</strong> <?php echo $goal['goal_created_date']; ?>
+                    <li class="syousai">
+                        <strong><ruby>子供<rt>こども</rt></ruby>:</strong> <?php echo $goal_child_name; ?> <br>
+                        <strong><ruby>目標金額<rt>もくひょうきんがく</rt></ruby>:</strong> <?php echo $goal['target_amount']; ?> 円<br>
+                        <strong><ruby>詳細<rt>しょうさい</rt></ruby>:</strong> <?php echo $goal['goal_detail']; ?><br>
+                        <strong><ruby>期限<rt>きげん</rt></ruby>:</strong> <?php echo $goal['goal_deadline']; ?><br>
+                        <strong><ruby>作成日<rt>さくせいび</rt></ruby>:</strong> <?php echo $goal['goal_created_date']; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
 
-        <p class="mt-3"><a href="../index.php" class="btn btn-primary">もどる</a></p>
+        <p class="mt-3 text-center"><a href="../index.php" class="btn btn-primary"><ruby>戻<rt>もど</rt></ruby>る</a></p>
     </div>
 </main>
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
-<?php require_once("../include/footer.php"); ?>
+<?php include_once("../include/footer.php"); ?>
 

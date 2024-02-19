@@ -21,23 +21,34 @@ body, h1, h2, ul, li {
     padding: 0;
 }
 h1 {
-    font-size: 24px; /* You can change this value to your preferred font size */
+    font-size: 30px; /* You can change this value to your preferred font size */
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: #ff993b;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+    font-size: calc(1.375rem + 1.5vw);
 }
 /* goal_list.css */
 
 /* 目標一覧のul要素を中央に寄せる */
-ul {
+.syousaizentai {
     list-style-type: none;
     padding: 0;
     text-align: center; /* 水平方向に中央揃え */
 }
 
 /* 目標一覧のli要素を中央に寄せる */
-ul li {
+.syousaizentai,.syousai {
     display: inline-block; /* ブロック要素をインラインブロックに変更 */
     text-align: left; /* テキストは左揃え */
     margin: 0 auto; /* 左右の余白を自動で均等に設定して中央揃え */
     width: 300px; /* 必要に応じて幅を設定 */
+    font-size: 22px;
 }
 
 /* Apply a cute font style */
@@ -66,13 +77,13 @@ body {
 }
 
 /* Style for the list of goals */
-ul {
+.syousaizentai {
     list-style-type: none;
     padding: 0;
 }
 
 /* Style for each goal item */
-li {
+.syousai {
     border: 1px solid #FFD966;
     margin-bottom: 10px;
     padding: 15px;
@@ -82,7 +93,7 @@ li {
 
 /* Media query for small screens (e.g., smartphones) */
 @media screen and (max-width: 767px) {
-    li {
+    .syousai {
         padding: 10px;
     }
 }

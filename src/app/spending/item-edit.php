@@ -46,6 +46,8 @@ $user_id = $_SESSION['user_id'];
                 sql_check($stmt, $db);
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                  $id = $row['income_expense_category_id'];
+                  $db_name = 'income_expense_category'
               ?>
                   <tr class="p-table__item">
                     <td><?php echo h($row['income_expense_category_name']); ?></td>
@@ -54,7 +56,7 @@ $user_id = $_SESSION['user_id'];
                       操作不可
                     <?php else : ?>
                       <!-- <a id="<?php echo 'item' . h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo 'item' . h($row['income_expense_category_id']); ?>');">削除</a> -->
-                      <a class='c-button c-button--bg-red delete' id="<?php echo h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>')" href=''>
+                      <a class='c-button c-button--bg-red delete' id="<?php echo h($id); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo h($id); ?>');" href='./item-delete.php?id=<?php echo h($id);?>?db=spend' >
                       削除<i class="fa-regular fa-trash-can"></i></a>
 
                       <?php endif; ?>
@@ -102,6 +104,8 @@ $user_id = $_SESSION['user_id'];
               sql_check($stmt, $db);
               $stmt->execute();
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                $id = $row['income_expense_category_id'];
+                $db_name = 'income_expense_category'
             ?>
                 <tr class="p-table__item">
                   <td><?php echo h($row['income_expense_category_name']); ?></td>
@@ -109,8 +113,11 @@ $user_id = $_SESSION['user_id'];
                   <?php if ($row['user_id'] == 31) : ?>
                     操作不可
                   <?php else : ?>
-                    <a class='c-button c-button--bg-red delete' id="" href=''>削除<i class="fa-regular fa-trash-can"></i></a>
-                  <?php endif; ?>
+                    <!-- <a id="<?php echo 'item' . h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo 'item' . h($row['income_expense_category_id']); ?>');">削除</a> -->
+                    <a class='c-button c-button--bg-red delete' id="<?php echo h($id); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo h($id); ?>');" href='./item-delete.php?id=<?php echo h($id);?>?db=income' >
+                    削除<i class="fa-regular fa-trash-can"></i></a>
+
+                    <?php endif; ?>
                   </td>
                 </tr>
             <?php
@@ -153,6 +160,8 @@ $user_id = $_SESSION['user_id'];
                   sql_check($stmt, $db);
                   $stmt->execute();
                   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                    $id = $row['payment_id'];
+                    $db_name = 'payment'
                 ?>
                     <tr class="p-table__item">
                       <td><?php echo h($row['payment_name']); ?></td>
@@ -160,8 +169,11 @@ $user_id = $_SESSION['user_id'];
                       <?php if ($row['user_id'] == 31) : ?>
                         操作不可
                       <?php else : ?>
-                        <a class='c-button c-button--bg-red delete btn-2' id="" href=''>削除<i class="fa-regular fa-trash-can"></i></a>
-                      <?php endif; ?>
+                        <!-- <a id="<?php echo 'item' . h($row['income_expense_category_id']); ?>" onclick="deleteConfirm('<?php echo h($row['income_expense_category_name']); ?>','<?php echo 'item' . h($row['income_expense_category_id']); ?>');">削除</a> -->
+                        <a class='c-button c-button--bg-red delete' id="<?php echo h($id); ?>" onclick="deleteConfirm('<?php echo h($row['payment_name']); ?>','<?php echo h($id); ?>');" href='./item-delete.php?id=<?php echo h($id);?>?db=payment' >
+                        削除<i class="fa-regular fa-trash-can"></i></a>
+  
+                        <?php endif; ?>
                       </td>
                     </tr>
                 <?php
