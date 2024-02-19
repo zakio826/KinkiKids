@@ -307,7 +307,11 @@ $family_id = $_SESSION['family_id'];
 
     let selected_value = document.getElementById('user').value;
     <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
+        
+        
         if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['goal_user_id'] ?>){
+  
+        
             <?php 
                 $today = new DateTime('now');
                 $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
@@ -361,9 +365,34 @@ $family_id = $_SESSION['family_id'];
     <?php } ?>;
 
     select.addEventListener('change', (e) => {
+
+        goal_detail = ' ';
+        goal_deadline = ' ';
+        target_amount = ' ';
+        savings = ' ';
+        points = ' ';
+        have = ' ';
+        day = ' ';
+        dayPoint = ' ';
+        allowance_amount = ' ';
+        norma = ' ';
+        norma_deadline = ' ';
+        behavioral_goal = ' ';
+        reward_point = ' ';
+        behavioral_goal_deadline = ' ';
+
+
+
+
         let selected_value = document.getElementById('user').value;
         <?php for($i=0;$i<count($index_parent_class->getFamily());$i++){ ?>
+            
+            
             if(selected_value == <?php echo $index_parent_class->getFamily()[$i]['goal_user_id'] ?>){
+            
+
+
+
                 <?php 
                     $today = new DateTime('now');
                     $deadline = new DateTime($index_parent_class->getFamily()[$i]['goal_deadline']);
