@@ -19,7 +19,7 @@ $user_id = $_SESSION["user_id"];
 $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
-$missions = $mission->display_mission($family_id);
+$missions = $mission->display_mission($user_id,$family_id,$select);
 
 $allc = "";
 if (isset($_GET["button1"])) {

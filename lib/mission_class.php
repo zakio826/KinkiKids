@@ -56,9 +56,21 @@ class mission {
             }
         }
     }
-    public function display_mission($family_id) {
-        $stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1 ORDER BY mission_id DESC");
-        $stmt->bindParam(':family_id', $family_id);
+    public function display_mission($user_id,$family_id,$select) {
+
+        if($select == 'child') {
+            $stmt = $this->db->prepare("SELECT mission.mission_name,mission.get_point,mission.mission_id FROM mission
+                                        INNER JOIN mission_person ON mission.mission_id = mission_person.mission_id 
+                                        WHERE mission_person.user_id = :user_id and mission.display_flag = 1 ORDER BY mission.mission_id DESC");
+            $stmt->bindParam(':user_id', $user_id);
+        }
+        else{
+            $stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1 ORDER BY mission_id DESC");
+            $stmt->bindParam(':family_id', $family_id);
+        }
+
+        //$stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1 ORDER BY mission_id DESC");
+        //$stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
