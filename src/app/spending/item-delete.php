@@ -3,7 +3,7 @@ include("../include/header.php");
 require_once($absolute_path."lib/functions.php");
 
 try {
-    $db = $_GET['db_name'];
+    $db = $_GET['db'];
     $id = $_GET['id'];
 
     switch ($db){
