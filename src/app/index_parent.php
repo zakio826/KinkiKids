@@ -27,23 +27,6 @@ if (isset($_SESSION['family_success']) && $_SESSION['family_success']) {
 
 $family_id = $_SESSION['family_id'];
 
-echo '<script>';
-$again_goal_passed = $index_parent_class->againgoalPassed($family_id);
-if ($again_goal_passed) {
-    echo 'alert("子供の目標の期限が過ぎています！");';
-    echo 'window.location.href = "./goal/again_goal.php";';  
-}
-$point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
-if ($point_norma_deadline_passed) {
-    echo 'alert("ポイントノルマの期限が過ぎています！");';
-    echo 'window.location.href = "./point_norma/norma_again.php";';
-}
-$behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
-if ($behavioral_goal_deadline_passed) {
-    echo 'alert("行動目標の期限が過ぎています！");';
-    echo 'window.location.href = "./behavioral_goal/behavioral_again.php";';
-}
-echo '</script>';
 
 ?>
 
@@ -53,6 +36,22 @@ echo '</script>';
 <?php include_once("./include/nav_bar.php") ?>
 
 <main>
+    <?php
+    echo '<script>';
+    $again_goal_passed = $index_parent_class->againgoalPassed($family_id);
+    if ($again_goal_passed) {
+        echo 'document.write("<button onclick=\'location.href=\"./goal/again_goal.php\"\' >子供の目標を振り返る</button>");';
+    }
+    $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+    if ($point_norma_deadline_passed) {
+        echo 'document.write("<button onclick=\'location.href=\"./point_norma/norma_again.php\"\' >ポイントノルマを振り返る</button>");';
+    }
+    $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+    if ($behavioral_goal_deadline_passed) {
+        echo 'document.write("<button onclick=\'location.href=\"./behavioral_goal/behavioral_again.php\"\' >行動目標を振り返る</button>");';
+    }
+    echo '</script>';
+    ?>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3 index_parent_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
@@ -448,32 +447,6 @@ document.getElementById('dayPoint').innerHTML = Math.floor(dayPoint);
     document.getElementById('reward_point').innerHTML = reward_point;
     document.getElementById('behavioral_goal_deadline').innerHTML = behavioral_goal_deadline;
 <?php } ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 <!-- ナビゲーションバー -->
