@@ -26,6 +26,7 @@ $goals = $goal->getUserGoals($user_id);
 <main>
     <div class="content">
         <h1><ruby>目標一覧<rt>もくひょういちらん</rt></ruby></h1>
+        <br>
         <?php if (empty($goals)): ?>
             <p>もくひょうがないよ！</p>
         <?php else: ?>
@@ -43,7 +44,7 @@ $goals = $goal->getUserGoals($user_id);
             </ul>
         <?php endif; ?>
 
-        <p class="mt-3"><a href="../index.php" class="btn btn-primary"><ruby>戻る<rt>もどる</rt></ruby></a></p>
+        <p class="mt-3 text-center"><a href="../index.php" class="btn btn-primary"><ruby>戻<rt>もど</rt></ruby>る</a></p>
     </div>
 </main>
 <!-- ナビゲーションバー -->
