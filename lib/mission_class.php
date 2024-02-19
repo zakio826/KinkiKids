@@ -57,7 +57,7 @@ class mission {
         }
     }
     public function display_mission($family_id) {
-        $stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1");
+        $stmt = $this->db->prepare("SELECT * FROM mission WHERE family_id = :family_id and display_flag = 1 ORDER BY mission_id DESC");
         $stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
