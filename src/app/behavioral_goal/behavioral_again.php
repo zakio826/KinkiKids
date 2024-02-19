@@ -23,7 +23,7 @@ include("../include/header.php");
     <section>
         <div class="content">
             <form action="" method="POST">
-                <h1>行動目標設定</h1>
+                <h1>新しい行動目標 設定</h1>
 
                 <br>
 

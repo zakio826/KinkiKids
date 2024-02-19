@@ -24,7 +24,7 @@ include("../include/header.php");
     <section>
         <div class="content">
             <form action="" method="POST">
-                <h1>ポイントノルマ設定</h1>
+                <h1>新しいポイントノルマ 設定</h1>
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
