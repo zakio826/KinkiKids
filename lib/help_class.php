@@ -115,7 +115,7 @@ class help {
     }
 
     public function display_help($family_id) {
-        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1");
+        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1 ORDER BY help_id DESC");
         $stmt->bindParam(':family_id', $family_id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
