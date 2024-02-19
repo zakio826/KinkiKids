@@ -339,18 +339,6 @@ $family_id = $_SESSION['family_id'];
                 norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['goal_user_id'])['point_norma_deadline']; ?>';
 
             <?php } ?>
-        } else if(!(selected_value == <?php echo $index_parent_class->getFamily()[$i]['goal_user_id'] ?>)) {
-            savings='';
-            points='';
-            dayPoint='';
-            goal_detail='';
-            goal_deadline='';
-            target_amount='';
-            norma='';
-            norma_deadline='';
-            behavioral_goal='';
-            reward_point='';
-            behavioral_goal_deadline='';
         }
     <?php } ?>
 
@@ -407,18 +395,6 @@ $family_id = $_SESSION['family_id'];
                     norma_deadline = '<?php echo $index_parent_class->getPointNorma($index_parent_class->getFamily()[$i]['goal_user_id'])['point_norma_deadline']; ?>';
 
                 <?php } ?>
-            } else if(!(selected_value == <?php echo $index_parent_class->getFamily()[$i]['goal_user_id'] ?>)) {
-                savings='';
-                points='';
-                dayPoint='';
-                goal_detail='';
-                goal_deadline='';
-                target_amount='';
-                norma='';
-                norma_deadline='';
-                behavioral_goal='';
-                reward_point='';
-                behavioral_goal_deadline='';
             }
         <?php } ?>
 
