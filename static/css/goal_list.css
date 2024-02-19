@@ -21,8 +21,9 @@ body, h1, h2, ul, li {
     padding: 0;
 }
 h1 {
-    font-size: 24px; /* You can change this value to your preferred font size */
+    font-size: 30px; /* You can change this value to your preferred font size */
     font-weight: bold;
+    text-align: center;
 }
 /* goal_list.css */
 
@@ -39,6 +40,7 @@ h1 {
     text-align: left; /* テキストは左揃え */
     margin: 0 auto; /* 左右の余白を自動で均等に設定して中央揃え */
     width: 300px; /* 必要に応じて幅を設定 */
+    font-size: 22px;
 }
 
 /* Apply a cute font style */
