@@ -30,10 +30,10 @@ $goals = $goal->getUserGoals($user_id);
         <?php if (empty($goals)): ?>
             <p>もくひょうがないよ！</p>
         <?php else: ?>
-            <ul>
+            <ul class ="syousaizentai">
                 <?php foreach ($goals as $goal): ?>
                     <?php $goal_child_name = $goal_check->getchildname($db, $goal['goal_user_id']); ?> 
-                    <li>
+                    <li class="syousai">
                         <strong>こども:</strong> <?php echo $goal_child_name; ?> <br>
                         <strong>もくひょうきんがく:</strong> <?php echo $goal['target_amount']; ?> 円<br>
                         <strong>しょうさい:</strong> <?php echo $goal['goal_detail']; ?><br>
@@ -50,5 +50,5 @@ $goals = $goal->getUserGoals($user_id);
 <!-- ナビゲーションバー -->
 <?php include_once("../include/bottom_nav.php") ?>
 <!-- フッター -->
-<?php require_once("../include/footer.php"); ?>
+<?php include_once("../include/footer.php"); ?>
 
