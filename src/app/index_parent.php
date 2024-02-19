@@ -41,15 +41,15 @@ $family_id = $_SESSION['family_id'];
     echo '<script>';
     $again_goal_passed = $index_parent_class->againgoalPassed($family_id);
     if ($again_goal_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./goal/again_goal.php\"\' >子供の目標を振り返る</button>");';
+        echo 'document.write("<button onclick=\'location.href=\"./goal/goal.php\"\' >子供の目標を振り返る</button>");';
     }
     $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
     if ($point_norma_deadline_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./point_norma/norma_again.php\"\' >ポイントノルマを振り返る</button>");';
+        echo 'document.write("<button onclick=\'location.href=\"./point_norma/setting_norma.php\"\' >ポイントノルマを振り返る</button>");';
     }
     $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
     if ($behavioral_goal_deadline_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./behavioral_goal/behavioral_again.php\"\' >行動目標を振り返る</button>");';
+        echo 'document.write("<button onclick=\'location.href=\"./behavioral_goal/setting_behavioral.php\"\' >行動目標を振り返る</button>");';
     }
     echo '</script>';
     ?>
