@@ -8,7 +8,7 @@ include("../include/header.php");  // appディレクトリ直下であれば、
 ?>
 
 <?php
-require($absolute_path."lib/conset_class.php");
+require($absolute_path."lib/consent_class.php");
 $consent = new consent($db);
 
 if ($select === 'child'):
@@ -40,10 +40,8 @@ $debts = $consent->display_consent_debt($family_id);
                 <li class="consent_li">
                     <strong>お手伝い名:</strong> <?php echo $help_data['help_name']; ?><br>
                     <strong>獲得ポイント:</strong> <?php echo $help_data['get_point']; ?><br>
-                    <strong>担当者</strong>
-                    <?php
-                        $consent->person_select($help_data['help_id']);
-                    ?><br>
+                    <strong>実行者:</strong><?php $consent->person_name($help_data['user_id']);?><br>
+                    <strong>実行日時:</strong> <?php echo date('Y/n/j G:i', strtotime($help_data['help_day'])); ?><br>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_help_id" value="<?php echo $help_data['help_id']; ?>">    
                         <button type="submit" class="btn-syounin" name="consent_help_Y" style="margin:10px";>承認する</button>
@@ -64,10 +62,14 @@ $debts = $consent->display_consent_debt($family_id);
                      <?php echo $mission_data['get_point']; ?><br>
                 </b>
                 <b class="consent_mojiA">
-                    <strong>担当者</strong>
+                    <strong>実行者:</strong>
                     <?php
-                        $consent->m_person_select($mission_data['mission_id']);
+                        $consent->person_name($mission_data['user_id']);
                     ?><br>
+                </b>
+                <b class="consent_mojiA">
+                    <strong>実行日時:</strong>
+                     <?php echo date('Y/n/j G:i', strtotime($mission_data['mission_day'])); ?><br>
                 </b>
                     <form action="" method="post">       
                         <input type="hidden" name="consent_mission_id" value="<?php echo $mission_data['mission_id']; ?>">    

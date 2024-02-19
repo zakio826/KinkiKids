@@ -20,7 +20,7 @@ $goal->deleteExpiredGoals($familyId);
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>こうにゅうもくひょうせってい</h1>
+            <h1>新しい購入目標 設定</h1>
 
             <br>
 

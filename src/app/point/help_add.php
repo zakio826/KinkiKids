@@ -65,13 +65,6 @@ if (isset($_GET["button1"])) {
 
                 <button type="submit" class="btn-touroku">登録</button>
             </form>
-        <?php elseif ($select === 'child'): ?>
-            <!-- 子供の場合のフォーム -->
-            <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
-            <p>子供向けのフォームやメッセージを表示</p>
-        <?php else: ?>
-            <!-- 予期せぬケースに備えてデフォルトの表示 -->
-            <p>選択されたユーザータイプに対応するフォームがありません。</p>
         <?php endif; ?>  
         <h1>お手伝い一覧</h1>
     <?php if ($select === 'adult'): ?>
