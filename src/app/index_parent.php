@@ -36,6 +36,7 @@ $family_id = $_SESSION['family_id'];
 <?php include_once("./include/nav_bar.php") ?>
 
 <main>
+    <div style="text-align: center;">
     <?php
     echo '<script>';
     $again_goal_passed = $index_parent_class->againgoalPassed($family_id);
@@ -52,6 +53,7 @@ $family_id = $_SESSION['family_id'];
     }
     echo '</script>';
     ?>
+    </div>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3 index_parent_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
