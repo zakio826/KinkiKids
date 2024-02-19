@@ -58,34 +58,34 @@ form {
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
 
-p {
+/* p {
     margin-bottom: 20px;
     text-align: center;
     font-size: 15px;
+} */
+
+p {
+    margin-bottom: 5px;
 }
 
 b {
     font-size: 25px;
 }
 
-.control-1,.control-2 {
-    margin-bottom: 15px;
-}
 
-.control-1 {
-    color: #000000;
-    font-weight: bold;
-    width: 300px;
+.control-2 {
     text-align: center;
 }
 
+.control-1 {
+    margin-bottom: 10px;
+    margin: 5px 30px;
+}
+
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 800;
     color: #7f98f1;
-    font-size: 20px;
-    text-align: left !important; 
+    font-weight: bold;
+    font-size: 23px;
 }
 
 input {
@@ -104,10 +104,6 @@ input::placeholder {
     color: #a0a0a0; /* 好みの色に変更してください */
   }
 
-.control-2 {
-    text-align: center;
-}
-
 .btn {
     background-color: #525ED2;
     color: white;
@@ -117,12 +113,15 @@ input::placeholder {
     cursor: pointer;
     font-size: 22px;
     font-weight: bold;
+    width: 120px;
+    /* margin-top: 40px; */
+    margin-bottom: 20px;
 }
 
 /* 日付入力フォームのスタイル */
 #goal_deadline {
-    width: 80%;  /* 任意の幅に変更 */
-    padding: 8px;
+    width: 100%;  /* 任意の幅に変更 */
+    padding: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -132,7 +131,7 @@ input::placeholder {
 /* 他の入力フォームと同じスタイル */
 input[type="int"],
 input[type="text"] {
-    width: 80%;
+    width: 100%;
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -144,4 +143,17 @@ input[type="text"] {
     width: calc(85% - 40px); /* 30pxの余白を除いた幅に調整 */
     padding-right: 20px; /* 右側に余白を作成して円の単位を配置 */
     padding: 9px;
+}
+
+select#goal_user {
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.goal_en {
+    font-weight: bold;
+    font-size: initial;
 }

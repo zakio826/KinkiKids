@@ -23,7 +23,11 @@ include("../include/header.php");
     <section>
         <div class="content">
             <form action="" method="POST">
+<<<<<<< HEAD
+                <h1>新しい行動目標 設定</h1>
+=======
                 <h1><ruby>行動目標設定<rt>こうどうもくひょうせってい</rt></ruby></h1>
+>>>>>>> d97ffe05c1fa68324ee2d839a3c5460170b5595f
 
                 <br>
 

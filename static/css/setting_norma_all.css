@@ -38,16 +38,16 @@ form {
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
 
+
 label {
-    
     color: #7f98f1;
     font-weight: bold;
     font-size: 23px;
 }
 
 input {
-    display: block;
-    padding: 10px; /* 高さを大きくする */
+    width: 250px;
+    padding: 20px; /* 高さを大きくする */
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -55,7 +55,6 @@ input {
     background-color: #fff;
     font-size: 20px;
     text-align: center;
-    width: 250px;
 }
 
 input::placeholder {
@@ -82,9 +81,13 @@ input::placeholder {
     margin: 0 auto;
 }
 
-
-.control-1, .control-2 {
+.control-2 {
     text-align: center;
+}
+
+.control-1 {
+    margin-bottom: 10px;
+    margin: 5px 30px;
 }
 
 .btn {
@@ -97,6 +100,41 @@ input::placeholder {
     font-size: 22px;
     font-weight: bold;
     width: 120px;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 20px;
+}
+
+/* 日付入力フォームのスタイル */
+#point_norma_deadline {
+    width: 100%;  /* 任意の幅に変更 */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto;  /* 中央に配置 */
+}
+
+/* 他の入力フォームと同じスタイル */
+input[type="int"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto;  /* 中央に配置 */
+}
+
+#norma_amount {
+    /*width: calc(85% - 40px); /* 30pxの余白を除いた幅に調整 */
+    padding-right: 20px; /* 右側に余白を作成して円の単位を配置 */
+    padding: 9px;
+}
+
+select#norma_user {
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }

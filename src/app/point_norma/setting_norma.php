@@ -23,7 +23,7 @@ include("../include/header.php");
     <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
         <form action="" method="POST">
             <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
-                <h1>ポイントノルマ設定</h1>
+                <h1>ポイントノルマ<ruby>設定<rt>せってい</rt></ruby></h1>
             </div>
 
             <div class="control-1">
@@ -34,7 +34,8 @@ include("../include/header.php");
             </div>
 
             <div class="control-1">
-                <label for="norma_user">子供</label>
+                <label for="norma_user"><ruby>子供<rt>こども</rt></ruby></label>
+                <br>
                 <select id="norma_user" name="norma_user">
                     <?php
                     // セッションから家族IDを取得
@@ -58,7 +59,7 @@ include("../include/header.php");
             </div>
 
             <div class="control-2">
-                <button type="submit" class="btn">登録</button>
+                <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></button>
             </div>
         </form>
     </div>

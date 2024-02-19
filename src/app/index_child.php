@@ -138,11 +138,6 @@ $index_child_class->message($db);
                                         </a>
                                 </div>
                             </span>
-                            <div class="btn-p">
-                                    <a href="<?php echo $absolute_path; ?>src/app/goal/goal.php">
-                                        ＋  
-                                    </a>
-                            </div>
                         <?php } ?>
 
                     <?php } elseif($_SESSION['goal_select'] == 1){ ?>

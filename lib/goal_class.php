@@ -63,6 +63,12 @@ class goal {
     }
 
     private function saveGoalToDatabase() {
+
+        $existingData = $this->getExistingNormaData($_SESSION['join']['goal_user']);
+
+        if ($existingData) {
+            $this->deleteExistingNormaData($_SESSION['join']['goal_user']);
+        }
         $sql = "INSERT INTO goal (user_id, family_id, goal_user_id, target_amount, goal_detail, goal_deadline, goal_created_date) ".
         "VALUES (:user_id, :family_id, :goal_user_id, :target_amount, :goal_detail, :goal_deadline, :goal_created_date)";
     
@@ -138,7 +144,7 @@ class goal {
     }
     
     public function detail_error() {
-        //金額が入力されてなければエラーを表示
+        //詳細が入力されてなければエラーを表示
         if (!empty($this->error['goal_detail'])) {
             switch ($this->error['goal_detail']) {
                 case 'blank': echo '*詳細を入力してください。'; break;
@@ -147,12 +153,27 @@ class goal {
     }
 
     public function deadline_error() {
-        //金額が入力されてなければエラーを表示
+        //期限が入力されてなければエラーを表示
         if (!empty($this->error['goal_deadline'])) {
             switch ($this->error['goal_deadline']) {
                 case 'blank': echo '*期限を入力してください。'; break;
             }
         }
+    }
+
+    // 同じuser_idのデータが存在するか確認するメソッド
+    private function getExistingNormaData($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE goal_user_id = :goal_user_id");
+        $stmt->bindParam(':goal_user_id', $userId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 同じuser_idのデータを削除するメソッド
+    private function deleteExistingNormaData($userId) {
+        $stmt = $this->db->prepare("DELETE FROM goal WHERE goal_user_id = :goal_user_id");
+        $stmt->bindParam(':goal_user_id', $userId);
+        $stmt->execute();
     }
 }
 

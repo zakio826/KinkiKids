@@ -22,9 +22,9 @@ include("../include/header.php");
 
 <main>  <!-- ←一番外側はmainタグを指定する -->
     <section>
-        <div class="content_adult">
-            <form action="" method="POST" class="adult_font">
-                <h1>ポイントノルマ設定</h1>
+        <div class="content">
+            <form action="" method="POST">
+                <h1>新しいポイントノルマ 設定</h1>
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
