@@ -28,32 +28,35 @@ if(isset($_SESSION['debt'])) {
 <?php include_once("../include/nav_bar.php") ?>
 
 <main>
-<div class="mb-3 title"><h1>ぎんこう</h1></div>
-<div class ="mb-3 content">
-    
-    <p id="currentDate"></p>
-    <form action="" method="POST">
-    
-        <div class="control">
-            <label for="contents">なににつかう？</label>
-            <input type="text" name="contents" required>
+    <div class="frame">
+        <div class="mb-3 title"><h1>ぎんこう</h1></div>
+        <div class ="mb-3 content">
+            
+            <p id="currentDate"></p>
+            <form action="" method="POST">
+            
+                <div class="control">
+                    <label for="contents">なににつかう？</label>
+                    <input type="text" name="contents" required>
+                </div>
+                <div class="control">
+                    <label for="debt_amount">どれだけかりる？</label>
+                    <input type="number" name="debt_amount" min="1" max="100000" required placeholder="※10万円以内">
+                </div>
+                <div class="control">
+                    <label for="installments">何回にわけてかえす？</label>
+                    <input type="number" min="1" max="24" name="installments" required placeholder="※24回以内">
+                </div>
+                <div class="control">
+                    <label for="repayment_date">いつかえす？</label>
+                    <input type="date" name="repayment_date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d',strtotime('last day of next month')); ?>" required>
+                    <p class="note"><b>※来月末以内</b></p>
+                </div>
+                <button type="submit" class="btn-kariru">お金をかりる</button>
+            </form>
         </div>
-        <div class="control">
-            <label for="debt_amount">どれだけかりる？</label>
-            <input type="number" name="debt_amount" min="1" max="100000" required placeholder="※10万円以内">
-        </div>
-        <div class="control">
-            <label for="installments">何回にわけてかえす？</label>
-            <input type="number" min="1" max="24" name="installments" required placeholder="※24回以内">
-        </div>
-        <div class="control">
-            <label for="repayment_date">いつかえす？</label>
-            <input type="date" name="repayment_date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d',strtotime('last day of next month')); ?>" required>
-            <p class="note"><b>※来月末以内</b></p>
-        </div>
-        <button type="submit" class="btn-kariru">お金をかりる</button>
-    </form>
-</div>
+    </div>
+
 </main>
 
 

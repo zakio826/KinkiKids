@@ -1,6 +1,6 @@
 .content{
     text-align: center;
-    background-color: lemonchiffon;
+    background-color: #fff689;
     padding: 20px; /* コンテンツの余白を調整 */
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -9,7 +9,8 @@
     overflow-y: scroll; /* 垂直方向のスクロールバーを表示 */
     height: 540px; /* コンテンツの高さに合わせて調整（必要に応じて） */
     border-radius: 10px; /* スクロールバーの角を丸くする */
-
+    font-size: 20px;
+    font-weight: bold;
 }
 
 button{
@@ -24,7 +25,17 @@ button{
     width: 220px;
 }
 
-.title{
+.point-title h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    font-weight: bold;
+    color: #ff993b;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+    font-size: calc(1.375rem + 1.5vw);
+}
 
+.frame {
+  margin-top: 50px;
 }

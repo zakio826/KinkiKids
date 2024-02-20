@@ -20,12 +20,15 @@ $goal->deleteExpiredGoals($familyId);
 <main>
     <div class="content">
         <form action="" method="POST">
-            <h1>新しい購入目標 設定</h1>
+            <h1><ruby>新<rt>あたら</rt>しい</ruby>
+            <ruby>購入目標設定<rt>こうにゅうもくひょうせってい</rt></ruby>
+            </h1>
 
             <br>
 
             <div class="control-1">
                     <label for="goal_user">こども</label>
+                    <br>
                     <select id="goal_user" name="goal_user">
                         <?php
                         // セッションから家族IDを取得
@@ -45,7 +48,7 @@ $goal->deleteExpiredGoals($familyId);
             <div class="control-1">
                 <label for="target_amount">きんがく</label>
                 <input id="target_amount" type="int" name="target_amount"  placeholder="5,000">
-                <b>円</b>
+                <b class="goal_en">円</b>
             </div>
  
             <div class="control-1">

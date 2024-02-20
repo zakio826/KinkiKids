@@ -36,24 +36,6 @@ $family_id = $_SESSION['family_id'];
 <?php include_once("./include/nav_bar.php") ?>
 
 <main>
-    <div style="text-align: center;">
-    <?php
-    echo '<script>';
-    $again_goal_passed = $index_parent_class->againgoalPassed($family_id);
-    if ($again_goal_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./goal/goal.php\"\' >子供の目標を振り返る</button>");';
-    }
-    $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
-    if ($point_norma_deadline_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./point_norma/setting_norma.php\"\' >ポイントノルマを振り返る</button>");';
-    }
-    $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
-    if ($behavioral_goal_deadline_passed) {
-        echo 'document.write("<button onclick=\'location.href=\"./behavioral_goal/setting_behavioral.php\"\' >行動目標を振り返る</button>");';
-    }
-    echo '</script>';
-    ?>
-    </div>
     <!-- ロゴ -->
     <header class="position-relative h-25" style="padding-top: 4rem;">
         <img class="d-block mx-auto py-3 index_parent_logo" src="<?php echo $absolute_path; ?>static/assets/logo.png" height="120">
@@ -176,6 +158,25 @@ $family_id = $_SESSION['family_id'];
                 </div>
             </div>
         <?php } ?>
+        <br>
+        <div style="text-align: center;">
+            <?php
+            echo '<script>';
+            $again_goal_passed = $index_parent_class->againgoalPassed($family_id);
+            if ($again_goal_passed) {
+                echo 'document.write("<button class=\'my-button\' onclick=\'location.href=\"./goal/goal.php\"\' >子供の目標を振り返る</button>");';
+            }
+            $point_norma_deadline_passed = $index_parent_class->checkPointNormaDeadlinePassed();
+            if ($point_norma_deadline_passed) {
+                echo 'document.write("<button class=\'my-button\' onclick=\'location.href=\"./point_norma/setting_norma.php\"\' >ポイントノルマを振り返る</button>");';
+            }
+            $behavioral_goal_deadline_passed = $index_parent_class->behavioralNormaDeadlinePassed();
+            if ($behavioral_goal_deadline_passed) {
+                echo 'document.write("<button class=\'my-button\' onclick=\'location.href=\"./behavioral_goal/setting_behavioral.php\"\' >行動目標を振り返る</button>");';
+            }
+            echo '</script>';
+            ?>
+        </div>
 
         <hr class="index_parent_hr">
         <br>
@@ -198,9 +199,6 @@ $family_id = $_SESSION['family_id'];
                 </b>
             </div>
         </div>
-
-
-      
 
         <input type="radio" name="slideshow" id="slide1" checked>
                 <input type="radio" name="slideshow" id="slide2">

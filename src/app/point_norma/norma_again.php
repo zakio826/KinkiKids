@@ -3,7 +3,7 @@
 <!-- ヘッダー -->
 <?php
 $page_title = "ポイントノルマ設定";
-$stylesheet_name = "setting_norma.css";
+$stylesheet_name = "setting_norma_all.css";
 include("../include/header.php");
 ?>
 
@@ -22,9 +22,11 @@ include("../include/header.php");
 
 <main>  <!-- ←一番外側はmainタグを指定する -->
     <section>
-        <div class="content">
-            <form action="" method="POST">
-                <h1>新しいポイントノルマ 設定</h1>
+    <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
+        <form action="" method="POST">
+            <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
+                <h1><ruby>新<rt>あたら</ry></ruby>しいポイントノルマ<ruby>設定<rt>せってい</rt></ruby></h1>
+            </div>
 
                 <div class="control-1">
                     <label for="norma_amount">ポイントノルマ</label>
@@ -58,10 +60,10 @@ include("../include/header.php");
                 </div>
 
                 <div class="control-2">
-                    <button type="submit" class="btn">登録</button>
+                    <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby></button>
                 </div>
             </form>
-        </div>
+    </div>
     </section>
 </main>
 <!-- ナビゲーションバー -->

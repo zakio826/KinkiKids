@@ -8,6 +8,7 @@ button {
     border: none;
     border-radius: 5px;
     margin: 15px;
+    font-weight: bold;
 }
 
 
@@ -58,15 +59,24 @@ input[type="checkbox"] {
     margin-right: 10px; /* 右側に10pxの空白を追加 */
 }
 
-/* 青色の枠部分 */
-.content {
-    background-color: #C7EEEE;
+/* 大人の場合（枠組み） */
+.content_adult {
+    background-color: #D3DFFE;
     padding: 20px;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 370px; /* 幅を固定 */
+    width: 370px;
     margin: 0 auto;
-    min-width: 370px; /* 最小幅を設定 */
+}
+
+/* 子供の場合（枠組み） */
+.content_child {
+    background-color: #fff7ab;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 370px;
+    margin: 0 auto;
 }
 
 /* スマートフォン用のスタイル */
@@ -82,8 +92,9 @@ input[type="checkbox"] {
     }
 }
 .title h1{
-    font-weight: bold;
+    text-align: center;
     color: #2862ff;
+    font-weight: bold;
     text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white; /* 白で縁取り */
 }
 

@@ -609,3 +609,16 @@ select {
 .mission a {
     display: inline-block;
 }
+
+/* 振り返りボタン */
+.my-button {
+    padding: 10px 20px;
+    background-color: #fff56c;
+    border: 3px solid #4f40ff;
+    color: #4f40ff;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, .5);
+    font-size: 20px;
+}
