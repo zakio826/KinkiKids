@@ -37,7 +37,7 @@ if (isset($_GET["button1"])) {
         <h1>緊急ミッション</h1>
     </div>
     <br>
-    <div class ="content">
+    <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
         <?php if ($select === 'adult'): ?>
             <!-- 大人の場合の入力フォーム -->
             <form method="get">
