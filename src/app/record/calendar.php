@@ -452,13 +452,13 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
 
                     <!-- 収入詳細グラフ -->
                     <div class="position-relative col text-center">
-                        <h4 class="position-absolute w-100">収入詳細</h4>
+                        <h4 class="position-absolute w-100">支出詳細</h4>
                         <canvas class="w-100 h-auto mt-4 ps-3" id="in_categoryChart"></canvas>
                     </div>
 
                     <!-- 支出詳細グラフ -->
                     <div class="position-relative col text-center">
-                        <h4 class="position-absolute w-100">支出詳細</h4>
+                        <h4 class="position-absolute w-100">収入詳細</h4>
                         <canvas class="w-100 h-auto mt-4 ps-3" id="ex_categoryChart"></canvas>
                     </div>
                 </div>
