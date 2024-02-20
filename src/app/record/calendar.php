@@ -424,11 +424,17 @@ for ($i = 0; $i+1 < count($in_exDataset["name"]); $i++) {
                             <span class="col-auto my-1 text-center">
                                 <?php
                                 if (!empty($in_exDataset["data"][$i]["合計金額"])) :
-                                    if ($i == 0) :
-                                        echo end($in_exDataset["data"][$i]["合計金額"])*-1;
-                                    else :
-                                        echo end($in_exDataset["data"][$i]["合計金額"]);
-                                    endif;
+                                    switch($i) :
+                                        case 0 :
+                                            echo end($in_exDataset["data"][1]["合計金額"]);
+                                            break;
+                                        case 1 :
+                                            echo end($in_exDataset["data"][0]["合計金額"])*-1;
+                                            break;
+                                        default :
+                                            echo end($in_exDataset["data"][$i]["合計金額"]);
+                                            break;
+                                        endswitch;
                                 else :
                                     echo 0;
                                 endif;

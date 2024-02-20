@@ -21,7 +21,7 @@ $family_id = $_SESSION["family_id"];
 $select = $_SESSION["select"];
 
 // ユーザーが登録した目標の情報を取得
-$helps = $help->display_help($family_id);
+$helps = $help->display_help($user_id,$family_id,$select);
 $options = $help->narrow_down();
 
 if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
@@ -30,7 +30,7 @@ if (isset($_POST["narrow"]) && !empty($_POST["narrow"])) {
 } else {
     // $_POST["narrow"] に何もない場合は全てのお手伝い項目を表示する
     $family_id = $_SESSION["family_id"];
-    $helps = $help->display_help($family_id);
+    $helps = $help->display_help($user_id,$family_id,$select);
 }
 $allc = "";
 if (isset($_GET["button1"])) {
@@ -65,13 +65,6 @@ if (isset($_GET["button1"])) {
 
                 <button type="submit" class="btn-touroku">登録</button>
             </form>
-        <?php elseif ($select === 'child'): ?>
-            <!-- 子供の場合のフォーム -->
-            <!-- 別のフォームやメッセージを表示するなど、必要に応じて変更してください -->
-            <p>子供向けのフォームやメッセージを表示</p>
-        <?php else: ?>
-            <!-- 予期せぬケースに備えてデフォルトの表示 -->
-            <p>選択されたユーザータイプに対応するフォームがありません。</p>
         <?php endif; ?>  
         <h1>お手伝い一覧</h1>
     <?php if ($select === 'adult'): ?>

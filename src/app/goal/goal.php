@@ -20,14 +20,15 @@ $select = $_SESSION["select"];
     <div class= <?php echo ($select === 'adult') ? "content_adult" : "content_child" ;?>>
         <form action="" method="POST">
             <div class=<?php echo ($select === 'adult') ? "adult_font" : "child_font" ;?>>
-                <h1>こうにゅうもくひょうせってい</h1>
+                <h1><ruby>購入目標設定<rt>こうにゅうもくひょうせってい</rt></ruby></h1>
             </div>
             
 
             <br>
 
             <div class="control-1">
-                    <label for="goal_user">こども</label>
+                    <label for="goal_user"><ruby>子供<rt>こども</rt></ruby></label>
+                    <br>
                     <select id="goal_user" name="goal_user">
                         <?php
                         // セッションから家族IDを取得
@@ -45,28 +46,29 @@ $select = $_SESSION["select"];
                 </div>
 
             <div class="control-1">
-                <label for="target_amount">きんがく</label>
+                <label for="target_amount"><ruby>金額<rt>きんがく</rt></ruby></label>
+                <br>
                 <input id="target_amount" type="number" name="target_amount"  placeholder="5,000">
-                <b>円</b>
+                <b class="goal_en">円</b>
                 <br>
                 <?php $goal->amount_error(); ?>
             </div>
  
             <div class="control-1">
-                <label for="goal_detail">しょうさい</label>
+                <label for="goal_detail"><ruby>詳細<rt>しょうさい</rt></ruby></label>
                 <p>※　50文字以内　※</p>
                 <input id="goal_detail" type="text" name="goal_detail"  placeholder="ゲームを買いたい" maxlength="50"><br>
                 <?php $goal->detail_error(); ?>
             </div>
 
             <div class="control-1">
-                <label for="goal_deadline">きげん</label>
+                <label for="goal_deadline"><ruby>期限<rt>きげん</rt></ruby></label>
                 <input id="goal_deadline" type="date" name="goal_deadline"><br>
                 <?php $goal->deadline_error(); ?>
             </div>
 
             <div class="mt-3 control-2">
-                <button type="submit" class="btn">とうろくする</button>
+                <button type="submit" class="btn"><ruby>登録<rt>とうろく</rt></ruby>する</button>
             </div>
         </form>
     </div>
