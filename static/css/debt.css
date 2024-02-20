@@ -12,6 +12,9 @@ main{
     font-family: 'Zen Maru Gothic', sans-serif; /* フォントを指定 */
 }
 
+.frame {
+    margin-top: 60px;
+}
 label {
     display: block;
     margin-bottom: 5px;
