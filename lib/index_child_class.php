@@ -332,9 +332,9 @@ class index_child_class {
                     $allowance_amount = 0;
                 }
                 if($diff2->format('%a')>0){
-                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
+                    $answer = floor(($target_amount - $have_points - $savings - $allowance_amount * $diff->m) / $diff2->format('%a'));
                 }else{
-                    $answer = ceil(($target_amount - $have_points - $savings - $allowance_amount * $diff->m));
+                    $answer = floor(($target_amount - $have_points - $savings - $allowance_amount * $diff->m));
                 }
                 
                 if ($answer >= 0) {
