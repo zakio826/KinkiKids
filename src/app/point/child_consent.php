@@ -26,20 +26,23 @@ $select = $_SESSION["select"];
 
 <main>
     <section>
-    <div class="title">
-        <h1>ポイント獲得</h1>
-    </div>
-    <br>
-    <div class ="content">
-        <?php
-        $f1 = $chid_consent->getHelps($user_id);
-        $f2 = $chid_consent->getmissions($user_id);
+        <div class="frame">
+            <div class="point-title">
+                <h1>ポイント獲得</h1>
+            </div>
+            <br>
+            <div class ="content">
+                <?php
+                $f1 = $chid_consent->getHelps($user_id);
+                $f2 = $chid_consent->getmissions($user_id);
 
-        if($f1 && $f2){
-            echo "<p>獲得できるポイントはありません</p>";
-        }
-        ?>
-    </div>
+                if($f1 && $f2){
+                    echo "<p>獲得できるポイントはありません</p>";
+                }
+                ?>
+            </div>
+        </div>
+    
     </section>
 </main>
 <!-- ナビゲーションバー -->
