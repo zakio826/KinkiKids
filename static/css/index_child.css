@@ -537,3 +537,9 @@ button{
 .migiyose{
     margin-right: initial;
 }
+
+/* 購入目標 */
+#goal_detail {
+    font-size: 35px;
+    color: #ffcc23;
+}
