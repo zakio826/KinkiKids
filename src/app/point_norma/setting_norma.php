@@ -27,14 +27,14 @@ include("../include/header.php");
             </div>
 
             <div class="control-1">
-                <label for="norma_amount">ポイントノルマ:</label>
+                <label for="norma_amount">ポイントノルマ</label>
                 <input id="norma_amount" type="number" name="norma_amount" placeholder="500" value="<?php echo isset($_SESSION['join']['norma_amount']) ? htmlspecialchars($_SESSION['join']['norma_amount'], ENT_QUOTES) : ''; ?>">
                 <!-- <b>pt</b> -->
                 <?php $setting_norma->norma_error(); ?>
             </div>
 
             <div class="control-1">
-                <label for="norma_user"><ruby>子供<rt>こども</rt></ruby>:</label>
+                <label for="norma_user"><ruby>子供<rt>こども</rt></ruby></label>
                 <br>
                 <select id="norma_user" name="norma_user">
                     <?php
@@ -53,7 +53,7 @@ include("../include/header.php");
             </div>
 
             <div class="control-1">
-                <label for="point_norma_deadline">いつまで？:</label>
+                <label for="point_norma_deadline">いつまで？</label>
                 <input id="point_norma_deadline" type="date" name="point_norma_deadline" value="<?php echo isset($_SESSION['join']['point_norma_deadline']) ? htmlspecialchars($_SESSION['join']['point_norma_deadline'], ENT_QUOTES) : ''; ?>">
                 <?php $setting_norma->deadline_error(); ?>
             </div>

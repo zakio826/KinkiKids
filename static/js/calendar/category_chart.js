@@ -68,11 +68,18 @@ let in_chart_color_background = [];
 let in_chart_color_border = [];
 let in_chart_color_hover_background = [];
 let in_chart_color_hover_border = [];
+
+const index = 8;  // チャート配色セットから初期配色を指定
+let num = 0;
 for (let i = 0; i < chart_color.length; i++) {
-    in_chart_color_background.push("rgba(" + chart_color[i] + ", 0.25)");
-    in_chart_color_border.push("rgba(" + chart_color[i] + ", 0.80)");
-    in_chart_color_hover_background.push("rgba(" + chart_color[i] + ", 0.40)");
-    in_chart_color_hover_border.push("rgba(" + chart_color[i] + ", 1.00)");
+    if (i < chart_color.length - index) num = i + index;
+    else num = i - chart_color.length + index;
+    
+    // チャート配色セットを逆順で挿入
+    in_chart_color_background.unshift("rgba(" + chart_color[num] + ", 0.25)");
+    in_chart_color_border.unshift("rgba(" + chart_color[num] + ", 0.80)");
+    in_chart_color_hover_background.unshift("rgba(" + chart_color[num] + ", 0.40)");
+    in_chart_color_hover_border.unshift("rgba(" + chart_color[num] + ", 1.00)");
 }
 
 // 収入カテゴリ円グラフのデータを設定
@@ -107,17 +114,11 @@ let ex_chart_color_border = [];
 let ex_chart_color_hover_background = [];
 let ex_chart_color_hover_border = [];
 
-const index = 8;  // チャート配色セットから初期配色を指定
-let num = 0;
 for (let i = 0; i < chart_color.length; i++) {
-    if (i < chart_color.length - index) num = i + index;
-    else num = i - chart_color.length + index;
-    
-    // チャート配色セットを逆順で挿入
-    ex_chart_color_background.unshift("rgba(" + chart_color[num] + ", 0.25)");
-    ex_chart_color_border.unshift("rgba(" + chart_color[num] + ", 0.80)");
-    ex_chart_color_hover_background.unshift("rgba(" + chart_color[num] + ", 0.40)");
-    ex_chart_color_hover_border.unshift("rgba(" + chart_color[num] + ", 1.00)");
+    ex_chart_color_background.push("rgba(" + chart_color[i] + ", 0.25)");
+    ex_chart_color_border.push("rgba(" + chart_color[i] + ", 0.80)");
+    ex_chart_color_hover_background.push("rgba(" + chart_color[i] + ", 0.40)");
+    ex_chart_color_hover_border.push("rgba(" + chart_color[i] + ", 1.00)");
 }
 
 // 支出カテゴリ円グラフのデータを設定

@@ -28,6 +28,7 @@ $select = $_SESSION["select"];
 
             <div class="control-1">
                     <label for="goal_user"><ruby>子供<rt>こども</rt></ruby></label>
+                    <br>
                     <select id="goal_user" name="goal_user">
                         <?php
                         // セッションから家族IDを取得
@@ -46,8 +47,9 @@ $select = $_SESSION["select"];
 
             <div class="control-1">
                 <label for="target_amount"><ruby>金額<rt>きんがく</rt></ruby></label>
+                <br>
                 <input id="target_amount" type="number" name="target_amount"  placeholder="5,000">
-                <b>円</b>
+                <b class="goal_en">円</b>
                 <br>
                 <?php $goal->amount_error(); ?>
             </div>
