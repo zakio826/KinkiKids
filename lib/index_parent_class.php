@@ -105,9 +105,8 @@ class index_parent_class {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $family_id = $result['family_id'];
 
-        $stmt = $this->db->prepare("SELECT * FROM goal WHERE family_id = :family_id AND NOT user_id = :user_id order by goal_deadline desc");
+        $stmt = $this->db->prepare("SELECT * FROM goal WHERE family_id = :family_id order by goal_deadline desc");
         $stmt->bindParam(':family_id', $family_id);
-        $stmt->bindParam(':user_id', $_SESSION["user_id"]);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;

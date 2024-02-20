@@ -114,9 +114,18 @@ class help {
         }
     }
 
-    public function display_help($family_id) {
-        $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1");
-        $stmt->bindParam(':family_id', $family_id);
+    public function display_help($user_id,$family_id,$select) {
+        if($select == 'child') {
+            $stmt = $this->db->prepare("SELECT help.help_name,help.get_point,help.help_id FROM help
+                                        INNER JOIN help_person ON help.help_id = help_person.help_id 
+                                        WHERE help_person.user_id = :user_id and help.stop_flag = 1 ORDER BY help.help_id DESC");
+            $stmt->bindParam(':user_id', $user_id);
+        }
+        else{
+            $stmt = $this->db->prepare("SELECT * FROM help WHERE family_id = :family_id and stop_flag = 1 ORDER BY help_id DESC");
+            $stmt->bindParam(':family_id', $family_id);
+        }
+        
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
