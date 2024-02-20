@@ -113,10 +113,10 @@ $index_child_class->message($db);
 
                         
                                 <!-- 続きを読むチェックボックス -->
-                                <label class="expand-checkbox-label">
+                                <!-- <label class="expand-checkbox-label">
                                 <input type="checkbox" class="expand-checkbox"/>
                                 ...もっと見る
-                                </label>
+                                </label> -->
 
                                 <br>
 
@@ -156,7 +156,7 @@ $index_child_class->message($db);
 
                         <span class="shortened-text" style="display: inline;">
                             <?php 
-                            echo htmlspecialchars(substr($index_child_class->getBehavioral()['behavioral_goal'],0,15)); 
+                            echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']); 
                             //$gtext = htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']);
                             // $text =  mb_convert_encoding($gtext, 'UTF-8', 'auto');
                             //$text = mb_convert_encoding(htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal']));
@@ -174,10 +174,10 @@ $index_child_class->message($db);
                                 ?>
                         </span>
                         <!-- 続きを読むチェックボックス -->
-                        <label class="expand-checkbox-label">
+                        <!-- <label class="expand-checkbox-label">
                                 <input type="checkbox" class="expand-checkbox"/>
                                 ...もっと見る
-                        </label>
+                        </label> -->
                         <br>  
 
                         <?php echo htmlspecialchars($index_child_class->getBehavioral()['behavioral_goal_deadline']); ?>
